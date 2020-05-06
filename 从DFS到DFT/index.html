@@ -1,0 +1,407 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>DFT | Coder</title><meta name="description" content="从DFS到DFT周期序列的级数展开正如连续时间周期信号可以表示为一系列正弦信号的和的形式，周期序列也可以表示为一系列正弦之和的形式，假设序列$\tilde{x}[n]$的周期为$N$,那么它的基频为$\cfrac{2\pi}{N}$,所以有  $$\tilde{x}[n]&#x3D;\frac{1}{N}\sum_{k&#x3D;0}^{N-1}\tilde{X}[k]e^{j\frac{2\pi}{N}kn}$$"><meta name="keywords" content="信号,离散"><meta name="author" content="熊滔"><meta name="copyright" content="熊滔"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="https://lastknightcoder.gitee.io/img/favicon.png"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="dns-prefetch" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="https://fonts.googleapis.com" crossorigin="crossorigin"/><link rel="dns-prefetch" href="https://fonts.googleapis.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="dns-prefetch" href="//busuanzi.ibruce.info"/><meta name="twitter:card" content="summary"><meta name="twitter:title" content="DFT"><meta name="twitter:description" content="从DFS到DFT周期序列的级数展开正如连续时间周期信号可以表示为一系列正弦信号的和的形式，周期序列也可以表示为一系列正弦之和的形式，假设序列$\tilde{x}[n]$的周期为$N$,那么它的基频为$\cfrac{2\pi}{N}$,所以有  $$\tilde{x}[n]&#x3D;\frac{1}{N}\sum_{k&#x3D;0}^{N-1}\tilde{X}[k]e^{j\frac{2\pi}{N}kn}$$"><meta name="twitter:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/bg29.jpg"><meta property="og:type" content="article"><meta property="og:title" content="DFT"><meta property="og:url" content="https://lastknightcoder.gitee.io/%E4%BB%8EDFS%E5%88%B0DFT/"><meta property="og:site_name" content="Coder"><meta property="og:description" content="从DFS到DFT周期序列的级数展开正如连续时间周期信号可以表示为一系列正弦信号的和的形式，周期序列也可以表示为一系列正弦之和的形式，假设序列$\tilde{x}[n]$的周期为$N$,那么它的基频为$\cfrac{2\pi}{N}$,所以有  $$\tilde{x}[n]&#x3D;\frac{1}{N}\sum_{k&#x3D;0}^{N-1}\tilde{X}[k]e^{j\frac{2\pi}{N}kn}$$"><meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/bg29.jpg"><meta property="article:published_time" content="2019-04-17T16:00:00.000Z"><meta property="article:modified_time" content="2019-04-17T16:00:00.000Z"><script src="https://cdn.jsdelivr.net/npm/js-cookie/dist/js.cookie.min.js"></script><script>var autoChangeMode = '1'
+var t = Cookies.get("theme")
+if (autoChangeMode == '1'){
+  var isDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches
+  var isLightMode = window.matchMedia("(prefers-color-scheme: light)").matches
+  var isNotSpecified = window.matchMedia("(prefers-color-scheme: no-preference)").matches
+  var hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+  if (t === undefined){
+    if (isLightMode) activateLightMode()
+    else if (isDarkMode) activateDarkMode()
+    else if (isNotSpecified || hasNoSupport){
+      console.log('You specified no preference for a color scheme or your browser does not support it. I Schedule dark mode during night time.')
+      var now = new Date()
+      var hour = now.getHours()
+      var isNight = hour < 6 || hour >= 18
+      isNight ? activateDarkMode() : activateLightMode()
+  }
+  } else if (t == 'light') activateLightMode()
+  else activateDarkMode()
+
+} else if (autoChangeMode == '2'){
+  now = new Date();
+  hour = now.getHours();
+  isNight = hour < 6 || hour >= 18
+  if(t === undefined) isNight? activateDarkMode() : activateLightMode()
+  else if (t === 'light') activateLightMode()
+  else activateDarkMode() 
+} else {
+  if ( t == 'dark' ) activateDarkMode()
+  else if ( t == 'light') activateLightMode()
+}
+
+function activateDarkMode(){
+  document.documentElement.setAttribute('data-theme', 'dark')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+    document.querySelector('meta[name="theme-color"]').setAttribute('content','#000')
+  }
+}
+function activateLightMode(){
+  document.documentElement.setAttribute('data-theme', 'light')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+  document.querySelector('meta[name="theme-color"]').setAttribute('content','#fff')
+  }
+}</script><link rel="stylesheet" href="https://lastknightcoder.gitee.io/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css"><link rel="canonical" href="https://lastknightcoder.gitee.io/%E4%BB%8EDFS%E5%88%B0DFT/"><link rel="prev" title="Z变换" href="https://lastknightcoder.gitee.io/Z%E5%8F%98%E6%8D%A2/"><link rel="next" title="MATLAB之字符串运算" href="https://lastknightcoder.gitee.io/MATLAB%E4%B9%8B%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%BF%90%E7%AE%97/"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web"><script>var GLOBAL_CONFIG = { 
+  root: 'https://lastknightcoder.gitee.io/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容:${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"cookieDomain":"https://lastknightcoder.gitee.io/","msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  bookmark: {
+    message_prev: '按',
+    message_next: '键将本页加入书签'
+  },
+  runtime_unit: '天',
+  runtime: true,
+  copyright: undefined,
+  ClickShowText: undefined,
+  medium_zoom: true,
+  fancybox: false,
+  Snackbar: {"bookmark":{"message_prev":"按","message_next":"键将本页加入书签"},"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#2d3035","position":"bottom-left"},
+  baiduPush: true,
+  highlightCopy: true,
+  highlightLang: true,
+  highlightShrink: 'false',
+  isFontAwesomeV5: true,
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isanchor: false
+  
+}</script><script>var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isSidebar: true  
+  }</script><noscript><style>
+#page-header {
+  opacity: 1
+}
+.justified-gallery img{
+  opacity: 1
+}
+</style></noscript><meta name="generator" content="Hexo 4.2.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="https://lastknightcoder.gitee.io/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="https://lastknightcoder.gitee.io/archives/"><div class="headline">文章</div><div class="length_num">63</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="https://lastknightcoder.gitee.io/tags/"><div class="headline">标签</div><div class="length_num">54</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="https://lastknightcoder.gitee.io/categories/"><div class="headline">分类</div><div class="length_num">21</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="https://lastknightcoder.gitee.io/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="https://lastknightcoder.gitee.io/archives/"><i class="fa-fw fa fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="https://lastknightcoder.gitee.io/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="https://lastknightcoder.gitee.io/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="https://lastknightcoder.gitee.io/link/"><i class="fa-fw fa fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="https://lastknightcoder.gitee.io/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div></div></div><i class="fa fa-arrow-right on" id="toggle-sidebar" aria-hidden="true">     </i><div id="sidebar"><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#从DFS到DFT"><span class="toc-number">1.</span> <span class="toc-text">从DFS到DFT</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#周期序列的级数展开"><span class="toc-number">1.1.</span> <span class="toc-text">周期序列的级数展开</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#周期信号的傅里叶变换"><span class="toc-number">1.2.</span> <span class="toc-text">周期信号的傅里叶变换</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#离散傅里叶变换"><span class="toc-number">1.3.</span> <span class="toc-text">离散傅里叶变换</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DFT与DFS的关系"><span class="toc-number">1.4.</span> <span class="toc-text">DFT与DFS的关系</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#圆周卷积"><span class="toc-number">2.</span> <span class="toc-text">圆周卷积</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#圆周运算"><span class="toc-number">2.1.</span> <span class="toc-text">圆周运算</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#圆周反褶"><span class="toc-number">2.2.</span> <span class="toc-text">圆周反褶</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#圆周时移"><span class="toc-number">2.3.</span> <span class="toc-text">圆周时移</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#圆周卷积-1"><span class="toc-number">2.4.</span> <span class="toc-text">圆周卷积</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#圆周卷积与线性卷积的关系"><span class="toc-number">2.5.</span> <span class="toc-text">圆周卷积与线性卷积的关系</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#DFT变换的性质"><span class="toc-number">3.</span> <span class="toc-text">DFT变换的性质</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#线性性质"><span class="toc-number">3.1.</span> <span class="toc-text">线性性质</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#时移性质"><span class="toc-number">3.2.</span> <span class="toc-text">时移性质</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#频移性质"><span class="toc-number">3.3.</span> <span class="toc-text">频移性质</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#时域反转"><span class="toc-number">3.4.</span> <span class="toc-text">时域反转</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#时域共轭"><span class="toc-number">3.5.</span> <span class="toc-text">时域共轭</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#对称性质"><span class="toc-number">3.6.</span> <span class="toc-text">对称性质</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#卷积性质"><span class="toc-number">3.7.</span> <span class="toc-text">卷积性质</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Parseval定理"><span class="toc-number">3.8.</span> <span class="toc-text">Parseval定理</span></a></li></ol></li></ol></div></div></div><div id="body-wrap"><div class="post-bg" id="nav" style="background-image: url(https://gitee.com/lastknightcoder/blogimage/raw/master/img/bg29.jpg)"><div id="page-header"><span class="pull_left" id="blog_name"><a class="blog_title" id="site-name" href="https://lastknightcoder.gitee.io/">Coder</a></span><span class="pull_right menus"><div id="search_button"><a class="site-page social-icon search"><i class="fa fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="https://lastknightcoder.gitee.io/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="https://lastknightcoder.gitee.io/archives/"><i class="fa-fw fa fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="https://lastknightcoder.gitee.io/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="https://lastknightcoder.gitee.io/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="https://lastknightcoder.gitee.io/link/"><i class="fa-fw fa fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="https://lastknightcoder.gitee.io/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div><span class="toggle-menu close"><a class="site-page"><i class="fa fa-bars fa-fw" aria-hidden="true"></i></a></span></span></div><div id="post-info"><div id="post-title"><div class="posttitle">DFT</div></div><div id="post-meta"><div class="meta-firstline"><time class="post-meta__date"><span class="post-meta__date-created" title="发表于 2019-04-18 00:00:00"><i class="fa fa-calendar" aria-hidden="true"></i> 发表于 2019-04-18</span><span class="post-meta__separator">|</span><span class="post-meta__date-updated" title="更新于 2019-04-18 00:00:00"><i class="fa fa-history" aria-hidden="true"></i> 更新于 2019-04-18</span></time><span class="post-meta__categories"><span class="post-meta__separator">|</span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="https://lastknightcoder.gitee.io/categories/%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/">数字信号处理</a></span></div><div class="meta-secondline"> </div><div class="meta-thirdline"><span class="post-meta-pv-cv"><i class="fa fa-eye post-meta__icon" aria-hidden="true"> </i><span>阅读量:</span><span id="busuanzi_value_page_pv"></span></span><span class="post-meta-commentcount"></span></div></div></div></div><main class="layout_post" id="content-inner"><article id="post"><div class="post-content" id="article-container"><h1 id="从DFS到DFT"><a href="#从DFS到DFT" class="headerlink" title="从DFS到DFT"></a>从DFS到DFT</h1><h2 id="周期序列的级数展开"><a href="#周期序列的级数展开" class="headerlink" title="周期序列的级数展开"></a>周期序列的级数展开</h2><p>正如连续时间周期信号可以表示为一系列正弦信号的和的形式，周期序列也可以表示为一系列正弦之和的形式，假设序列$\tilde{x}[n]$的周期为$N$,那么它的基频为$\cfrac{2\pi}{N}$,所以有</p>
+<a id="more"></a>
+<p>$$<br>\tilde{x}[n]=\frac{1}{N}\sum_{k=0}^{N-1}\tilde{X}[k]e^{j\frac{2\pi}{N}kn}<br>$$</p>
+<p>这里与连续时间信号不同的是，不需要无穷多个成谐波关系的复指数,只需要$N$个成谐波关系的复指数。为求傅里叶级数系数$\tilde{X}[k]$,两边同时乘以$e^{-j\frac{2\pi}{N}rn}$,并在$0 \backsim (N-1)$求和</p>
+<p>$$<br>\sum_{n=0}^{N-1}\tilde{x}[n]e^{-j\frac{2\pi}{N}rn}=\sum_{k=0}^{N-1}\tilde{X}[k]\frac{1}{N}\sum_{n=0}^{N-1}e^{j\frac{2\pi}{N}(k-r)n}<br>$$<br>由于</p>
+
+$$
+\frac{1}{N}\sum_{n=0}^{N-1}e^{j\frac{2\pi}{N}(k-r)n}=
+\begin{cases}
+1, \quad k - r = mN \\
+0, \quad other
+\end{cases}
+$$
+
+<p>代入上式，得到<br>$$<br>\tilde{X}[r]=\sum_{n=0}^{N-1}\tilde{x}[n]e^{-j\frac{2\pi}{N}rn}<br>$$<br>从上看出，$\tilde{X}[r]$也是周期序列，周期为$N$。总结一下周期序列的展开及其系数的表示</p>
+<p>$$<br>\color{red} {\tilde{x}[n]=\frac{1}{N}\sum_{k=0}^{N-1}\tilde{X}[k]e^{j\frac{2\pi}{N}kn}}<br>$$<br>$$<br>\color{red} {\tilde{X}[k]=\sum_{n=0}^{N-1}\tilde{x}[n]e^{-j\frac{2\pi}{N}kn} }<br>$$</p>
+<h2 id="周期信号的傅里叶变换"><a href="#周期信号的傅里叶变换" class="headerlink" title="周期信号的傅里叶变换"></a>周期信号的傅里叶变换</h2><p>将周期信号的傅里叶级数纳入傅里叶变换的框架常常是有益的。但是周期序列不是绝对可和的，也不是平方可和的，所以周期序列的傅里叶变换应该是冲激串的形式。为导出周期序列的傅里叶变换的表达式，不妨先看一下连续周期信号的傅里叶变换。连续周期信号可以将其进行傅里叶级数展开</p>
+<p>$$<br>\tilde{x}(t)=\sum_{n=-\infty}^{\infty}F_ne^{jn\Omega_0 t}<br>$$<br>两边同时进行傅里叶变换<br>$$<br>\tilde{X}(j\Omega)=\sum_{n=-\infty}^{\infty}2\pi F_n\delta(\Omega -n\Omega_0)<br>$$<br>同理，周期序列的傅里叶变换可以写为<br>$$<br>\tilde{X}(e^{jw})=\sum_{k=0}^{N-1}\frac{2\pi}{N}\tilde{X}[k]\delta(w-\frac{2\pi k}{N})<br>$$<br>为验证其正确性，对上式进行傅里叶反变换</p>
+
+$$
+\begin{aligned}
+\frac{1}{2\pi}\int_{0-\epsilon}^{2\pi-\epsilon}\tilde{X}(e^{jw})e^{jwn}dw&=\frac{1}{N}\sum_{k=0}^{N-1}\tilde{X}[k]\int_{0-\epsilon}^{2\pi-\epsilon}\delta(w-\frac{2\pi k}{N})e^{jwn}dw\\
+&=\frac{1}{N}\sum_{k=0}^{N-1}\tilde{X}[k]e^{j\frac{2\pi k}{N}n} \\
+&=\tilde{x}[n]
+\end{aligned}
+$$
+
+
+<p>例:周期脉冲串的傅里叶变换<br>$$<br>\tilde{p}[n]=\sum_{r=-\infty}^{\infty}\delta[n-rN]<br>$$<br>$$<br>\tilde{P}[k]=\sum_{n=0}^{N-1}\tilde{p}[n]e^{-j\frac{2\pi kn}{N}}=1<br>$$<br>那么其傅里叶变换为<br>$$<br>\tilde{P}(e^{jw})=\sum_{k=0}^{N-1}\frac{2\pi}{N}\tilde{P}[k]\delta(w-\frac{2\pi k}{N})=\sum_{k=0}^{N-1}\frac{2\pi}{N}\delta(w-\frac{2\pi k}{N})<br>$$</p>
+<p>考虑傅里叶级数系数与其一个周期傅里叶变换的关系,为什么要考虑这个问题，因为在连续时间周期信号其傅里叶级数与其主周期傅里叶变换的关系为:<br>$$<br>F_n=\frac{1}{T}X_T(j\Omega)\vert_{\Omega = n\Omega_0}<br>$$<br>其傅里叶级数系数是其主周期傅里叶变换在$\Omega =n \Omega_0$时的抽样值除以周期。同理，周期序列与其主周期的傅里叶变换应该也有类似的关系，下面具体探究一下。假设周期序列$\tilde{x}[n]$在主区间$0\backsim N-1$(后若未加说明，主区间均指$0 \backsim N-1$)上为$x[n]$,那么二者之间的关系为</p>
+<p>$$<br>\tilde{x}[n]=\sum_{r=-\infty}^{\infty}x[n-rN]=x[n]*\tilde{p}[n]<br>$$<br>$\tilde{p}[n]$即为上例中的周期冲激序列。对上式两边同时进行傅里叶变换</p>
+
+$$
+\begin{aligned}
+\tilde{X}(e^{jw})&=X(e^{jw})\tilde{P}(e^{jw}) \\
+&=X(e^{jw})\sum_{k=0}^{N-1}\frac{2\pi}{N}\delta(w-\frac{2\pi k}{N}) \\
+&=\sum_{k=0}^{N-1}\frac{2\pi}{N}X(e^{j\frac{2\pi k}{N}})\delta(w-\frac{2\pi k}{N})
+\end{aligned}
+$$
+
+
+<p>与式<br>$$<br>\tilde{X}(e^{jw})=\sum_{k=0}^{N-1}\frac{2\pi}{N}\tilde{X}[k]\delta(w-\frac{2\pi k}{N})<br>$$<br>进行比较发现<br>$$<br>\tilde{X}[k]=X(e^{j\frac{2\pi k}{N}})=X(e^{jw})\vert_{w=\frac{2\pi k}{N}}<br>$$<br>所以傅里叶级数系数是其主区间傅里叶变换在$w=\frac{2\pi k}{N}$处的抽样值。</p>
+<h2 id="离散傅里叶变换"><a href="#离散傅里叶变换" class="headerlink" title="离散傅里叶变换"></a>离散傅里叶变换</h2><p>我们知道，序列进行傅里叶变换得到的频谱都是连续的，而对信号进行数字处理一般都是计算机或者专门的处理器，但无论是计算机还是专门的处理器，其存储精度及存储容量都是有限的，无法处理连续的信号。</p>
+<p>我们对连续信号进行处理时，是将其进行抽样转换为数字信号，为了无损的恢复出原信号，其抽样速率必须满足奈奎斯特抽样定理。那么可不可以对序列的频谱进行抽样处理呢？为了无损的恢复出原信号，抽样又该满足什么样的条件？假设对于一有限长的信号$x[n]$,其长度为$M$,其傅里叶变换为$X(e^{jw})$,现对其频谱的主周期进行均匀的$N$点抽样，得到序列$X[k]$,即</p>
+<p>$$<br>X[k]=X(e^{jw})\vert_{w=\frac{2\pi k}{N}}, \quad k = 0, … , N-1<br>$$<br>这与我们之前对傅里叶级数的讨论十分的相似，如果把$X[k]$看作是傅里叶级数系数，那么由$X[k]$恢复出的信号为</p>
+
+$$
+\begin{aligned}
+\tilde{x}[n]&=\frac{1}{N}\sum_{k=0}^{N-1}X[k]e^{j\frac{2\pi kn}{N}} \\
+&=\frac{1}{N}\sum_{k=0}^{N-1}\sum_{m=-\infty}^{\infty}x[m]e^{-j\frac{2\pi k}{N}m}e^{j\frac{2\pi kn}{N}} \\
+&=\sum_{m=-\infty}^{\infty}x[m](\frac{1}{N}\sum_{k=0}^{N-1}e^{j\frac{2\pi k(n-m)}{N}}) \\
+&=\sum_{m=-\infty}^{\infty}x[m]\tilde{p}[n-m] \\
+&=x[n]*\tilde{p}[n] \\
+&=x[n] * \sum_{r=-\infty}^{\infty}\delta[n-rN] \\
+&=\sum_{r=-\infty}^{\infty}x[n-rN]
+\end{aligned}
+$$
+
+
+<p>恢复出的信号$\tilde{x}[n]$是原信号以周期$N$进行周期延拓得到的结果,如果$N\geq M$,那么周期延拓得到的信号没有发生混叠，那么可以取其$0\backsim N-1$一个周期中前$M$个恢复原来的信号。所以我们可以通过对其频谱进行抽样来处理，并如果满足抽样点数$N$大于等于序列的长度$M$,那么就可以无损的恢复出原来的信号。这个原则叫做频域抽样定理。</p>
+<p>稍微总结一下上面的过程，我们首先对序列$x[n]$进行傅里叶变换，然后对其频谱进行抽样得到$X[k]$，然后以$X[k]$作为傅里叶级数的系数得到序列$\tilde{x}[n]$,如果满足频域抽样定理，那么取其主区间的前$M$个即可恢复出原信号。</p>
+<p>我们不妨省略对序列进行傅里叶变换，然后对其进行抽样的过程，直接定义一个变换由$x[n]$直接得到$X[k]$,然后省略有$X[k]$得到$\tilde{x}[n]$,然后取其主周期得到$x[n]$的过程，也直接定理一个变换由$X[k]$直接得到$x[n]$。假设有限长序列$x[n]$的长度为$N$,并假设其有值区间为$0 \leq n \leq N-1$,为了满足频域抽样定理，我们不妨设采样的点数为$N$，这样做的好处是由$X[k]$得到$x[n]$时，直接取其主区间即可，不用取其前多少个。为了得到$X[k]$这个表达式，首先得知道$X[k]$是怎么来的，通过上面的介绍我们知道</p>
+<p>$$<br>X[k]=X(e^{jw})\vert_{w=\frac{2\pi k}{N}}, \quad k = 0, … , N-1<br>$$<br>即<br>$$<br>X[k]=\sum_{n=-\infty}^{\infty}x[n]e^{-jwn}\vert_{w=\frac{2\pi k}{N}}=\sum_{n=0}^{N-1}x[n]e^{-j\frac{2\pi}{N}kn}, \quad 0\leq k \leq N-1<br>$$<br>为了得到$x[n]$,以$X[k]$为傅里叶级数系数得到$\tilde{x}[n]$,并取其主区间，所以<br>$$<br>x[n]=\frac{1}{N}\sum_{k=0}^{N-1}X[k]e^{j\frac{2\pi kn}{N}}, ]\quad 0 \leq n \leq N-1<br>$$</p>
+<p>所以我们得到一组变换<br>$$<br>\color{red}{X[k]=\sum_{n=0}^{N-1}x[n]e^{-j\frac{2\pi}{N}kn}, \quad 0\leq k \leq N-1}<br>$$<br>$$<br>\color{red}{x[n]=\frac{1}{N}\sum_{k=0}^{N-1}X[k]e^{j\frac{2\pi kn}{N}}, ]\quad 0 \leq n \leq N-1}<br>$$</p>
+<p>我们把上面的变换称为离散傅里叶变换，简称$DFT$。</p>
+<h2 id="DFT与DFS的关系"><a href="#DFT与DFS的关系" class="headerlink" title="DFT与DFS的关系"></a>DFT与DFS的关系</h2><p>上面的推导我虽然是从对有限长序列频谱抽样推导得到的DFT，但是其中运用了DFS的理论，所以DFT与DFS之间关系是什么呢？首先引用一下之前得到的结论：</p>
+<blockquote>
+<p>傅里叶级数系数是其主区间傅里叶变换在$w=\cfrac{2\pi k}{N}$处的抽样值</p>
+</blockquote>
+<p>如果把有限长序列$x[n]$以其长度$N$进行周期延拓的话，由上面的结论，DFS得到的$\tilde{X}[k]$是$x[n]$傅里叶变换在$w=\cfrac{2\pi k}{N}$处的抽样值，而DFT得到的$X[k]$是在傅里叶变换的主区间抽样得到的，所以$X[k]$是$\tilde{X}[k]$的主区间。明显的，$x[n]$是由$\tilde{X}[k]$得到的$\tilde{x}[n]$的主区间。所以计算DFT的另一方法是，对于一有限长序列$x[n]$,以其长度$N$进行周期延拓得到$\tilde{x}[n]$,对$\tilde{x}[n]$进行DFS得到$\tilde{X}[k]$,那么对$\tilde{X}[k]$取其主区间即可得到$X[k]$,同样的，对$\tilde{X}[k]$得到的$\tilde{x}[n]$,取其主区间即可得到$x[n]$。</p>
+<h1 id="圆周卷积"><a href="#圆周卷积" class="headerlink" title="圆周卷积"></a>圆周卷积</h1><h2 id="圆周运算"><a href="#圆周运算" class="headerlink" title="圆周运算"></a>圆周运算</h2><p>其实圆周运算是针对周期序列而言的，由于周期序列在每一个周期内的取值都相同，所以我们只关注它的主值区间，比如，如果一个序列的长度为$N$的话，那么它的主值区间就是$0\leq n\leq N-1$。</p>
+<p>虽然圆周运算是源自于对周期信号的处理，但是经过一般化的扩展之后，对有限长序列也可以进行圆周运算。具体就是，你可以把有限长序列以它的长度为周期，进行周期延拓成一个周期序列，然后进行运算，然后取其主值区间进行观察得到的结果。</p>
+<h2 id="圆周反褶"><a href="#圆周反褶" class="headerlink" title="圆周反褶"></a>圆周反褶</h2><p>圆周反褶就是一个周期序列进行反褶之后，取其主值区间序列。因为一个周期序列反褶之后还是周期序列，所以这么做是合理的。假设一周期信号在其主值区间的取值为$$x[n]={x[0],x[1],x[2],x[3],x[4]}$$即该序列的周期为$5$，那么反褶后的信号为(只关注主值区间)</p>
+
+$$
+\begin{aligned}
+y[0]&=x[0]=x[0] \\
+y[1]&=x[-1]=x[5-1]=x[4] \\
+y[2]&=x[-2]=x[5-2]=x[3] \\
+y[3]&=x[-3]=x[5-3]=x[2] \\
+y[4]&=x[-4]=x[5-4]=x[1]
+\end{aligned}
+$$
+
+
+<p>为了方便用数学的语言描述这种运算，首先看一种数学上的模运算运算，首先看几个模运算的例子：</p>
+
+$$
+\begin{aligned}
+2  \,mod \, 5 =2 \\
+6 \, mod \, 5 = 1 \\
+-3 \, mod \, 5 = 2
+\end{aligned}
+$$
+
+
+<p>不知道大家看出来没有，模运算其实就是求余，$2$对$5$的余数就是$2$，$6$对于$5$的余数是$1$，而$-3$对$5$的余数应该为$(-3+5), mod, 5=2$(加上$5$之后不影响余数的大小，因为$5$一直能整除$5$，$5$对$5$的余数一直是$0$)我们把$2 , mod,  5$记作$&lt;2&gt;_5$，所以我们定义圆周反褶为</p>
+<p>$$<br>y[n]=x[&lt;-n&gt;_N]<br>$$</p>
+<p>其中$N$为序列$x[n]$的长度。由上面的公式可以看出，与一般的反褶不同的是，序列下标经过了一次模运算。并且经过上面的数学化的定以后，圆周运算就不仅仅只对周期信号有效了，对一般的有限长信号都是有效的。</p>
+<p>用计算画图看一下进行圆周反褶后的效果：</p>
+<ul style="display:flex;list-style:none;margin:0">
+    <li><img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="https://img-blog.csdnimg.cn/20181115193919414.png" ></li>
+    <li><img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="https://img-blog.csdnimg.cn/20181115194036296.png" ></li>
+</ul>
+
+
+<p>而一般的反褶又是什么样子的呢？还是通过计算机画图观察：</p>
+<img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="https://img-blog.csdnimg.cn/20181115195017634.png"  width="60%">
+
+<p>看到这里二者发现不仅波形不一样，并且有值区间也不一样，一般反褶的有值区间变为了$-4 \leq n \leq 0$，而圆周反褶的有值区间是$0 \leq n \leq 4$。</p>
+<p>这个例子给出的就是有限长序列的圆周反褶运算，<strong>圆周运算是从周期序列扩展而来的，但不仅仅只针对于周期序列</strong>。事实上，后面的处理的圆周运算大部分都是有限长的序列。</p>
+<h2 id="圆周时移"><a href="#圆周时移" class="headerlink" title="圆周时移"></a>圆周时移</h2><p>由圆周反褶的概念，不难定义出圆周时移，即：</p>
+<p>$$<br>y[n]=x[&lt;n-n_0&gt;_N]<br>$$</p>
+<p>与圆周反褶类似，$y[n]$的有值区间还是与$x[n]$相同。我们来直观的感受一下，圆周时移到底是怎么一个效果：</p>
+<ul style="display:flex;list-style:none;margin:0">
+    <li><img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="https://img-blog.csdnimg.cn/20181115200452594.png" ></li>
+    <li><img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="https://img-blog.csdnimg.cn/20181115201202775.png" ></li>
+</ul>
+
+
+<p>这完全可以看做是将序列进行周期延拓之后，然后进行时移，取其主值区间进行观察得到的结果。</p>
+<h2 id="圆周卷积-1"><a href="#圆周卷积-1" class="headerlink" title="圆周卷积"></a>圆周卷积</h2><p>设两周期信号$\tilde{x}[n],\tilde{w}[n]$的周期都为$N$，它们的线性卷积为<br>$$<br>\tilde{y}[n]=\sum_{m=-\infty}^{\infty}\tilde{x}[m]\tilde{w}[n-m]<br>$$</p>
+<p>易知序列$\tilde{y}[n]$也为周期序列，其周期为$N$。设序列$\tilde{y}[n]$的主值区间为$y[n]$,$\tilde{y}[n]$的$DFS$为$\tilde{Y}[k]$,$y[n]$的$DFT$为$Y[k]$,由$DFS$与$DFT$的关系，得到$Y[k]$为$\tilde{Y}[k]$的主值区间。</p>
+<p>$$<br>\tilde{Y}[k]=\tilde{X}[k]\tilde{W}[k]<br>$$</p>
+<p>$\tilde{X}[k]$为序列$\tilde{x}[n]$的$DFS$,$\tilde{W}[k]$为序列$\tilde{w}[n]$的$DFS$,所以得到<br>$$<br>Y[k]=X[k]W[k], , 0 \leq k \leq N-1<br>$$</p>
+<p>则</p>
+
+$$
+\begin{aligned}
+y[n]&=\frac{1}{N}\sum_{k=0}^{N-1}Y[k]e^{j\frac{2\pi kn}{N}} \\
+&=\frac{1}{N}\sum_{k=0}^{N-1}X[k]W[k]e^{j\frac{2\pi kn}{N}} \\
+&=\frac{1}{N}\sum_{k=0}^{N-1}\sum_{m=0}^{N-1}x[m]e^{-j\frac{2\pi km}{N}}W[k]e^{j\frac{2\pi kn}{N}} \\
+&=\sum_{m=0}^{N-1}x[m](\frac{1}{N}\sum_{k=0}^{N-1}W[k]e^{j\frac{2\pi k(n-m)}{N}}) \\
+&=\sum_{m=0}^{N-1}x[m]w[\lt n-m \gt_N]
+\end{aligned}
+$$
+
+
+<p>所以定义有限长序列的圆周卷积为</p>
+
+$$
+\color{red} {y[n]=\sum_{m=0}^{N-1}x[m]w[\lt n-m\gt_N]=x[n] * w[n]}
+$$
+
+
+<p>其中序列$x[n]$和序列$w[n]$的长度都为$N$,易知卷积后的序列$y[n]$的长度也为$N$。</p>
+<h2 id="圆周卷积与线性卷积的关系"><a href="#圆周卷积与线性卷积的关系" class="headerlink" title="圆周卷积与线性卷积的关系"></a>圆周卷积与线性卷积的关系</h2><p>考虑两有限长序列$x[n]$和$w[n]$,$x[n]$的有值区间为$0\backsim N_1-1$,即其长度为$N_1$,$w[n]$的有值区间为$0\backsim N_2-1$,其长度为$N_2$,记其线性卷积为$y[n]$,则<br>$$<br>y[n]=\sum_{m=-\infty}^{\infty}x[m]w[n-m]=\sum_{m=0}^{N_1-1}x[m]w[n-m]<br>$$</p>
+<p>其长度为$M=N_1+N_2-1$。为了求其圆周卷积$y_{L}[n]$，将$x[n]$和$w[n]$补零延拓为长度为$L$的序列，其中$L\geq max{N_1,N_2}$，则</p>
+
+$$
+\begin{aligned}
+y_L[n]&=\sum_{m=0}^{L-1}x[m]w[\lt n-m\gt_L], \, 0 \leq n \leq L-1\\
+&=\sum_{m=0}^{L-1}x[m]\tilde{w}[n-m], \, 0 \leq n \leq L-1 \\
+&=\sum_{m=0}^{L-1}x[m]\sum_{k=-\infty}^{\infty}w[n-m-kL], \, 0 \leq n \leq L-1 \\
+&=\sum_{k=-\infty}^{\infty}\sum_{m=0}^{L-1}x[m]w[n-kL-m], \, 0 \leq n \leq L-1 \\
+&=\sum_{k=-\infty}^{\infty}y[n-kL], \, 0 \leq n \leq L-1
+\end{aligned}
+$$
+
+
+<p>所以L点圆周卷积是其线性卷积以周期为L进行周期延拓得到的结果。</p>
+<img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="https://img-blog.csdnimg.cn/20181204053559653.png" />
+
+<p>由上图(这里不好画离散的图，用连续的表示一下，原理是一样的)知，当$L&gt;N_1+N_2-2=M-1$时，即$L\geq M$时，即序列补零扩展后的长度大于线性卷积后的长度时</p>
+<p>$$<br>\sum_{k=-\infty}^{\infty}y[n-kL]<br>$$</p>
+<p>未发生混叠，取其主区间即是圆周卷积$y_L[n]$,取圆周卷积$y_L[n]$的前$N_1+N_2-1$个点就是线性卷积$y[n]$的值。但是当$L &lt; M$时</p>
+<p>$$<br>\sum_{k=-\infty}^{\infty}y[n-kL]<br>$$</p>
+<p>发生了混叠，如下图</p>
+<img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="https://img-blog.csdnimg.cn/2018120410033147.png" />
+
+<p>由图可知，只有$M-L \backsim L-1$这$2L-M$个点未发生混叠。所以如果补零扩展得到的长度$L&lt;M$的话，那么得到圆周卷积$y_L[n]$中，只有在$M-L \backsim L-1$的取值与线性卷积的取值相同。</p>
+<p>所以用圆周卷积计算有限长序列线性卷积的方法为:</p>
+<ol>
+<li>将序列$x[n],w[n]$进行补零延拓，延拓后的长度$L$应大于等于卷积后的长度$M$</li>
+<li>将补零延拓得到的序列进行圆周卷积运算</li>
+<li>取圆周卷积的前$M​$个即为线性卷积的结果</li>
+</ol>
+<h1 id="DFT变换的性质"><a href="#DFT变换的性质" class="headerlink" title="DFT变换的性质"></a>DFT变换的性质</h1><h2 id="线性性质"><a href="#线性性质" class="headerlink" title="线性性质"></a>线性性质</h2>
+$$
+\begin{aligned}
+y[n]&=ax[n]+bw[n]\xrightarrow{DFT}Y[k]=\sum_{n=0}^{N-1}(ax[n]+bw[n])W_N^{kn}\\
+&=a\sum_{n=0}^{N-1}x[n]W_N^{kn}+b\sum_{n=0}^{N-1}w[n]W_N^{kn} \\
+&=aX[k]+bW[k]
+\end{aligned}
+$$
+
+
+<h2 id="时移性质"><a href="#时移性质" class="headerlink" title="时移性质"></a>时移性质</h2>
+$$
+\begin{aligned}
+x[n-n_0]&\xrightarrow{DFT}\sum_{n=0}^{N-1}x[\lt n-n_0\gt_N]e^{-j\frac{2\pi k}{N}n} \\
+&\xrightarrow{m=n-n_0}\sum_{m=-n_0}^{N-n_0-1}x[\lt m\gt_N]e^{-j\frac{2\pi k}{N}(m+n_0)} \\
+&=W_{N}^{kn_0}\sum_{m=0}^{N-1}x[m]W_{N}^{km} \\
+&=W_{N}^{kn_0}X[k]
+\end{aligned}
+$$
+
+
+<h2 id="频移性质"><a href="#频移性质" class="headerlink" title="频移性质"></a>频移性质</h2>
+$$
+\begin{aligned}
+W_N^{-k_0n}x[n]\xrightarrow{DFT}\sum_{n=0}^{N-1}x[n]W_N^{(k-k_0)n}=X[\lt k-k_0\gt_N]
+\end{aligned}
+$$
+
+
+<h2 id="时域反转"><a href="#时域反转" class="headerlink" title="时域反转"></a>时域反转</h2>
+$$
+\begin{aligned}
+x[\lt -n\gt_N]&\xrightarrow{DFT}\sum_{n=0}^{N-1}x[\lt -n\gt_N]W_{N}^{kn} \\
+&\xrightarrow{m=-n}\sum_{m=-(N-1)}^{0}x[\lt m\gt_N]W_{N}^{-km} \\
+&=\sum_{m=0}^{N-1}x[m]W_{N}^{-km} \\
+&=X[\lt -k\gt_N]
+\end{aligned}
+$$
+
+
+<h2 id="时域共轭"><a href="#时域共轭" class="headerlink" title="时域共轭"></a>时域共轭</h2>
+$$
+\begin{aligned}
+x^{*}[n]&\xrightarrow{DFT}\sum_{n=0}^{N-1}x^{*}[n]W_N^{kn} \\
+&=(\sum_{n=0}^{N-1}x[n]W_N^{-kn})^{*} \\
+&=X^{*}[\lt -k\gt_N]
+\end{aligned}
+$$
+
+
+<p>由上面两个可以推得</p>
+
+$$
+\color{red} {x^{*}[\lt -n\gt_N]\xrightarrow{DFT}X^{*}[k]}
+$$
+
+
+<h2 id="对称性质"><a href="#对称性质" class="headerlink" title="对称性质"></a>对称性质</h2>
+$$
+\color{red}{x_{cs}[n]=\frac{1}{2}(x[n]+x^{*}[<-n>_N])\xrightarrow{DFT}\frac{1}{2}(X[k]+X^{*}[k])=X_{re}[k]}
+$$
+
+$$
+\color{red} {x_{ca}[n]=\frac{1}{2}(x[n]-x^{*}[<-n>_N])\xrightarrow{DFT}\frac{1}{2}(X[k]-X^{*}[k])=jX_{im}[k] }
+$$
+
+$$
+\color{red} {x_{re}[n]=\frac{1}{2}(x[n]+x^{*}[n])\xrightarrow{DFT}\frac{1}{2}(X[k]+X^{*}[<-k>_N])=X_{cs}[k]}
+$$
+
+$$
+\color{red} {jx_{im}[n]=\frac{1}{2}(x[n]-x^{*}[n])\xrightarrow{DFT}\frac{1}{2}(X[k]-X^{*}[<-k>_N])=X_{ca}[k]}
+$$
+
+
+<h2 id="卷积性质"><a href="#卷积性质" class="headerlink" title="卷积性质"></a>卷积性质</h2><p>假设$x[n],w[n]$都是长度为$N$的有限长序列，它们的DFT分别为$X[k],W[k]$,假设它们的有值区间为$0 \leq n \leq N-1$,那么它们进行圆周卷积的DFT为:</p>
+
+$$
+\begin{aligned}
+x[n]\otimes w[n]&=\sum_{m=0}^{N-1}x[m]w[\lt n-m\gt_N] \\
+&\xrightarrow{DFT}\sum_{n=0}^{N-1}\sum_{m=0}^{N-1}x[m]w[\lt n-m\gt_N]W_N^{kn} \\
+&=\sum_{m=0}^{N-1}x[m]\sum_{n=0}^{N-1}\frac{1}{N}\sum_{r=0}^{N-1}W[r]W_N^{r(n-m)}W_N^{kn} \\
+&=\sum_{m=0}^{N-1}x[m]\sum_{r=0}^{N-1}W[r]W_N^{km}(\frac{1}{N}\sum_{n=0}^{N-1}W_N^{k-r}) \\
+&=\sum_{m=0}^{N-1}x[m]W_N^{km}W[k] \\
+&=X[k]W[k]
+\end{aligned}
+$$
+
+
+<p>上式中用到了</p>
+
+$$
+\frac{1}{N}\sum_{n=0}^{N-1}W_N^{k-r}=
+\begin{cases}
+1, k -r = lN , \, l=0,1,...\\
+0, other
+\end{cases}
+$$
+
+
+<h2 id="Parseval定理"><a href="#Parseval定理" class="headerlink" title="Parseval定理"></a>Parseval定理</h2>
+$$
+\begin{aligned}
+\sum_{n=0}^{N-1}x[n]y^{*}[n]&=\sum_{n=0}^{N-1}x[n](\frac{1}{N}\sum_{k=0}^{N-1}Y[k]W_N^{-kn})^{*}\\
+&=\frac{1}{N}\sum_{k=0}^{N-1}Y^{*}[k]\sum_{n=0}^{N-1}x[n]W_N^{kn}\\
+&=\frac{1}{N}\sum_{k=0}^{N-1}X[k]Y^{*}[k]
+\end{aligned}
+$$
+
+
+<p>特别的，当$x[n]=y[n]$时<br>$$<br>\sum_{n=0}^{N-1}\vert x[n]\vert^2=\frac{1}{N}\sum_{k=0}^{N-1}\vert X[k]\vert^2<br>$$</p>
+</div><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">熊滔</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://lastknightcoder.gitee.io/%E4%BB%8EDFS%E5%88%B0DFT/">https://lastknightcoder.gitee.io/%E4%BB%8EDFS%E5%88%B0DFT/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://lastknightcoder.gitee.io" target="_blank">Coder</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="https://lastknightcoder.gitee.io/tags/%E4%BF%A1%E5%8F%B7/">信号</a><a class="post-meta__tags" href="https://lastknightcoder.gitee.io/tags/%E7%A6%BB%E6%95%A3/">离散</a></div><div class="post_share"><div class="social-share" data-image="https://gitee.com/lastknightcoder/blogimage/raw/master/img/bg65.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"/><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js"></script></div></div><div class="post-reward"><a class="reward-button button--primary button--animated"> <i class="fa fa-qrcode"></i> 打赏<div class="reward-main"><ul class="reward-all"><li class="reward-item"><img class="post-qr-code__img" src="https://lastknightcoder.gitee.io/img/wechatpay.png" alt="微信"/><div class="post-qr-code__desc">微信</div></li><li class="reward-item"><img class="post-qr-code__img" src="https://lastknightcoder.gitee.io/img/alipay.png" alt="支付宝"/><div class="post-qr-code__desc">支付宝</div></li></ul></div></a></div><nav class="pagination_post" id="pagination"><div class="prev-post pull_left"><a href="https://lastknightcoder.gitee.io/Z%E5%8F%98%E6%8D%A2/"><img class="prev_cover" data-src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/bg39.png" onerror="onerror=null;src='https://lastknightcoder.gitee.io/img/404.jpg'"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Z变换</div></div></a></div><div class="next-post pull_right"><a href="https://lastknightcoder.gitee.io/MATLAB%E4%B9%8B%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%BF%90%E7%AE%97/"><img class="next_cover" data-src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/bg70.png" onerror="onerror=null;src='https://lastknightcoder.gitee.io/img/404.jpg'"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">MATLAB之字符串运算</div></div></a></div></nav><div class="relatedPosts"><div class="relatedPosts_headline"><i class="fa fa-fw fa-thumbs-up" aria-hidden="true"></i><span> 相关推荐</span></div><div class="relatedPosts_list"><div class="relatedPosts_item"><a href="https://lastknightcoder.gitee.io//DTFT/" title="DTFT及其性质"><img class="relatedPosts_cover" data-src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/bg55.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2019-05-06</div><div class="relatedPosts_title">DTFT及其性质</div></div></a></div><div class="relatedPosts_item"><a href="https://lastknightcoder.gitee.io//FFT及其框图实现/" title="FFT及其框图实现"><img class="relatedPosts_cover" data-src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/bg57.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2019-05-15</div><div class="relatedPosts_title">FFT及其框图实现</div></div></a></div><div class="relatedPosts_item"><a href="https://lastknightcoder.gitee.io//Z变换/" title="Z变换"><img class="relatedPosts_cover" data-src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/bg39.png"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2019-04-23</div><div class="relatedPosts_title">Z变换</div></div></a></div><div class="relatedPosts_item"><a href="https://lastknightcoder.gitee.io//Z变换解差分方程的思考/" title="Z变换解差分方程的思考"><img class="relatedPosts_cover" data-src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/bg15.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2019-10-28</div><div class="relatedPosts_title">Z变换解差分方程的思考</div></div></a></div><div class="relatedPosts_item"><a href="https://lastknightcoder.gitee.io//信号的相关/" title="信号的相关"><img class="relatedPosts_cover" data-src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/bg74.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2019-03-14</div><div class="relatedPosts_title">信号的相关</div></div></a></div><div class="relatedPosts_item"><a href="https://lastknightcoder.gitee.io//方程与框图的转换/" title="方程与框图的转换"><img class="relatedPosts_cover" data-src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/bg24.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2019-10-15</div><div class="relatedPosts_title">方程与框图的转换</div></div></a></div></div><div class="clear_both"></div></div></article></main><footer id="footer" data-type="color"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2020 By 熊滔</div><div class="framework-info"><span>驱动 </span><a href="https://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 </span><a href="https://github.com/jerryc127/hexo-theme-butterfly" target="_blank" rel="noopener"><span>Butterfly</span></a></div></div></footer></div><section class="rightside" id="rightside"><div id="rightside-config-hide"><i class="fa fa-book" id="readmode" title="阅读模式"></i><i class="fa fa-plus" id="font_plus" title="放大字体"></i><i class="fa fa-minus" id="font_minus" title="缩小字体"></i><a class="translate_chn_to_cht" id="translateLink" href="javascript:translatePage();" title="简繁转换" target="_self">简</a><i class="darkmode far fa-moon" id="darkmode" title="夜间模式"></i></div><div id="rightside-config-show"><div id="rightside_config" title="设置"><i class="fa fa-cog" aria-hidden="true"></i></div><i class="fa fa-list-ul close" id="mobile-toc-button" title="目录" aria-hidden="true"></i><i class="fa fa-arrow-up" id="go-up" title="回到顶部" aria-hidden="true"></i></div></section><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a href="https://github.com/wzpan/hexo-generator-search" target="_blank" rel="noopener" style="color:#49B1F5;">hexo-generator-search</a>
+ <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fa fa-times"></i></span></div><div class="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://lastknightcoder.gitee.io/js/utils.js"></script><script src="https://lastknightcoder.gitee.io/js/main.js"></script><script src="https://lastknightcoder.gitee.io/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/medium-zoom/dist/medium-zoom.min.js"></script><script type="text/x-mathjax-config">MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+    processEscapes: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+  },
+  CommonHTML: {
+    linebreaks: { automatic: true, width: "90% container" }
+  },
+  "HTML-CSS": { 
+    linebreaks: { automatic: true, width: "90% container" }
+  },
+  "SVG": { 
+    linebreaks: { automatic: true, width: "90% container" }
+  }
+});
+</script><script type="text/x-mathjax-config">MathJax.Hub.Queue(function() {
+  var all = MathJax.Hub.getAllJax(), i;
+  for (i=0; i < all.length; i += 1) {
+    all[i].SourceElement().parentNode.className += ' has-jax';
+  }
+});
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script id="ribbon_piao" mobile="false" src="https://lastknightcoder.gitee.io/js/third-party/piao.js"></script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@latest/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/lozad/dist/lozad.min.js"></script><script src="https://lastknightcoder.gitee.io/js/search/local-search.js"></script><script>if (document.getElementsByClassName('mermaid').length) {
+  loadScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js',function () {
+    mermaid.initialize({
+      theme: 'default',
+  })
+})
+}</script><script>var endLoading = function () {
+  document.body.style.overflow = 'auto';
+  document.getElementById('loading-box').classList.add("loaded")
+}
+window.addEventListener('load',endLoading)</script></body></html>

@@ -1,0 +1,179 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>MATLAB之字符串运算 | Coder</title><meta name="description" content="有关MATLAB字符串的概念及操作"><meta name="keywords" content="MATLAB 矩阵之字符串运算"><meta name="author" content="熊滔"><meta name="copyright" content="熊滔"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="https://lastknightcoder.gitee.io/img/favicon.png"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="dns-prefetch" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="https://fonts.googleapis.com" crossorigin="crossorigin"/><link rel="dns-prefetch" href="https://fonts.googleapis.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="dns-prefetch" href="//busuanzi.ibruce.info"/><meta name="twitter:card" content="summary"><meta name="twitter:title" content="MATLAB之字符串运算"><meta name="twitter:description" content="有关MATLAB字符串的概念及操作"><meta name="twitter:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/bg70.png"><meta property="og:type" content="article"><meta property="og:title" content="MATLAB之字符串运算"><meta property="og:url" content="https://lastknightcoder.gitee.io/MATLAB%E4%B9%8B%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%BF%90%E7%AE%97/"><meta property="og:site_name" content="Coder"><meta property="og:description" content="有关MATLAB字符串的概念及操作"><meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/bg70.png"><meta property="article:published_time" content="2019-04-16T16:00:00.000Z"><meta property="article:modified_time" content="2019-04-16T16:00:00.000Z"><script src="https://cdn.jsdelivr.net/npm/js-cookie/dist/js.cookie.min.js"></script><script>var autoChangeMode = '1'
+var t = Cookies.get("theme")
+if (autoChangeMode == '1'){
+  var isDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches
+  var isLightMode = window.matchMedia("(prefers-color-scheme: light)").matches
+  var isNotSpecified = window.matchMedia("(prefers-color-scheme: no-preference)").matches
+  var hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+  if (t === undefined){
+    if (isLightMode) activateLightMode()
+    else if (isDarkMode) activateDarkMode()
+    else if (isNotSpecified || hasNoSupport){
+      console.log('You specified no preference for a color scheme or your browser does not support it. I Schedule dark mode during night time.')
+      var now = new Date()
+      var hour = now.getHours()
+      var isNight = hour < 6 || hour >= 18
+      isNight ? activateDarkMode() : activateLightMode()
+  }
+  } else if (t == 'light') activateLightMode()
+  else activateDarkMode()
+
+} else if (autoChangeMode == '2'){
+  now = new Date();
+  hour = now.getHours();
+  isNight = hour < 6 || hour >= 18
+  if(t === undefined) isNight? activateDarkMode() : activateLightMode()
+  else if (t === 'light') activateLightMode()
+  else activateDarkMode() 
+} else {
+  if ( t == 'dark' ) activateDarkMode()
+  else if ( t == 'light') activateLightMode()
+}
+
+function activateDarkMode(){
+  document.documentElement.setAttribute('data-theme', 'dark')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+    document.querySelector('meta[name="theme-color"]').setAttribute('content','#000')
+  }
+}
+function activateLightMode(){
+  document.documentElement.setAttribute('data-theme', 'light')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+  document.querySelector('meta[name="theme-color"]').setAttribute('content','#fff')
+  }
+}</script><link rel="stylesheet" href="https://lastknightcoder.gitee.io/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css"><link rel="canonical" href="https://lastknightcoder.gitee.io/MATLAB%E4%B9%8B%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%BF%90%E7%AE%97/"><link rel="prev" title="DFT" href="https://lastknightcoder.gitee.io/%E4%BB%8EDFS%E5%88%B0DFT/"><link rel="next" title="MATLAB之符号计算" href="https://lastknightcoder.gitee.io/MATLAB%E4%B9%8B%E7%AC%A6%E5%8F%B7%E8%BF%90%E7%AE%97/"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web"><script>var GLOBAL_CONFIG = { 
+  root: 'https://lastknightcoder.gitee.io/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容:${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"cookieDomain":"https://lastknightcoder.gitee.io/","msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  bookmark: {
+    message_prev: '按',
+    message_next: '键将本页加入书签'
+  },
+  runtime_unit: '天',
+  runtime: true,
+  copyright: undefined,
+  ClickShowText: undefined,
+  medium_zoom: true,
+  fancybox: false,
+  Snackbar: {"bookmark":{"message_prev":"按","message_next":"键将本页加入书签"},"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#2d3035","position":"bottom-left"},
+  baiduPush: true,
+  highlightCopy: true,
+  highlightLang: true,
+  highlightShrink: 'false',
+  isFontAwesomeV5: true,
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isanchor: false
+  
+}</script><script>var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isSidebar: true  
+  }</script><noscript><style>
+#page-header {
+  opacity: 1
+}
+.justified-gallery img{
+  opacity: 1
+}
+</style></noscript><meta name="generator" content="Hexo 4.2.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="https://lastknightcoder.gitee.io/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="https://lastknightcoder.gitee.io/archives/"><div class="headline">文章</div><div class="length_num">63</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="https://lastknightcoder.gitee.io/tags/"><div class="headline">标签</div><div class="length_num">54</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="https://lastknightcoder.gitee.io/categories/"><div class="headline">分类</div><div class="length_num">21</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="https://lastknightcoder.gitee.io/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="https://lastknightcoder.gitee.io/archives/"><i class="fa-fw fa fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="https://lastknightcoder.gitee.io/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="https://lastknightcoder.gitee.io/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="https://lastknightcoder.gitee.io/link/"><i class="fa-fw fa fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="https://lastknightcoder.gitee.io/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div></div></div><i class="fa fa-arrow-right on" id="toggle-sidebar" aria-hidden="true">     </i><div id="sidebar"><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#字符串运算"><span class="toc-number">1.</span> <span class="toc-text">字符串运算</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#字符串变量与一维字符数组"><span class="toc-number">1.1.</span> <span class="toc-text">字符串变量与一维字符数组</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#字符串变量赋值"><span class="toc-number">1.1.1.</span> <span class="toc-text">字符串变量赋值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#一维字符数组的创建"><span class="toc-number">1.1.2.</span> <span class="toc-text">一维字符数组的创建</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#字符串操作"><span class="toc-number">1.2.</span> <span class="toc-text">字符串操作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#求字符串长度"><span class="toc-number">1.2.1.</span> <span class="toc-text">求字符串长度</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#字符串与一维数值数组的转换"><span class="toc-number">1.2.2.</span> <span class="toc-text">字符串与一维数值数组的转换</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#字符串比较"><span class="toc-number">1.2.3.</span> <span class="toc-text">字符串比较</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#查找字符串"><span class="toc-number">1.2.4.</span> <span class="toc-text">查找字符串</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#显示字符串"><span class="toc-number">1.2.5.</span> <span class="toc-text">显示字符串</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二维字符数组的创建"><span class="toc-number">1.3.</span> <span class="toc-text">二维字符数组的创建</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#直接输入"><span class="toc-number">1.3.1.</span> <span class="toc-text">直接输入</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#函数拼接"><span class="toc-number">1.3.2.</span> <span class="toc-text">函数拼接</span></a></li></ol></li></ol></li></ol></div></div></div><div id="body-wrap"><div class="post-bg" id="nav" style="background-image: url(https://gitee.com/lastknightcoder/blogimage/raw/master/img/bg70.png)"><div id="page-header"><span class="pull_left" id="blog_name"><a class="blog_title" id="site-name" href="https://lastknightcoder.gitee.io/">Coder</a></span><span class="pull_right menus"><div id="search_button"><a class="site-page social-icon search"><i class="fa fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="https://lastknightcoder.gitee.io/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="https://lastknightcoder.gitee.io/archives/"><i class="fa-fw fa fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="https://lastknightcoder.gitee.io/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="https://lastknightcoder.gitee.io/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="https://lastknightcoder.gitee.io/link/"><i class="fa-fw fa fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="https://lastknightcoder.gitee.io/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div><span class="toggle-menu close"><a class="site-page"><i class="fa fa-bars fa-fw" aria-hidden="true"></i></a></span></span></div><div id="post-info"><div id="post-title"><div class="posttitle">MATLAB之字符串运算</div></div><div id="post-meta"><div class="meta-firstline"><time class="post-meta__date"><span class="post-meta__date-created" title="发表于 2019-04-17 00:00:00"><i class="fa fa-calendar" aria-hidden="true"></i> 发表于 2019-04-17</span><span class="post-meta__separator">|</span><span class="post-meta__date-updated" title="更新于 2019-04-17 00:00:00"><i class="fa fa-history" aria-hidden="true"></i> 更新于 2019-04-17</span></time><span class="post-meta__categories"><span class="post-meta__separator">|</span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="https://lastknightcoder.gitee.io/categories/MATLAB/">MATLAB</a></span></div><div class="meta-secondline"> </div><div class="meta-thirdline"><span class="post-meta-pv-cv"><i class="fa fa-eye post-meta__icon" aria-hidden="true"> </i><span>阅读量:</span><span id="busuanzi_value_page_pv"></span></span><span class="post-meta-commentcount"></span></div></div></div></div><main class="layout_post" id="content-inner"><article id="post"><div class="post-content" id="article-container"><h1 id="字符串运算"><a href="#字符串运算" class="headerlink" title="字符串运算"></a>字符串运算</h1><h2 id="字符串变量与一维字符数组"><a href="#字符串变量与一维字符数组" class="headerlink" title="字符串变量与一维字符数组"></a>字符串变量与一维字符数组</h2><p>字符串其实是一个一维字符数组，在对字符串进行操作时，其实就是对一维字符数组进行操作</p>
+<a id="more"></a>
+
+<figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line">&gt;&gt; str = <span class="string">'I love you'</span></span><br><span class="line">str =</span><br><span class="line">    <span class="string">'I love you'</span></span><br><span class="line">&gt;&gt; whos</span><br><span class="line">  Name      Size            Bytes  Class    Attributes</span><br><span class="line"></span><br><span class="line">  str       <span class="number">1</span>x10               <span class="number">20</span>  char</span><br></pre></td></tr></table></figure>
+
+<h3 id="字符串变量赋值"><a href="#字符串变量赋值" class="headerlink" title="字符串变量赋值"></a>字符串变量赋值</h3><p>用单引号进行赋值</p>
+<figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line">&gt;&gt; s1 = <span class="string">'go home'</span>   <span class="comment">%直接赋值</span></span><br><span class="line">s1 =</span><br><span class="line">go home</span><br></pre></td></tr></table></figure>
+<h3 id="一维字符数组的创建"><a href="#一维字符数组的创建" class="headerlink" title="一维字符数组的创建"></a>一维字符数组的创建</h3><figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line"><span class="comment">%字符串进行拼接</span></span><br><span class="line">&gt;&gt; Sa = [<span class="string">'I love my teacher, '</span>, <span class="string">'I'</span> , <span class="string">' love truths'</span>, <span class="string">' more profoundly'</span>]</span><br><span class="line">Sa =</span><br><span class="line">I love my teacher, I love truths more profoundly</span><br><span class="line"><span class="comment">%使用char函数，将数组转换为字符</span></span><br><span class="line">&gt;&gt; Sb = char(<span class="string">'a'</span> : <span class="number">2</span> : <span class="string">'r'</span>)</span><br><span class="line">Sb =</span><br><span class="line">acegikmoq</span><br><span class="line"><span class="comment">%使用cahr函数，将数组转换为字符</span></span><br><span class="line">&gt;&gt; Sc = char(<span class="built_in">linspace</span>(<span class="string">'e'</span>,<span class="string">'t'</span>,<span class="number">10</span>))</span><br><span class="line">Sc =</span><br><span class="line">efhjkmoprt</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>第一种方法是用字符串（一维字符数组）进行拼接</li>
+<li>第二和第三种都是使用char()函数，char()是将一个数值转换成字符串的函数</li>
+</ul>
+<figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line">&gt;&gt; char([<span class="number">65</span> <span class="number">97</span>])</span><br><span class="line"><span class="built_in">ans</span> =</span><br><span class="line">Aa</span><br></pre></td></tr></table></figure>
+
+<h2 id="字符串操作"><a href="#字符串操作" class="headerlink" title="字符串操作"></a>字符串操作</h2><h3 id="求字符串长度"><a href="#求字符串长度" class="headerlink" title="求字符串长度"></a>求字符串长度</h3><ul>
+<li>length()求出数组各维中最大的数值大小</li>
+<li>size()给出各维数值大小</li>
+<li>length() = max(size())</li>
+</ul>
+<figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line">&gt;&gt; Sa = [<span class="string">'I love my teacher, '</span>, <span class="string">'I'</span> , <span class="string">' love truths'</span>, <span class="string">' more profoundly'</span>]</span><br><span class="line">Sa =</span><br><span class="line">I love my teacher, I love truths more profoundly</span><br><span class="line">&gt;&gt; <span class="built_in">length</span>(Sa)</span><br><span class="line"><span class="built_in">ans</span> =</span><br><span class="line">    <span class="number">48</span></span><br><span class="line">&gt;&gt; <span class="built_in">size</span>(Sa)</span><br><span class="line"><span class="built_in">ans</span> =</span><br><span class="line">     <span class="number">1</span>    <span class="number">48</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="字符串与一维数值数组的转换"><a href="#字符串与一维数值数组的转换" class="headerlink" title="字符串与一维数值数组的转换"></a>字符串与一维数值数组的转换</h3><ul>
+<li>abs()，double()方法可将字符串转换为一个数值数组</li>
+<li>char()如上介绍</li>
+<li>setstr()也可将数值数组转换为字符串(一维字符数组)</li>
+</ul>
+<figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line">&gt;&gt; A = <span class="string">'I am no nobody'</span></span><br><span class="line">A =</span><br><span class="line">I am no nobody</span><br><span class="line">&gt;&gt; As1 = <span class="built_in">abs</span>(A)</span><br><span class="line">As1 =</span><br><span class="line">    <span class="number">73</span>    <span class="number">32</span>    <span class="number">97</span>   <span class="number">109</span>    <span class="number">32</span>   <span class="number">110</span>   <span class="number">111</span>    <span class="number">32</span>   <span class="number">110</span>   <span class="number">111</span>    <span class="number">98</span>   <span class="number">111</span>   <span class="number">100</span>   <span class="number">121</span></span><br><span class="line">&gt;&gt; As2 = double(A)</span><br><span class="line">As2 =</span><br><span class="line">    <span class="number">73</span>    <span class="number">32</span>    <span class="number">97</span>   <span class="number">109</span>    <span class="number">32</span>   <span class="number">110</span>   <span class="number">111</span>    <span class="number">32</span>   <span class="number">110</span>   <span class="number">111</span>    <span class="number">98</span>   <span class="number">111</span>   <span class="number">100</span>   <span class="number">121</span></span><br><span class="line">&gt;&gt; char(As2)</span><br><span class="line"><span class="built_in">ans</span> =</span><br><span class="line">I am no nobody</span><br><span class="line">&gt;&gt; setstr(As2)</span><br><span class="line"><span class="built_in">ans</span> =</span><br><span class="line">I am no nobody</span><br></pre></td></tr></table></figure>
+
+<h3 id="字符串比较"><a href="#字符串比较" class="headerlink" title="字符串比较"></a>字符串比较</h3><ul>
+<li>strcmp(S1,S2)，当S1和S2完全相同时，返回1，否则返回0</li>
+<li>strcmp $\Rightarrow$ string compare</li>
+</ul>
+<figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line">&gt;&gt; S1 = <span class="string">'I am no body'</span></span><br><span class="line">S1 =</span><br><span class="line">I am no body</span><br><span class="line">&gt;&gt; S2 = <span class="string">'I am no body.'</span>   <span class="comment">%有一个dot</span></span><br><span class="line">S2 =</span><br><span class="line">I am no body.</span><br><span class="line">&gt;&gt; strcmp(S1,S2)           <span class="comment">%不相同，返回0</span></span><br><span class="line"><span class="built_in">ans</span> =</span><br><span class="line">     <span class="number">0</span></span><br><span class="line">&gt;&gt; strcmp(S1,S1)</span><br><span class="line"><span class="built_in">ans</span> =</span><br><span class="line">     <span class="number">1</span></span><br></pre></td></tr></table></figure>
+<h3 id="查找字符串"><a href="#查找字符串" class="headerlink" title="查找字符串"></a>查找字符串</h3><p>findstr(S,s)，从S中查找子字符串s，返回子字符串s首位字符在字符串S的位置，若字符串不存在的话，返回空数组。</p>
+<figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line">&gt;&gt; S</span><br><span class="line">S =</span><br><span class="line">I love you</span><br><span class="line">&gt;&gt; findstr(S,<span class="string">'lov'</span>)</span><br><span class="line"><span class="built_in">ans</span> =                           <span class="comment">%返回l的位置</span></span><br><span class="line">     <span class="number">3</span></span><br><span class="line">&gt;&gt; findstr(S,<span class="string">'aa'</span>)</span><br><span class="line"><span class="built_in">ans</span> =</span><br><span class="line">     []</span><br></pre></td></tr></table></figure>
+
+<h3 id="显示字符串"><a href="#显示字符串" class="headerlink" title="显示字符串"></a>显示字符串</h3><p>disp()，原样输出其中内容</p>
+<figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line">&gt;&gt; <span class="built_in">disp</span>(<span class="string">'两字符串比较的结果是'</span>)</span><br><span class="line">Result = strcmp(S,S)</span><br><span class="line"><span class="built_in">disp</span>(<span class="string">'为1则相同，为0则不同'</span>)</span><br><span class="line">两字符串比较的结果是</span><br><span class="line">Result =</span><br><span class="line">     <span class="number">1</span></span><br><span class="line">为<span class="number">1</span>则相同，为<span class="number">0</span>则不同</span><br></pre></td></tr></table></figure>
+
+<h2 id="二维字符数组的创建"><a href="#二维字符数组的创建" class="headerlink" title="二维字符数组的创建"></a>二维字符数组的创建</h2><ul>
+<li>二维字符数组其实就是字符串按列连接</li>
+<li>有两种生成方式，一种是直接输入，另一种是函数拼接，直接输入时要保证连接的两个矩阵的列数相同</li>
+</ul>
+<h3 id="直接输入"><a href="#直接输入" class="headerlink" title="直接输入"></a>直接输入</h3><figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line">&gt;&gt; S1 = <span class="string">'君子如龙'</span>,S2 = <span class="string">'一往无前'</span></span><br><span class="line">S1 =</span><br><span class="line">君子如龙</span><br><span class="line">S2 =</span><br><span class="line">一往无前</span><br><span class="line">&gt;&gt; S = [S1;S2]</span><br><span class="line">S =</span><br><span class="line">君子如龙</span><br><span class="line">一往无前</span><br></pre></td></tr></table></figure>
+
+<h3 id="函数拼接"><a href="#函数拼接" class="headerlink" title="函数拼接"></a>函数拼接</h3><ul>
+<li>strvcat(A1, A2, …)</li>
+<li>char(A1, A1, …)</li>
+<li>str2mat(A1, A2, …)</li>
+</ul>
+<p>以上三个函数都是将字符串拼接成一个二维字符数组，但是不要求各个矩阵列数相同，取字符串最长的最大列数，其余不足的会自动补空格</p>
+<figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line">&gt;&gt; S1,S2,S3</span><br><span class="line">S1 =</span><br><span class="line">君子如龙</span><br><span class="line">S2 =</span><br><span class="line">一往无前</span><br><span class="line">S3 =</span><br><span class="line">怎么了               <span class="comment">%S3的长度与其余两个不是一样长</span></span><br><span class="line">&gt;&gt; char(S1,S2,S3)   <span class="comment">%char()方法拼接</span></span><br><span class="line"><span class="built_in">ans</span> =</span><br><span class="line">君子如龙</span><br><span class="line">一往无前</span><br><span class="line">怎么了 </span><br><span class="line">&gt;&gt; strvcat(S1,S2,S3)   <span class="comment">%strvact()方法，同char()</span></span><br><span class="line"><span class="built_in">ans</span> =</span><br><span class="line">君子如龙</span><br><span class="line">一往无前</span><br><span class="line">怎么了 </span><br><span class="line">&gt;&gt; str2mat(S1,S2,S3)  <span class="comment">%同上</span></span><br><span class="line"><span class="built_in">ans</span> =</span><br><span class="line">君子如龙</span><br><span class="line">一往无前</span><br><span class="line">怎么了</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>有一个和strvcat()函数相似的函数，strcat()，该方法的功能是将矩阵行连接</li>
+<li>用char()进行连接的方法：char([S1, S2, …])</li>
+</ul>
+<figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line">&gt;&gt; strcat(S1,S2)</span><br><span class="line"><span class="built_in">ans</span> =</span><br><span class="line">君子如龙一往无前</span><br><span class="line">&gt;&gt; char([S1,S2])</span><br><span class="line"><span class="built_in">ans</span> =</span><br><span class="line">君子如龙一往无前</span><br></pre></td></tr></table></figure>
+
+</div><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">熊滔</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://lastknightcoder.gitee.io/MATLAB%E4%B9%8B%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%BF%90%E7%AE%97/">https://lastknightcoder.gitee.io/MATLAB%E4%B9%8B%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%BF%90%E7%AE%97/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://lastknightcoder.gitee.io" target="_blank">Coder</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="https://lastknightcoder.gitee.io/tags/MATLAB/">MATLAB</a></div><div class="post_share"><div class="social-share" data-image="https://gitee.com/lastknightcoder/blogimage/raw/master/img/bg65.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"/><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js"></script></div></div><div class="post-reward"><a class="reward-button button--primary button--animated"> <i class="fa fa-qrcode"></i> 打赏<div class="reward-main"><ul class="reward-all"><li class="reward-item"><img class="post-qr-code__img" src="https://lastknightcoder.gitee.io/img/wechatpay.png" alt="微信"/><div class="post-qr-code__desc">微信</div></li><li class="reward-item"><img class="post-qr-code__img" src="https://lastknightcoder.gitee.io/img/alipay.png" alt="支付宝"/><div class="post-qr-code__desc">支付宝</div></li></ul></div></a></div><nav class="pagination_post" id="pagination"><div class="prev-post pull_left"><a href="https://lastknightcoder.gitee.io/%E4%BB%8EDFS%E5%88%B0DFT/"><img class="prev_cover" data-src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/bg29.jpg" onerror="onerror=null;src='https://lastknightcoder.gitee.io/img/404.jpg'"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">DFT</div></div></a></div><div class="next-post pull_right"><a href="https://lastknightcoder.gitee.io/MATLAB%E4%B9%8B%E7%AC%A6%E5%8F%B7%E8%BF%90%E7%AE%97/"><img class="next_cover" data-src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/bg70.png" onerror="onerror=null;src='https://lastknightcoder.gitee.io/img/404.jpg'"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">MATLAB之符号计算</div></div></a></div></nav><div class="relatedPosts"><div class="relatedPosts_headline"><i class="fa fa-fw fa-thumbs-up" aria-hidden="true"></i><span> 相关推荐</span></div><div class="relatedPosts_list"><div class="relatedPosts_item"><a href="https://lastknightcoder.gitee.io//MATLAB之三维数组的创建/" title="MATLAB之三(高)维数组的创建"><img class="relatedPosts_cover" data-src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/bg70.png"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2019-04-07</div><div class="relatedPosts_title">MATLAB之三(高)维数组的创建</div></div></a></div><div class="relatedPosts_item"><a href="https://lastknightcoder.gitee.io//MATLAB之矩阵运算/" title="MATLAB之矩阵运算"><img class="relatedPosts_cover" data-src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/bg70.png"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2019-03-14</div><div class="relatedPosts_title">MATLAB之矩阵运算</div></div></a></div><div class="relatedPosts_item"><a href="https://lastknightcoder.gitee.io//MATLAB之矩阵与二维数组/" title="MATLAB之矩阵"><img class="relatedPosts_cover" data-src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/bg70.png"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2019-03-27</div><div class="relatedPosts_title">MATLAB之矩阵</div></div></a></div><div class="relatedPosts_item"><a href="https://lastknightcoder.gitee.io//MATLAB之符号运算/" title="MATLAB之符号计算"><img class="relatedPosts_cover" data-src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/bg70.png"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2019-04-13</div><div class="relatedPosts_title">MATLAB之符号计算</div></div></a></div></div><div class="clear_both"></div></div></article></main><footer id="footer" data-type="color"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2020 By 熊滔</div><div class="framework-info"><span>驱动 </span><a href="https://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 </span><a href="https://github.com/jerryc127/hexo-theme-butterfly" target="_blank" rel="noopener"><span>Butterfly</span></a></div></div></footer></div><section class="rightside" id="rightside"><div id="rightside-config-hide"><i class="fa fa-book" id="readmode" title="阅读模式"></i><i class="fa fa-plus" id="font_plus" title="放大字体"></i><i class="fa fa-minus" id="font_minus" title="缩小字体"></i><a class="translate_chn_to_cht" id="translateLink" href="javascript:translatePage();" title="简繁转换" target="_self">简</a><i class="darkmode far fa-moon" id="darkmode" title="夜间模式"></i></div><div id="rightside-config-show"><div id="rightside_config" title="设置"><i class="fa fa-cog" aria-hidden="true"></i></div><i class="fa fa-list-ul close" id="mobile-toc-button" title="目录" aria-hidden="true"></i><i class="fa fa-arrow-up" id="go-up" title="回到顶部" aria-hidden="true"></i></div></section><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a href="https://github.com/wzpan/hexo-generator-search" target="_blank" rel="noopener" style="color:#49B1F5;">hexo-generator-search</a>
+ <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fa fa-times"></i></span></div><div class="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://lastknightcoder.gitee.io/js/utils.js"></script><script src="https://lastknightcoder.gitee.io/js/main.js"></script><script src="https://lastknightcoder.gitee.io/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/medium-zoom/dist/medium-zoom.min.js"></script><script type="text/x-mathjax-config">MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+    processEscapes: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+  },
+  CommonHTML: {
+    linebreaks: { automatic: true, width: "90% container" }
+  },
+  "HTML-CSS": { 
+    linebreaks: { automatic: true, width: "90% container" }
+  },
+  "SVG": { 
+    linebreaks: { automatic: true, width: "90% container" }
+  }
+});
+</script><script type="text/x-mathjax-config">MathJax.Hub.Queue(function() {
+  var all = MathJax.Hub.getAllJax(), i;
+  for (i=0; i < all.length; i += 1) {
+    all[i].SourceElement().parentNode.className += ' has-jax';
+  }
+});
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script id="ribbon_piao" mobile="false" src="https://lastknightcoder.gitee.io/js/third-party/piao.js"></script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@latest/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/lozad/dist/lozad.min.js"></script><script src="https://lastknightcoder.gitee.io/js/search/local-search.js"></script><script>if (document.getElementsByClassName('mermaid').length) {
+  loadScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js',function () {
+    mermaid.initialize({
+      theme: 'default',
+  })
+})
+}</script><script>var endLoading = function () {
+  document.body.style.overflow = 'auto';
+  document.getElementById('loading-box').classList.add("loaded")
+}
+window.addEventListener('load',endLoading)</script></body></html>
