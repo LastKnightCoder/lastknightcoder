@@ -1,89 +1,201 @@
-<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Java面向对象 | Coder</title><meta name="description" content="讲解Java面向对象有关的知识，包含类，对象，抽象类，接口等概念"><meta name="keywords" content="Java 面向对象 类 接口 抽象类"><meta name="author" content="熊滔"><meta name="copyright" content="熊滔"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="https://lastknightcoder.gitee.io/img/favicon.png"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="dns-prefetch" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="https://fonts.googleapis.com" crossorigin="crossorigin"/><link rel="dns-prefetch" href="https://fonts.googleapis.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="dns-prefetch" href="//busuanzi.ibruce.info"/><meta name="twitter:card" content="summary"><meta name="twitter:title" content="Java面向对象"><meta name="twitter:description" content="讲解Java面向对象有关的知识，包含类，对象，抽象类，接口等概念"><meta name="twitter:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/bg70.png"><meta property="og:type" content="article"><meta property="og:title" content="Java面向对象"><meta property="og:url" content="https://lastknightcoder.gitee.io/Java%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/"><meta property="og:site_name" content="Coder"><meta property="og:description" content="讲解Java面向对象有关的知识，包含类，对象，抽象类，接口等概念"><meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/bg70.png"><meta property="article:published_time" content="2019-07-04T16:00:00.000Z"><meta property="article:modified_time" content="2019-07-04T16:00:00.000Z"><script src="https://cdn.jsdelivr.net/npm/js-cookie/dist/js.cookie.min.js"></script><script>var autoChangeMode = '1'
-var t = Cookies.get("theme")
-if (autoChangeMode == '1'){
-  var isDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches
-  var isLightMode = window.matchMedia("(prefers-color-scheme: light)").matches
-  var isNotSpecified = window.matchMedia("(prefers-color-scheme: no-preference)").matches
-  var hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+<!DOCTYPE html>
+<html>
+<head>
+    
 
-  if (t === undefined){
-    if (isLightMode) activateLightMode()
-    else if (isDarkMode) activateDarkMode()
-    else if (isNotSpecified || hasNoSupport){
-      console.log('You specified no preference for a color scheme or your browser does not support it. I Schedule dark mode during night time.')
-      var now = new Date()
-      var hour = now.getHours()
-      var isNight = hour < 6 || hour >= 18
-      isNight ? activateDarkMode() : activateLightMode()
-  }
-  } else if (t == 'light') activateLightMode()
-  else activateDarkMode()
+    
 
-} else if (autoChangeMode == '2'){
-  now = new Date();
-  hour = now.getHours();
-  isNight = hour < 6 || hour >= 18
-  if(t === undefined) isNight? activateDarkMode() : activateLightMode()
-  else if (t === 'light') activateLightMode()
-  else activateDarkMode() 
-} else {
-  if ( t == 'dark' ) activateDarkMode()
-  else if ( t == 'light') activateLightMode()
-}
+    
 
-function activateDarkMode(){
-  document.documentElement.setAttribute('data-theme', 'dark')
-  if (document.querySelector('meta[name="theme-color"]') !== null){
-    document.querySelector('meta[name="theme-color"]').setAttribute('content','#000')
-  }
-}
-function activateLightMode(){
-  document.documentElement.setAttribute('data-theme', 'light')
-  if (document.querySelector('meta[name="theme-color"]') !== null){
-  document.querySelector('meta[name="theme-color"]').setAttribute('content','#fff')
-  }
-}</script><link rel="stylesheet" href="https://lastknightcoder.gitee.io/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css"><link rel="canonical" href="https://lastknightcoder.gitee.io/Java%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/"><link rel="prev" title="Java集合与泛型" href="https://lastknightcoder.gitee.io/Java%E9%9B%86%E5%90%88%E4%B8%8E%E6%B3%9B%E5%9E%8B/"><link rel="next" title="Java基础知识" href="https://lastknightcoder.gitee.io/Java%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E4%BB%8B%E7%BB%8D/"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web"><script>var GLOBAL_CONFIG = { 
-  root: 'https://lastknightcoder.gitee.io/',
-  algolia: undefined,
-  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容:${query}"}},
-  translate: {"defaultEncoding":2,"translateDelay":0,"cookieDomain":"https://lastknightcoder.gitee.io/","msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
-  copy: {
-    success: '复制成功',
-    error: '复制错误',
-    noSupport: '浏览器不支持'
-  },
-  bookmark: {
-    message_prev: '按',
-    message_next: '键将本页加入书签'
-  },
-  runtime_unit: '天',
-  runtime: true,
-  copyright: undefined,
-  ClickShowText: undefined,
-  medium_zoom: true,
-  fancybox: false,
-  Snackbar: {"bookmark":{"message_prev":"按","message_next":"键将本页加入书签"},"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#2d3035","position":"bottom-left"},
-  baiduPush: true,
-  highlightCopy: true,
-  highlightLang: true,
-  highlightShrink: 'false',
-  isFontAwesomeV5: true,
-  isPhotoFigcaption: false,
-  islazyload: true,
-  isanchor: false
-  
-}</script><script>var GLOBAL_CONFIG_SITE = { 
-  isPost: true,
-  isHome: false,
-  isSidebar: true  
-  }</script><noscript><style>
-#page-header {
-  opacity: 1
-}
-.justified-gallery img{
-  opacity: 1
-}
-</style></noscript><meta name="generator" content="Hexo 4.2.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="https://lastknightcoder.gitee.io/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="https://lastknightcoder.gitee.io/archives/"><div class="headline">文章</div><div class="length_num">38</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="https://lastknightcoder.gitee.io/tags/"><div class="headline">标签</div><div class="length_num">39</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="https://lastknightcoder.gitee.io/categories/"><div class="headline">分类</div><div class="length_num">13</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="https://lastknightcoder.gitee.io/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="https://lastknightcoder.gitee.io/archives/"><i class="fa-fw fa fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="https://lastknightcoder.gitee.io/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="https://lastknightcoder.gitee.io/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="https://lastknightcoder.gitee.io/link/"><i class="fa-fw fa fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="https://lastknightcoder.gitee.io/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div></div></div><i class="fa fa-arrow-right on" id="toggle-sidebar" aria-hidden="true">     </i><div id="sidebar"><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#类的定义"><span class="toc-number">1.</span> <span class="toc-text">类的定义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#类的内存模型"><span class="toc-number">2.</span> <span class="toc-text">类的内存模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#对象与方法"><span class="toc-number">3.</span> <span class="toc-text">对象与方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#对象作为参数"><span class="toc-number">3.1.</span> <span class="toc-text">对象作为参数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#对象作为返回值"><span class="toc-number">3.2.</span> <span class="toc-text">对象作为返回值</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#成员变量与局部变量"><span class="toc-number">4.</span> <span class="toc-text">成员变量与局部变量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#封装"><span class="toc-number">5.</span> <span class="toc-text">封装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#this关键字"><span class="toc-number">6.</span> <span class="toc-text">this关键字</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#构造方法"><span class="toc-number">7.</span> <span class="toc-text">构造方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#构造方法的定义"><span class="toc-number">7.1.</span> <span class="toc-text">构造方法的定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#利用构造方法进行初始化"><span class="toc-number">7.2.</span> <span class="toc-text">利用构造方法进行初始化</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#一个标准的类"><span class="toc-number">8.</span> <span class="toc-text">一个标准的类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#匿名对象"><span class="toc-number">9.</span> <span class="toc-text">匿名对象</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#匿名对象作为方法的参数"><span class="toc-number">9.1.</span> <span class="toc-text">匿名对象作为方法的参数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#匿名对象作为方法的返回值"><span class="toc-number">9.2.</span> <span class="toc-text">匿名对象作为方法的返回值</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#static关键字"><span class="toc-number">10.</span> <span class="toc-text">static关键字</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#static修饰符的作用"><span class="toc-number">10.1.</span> <span class="toc-text">static修饰符的作用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#static的内存图"><span class="toc-number">10.2.</span> <span class="toc-text">static的内存图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#静态代码块"><span class="toc-number">10.3.</span> <span class="toc-text">静态代码块</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#继承"><span class="toc-number">11.</span> <span class="toc-text">继承</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#继承的格式"><span class="toc-number">11.1.</span> <span class="toc-text">继承的格式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#子类访问父类成员变量"><span class="toc-number">11.2.</span> <span class="toc-text">子类访问父类成员变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#区分三种变量"><span class="toc-number">11.3.</span> <span class="toc-text">区分三种变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#重写"><span class="toc-number">11.4.</span> <span class="toc-text">重写</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#继承中的构造方法"><span class="toc-number">11.5.</span> <span class="toc-text">继承中的构造方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#继承的三个特征"><span class="toc-number">11.6.</span> <span class="toc-text">继承的三个特征</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#抽象类"><span class="toc-number">12.</span> <span class="toc-text">抽象类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#接口"><span class="toc-number">13.</span> <span class="toc-text">接口</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#接口的定义"><span class="toc-number">13.1.</span> <span class="toc-text">接口的定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#接口的使用"><span class="toc-number">13.2.</span> <span class="toc-text">接口的使用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#抽象方法"><span class="toc-number">13.3.</span> <span class="toc-text">抽象方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#默认方法"><span class="toc-number">13.4.</span> <span class="toc-text">默认方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#静态方法"><span class="toc-number">13.5.</span> <span class="toc-text">静态方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#私有方法"><span class="toc-number">13.6.</span> <span class="toc-text">私有方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#常量"><span class="toc-number">13.7.</span> <span class="toc-text">常量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#注意事项"><span class="toc-number">13.8.</span> <span class="toc-text">注意事项</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#多态"><span class="toc-number">14.</span> <span class="toc-text">多态</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#多态的定义"><span class="toc-number">14.1.</span> <span class="toc-text">多态的定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#多态访问成员变量和成员方法的规则"><span class="toc-number">14.2.</span> <span class="toc-text">多态访问成员变量和成员方法的规则</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#访问成员方法的规则"><span class="toc-number">14.2.1.</span> <span class="toc-text">访问成员方法的规则</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#访问成员变量的规则"><span class="toc-number">14.2.2.</span> <span class="toc-text">访问成员变量的规则</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#对象转型"><span class="toc-number">14.3.</span> <span class="toc-text">对象转型</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#对象向上转型"><span class="toc-number">14.3.1.</span> <span class="toc-text">对象向上转型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#对象向下转型"><span class="toc-number">14.3.2.</span> <span class="toc-text">对象向下转型</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#instanceof"><span class="toc-number">14.4.</span> <span class="toc-text">instanceof</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#final"><span class="toc-number">15.</span> <span class="toc-text">final</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#权限修饰符"><span class="toc-number">16.</span> <span class="toc-text">权限修饰符</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#内部类"><span class="toc-number">17.</span> <span class="toc-text">内部类</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#成员内部类"><span class="toc-number">17.1.</span> <span class="toc-text">成员内部类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#局部内部类"><span class="toc-number">17.2.</span> <span class="toc-text">局部内部类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#匿名内部类"><span class="toc-number">17.3.</span> <span class="toc-text">匿名内部类</span></a></li></ol></li></ol></div></div></div><div id="body-wrap"><div class="post-bg" id="nav" style="background-image: url(https://gitee.com/lastknightcoder/blogimage/raw/master/img/bg70.png)"><div id="page-header"><span class="pull_left" id="blog_name"><a class="blog_title" id="site-name" href="https://lastknightcoder.gitee.io/">Coder</a></span><span class="pull_right menus"><div id="search_button"><a class="site-page social-icon search"><i class="fa fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="https://lastknightcoder.gitee.io/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="https://lastknightcoder.gitee.io/archives/"><i class="fa-fw fa fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="https://lastknightcoder.gitee.io/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="https://lastknightcoder.gitee.io/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="https://lastknightcoder.gitee.io/link/"><i class="fa-fw fa fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="https://lastknightcoder.gitee.io/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div><span class="toggle-menu close"><a class="site-page"><i class="fa fa-bars fa-fw" aria-hidden="true"></i></a></span></span></div><div id="post-info"><div id="post-title"><div class="posttitle">Java面向对象</div></div><div id="post-meta"><div class="meta-firstline"><time class="post-meta__date"><span class="post-meta__date-created" title="发表于 2019-07-05 00:00:00"><i class="fa fa-calendar" aria-hidden="true"></i> 发表于 2019-07-05</span><span class="post-meta__separator">|</span><span class="post-meta__date-updated" title="更新于 2019-07-05 00:00:00"><i class="fa fa-history" aria-hidden="true"></i> 更新于 2019-07-05</span></time><span class="post-meta__categories"><span class="post-meta__separator">|</span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="https://lastknightcoder.gitee.io/categories/Java/">Java</a><i class="fa fa-angle-right post-meta__separator" aria-hidden="true"></i><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="https://lastknightcoder.gitee.io/categories/Java/Element/">Element</a></span></div><div class="meta-secondline"> </div><div class="meta-thirdline"><span class="post-meta-pv-cv"><i class="fa fa-eye post-meta__icon" aria-hidden="true"> </i><span>阅读量:</span><span id="busuanzi_value_page_pv"></span></span><span class="post-meta-commentcount"></span></div></div></div></div><main class="layout_post" id="content-inner"><article id="post"><div class="post-content" id="article-container"><p>在最初的开始，人们编写程序的基于过程的，那时候的编程方式是面向过程的。但是人们发现，随着代码规模的扩大，编写大规模的程序使用面向过程的方法十分的困难，这时候人们必须提出一种新的编程思想，使得编写大型程序变得简单。这种思想就是面向对象的思想。</p>
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>Java面向对象 | Coder</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Java,面向对象">
+    <meta name="description" content="讲解Java面向对象有关的知识，包含类，对象，抽象类，接口等概念">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java面向对象">
+<meta property="og:url" content="https://lastknightcoder.gitee.io/Java%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/">
+<meta property="og:site_name" content="Coder">
+<meta property="og:description" content="讲解Java面向对象有关的知识，包含类，对象，抽象类，接口等概念">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/Java08.png">
+<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/Java09.png">
+<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/Java10.gif">
+<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/Java11.gif">
+<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/Java12.png">
+<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/Java13.jpg">
+<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/Java14.png">
+<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/Java15.png">
+<meta property="article:published_time" content="2019-07-04T16:00:00.000Z">
+<meta property="article:modified_time" content="2019-07-04T16:00:00.000Z">
+<meta property="article:author" content="熊滔">
+<meta property="article:tag" content="Java 面向对象 类 接口 抽象类">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/Java08.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="Coder" href="https://lastknightcoder.gitee.io/atom.xml">
+    
+    <link rel="shortcut icon" href="https://lastknightcoder.gitee.io/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(https://lastknightcoder.gitee.io/img/brand.jpg)">
+      <div class="brand">
+        <a href="https://lastknightcoder.gitee.io/" class="avatar waves-effect waves-circle waves-light">
+          <img src="https://lastknightcoder.gitee.io/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">熊滔</h5>
+          <a href="mailto:2223106858@qq.com" title="2223106858@qq.com" class="mail">2223106858@qq.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.gitee.io/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.gitee.io/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.gitee.io/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.gitee.io/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/LastKnightCoder" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Java面向对象</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Java面向对象</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2019-07-04T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2019-07-05
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="https://lastknightcoder.gitee.io/categories/Java/">Java</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="https://lastknightcoder.gitee.io/categories/Java/Element/">Element</a></li></ul></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#类的定义"><span class="post-toc-number">1.</span> <span class="post-toc-text">类的定义</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#类的内存模型"><span class="post-toc-number">2.</span> <span class="post-toc-text">类的内存模型</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#对象与方法"><span class="post-toc-number">3.</span> <span class="post-toc-text">对象与方法</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#对象作为参数"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">对象作为参数</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#对象作为返回值"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">对象作为返回值</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#成员变量与局部变量"><span class="post-toc-number">4.</span> <span class="post-toc-text">成员变量与局部变量</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#封装"><span class="post-toc-number">5.</span> <span class="post-toc-text">封装</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#this关键字"><span class="post-toc-number">6.</span> <span class="post-toc-text">this关键字</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#构造方法"><span class="post-toc-number">7.</span> <span class="post-toc-text">构造方法</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#构造方法的定义"><span class="post-toc-number">7.1.</span> <span class="post-toc-text">构造方法的定义</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#利用构造方法进行初始化"><span class="post-toc-number">7.2.</span> <span class="post-toc-text">利用构造方法进行初始化</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#一个标准的类"><span class="post-toc-number">8.</span> <span class="post-toc-text">一个标准的类</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#匿名对象"><span class="post-toc-number">9.</span> <span class="post-toc-text">匿名对象</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#匿名对象作为方法的参数"><span class="post-toc-number">9.1.</span> <span class="post-toc-text">匿名对象作为方法的参数</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#匿名对象作为方法的返回值"><span class="post-toc-number">9.2.</span> <span class="post-toc-text">匿名对象作为方法的返回值</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#static关键字"><span class="post-toc-number">10.</span> <span class="post-toc-text">static关键字</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#static修饰符的作用"><span class="post-toc-number">10.1.</span> <span class="post-toc-text">static修饰符的作用</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#static的内存图"><span class="post-toc-number">10.2.</span> <span class="post-toc-text">static的内存图</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#静态代码块"><span class="post-toc-number">10.3.</span> <span class="post-toc-text">静态代码块</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#继承"><span class="post-toc-number">11.</span> <span class="post-toc-text">继承</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#继承的格式"><span class="post-toc-number">11.1.</span> <span class="post-toc-text">继承的格式</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#子类访问父类成员变量"><span class="post-toc-number">11.2.</span> <span class="post-toc-text">子类访问父类成员变量</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#区分三种变量"><span class="post-toc-number">11.3.</span> <span class="post-toc-text">区分三种变量</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#重写"><span class="post-toc-number">11.4.</span> <span class="post-toc-text">重写</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#继承中的构造方法"><span class="post-toc-number">11.5.</span> <span class="post-toc-text">继承中的构造方法</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#继承的三个特征"><span class="post-toc-number">11.6.</span> <span class="post-toc-text">继承的三个特征</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#抽象类"><span class="post-toc-number">12.</span> <span class="post-toc-text">抽象类</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#接口"><span class="post-toc-number">13.</span> <span class="post-toc-text">接口</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#接口的定义"><span class="post-toc-number">13.1.</span> <span class="post-toc-text">接口的定义</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#接口的使用"><span class="post-toc-number">13.2.</span> <span class="post-toc-text">接口的使用</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#抽象方法"><span class="post-toc-number">13.3.</span> <span class="post-toc-text">抽象方法</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#默认方法"><span class="post-toc-number">13.4.</span> <span class="post-toc-text">默认方法</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#静态方法"><span class="post-toc-number">13.5.</span> <span class="post-toc-text">静态方法</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#私有方法"><span class="post-toc-number">13.6.</span> <span class="post-toc-text">私有方法</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#常量"><span class="post-toc-number">13.7.</span> <span class="post-toc-text">常量</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#注意事项"><span class="post-toc-number">13.8.</span> <span class="post-toc-text">注意事项</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#多态"><span class="post-toc-number">14.</span> <span class="post-toc-text">多态</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#多态的定义"><span class="post-toc-number">14.1.</span> <span class="post-toc-text">多态的定义</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#多态访问成员变量和成员方法的规则"><span class="post-toc-number">14.2.</span> <span class="post-toc-text">多态访问成员变量和成员方法的规则</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#访问成员方法的规则"><span class="post-toc-number">14.2.1.</span> <span class="post-toc-text">访问成员方法的规则</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#访问成员变量的规则"><span class="post-toc-number">14.2.2.</span> <span class="post-toc-text">访问成员变量的规则</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#对象转型"><span class="post-toc-number">14.3.</span> <span class="post-toc-text">对象转型</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#对象向上转型"><span class="post-toc-number">14.3.1.</span> <span class="post-toc-text">对象向上转型</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#对象向下转型"><span class="post-toc-number">14.3.2.</span> <span class="post-toc-text">对象向下转型</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#instanceof"><span class="post-toc-number">14.4.</span> <span class="post-toc-text">instanceof</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#final"><span class="post-toc-number">15.</span> <span class="post-toc-text">final</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#权限修饰符"><span class="post-toc-number">16.</span> <span class="post-toc-text">权限修饰符</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#内部类"><span class="post-toc-number">17.</span> <span class="post-toc-text">内部类</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#成员内部类"><span class="post-toc-number">17.1.</span> <span class="post-toc-text">成员内部类</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#局部内部类"><span class="post-toc-number">17.2.</span> <span class="post-toc-text">局部内部类</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#匿名内部类"><span class="post-toc-number">17.3.</span> <span class="post-toc-text">匿名内部类</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-Java面向对象"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Java面向对象</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2019-07-05 00:00:00" datetime="2019-07-04T16:00:00.000Z"  itemprop="datePublished">2019-07-05</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="https://lastknightcoder.gitee.io/categories/Java/">Java</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="https://lastknightcoder.gitee.io/categories/Java/Element/">Element</a></li></ul></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>在最初的开始，人们编写程序的基于过程的，那时候的编程方式是面向过程的。但是人们发现，随着代码规模的扩大，编写大规模的程序使用面向过程的方法十分的困难，这时候人们必须提出一种新的编程思想，使得编写大型程序变得简单。这种思想就是面向对象的思想。</p>
 <p>就像我们学习数学一样，随着我们学习的深入，我们一直在进行抽象，比如从数抽象到代数，并且不断提出新的概念，提出很多的定理，方便我们的学习研究。面向对象也是一样，它把实际中的事物抽象出来，这个事物可以是我们见到的实物，比如椅子，桌子，手机，也可以是我们我们看不见的东西，比如某个系统。这个抽象出来的东西我们叫做类，我们利用类的概念，可以清楚的把握类与类之间的关系，使得程序的结构十分的清晰，便于管理，便于开发大型的程序。</p>
 <p>我们把抽象出来的东西叫做类，那么一个类的实例就是对象。比如，我们把人抽象为了一个类，这是一个抽象的概念，那么小明这个具体的人就是该类的一个实例，也叫做对象。我们把椅子抽象为一个类，一个具体的椅子就是一个对象。类可以看做是对象的模板，对象可以看做是类的具体实现。</p>
 <p>我们可以通过两个方面是描述一个事物，一个是属性，比如说对于人这个类，它的属性就有姓名，身高，年龄等等，这些都是它的属性，另一个就是行为，比如说人的行为有吃饭，睡觉等等。</p>
@@ -118,14 +230,14 @@ function activateLightMode(){
 
 <p>编译器首先会在方法区中找main方法，然后将它推入栈中</p>
 <center>
-    <img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/Java08.png"/>
+    <img src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/Java08.png"/>
 </center>
 
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Person per = <span class="keyword">new</span> Person();</span><br></pre></td></tr></table></figure>
 
 <p>这行语句会在main中创建一个per变量，接着会在堆中开辟出一块空间，存储的是per这个对象，这个对象是以方法区中的类为模板的，该对象具有成员变量和成员方法。但是注意的是，对象的成员方法是地址值，指向方法区中的方法的信息，当调用方法时，会根据该地址值去方法区中寻找该方法。由于每个对象的行为都是一样的，只是属性不同，所以不需要在堆中为每一个对象都开辟空间来保存方法的信息，只需要保存一个地址值即可。这样做可以节省内存空间。</p>
 <center>
-    <img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/Java09.png"/>
+    <img src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/Java09.png"/>
 </center>
 
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line">System.out.println(per.name);</span><br><span class="line">System.out.println(per.age);</span><br><span class="line">per.eat();</span><br><span class="line">per.sleep();</span><br></pre></td></tr></table></figure>
@@ -264,7 +376,7 @@ function activateLightMode(){
 
 <p>程序运行效果为</p>
 <center>
-<img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/Java10.gif"/>
+<img src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/Java10.gif"/>
 </center>
 
 <h3 id="匿名对象作为方法的返回值"><a href="#匿名对象作为方法的返回值" class="headerlink" title="匿名对象作为方法的返回值"></a>匿名对象作为方法的返回值</h3><p>匿名对象也可以作为方法的返回值，返回的也是地址值</p>
@@ -272,7 +384,7 @@ function activateLightMode(){
 
 <p>程序运行效果为</p>
 <center>
-<img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/Java11.gif"/>
+<img src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/Java11.gif"/>
 </center>
 
 <h2 id="static关键字"><a href="#static关键字" class="headerlink" title="static关键字"></a>static关键字</h2><p>static关键字我们在之前见到过很多次了，比如</p>
@@ -301,7 +413,7 @@ function activateLightMode(){
 </ul>
 <h3 id="static的内存图"><a href="#static的内存图" class="headerlink" title="static的内存图"></a>static的内存图</h3><p>在方法区中有一块内存空间，专门用以保存静态变量的</p>
 <center>
-<img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/Java12.png"/>
+<img src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/Java12.png"/>
 </center>
 
 <p>从上面的图可以看出来，静态变量与对象没有任何关系。</p>
@@ -513,7 +625,7 @@ function activateLightMode(){
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Student</span> <span class="keyword">extends</span> <span class="title">Person</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    String name = <span class="string">"子类"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">show</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"我是子类的show方法"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">showAgain</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"我是子类特有的方法"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <center>
-<img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/Java13.jpg"/>
+<img src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/Java13.jpg"/>
 </center>
 
 <p>我们观察到程序报错了，因为父类并没有这个方法。</p>
@@ -540,12 +652,12 @@ function activateLightMode(){
 
 <p>但是，向下转型要注意，我原来是Student对象才能转为Student对象，我如果原来不是，那么运行时会抛出异常，如下面我创建一个Teacher继承了Person，现在我要把per强行转型为Teacher对象</p>
 <center>
-<img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/Java14.png"/>
+<img src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/Java14.png"/>
 </center>
 
 <p>我们观察到，在编译时并没有报错，现在我们来运行一下</p>
 <center>
-<img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/Java15.png"/>
+<img src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/Java15.png"/>
 </center>
 
 <p>抛出了ClassCastException异常，意思是类型转换异常。所以向下转型不安全。</p>
@@ -734,39 +846,326 @@ function activateLightMode(){
 <li>匿名对象在调用方法只能调用唯一的一次</li>
 <li>匿名内部类是省略了类的名称，匿名对象是省略了对象的名称</li>
 </ul>
-</div><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">熊滔</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://lastknightcoder.gitee.io/Java%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/">https://lastknightcoder.gitee.io/Java%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://lastknightcoder.gitee.io" target="_blank">Coder</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="https://lastknightcoder.gitee.io/tags/Java/">Java</a><a class="post-meta__tags" href="https://lastknightcoder.gitee.io/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/">面向对象</a></div><div class="post_share"><div class="social-share" data-image="https://gitee.com/lastknightcoder/blogimage/raw/master/img/bg29.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"/><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js"></script></div></div><div class="post-reward"><a class="reward-button button--primary button--animated"> <i class="fa fa-qrcode"></i> 打赏<div class="reward-main"><ul class="reward-all"><li class="reward-item"><img class="post-qr-code__img" src="https://lastknightcoder.gitee.io/img/wechatpay.png" alt="微信"/><div class="post-qr-code__desc">微信</div></li><li class="reward-item"><img class="post-qr-code__img" src="https://lastknightcoder.gitee.io/img/alipay.png" alt="支付宝"/><div class="post-qr-code__desc">支付宝</div></li></ul></div></a></div><nav class="pagination_post" id="pagination"><div class="prev-post pull_left"><a href="https://lastknightcoder.gitee.io/Java%E9%9B%86%E5%90%88%E4%B8%8E%E6%B3%9B%E5%9E%8B/"><img class="prev_cover" data-src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/bg67.jpg" onerror="onerror=null;src='https://lastknightcoder.gitee.io/img/404.jpg'"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Java集合与泛型</div></div></a></div><div class="next-post pull_right"><a href="https://lastknightcoder.gitee.io/Java%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E4%BB%8B%E7%BB%8D/"><img class="next_cover" data-src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/bg71.png" onerror="onerror=null;src='https://lastknightcoder.gitee.io/img/404.jpg'"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Java基础知识</div></div></a></div></nav><div class="relatedPosts"><div class="relatedPosts_headline"><i class="fa fa-fw fa-thumbs-up" aria-hidden="true"></i><span> 相关推荐</span></div><div class="relatedPosts_list"><div class="relatedPosts_item"><a href="https://lastknightcoder.gitee.io//JDBC/" title="JDBC"><img class="relatedPosts_cover" data-src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/bg71.png"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2019-08-15</div><div class="relatedPosts_title">JDBC</div></div></a></div><div class="relatedPosts_item"><a href="https://lastknightcoder.gitee.io//Java8新特性/" title="Java8新特性"><img class="relatedPosts_cover" data-src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/bg41.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2019-07-14</div><div class="relatedPosts_title">Java8新特性</div></div></a></div><div class="relatedPosts_item"><a href="https://lastknightcoder.gitee.io//JavaWeb/" title="Java Web笔记"><img class="relatedPosts_cover" data-src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/bg67.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2019-08-20</div><div class="relatedPosts_title">Java Web笔记</div></div></a></div><div class="relatedPosts_item"><a href="https://lastknightcoder.gitee.io//Java反射/" title="Java反射"><img class="relatedPosts_cover" data-src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/bg70.png"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2019-07-20</div><div class="relatedPosts_title">Java反射</div></div></a></div><div class="relatedPosts_item"><a href="https://lastknightcoder.gitee.io//Java基础知识介绍/" title="Java基础知识"><img class="relatedPosts_cover" data-src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/bg71.png"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2019-07-04</div><div class="relatedPosts_title">Java基础知识</div></div></a></div><div class="relatedPosts_item"><a href="https://lastknightcoder.gitee.io//Java多线程/" title="Java多线程"><img class="relatedPosts_cover" data-src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/bg72.png"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2019-07-13</div><div class="relatedPosts_title">Java多线程</div></div></a></div></div><div class="clear_both"></div></div></article></main><footer id="footer" data-type="color"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2020 By 熊滔</div><div class="framework-info"><span>驱动 </span><a href="https://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 </span><a href="https://github.com/jerryc127/hexo-theme-butterfly" target="_blank" rel="noopener"><span>Butterfly</span></a></div></div></footer></div><section class="rightside" id="rightside"><div id="rightside-config-hide"><i class="fa fa-book" id="readmode" title="阅读模式"></i><i class="fa fa-plus" id="font_plus" title="放大字体"></i><i class="fa fa-minus" id="font_minus" title="缩小字体"></i><a class="translate_chn_to_cht" id="translateLink" href="javascript:translatePage();" title="简繁转换" target="_self">简</a><i class="darkmode far fa-moon" id="darkmode" title="夜间模式"></i></div><div id="rightside-config-show"><div id="rightside_config" title="设置"><i class="fa fa-cog" aria-hidden="true"></i></div><i class="fa fa-list-ul close" id="mobile-toc-button" title="目录" aria-hidden="true"></i><i class="fa fa-arrow-up" id="go-up" title="回到顶部" aria-hidden="true"></i></div></section><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a href="https://github.com/wzpan/hexo-generator-search" target="_blank" rel="noopener" style="color:#49B1F5;">hexo-generator-search</a>
- <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fa fa-times"></i></span></div><div class="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://lastknightcoder.gitee.io/js/utils.js"></script><script src="https://lastknightcoder.gitee.io/js/main.js"></script><script src="https://lastknightcoder.gitee.io/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/medium-zoom/dist/medium-zoom.min.js"></script><script type="text/x-mathjax-config">MathJax.Hub.Config({
-  tex2jax: {
-    inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
-    processEscapes: true,
-    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-  },
-  CommonHTML: {
-    linebreaks: { automatic: true, width: "90% container" }
-  },
-  "HTML-CSS": { 
-    linebreaks: { automatic: true, width: "90% container" }
-  },
-  "SVG": { 
-    linebreaks: { automatic: true, width: "90% container" }
-  }
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2019-07-04T16:00:00.000Z" itemprop="dateUpdated">2019-07-05 00:00:00</time>
+</span><br>
+
+
+        
+    </div>
+    
+    <footer>
+        <a href="https://lastknightcoder.gitee.io">
+            <img src="https://lastknightcoder.gitee.io/img/avatar.jpg" alt="熊滔">
+            熊滔
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="https://lastknightcoder.gitee.io/tags/Java/" rel="tag">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="https://lastknightcoder.gitee.io/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" rel="tag">面向对象</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://lastknightcoder.gitee.io/Java%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/&title=《Java面向对象》 — Coder&pic=https://lastknightcoder.gitee.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://lastknightcoder.gitee.io/Java%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/&title=《Java面向对象》 — Coder&source=人生天地间，忽如远行客" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://lastknightcoder.gitee.io/Java%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Java面向对象》 — Coder&url=https://lastknightcoder.gitee.io/Java%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/&via=https://lastknightcoder.gitee.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://lastknightcoder.gitee.io/Java%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="https://lastknightcoder.gitee.io/Java%E9%9B%86%E5%90%88%E4%B8%8E%E6%B3%9B%E5%9E%8B/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">Java集合与泛型</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="https://lastknightcoder.gitee.io/Java%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E4%BB%8B%E7%BB%8D/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Java基础知识</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="https://lastknightcoder.gitee.io/img/wechatpay.png" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="https://lastknightcoder.gitee.io/img/wechatpay.png" data-alipay="https://lastknightcoder.gitee.io/img/alipay.png">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="https://lastknightcoder.gitee.io/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>熊滔 &copy; 2019 - 2020</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://lastknightcoder.gitee.io/Java%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/&title=《Java面向对象》 — Coder&pic=https://lastknightcoder.gitee.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://lastknightcoder.gitee.io/Java%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/&title=《Java面向对象》 — Coder&source=人生天地间，忽如远行客" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://lastknightcoder.gitee.io/Java%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Java面向对象》 — Coder&url=https://lastknightcoder.gitee.io/Java%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/&via=https://lastknightcoder.gitee.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://lastknightcoder.gitee.io/Java%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACuUlEQVR42u3awU7rQAwF0P7/T/Okt2JBwr12piB0sqpC2syZxdjYfr3i6+P/ldz/fOfq8+c7V788e3J44eHh4Y2WfnUlL7j6Vr5ZV++636z7NePh4eGd5t0vIuEli8sXfR8Y8kCFh4eH97O8NtlNkHlQwcPDw/sbvFl6nQQJPDw8vN/PS4oReRrdps5tGn2k1oKHh4c3yVpf7aH8U58P9vfw8PDwFl31+wO3PdzbgsUDq8XDw8M7wJuVBvKkuf39TRgo/mPAw8PDW/D2R3D+3Zwxe/6LZ/Dw8PCO8fICaF7M3ZQV7gcOiifx8PDwDvCSpc8KE7MCcdv6yn8TDw8P7wSvHcPKiw7JspKxgJqBh4eHd4w3G6jKF92WiWfttDqZxsPDw1vz2pLEPhXejBrUbTA8PDy8h3jtsT5Lo9vG/2xT8PDw8N7Dm/3znw9UtcGgba0VxQg8PDy8h3h19h0PBOSN/6eeKWbK8PDw8Na8vLS6SXOTJze/9kUowsPDwzvGmyXZyf1242aJ+2UujYeHh3eA1w5FtSn4fshgUxzBw8PDO8fLR6OSg7gdDpgl9EUYw8PDwzvGmy161rh6lddsLAwPDw/vnbzNWNU+GOQDWNEa8PDw8B7lrQ7c+K9tOXg2mPV0PMHDw8PrGk77tlNe2mi3td5EPDw8vEd5SXupbepvhlZnpZDLO3h4eHhv4eWAYuDp0fGCYqABDw8P7wDvqXLDrLTxbIkk+hYeHh7emvdRXrPSwywFn70lmibDw8PDW/Daw3pWGtgUdtv3DpF4eHh4JS8JBrMRqNk4QrtB35Qn8PDw8I7x2oZ9Pkq1T75nhQw8PDy838Dbt/NnoWW2Qjw8PLzfyZulvG342RSO8fDw8M7x8mLE5kCftcTu3/XNJuLh4eEd4LUNsBOhYtavGw4K4OHh4c15/wA5lVS5hFohcAAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: 'https://lastknightcoder.gitee.io/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
 });
-</script><script type="text/x-mathjax-config">MathJax.Hub.Queue(function() {
-  var all = MathJax.Hub.getAllJax(), i;
-  for (i=0; i < all.length; i += 1) {
-    all[i].SourceElement().parentNode.className += ' has-jax';
-  }
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
 });
-</script><script src="https://cdn.jsdelivr.net/npm/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script id="ribbon_piao" mobile="false" src="https://lastknightcoder.gitee.io/js/third-party/piao.js"></script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@latest/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/lozad/dist/lozad.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js"></script><script>document.addEventListener('DOMContentLoaded', function() {
-      pangu.spacingElementById('content-inner')
-})</script><script src="https://lastknightcoder.gitee.io/js/search/local-search.js"></script><script>if (document.getElementsByClassName('mermaid').length) {
-  loadScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js',function () {
-    mermaid.initialize({
-      theme: 'default',
-  })
-})
-}</script><script>var endLoading = function () {
-  document.body.style.overflow = 'auto';
-  document.getElementById('loading-box').classList.add("loaded")
-}
-window.addEventListener('load',endLoading)</script></body></html>
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>
