@@ -1,237 +1,90 @@
-<!DOCTYPE html>
-<html>
-<head>
-    
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>MySQL学习笔记 | Coder</title><meta name="description" content="MySQL数据库入门"><meta name="keywords" content="MySQL"><meta name="author" content="熊滔"><meta name="copyright" content="熊滔"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="https://lastknightcoder.gitee.io/img/favicon.png"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="dns-prefetch" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="https://fonts.googleapis.com" crossorigin="crossorigin"/><link rel="dns-prefetch" href="https://fonts.googleapis.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="dns-prefetch" href="//busuanzi.ibruce.info"/><meta name="twitter:card" content="summary"><meta name="twitter:title" content="MySQL学习笔记"><meta name="twitter:description" content="MySQL数据库入门"><meta name="twitter:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/bg73.png"><meta property="og:type" content="article"><meta property="og:title" content="MySQL学习笔记"><meta property="og:url" content="https://lastknightcoder.gitee.io/MySQL%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"><meta property="og:site_name" content="Coder"><meta property="og:description" content="MySQL数据库入门"><meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/bg73.png"><meta property="article:published_time" content="2019-09-13T16:00:00.000Z"><meta property="article:modified_time" content="2019-09-13T16:00:00.000Z"><script src="https://cdn.jsdelivr.net/npm/js-cookie/dist/js.cookie.min.js"></script><script>var autoChangeMode = '1'
+var t = Cookies.get("theme")
+if (autoChangeMode == '1'){
+  var isDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches
+  var isLightMode = window.matchMedia("(prefers-color-scheme: light)").matches
+  var isNotSpecified = window.matchMedia("(prefers-color-scheme: no-preference)").matches
+  var hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
 
-    
+  if (t === undefined){
+    if (isLightMode) activateLightMode()
+    else if (isDarkMode) activateDarkMode()
+    else if (isNotSpecified || hasNoSupport){
+      console.log('You specified no preference for a color scheme or your browser does not support it. I Schedule dark mode during night time.')
+      var now = new Date()
+      var hour = now.getHours()
+      var isNight = hour < 6 || hour >= 18
+      isNight ? activateDarkMode() : activateLightMode()
+  }
+  } else if (t == 'light') activateLightMode()
+  else activateDarkMode()
 
-    
+} else if (autoChangeMode == '2'){
+  now = new Date();
+  hour = now.getHours();
+  isNight = hour < 6 || hour >= 18
+  if(t === undefined) isNight? activateDarkMode() : activateLightMode()
+  else if (t === 'light') activateLightMode()
+  else activateDarkMode() 
+} else {
+  if ( t == 'dark' ) activateDarkMode()
+  else if ( t == 'light') activateLightMode()
+}
 
-
-
-    <meta charset="utf-8">
-    
-    
-    
-    
-    <title>MySQL学习笔记 | Coder</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    
-    <meta name="theme-color" content="#3F51B5">
-    
-    
-    <meta name="keywords" content="数据库,MySQL">
-    <meta name="description" content="MySQL数据库入门">
-<meta property="og:type" content="article">
-<meta property="og:title" content="MySQL学习笔记">
-<meta property="og:url" content="https://lastknightcoder.gitee.io/MySQL%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
-<meta property="og:site_name" content="Coder">
-<meta property="og:description" content="MySQL数据库入门">
-<meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql01.png">
-<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql02.png">
-<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql03.png">
-<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql04.png">
-<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql05.png">
-<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql06.png">
-<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql07.png">
-<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql08.png">
-<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql09.png">
-<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql10.png">
-<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql11.png">
-<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql12.png">
-<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql12.png">
-<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql13.png">
-<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql14.png">
-<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql15.png">
-<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql16.png">
-<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql17.png">
-<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql18.png">
-<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql19.png">
-<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql20.png">
-<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql21.png">
-<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql22.png">
-<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql23.png">
-<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql24.png">
-<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql25.png">
-<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql26.png">
-<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql27.png">
-<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql30.png">
-<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql31.png">
-<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql32.png">
-<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql33.png">
-<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql34.png">
-<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql35.png">
-<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql36.png">
-<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql37.png">
-<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql38.png">
-<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql39.png">
-<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql40.png">
-<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql41.png">
-<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql42.png">
-<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql43.png">
-<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql44.png">
-<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql45.png">
-<meta property="article:published_time" content="2019-09-13T16:00:00.000Z">
-<meta property="article:modified_time" content="2019-09-13T16:00:00.000Z">
-<meta property="article:author" content="熊滔">
-<meta property="article:tag" content="MySQL">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql01.png">
-    
-        <link rel="alternate" type="application/atom+xml" title="Coder" href="https://lastknightcoder.gitee.io/atom.xml">
-    
-    <link rel="shortcut icon" href="https://lastknightcoder.gitee.io/favicon.ico">
-    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
-    <script>window.lazyScripts=[]</script>
-
-    <!-- custom head -->
-    
-
-<meta name="generator" content="Hexo 4.2.0"></head>
-
-<body>
-    <div id="loading" class="active"></div>
-
-    <aside id="menu" class="hide" >
-  <div class="inner flex-row-vertical">
-    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
-        <i class="icon icon-lg icon-close"></i>
-    </a>
-    <div class="brand-wrap" style="background-image:url(https://lastknightcoder.gitee.io/img/brand.jpg)">
-      <div class="brand">
-        <a href="https://lastknightcoder.gitee.io/" class="avatar waves-effect waves-circle waves-light">
-          <img src="https://lastknightcoder.gitee.io/img/avatar.jpg">
-        </a>
-        <hgroup class="introduce">
-          <h5 class="nickname">熊滔</h5>
-          <a href="mailto:2223106858@qq.com" title="2223106858@qq.com" class="mail">2223106858@qq.com</a>
-        </hgroup>
-      </div>
-    </div>
-    <div class="scroll-wrap flex-col">
-      <ul class="nav">
-        
-            <li class="waves-block waves-effect">
-              <a href="https://lastknightcoder.gitee.io/"  >
-                <i class="icon icon-lg icon-home"></i>
-                主页
-              </a>
-            </li>
-        
-            <li class="waves-block waves-effect">
-              <a href="https://lastknightcoder.gitee.io/archives"  >
-                <i class="icon icon-lg icon-archives"></i>
-                归档
-              </a>
-            </li>
-        
-            <li class="waves-block waves-effect">
-              <a href="https://lastknightcoder.gitee.io/tags"  >
-                <i class="icon icon-lg icon-tags"></i>
-                标签
-              </a>
-            </li>
-        
-            <li class="waves-block waves-effect">
-              <a href="https://lastknightcoder.gitee.io/categories"  >
-                <i class="icon icon-lg icon-th-list"></i>
-                分类
-              </a>
-            </li>
-        
-            <li class="waves-block waves-effect">
-              <a href="https://github.com/LastKnightCoder" target="_blank" >
-                <i class="icon icon-lg icon-github"></i>
-                Github
-              </a>
-            </li>
-        
-      </ul>
-    </div>
-  </div>
-</aside>
-
-    <main id="main">
-        <header class="top-header" id="header">
-    <div class="flex-row">
-        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
-          <i class="icon icon-lg icon-navicon"></i>
-        </a>
-        <div class="flex-col header-title ellipsis">MySQL学习笔记</div>
-        
-        <div class="search-wrap" id="search-wrap">
-            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
-                <i class="icon icon-lg icon-chevron-left"></i>
-            </a>
-            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
-            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
-                <i class="icon icon-lg icon-search"></i>
-            </a>
-        </div>
-        
-        
-        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
-            <i class="icon icon-lg icon-share-alt"></i>
-        </a>
-        
-    </div>
-</header>
-<header class="content-header post-header">
-
-    <div class="container fade-scale">
-        <h1 class="title">MySQL学习笔记</h1>
-        <h5 class="subtitle">
-            
-                <time datetime="2019-09-13T16:00:00.000Z" itemprop="datePublished" class="page-time">
-  2019-09-14
-</time>
-
-
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="https://lastknightcoder.gitee.io/categories/MySQL/">MySQL</a></li></ul>
-
-            
-        </h5>
-    </div>
-
-    
-
-
-</header>
-
-
-<div class="container body-wrap">
-    
-    <aside class="post-widget">
-        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
-            <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#MySQL基本概念"><span class="post-toc-number">1.</span> <span class="post-toc-text">MySQL基本概念</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#连接MySQL"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">连接MySQL</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#SQL语句分类"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">SQL语句分类</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#注释"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">注释</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#DDL"><span class="post-toc-number">2.</span> <span class="post-toc-text">DDL</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#操作数据库"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">操作数据库</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#查询"><span class="post-toc-number">2.1.1.</span> <span class="post-toc-text">查询</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#创建"><span class="post-toc-number">2.1.2.</span> <span class="post-toc-text">创建</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#修改"><span class="post-toc-number">2.1.3.</span> <span class="post-toc-text">修改</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#删除"><span class="post-toc-number">2.1.4.</span> <span class="post-toc-text">删除</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#使用数据库"><span class="post-toc-number">2.1.5.</span> <span class="post-toc-text">使用数据库</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#操作表"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">操作表</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#查询-1"><span class="post-toc-number">2.2.1.</span> <span class="post-toc-text">查询</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#创建-1"><span class="post-toc-number">2.2.2.</span> <span class="post-toc-text">创建</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#删除-1"><span class="post-toc-number">2.2.3.</span> <span class="post-toc-text">删除</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#修改-1"><span class="post-toc-number">2.2.4.</span> <span class="post-toc-text">修改</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#DML"><span class="post-toc-number">3.</span> <span class="post-toc-text">DML</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#添加数据"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">添加数据</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#删除数据"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">删除数据</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#更新数据"><span class="post-toc-number">3.3.</span> <span class="post-toc-text">更新数据</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#DQL"><span class="post-toc-number">4.</span> <span class="post-toc-text">DQL</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#基础查询"><span class="post-toc-number">4.1.</span> <span class="post-toc-text">基础查询</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#查询多个字段"><span class="post-toc-number">4.1.1.</span> <span class="post-toc-text">查询多个字段</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#去重"><span class="post-toc-number">4.1.2.</span> <span class="post-toc-text">去重</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#计算列"><span class="post-toc-number">4.1.3.</span> <span class="post-toc-text">计算列</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#起别名"><span class="post-toc-number">4.1.4.</span> <span class="post-toc-text">起别名</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#条件查询"><span class="post-toc-number">4.2.</span> <span class="post-toc-text">条件查询</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#排序查询"><span class="post-toc-number">4.3.</span> <span class="post-toc-text">排序查询</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#模糊查询"><span class="post-toc-number">4.4.</span> <span class="post-toc-text">模糊查询</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#聚合函数"><span class="post-toc-number">4.5.</span> <span class="post-toc-text">聚合函数</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#分组查询"><span class="post-toc-number">4.6.</span> <span class="post-toc-text">分组查询</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#分页查询"><span class="post-toc-number">4.7.</span> <span class="post-toc-text">分页查询</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#约束"><span class="post-toc-number">5.</span> <span class="post-toc-text">约束</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#非空约束"><span class="post-toc-number">5.1.</span> <span class="post-toc-text">非空约束</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#唯一约束"><span class="post-toc-number">5.2.</span> <span class="post-toc-text">唯一约束</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#主键约束"><span class="post-toc-number">5.3.</span> <span class="post-toc-text">主键约束</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#外键约束"><span class="post-toc-number">5.4.</span> <span class="post-toc-text">外键约束</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#三大范式"><span class="post-toc-number">6.</span> <span class="post-toc-text">三大范式</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#多表查询"><span class="post-toc-number">7.</span> <span class="post-toc-text">多表查询</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#内连接"><span class="post-toc-number">7.1.</span> <span class="post-toc-text">内连接</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#外连接"><span class="post-toc-number">7.2.</span> <span class="post-toc-text">外连接</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#子查询"><span class="post-toc-number">7.3.</span> <span class="post-toc-text">子查询</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#事务"><span class="post-toc-number">8.</span> <span class="post-toc-text">事务</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#事务的特性"><span class="post-toc-number">8.1.</span> <span class="post-toc-text">事务的特性</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#事务的隔离级别"><span class="post-toc-number">8.2.</span> <span class="post-toc-text">事务的隔离级别</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#权限管理"><span class="post-toc-number">9.</span> <span class="post-toc-text">权限管理</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#创建用户"><span class="post-toc-number">9.1.</span> <span class="post-toc-text">创建用户</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#授予权限"><span class="post-toc-number">9.2.</span> <span class="post-toc-text">授予权限</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#撤销权限"><span class="post-toc-number">9.3.</span> <span class="post-toc-text">撤销权限</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#查看权限"><span class="post-toc-number">9.4.</span> <span class="post-toc-text">查看权限</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#删除用户"><span class="post-toc-number">9.5.</span> <span class="post-toc-text">删除用户</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#修改管理员密码"><span class="post-toc-number">9.6.</span> <span class="post-toc-text">修改管理员密码</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#修改普通用户密码"><span class="post-toc-number">9.7.</span> <span class="post-toc-text">修改普通用户密码</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#参考链接"><span class="post-toc-number">10.</span> <span class="post-toc-text">参考链接</span></a></li></ol>
-        </nav>
-    </aside>
-
-
-<article id="post-MySQL学习笔记"
-  class="post-article article-type-post fade" itemprop="blogPost">
-
-    <div class="post-card">
-        <h1 class="post-card-title">MySQL学习笔记</h1>
-        <div class="post-meta">
-            <time class="post-time" title="2019-09-14 00:00:00" datetime="2019-09-13T16:00:00.000Z"  itemprop="datePublished">2019-09-14</time>
-
-            
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="https://lastknightcoder.gitee.io/categories/MySQL/">MySQL</a></li></ul>
-
-
-
-            
-<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
-    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
-</span>
-
-
-        </div>
-        <div class="post-content" id="post-content" itemprop="postContent">
-            <p>这篇文章是记录我学习 <code>MySQL</code> 时的一些笔记，不成体系，仅为以后快速学习准备，由于记录的是从零学习 <code>MySQL</code> 的笔记，所以笔记的内容是十分的基础的，基本上是以用为主，不牵涉到具体的原理性问题。</p>
+function activateDarkMode(){
+  document.documentElement.setAttribute('data-theme', 'dark')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+    document.querySelector('meta[name="theme-color"]').setAttribute('content','#000')
+  }
+}
+function activateLightMode(){
+  document.documentElement.setAttribute('data-theme', 'light')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+  document.querySelector('meta[name="theme-color"]').setAttribute('content','#fff')
+  }
+}</script><link rel="stylesheet" href="https://lastknightcoder.gitee.io/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css"><link rel="canonical" href="https://lastknightcoder.gitee.io/MySQL%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"><link rel="prev" title="数据结构--Java描述" href="https://lastknightcoder.gitee.io/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84--Java%E6%8F%8F%E8%BF%B0/"><link rel="next" title="Java Web笔记" href="https://lastknightcoder.gitee.io/JavaWeb/"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web"><script>var GLOBAL_CONFIG = { 
+  root: 'https://lastknightcoder.gitee.io/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容:${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"cookieDomain":"https://lastknightcoder.gitee.io/","msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  bookmark: {
+    message_prev: '按',
+    message_next: '键将本页加入书签'
+  },
+  runtime_unit: '天',
+  runtime: true,
+  copyright: undefined,
+  ClickShowText: undefined,
+  medium_zoom: true,
+  fancybox: false,
+  Snackbar: {"bookmark":{"message_prev":"按","message_next":"键将本页加入书签"},"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#2d3035","position":"bottom-left"},
+  baiduPush: true,
+  highlightCopy: true,
+  highlightLang: true,
+  highlightShrink: 'false',
+  isFontAwesomeV5: true,
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isanchor: false
+  
+}</script><script>var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isSidebar: true  
+  }</script><noscript><style>
+#page-header {
+  opacity: 1
+}
+.justified-gallery img{
+  opacity: 1
+}
+</style></noscript><meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="https://lastknightcoder.gitee.io/atom.xml" title="Coder" type="application/atom+xml">
+</head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="https://lastknightcoder.gitee.io/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="https://lastknightcoder.gitee.io/archives/"><div class="headline">文章</div><div class="length_num">38</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="https://lastknightcoder.gitee.io/tags/"><div class="headline">标签</div><div class="length_num">41</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="https://lastknightcoder.gitee.io/categories/"><div class="headline">分类</div><div class="length_num">13</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="https://lastknightcoder.gitee.io/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="https://lastknightcoder.gitee.io/archives/"><i class="fa-fw fa fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="https://lastknightcoder.gitee.io/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="https://lastknightcoder.gitee.io/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="https://lastknightcoder.gitee.io/link/"><i class="fa-fw fa fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="https://lastknightcoder.gitee.io/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div></div></div><i class="fa fa-arrow-right on" id="toggle-sidebar" aria-hidden="true">     </i><div id="sidebar"><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#MySQL基本概念"><span class="toc-number">1.</span> <span class="toc-text">MySQL基本概念</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#连接MySQL"><span class="toc-number">1.1.</span> <span class="toc-text">连接MySQL</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SQL语句分类"><span class="toc-number">1.2.</span> <span class="toc-text">SQL语句分类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#注释"><span class="toc-number">1.3.</span> <span class="toc-text">注释</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DDL"><span class="toc-number">2.</span> <span class="toc-text">DDL</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#操作数据库"><span class="toc-number">2.1.</span> <span class="toc-text">操作数据库</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#查询"><span class="toc-number">2.1.1.</span> <span class="toc-text">查询</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#创建"><span class="toc-number">2.1.2.</span> <span class="toc-text">创建</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#修改"><span class="toc-number">2.1.3.</span> <span class="toc-text">修改</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#删除"><span class="toc-number">2.1.4.</span> <span class="toc-text">删除</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#使用数据库"><span class="toc-number">2.1.5.</span> <span class="toc-text">使用数据库</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#操作表"><span class="toc-number">2.2.</span> <span class="toc-text">操作表</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#查询-1"><span class="toc-number">2.2.1.</span> <span class="toc-text">查询</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#创建-1"><span class="toc-number">2.2.2.</span> <span class="toc-text">创建</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#删除-1"><span class="toc-number">2.2.3.</span> <span class="toc-text">删除</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#修改-1"><span class="toc-number">2.2.4.</span> <span class="toc-text">修改</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DML"><span class="toc-number">3.</span> <span class="toc-text">DML</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#添加数据"><span class="toc-number">3.1.</span> <span class="toc-text">添加数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#删除数据"><span class="toc-number">3.2.</span> <span class="toc-text">删除数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#更新数据"><span class="toc-number">3.3.</span> <span class="toc-text">更新数据</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DQL"><span class="toc-number">4.</span> <span class="toc-text">DQL</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#基础查询"><span class="toc-number">4.1.</span> <span class="toc-text">基础查询</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#查询多个字段"><span class="toc-number">4.1.1.</span> <span class="toc-text">查询多个字段</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#去重"><span class="toc-number">4.1.2.</span> <span class="toc-text">去重</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#计算列"><span class="toc-number">4.1.3.</span> <span class="toc-text">计算列</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#起别名"><span class="toc-number">4.1.4.</span> <span class="toc-text">起别名</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#条件查询"><span class="toc-number">4.2.</span> <span class="toc-text">条件查询</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#排序查询"><span class="toc-number">4.3.</span> <span class="toc-text">排序查询</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#模糊查询"><span class="toc-number">4.4.</span> <span class="toc-text">模糊查询</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#聚合函数"><span class="toc-number">4.5.</span> <span class="toc-text">聚合函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#分组查询"><span class="toc-number">4.6.</span> <span class="toc-text">分组查询</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#分页查询"><span class="toc-number">4.7.</span> <span class="toc-text">分页查询</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#约束"><span class="toc-number">5.</span> <span class="toc-text">约束</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#非空约束"><span class="toc-number">5.1.</span> <span class="toc-text">非空约束</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#唯一约束"><span class="toc-number">5.2.</span> <span class="toc-text">唯一约束</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#主键约束"><span class="toc-number">5.3.</span> <span class="toc-text">主键约束</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#外键约束"><span class="toc-number">5.4.</span> <span class="toc-text">外键约束</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三大范式"><span class="toc-number">6.</span> <span class="toc-text">三大范式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#多表查询"><span class="toc-number">7.</span> <span class="toc-text">多表查询</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#内连接"><span class="toc-number">7.1.</span> <span class="toc-text">内连接</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#外连接"><span class="toc-number">7.2.</span> <span class="toc-text">外连接</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#子查询"><span class="toc-number">7.3.</span> <span class="toc-text">子查询</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#事务"><span class="toc-number">8.</span> <span class="toc-text">事务</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#事务的特性"><span class="toc-number">8.1.</span> <span class="toc-text">事务的特性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#事务的隔离级别"><span class="toc-number">8.2.</span> <span class="toc-text">事务的隔离级别</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#权限管理"><span class="toc-number">9.</span> <span class="toc-text">权限管理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#创建用户"><span class="toc-number">9.1.</span> <span class="toc-text">创建用户</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#授予权限"><span class="toc-number">9.2.</span> <span class="toc-text">授予权限</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#撤销权限"><span class="toc-number">9.3.</span> <span class="toc-text">撤销权限</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#查看权限"><span class="toc-number">9.4.</span> <span class="toc-text">查看权限</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#删除用户"><span class="toc-number">9.5.</span> <span class="toc-text">删除用户</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#修改管理员密码"><span class="toc-number">9.6.</span> <span class="toc-text">修改管理员密码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#修改普通用户密码"><span class="toc-number">9.7.</span> <span class="toc-text">修改普通用户密码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考链接"><span class="toc-number">10.</span> <span class="toc-text">参考链接</span></a></li></ol></div></div></div><div id="body-wrap"><div class="post-bg" id="nav" style="background-image: url(https://gitee.com/lastknightcoder/blogimage/raw/master/img/bg73.png)"><div id="page-header"><span class="pull_left" id="blog_name"><a class="blog_title" id="site-name" href="https://lastknightcoder.gitee.io/">Coder</a></span><span class="pull_right menus"><div id="search_button"><a class="site-page social-icon search"><i class="fa fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="https://lastknightcoder.gitee.io/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="https://lastknightcoder.gitee.io/archives/"><i class="fa-fw fa fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="https://lastknightcoder.gitee.io/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="https://lastknightcoder.gitee.io/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="https://lastknightcoder.gitee.io/link/"><i class="fa-fw fa fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="https://lastknightcoder.gitee.io/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div><span class="toggle-menu close"><a class="site-page"><i class="fa fa-bars fa-fw" aria-hidden="true"></i></a></span></span></div><div id="post-info"><div id="post-title"><div class="posttitle">MySQL学习笔记</div></div><div id="post-meta"><div class="meta-firstline"><time class="post-meta__date"><span class="post-meta__date-created" title="发表于 2019-09-14 00:00:00"><i class="fa fa-calendar" aria-hidden="true"></i> 发表于 2019-09-14</span><span class="post-meta__separator">|</span><span class="post-meta__date-updated" title="更新于 2019-09-14 00:00:00"><i class="fa fa-history" aria-hidden="true"></i> 更新于 2019-09-14</span></time><span class="post-meta__categories"><span class="post-meta__separator">|</span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="https://lastknightcoder.gitee.io/categories/MySQL/">MySQL</a></span></div><div class="meta-secondline"> </div><div class="meta-thirdline"><span class="post-meta-pv-cv"><i class="fa fa-eye post-meta__icon" aria-hidden="true"> </i><span>阅读量:</span><span id="busuanzi_value_page_pv"></span></span><span class="post-meta-commentcount"></span></div></div></div></div><main class="layout_post" id="content-inner"><article id="post"><div class="post-content" id="article-container"><p>这篇文章是记录我学习 <code>MySQL</code> 时的一些笔记，不成体系，仅为以后快速学习准备，由于记录的是从零学习 <code>MySQL</code> 的笔记，所以笔记的内容是十分的基础的，基本上是以用为主，不牵涉到具体的原理性问题。</p>
 <h2 id="MySQL基本概念"><a href="#MySQL基本概念" class="headerlink" title="MySQL基本概念"></a>MySQL基本概念</h2><p>我们使用Java编写程序，一般数据都是存储在内存中的，一旦程序终止或断电，那么数据就会丢失，所以我们需要将数据存储到本地文件中，我们一般存储到数据库中，而 <code>MySQL</code> 正是这么一款数据库。</p>
 <p>安装 <code>MySQL</code> 很简单，直接使用搜索引擎搜索 <code>MySQL</code>，进入官网进行安装，<code>MySQL</code> 是开源的软件。目前企业使用的是5.5-5.7的版本，选择进行下载即可。若要卸载 <code>MySQL</code>，在手动卸载 <code>MySQL</code> 后，还要删除 <code>C:\ProgramData\MySQL</code> 这个文件夹，否则重新安装时不能成功。</p>
 <h3 id="连接MySQL"><a href="#连接MySQL" class="headerlink" title="连接MySQL"></a>连接MySQL</h3><p>在命令行中输入</p>
@@ -239,7 +92,7 @@
 
 <p>然后会提示你输入密码</p>
 <center>
-<img src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql01.png" />
+<img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql01.png" />
 </center>
 
 
@@ -407,7 +260,7 @@
 <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">DESC student; <span class="comment">-- 查看表的结构</span></span><br></pre></td></tr></table></figure>
 
 <center>
-<img src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql02.png" />
+<img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql02.png" />
 </center>
 
 
@@ -419,7 +272,7 @@
 
 <p>使用 <code>SELECT * FROM student;</code> 得到数据为</p>
 <center>
-<img src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql03.png" />
+<img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql03.png" />
 </center>
 
 
@@ -440,7 +293,7 @@
 
 <p>得到的结果为</p>
 <center>
-<img src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql04.png" />
+<img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql04.png" />
 </center>
 
 
@@ -458,7 +311,7 @@
 <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">UPDATE</span> student <span class="keyword">set</span> age = <span class="number">28</span> <span class="keyword">WHERE</span> age = <span class="number">27</span>;</span><br></pre></td></tr></table></figure>
 
 <center>
-<img src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql05.png" />
+<img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql05.png" />
 </center>
 
 <h2 id="DQL"><a href="#DQL" class="headerlink" title="DQL"></a>DQL</h2><p>查询数据的基本语法为</p>
@@ -477,14 +330,14 @@
 <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> student <span class="keyword">change</span> <span class="keyword">name</span> <span class="keyword">name</span> <span class="built_in">char</span>(<span class="number">20</span>) <span class="built_in">character</span> <span class="keyword">set</span> utf8;</span><br><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> student <span class="keyword">change</span> address address <span class="built_in">char</span>(<span class="number">100</span>) <span class="built_in">character</span> <span class="keyword">set</span> utf8;</span><br><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> student <span class="keyword">change</span> sex sex <span class="built_in">char</span>(<span class="number">5</span>) <span class="built_in">character</span> <span class="keyword">set</span> utf8;</span><br></pre></td></tr></table></figure>
 
 <center>
-<img src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql06.png" />
+<img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql06.png" />
 </center>
 
 
 <h3 id="基础查询"><a href="#基础查询" class="headerlink" title="基础查询"></a>基础查询</h3><h4 id="查询多个字段"><a href="#查询多个字段" class="headerlink" title="查询多个字段"></a>查询多个字段</h4><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> </span><br><span class="line">	<span class="keyword">name</span>, age </span><br><span class="line"><span class="keyword">FROM</span> </span><br><span class="line">	student; <span class="comment">-- 查询name和age字段</span></span><br></pre></td></tr></table></figure>
 
 <center>
-<img src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql07.png" />
+<img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql07.png" />
 </center>
 
 
@@ -492,7 +345,7 @@
 <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> </span><br><span class="line">	address </span><br><span class="line"><span class="keyword">FROM</span> </span><br><span class="line">	student;</span><br></pre></td></tr></table></figure>
 
 <center>
-<img src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql08.png" />
+<img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql08.png" />
 </center>
 
 
@@ -500,7 +353,7 @@
 <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">DISTINCT</span> </span><br><span class="line">	address </span><br><span class="line"><span class="keyword">FROM</span> </span><br><span class="line">	student;</span><br></pre></td></tr></table></figure>
 
 <center>
-<img src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql09.png" />
+<img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql09.png" />
 </center>
 
 
@@ -508,7 +361,7 @@
 <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> </span><br><span class="line">	<span class="keyword">name</span>, math, english, math+english </span><br><span class="line"><span class="keyword">FROM</span> </span><br><span class="line">	student; <span class="comment">-- 为了看出是谁的总分，这里加上一个name字段</span></span><br></pre></td></tr></table></figure>
 
 <center>
-<img src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql10.png" />
+<img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql10.png" />
 </center>
 
 
@@ -517,7 +370,7 @@
 
 <p>这里使用了 <code>ifnull(english,0)</code>，如果 <code>english</code> 的值是 <code>null</code>，那么就替换为 0，所以我们得到的结果为</p>
 <center>
-<img src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql11.png" />
+<img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql11.png" />
 </center>
 
 
@@ -525,7 +378,7 @@
 <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> </span><br><span class="line">	<span class="keyword">name</span>, math, english, math+<span class="keyword">ifnull</span>(english,<span class="number">0</span>) <span class="keyword">AS</span> score </span><br><span class="line"><span class="keyword">FROM</span> </span><br><span class="line">	student;</span><br></pre></td></tr></table></figure>
 
 <center>
-<img src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql12.png" />
+<img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql12.png" />
 </center>
 
 
@@ -534,7 +387,7 @@
 
 <p>该句得到的结果与上面的相同</p>
 <center>
-<img src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql12.png" />
+<img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql12.png" />
 </center>
 
 
@@ -542,7 +395,7 @@
 <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> </span><br><span class="line">	<span class="keyword">name</span>,age </span><br><span class="line"><span class="keyword">FROM</span> </span><br><span class="line">	student </span><br><span class="line"><span class="keyword">WHERE</span> </span><br><span class="line">	age &gt; <span class="number">20</span>;</span><br></pre></td></tr></table></figure>
 
 <center>
-<img src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql13.png" />
+<img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql13.png" />
 </center>
 
 
@@ -555,7 +408,7 @@
 <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> </span><br><span class="line">	<span class="keyword">name</span>,age </span><br><span class="line"><span class="keyword">FROM</span> </span><br><span class="line">	student </span><br><span class="line"><span class="keyword">WHERE</span> </span><br><span class="line">	age &gt; <span class="number">20</span> <span class="keyword">AND</span> age &lt; <span class="number">50</span>; <span class="comment">-- 年龄在20-50之间的</span></span><br></pre></td></tr></table></figure>
 
 <center>
-<img src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql14.png" />
+<img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql14.png" />
 </center>
 
 
@@ -563,14 +416,14 @@
 <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> </span><br><span class="line">	<span class="keyword">name</span>,age </span><br><span class="line"><span class="keyword">FROM</span> </span><br><span class="line">	student </span><br><span class="line"><span class="keyword">WHERE</span> </span><br><span class="line">	age <span class="keyword">BETWEEN</span> <span class="number">20</span> <span class="keyword">AND</span> <span class="number">50</span>; <span class="comment">-- 在20-50之间，包括20和50</span></span><br></pre></td></tr></table></figure>
 
 <center>
-<img src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql15.png" />
+<img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql15.png" />
 </center>
 
 
 <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> </span><br><span class="line">	<span class="keyword">name</span>,age </span><br><span class="line"><span class="keyword">FROM</span> </span><br><span class="line">	student </span><br><span class="line"><span class="keyword">WHERE</span> </span><br><span class="line">	age = <span class="number">18</span> <span class="keyword">OR</span> age = <span class="number">20</span> <span class="keyword">OR</span> age = <span class="number">25</span>; <span class="comment">-- 查询年龄为18或20或25的</span></span><br></pre></td></tr></table></figure>
 
 <center>
-<img src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql16.png" />
+<img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql16.png" />
 </center>
 
 
@@ -585,21 +438,21 @@
 <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> </span><br><span class="line">	<span class="keyword">name</span>,math </span><br><span class="line"><span class="keyword">FROM</span> </span><br><span class="line">	student </span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> </span><br><span class="line">	math; <span class="comment">-- 默认为升序</span></span><br></pre></td></tr></table></figure>
 
 <center>
-<img src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql17.png" />
+<img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql17.png" />
 </center>
 
 
 <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> </span><br><span class="line">	<span class="keyword">name</span>,math </span><br><span class="line"><span class="keyword">FROM</span> </span><br><span class="line">	student </span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> </span><br><span class="line">	math <span class="keyword">DESC</span>; <span class="comment">-- 降序</span></span><br></pre></td></tr></table></figure>
 
 <center>
-<img src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql18.png" />
+<img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql18.png" />
 </center>
 
 <p><code>ORDER BY</code> 可以对多个字段进行排序，先对前面的字段进行排序，如果前面的字段相同，在根据后面的字段排序，比如按照数学和英语成绩排名，优先按数学成绩来，如果数学成绩相同则按英语成绩来</p>
 <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> </span><br><span class="line">	<span class="keyword">name</span>,math,english </span><br><span class="line"><span class="keyword">FROM</span> </span><br><span class="line">	student </span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> </span><br><span class="line">	math <span class="keyword">DESC</span>, english <span class="keyword">DESC</span>;</span><br></pre></td></tr></table></figure>
 
 <center>
-<img src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql19.png" />
+<img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql19.png" />
 </center>
 
 
@@ -611,7 +464,7 @@
 <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> </span><br><span class="line">	<span class="keyword">name</span> </span><br><span class="line"><span class="keyword">FROM</span> </span><br><span class="line">	student </span><br><span class="line"><span class="keyword">WHERE</span> </span><br><span class="line">	<span class="keyword">name</span> <span class="keyword">LIKE</span> <span class="string">'马%'</span>;</span><br></pre></td></tr></table></figure>
 
 <center>
-<img src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql20.png" />
+<img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql20.png" />
 </center>
 
 
@@ -619,7 +472,7 @@
 <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> </span><br><span class="line">	<span class="keyword">name</span> </span><br><span class="line"><span class="keyword">FROM</span> </span><br><span class="line">	student </span><br><span class="line"><span class="keyword">WHERE</span> </span><br><span class="line">	<span class="keyword">name</span> <span class="keyword">LIKE</span> <span class="string">'%德%'</span>;</span><br></pre></td></tr></table></figure>
 
 <center>
-<img src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql21.png" />
+<img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql21.png" />
 </center>
 
 
@@ -637,7 +490,7 @@
 <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> </span><br><span class="line">     sex,<span class="keyword">avg</span>(math) <span class="keyword">avg</span>  <span class="comment">-- avg是别名</span></span><br><span class="line"><span class="keyword">FROM</span> </span><br><span class="line">     student </span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> </span><br><span class="line">     sex;</span><br></pre></td></tr></table></figure>
 
 <center>
-<img src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql22.png" />
+<img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql22.png" />
 </center>
 
 
@@ -645,7 +498,7 @@
 <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> </span><br><span class="line">     sex,<span class="keyword">avg</span>(math) <span class="keyword">avg</span>, <span class="keyword">count</span>(<span class="keyword">id</span>) <span class="keyword">count</span> <span class="comment">-- avg和count是别名</span></span><br><span class="line"><span class="keyword">FROM</span> </span><br><span class="line">     student </span><br><span class="line"><span class="keyword">WHERE</span> </span><br><span class="line">     math &gt; <span class="number">70</span> </span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> </span><br><span class="line">     sex;</span><br></pre></td></tr></table></figure>
 
 <center>
-<img src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql23.png" />
+<img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql23.png" />
 </center>
 
 
@@ -653,7 +506,7 @@
 <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span></span><br><span class="line">       sex,<span class="keyword">avg</span>(math) <span class="keyword">avg</span>, <span class="keyword">count</span>(<span class="keyword">id</span>) <span class="keyword">count</span></span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">     student</span><br><span class="line"><span class="keyword">WHERE</span></span><br><span class="line">      math &gt; <span class="number">70</span></span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span></span><br><span class="line">         sex</span><br><span class="line"><span class="keyword">HAVING</span></span><br><span class="line">    <span class="keyword">count</span>(<span class="keyword">id</span>) &gt; <span class="number">2</span>;</span><br></pre></td></tr></table></figure>
 
 <center>
-<img src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql24.png" />
+<img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql24.png" />
 </center>
 
 
@@ -662,7 +515,7 @@
 <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span></span><br><span class="line">       *</span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">    student</span><br><span class="line"><span class="keyword">LIMIT</span></span><br><span class="line">    <span class="number">0</span>,<span class="number">3</span>; <span class="comment">-- 查询中0开始的3行数据</span></span><br></pre></td></tr></table></figure>
 
 <center>
-<img src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql25.png" />
+<img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql25.png" />
 </center>
 
 
@@ -670,7 +523,7 @@
 <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span></span><br><span class="line">       *</span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">    student</span><br><span class="line"><span class="keyword">LIMIT</span></span><br><span class="line">    <span class="number">3</span>,<span class="number">3</span>;</span><br></pre></td></tr></table></figure>
 
 <center>
-<img src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql26.png" />
+<img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql26.png" />
 </center>
 
 <h2 id="约束"><a href="#约束" class="headerlink" title="约束"></a>约束</h2><p>所谓约束就是对数据产生限制，比如说某列不能为空(NULL)，有或者说某列的数据不能重复。约束一般包括下面四种约束</p>
@@ -744,13 +597,13 @@
 
 <h3 id="外键约束"><a href="#外键约束" class="headerlink" title="外键约束"></a>外键约束</h3><p>假设有这么一张表</p>
 <center>
-<img src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql27.png" />
+<img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql27.png" />
 </center>
 
 
 <p>观察研发部门和部门地点，发现数据冗余很严重，并且在后续添加数据中添加的也是这么一对一对的，很麻烦并且有在添加数据可能会出错，所以我们可以把这张表拆成两张表，如下</p>
 <center>
-<img src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql30.png" />
+<img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql30.png" />
 </center>
 
 
@@ -793,13 +646,13 @@
 <p>目前关系数据库有六种范式 ： 第一范式(1NF) 、第二范式(2NF) 、第三范式(3NF) 、巴斯-科德范式(BCNF) 、第四范式(4NF)和第五范式(5NF，又称完美范式) 。满足最低要求的范式是第一范式(1NF) 。在第一范式的基础上进一步满足更多规范要求的称为第二范式(2NF) ，其余范式以次类推。一般说来，数据库只需满足第三范式(3NF)就行了。</p>
 <p>为了理解三大范式，我们首先来看这么一张表</p>
 <center>
-<img src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql31.png" />
+<img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql31.png" />
 </center>
 
 
 <p>我们首先来看第一范式的概念：数据库表的每一列都是不可分割的原子数据项。即表中的某个列有多个值时，必须拆分为不同的列。上面的那个表不满足第一范式，因为系的那一列被拆成了两列，我们将它拆分成不同的列</p>
 <center>
-<img src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql32.png" />
+<img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql32.png" />
 </center>
 
 
@@ -830,13 +683,13 @@
 </ol>
 <p>其实 2NF 就是在 1NF 基础上消除非主属性对主码的部分函数依赖，上表中的码为(学号，课程名称)，只有分数完全依赖该码组，所以我们拆分表如下，</p>
 <center>
-<img src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql33.png" />
+<img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql33.png" />
 </center>
 
 
 <p>第三范式(3NF)：在2NF基础上，任何非主属性不依赖于其它非主属性(在2NF基础上消除传递依赖)，在学生表中存在学号 <code>=&gt;</code> 系名 <code>=&gt;</code> 系主任的传递依赖，所以再次拆分表</p>
 <center>
-<img src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql34.png" />
+<img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql34.png" />
 </center>
 
 
@@ -848,8 +701,8 @@
 </ul>
 <h2 id="多表查询"><a href="#多表查询" class="headerlink" title="多表查询"></a>多表查询</h2><p>多表查询顾名思义就是同时查询多张表，假设有下面这么两张表(第一张是职员(emp)表，第二张是部门(dept)表)</p>
 <center>
-<img src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql35.png" />
-<img src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql36.png" />
+<img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql35.png" />
+<img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql36.png" />
 </center>
 
 
@@ -858,7 +711,7 @@
 
 <p>我们将得到下面这么一张表</p>
 <center>
-<img src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql37.png" />
+<img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql37.png" />
 </center>
 
 
@@ -879,7 +732,7 @@
 
 <h3 id="外连接"><a href="#外连接" class="headerlink" title="外连接"></a>外连接</h3><p>为了演示外连接，在上面的部门表中新加入一个销售部</p>
 <center>
-<img src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql38.png" />
+<img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql38.png" />
 </center>
 
 
@@ -892,7 +745,7 @@
 <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> dept <span class="keyword">INNER</span> <span class="keyword">JOIN</span> emp e <span class="keyword">ON</span> e.dept_id = dept.id; <span class="comment"># e是emp的别名</span></span><br></pre></td></tr></table></figure>
 
 <center>
-<img src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql39.png" />
+<img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql39.png" />
 </center>
 
 
@@ -901,7 +754,7 @@
 
 <p>因为左外连接查询是以左表(dept)为基准，左表的内容会全部显示出来，即销售部会被查询出来，而对应的员工表没有对应的元素，所以会显示空</p>
 <center>
-<img src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql40.png" />
+<img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql40.png" />
 </center>
 
 
@@ -909,7 +762,7 @@
 <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> emp e <span class="keyword">RIGHT</span> <span class="keyword">JOIN</span> dept d <span class="keyword">ON</span> e.dept_id = d.id;</span><br></pre></td></tr></table></figure>
 
 <center>
-<img src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql41.png" />
+<img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql41.png" />
 </center>
 
 
@@ -922,7 +775,7 @@
 <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> emp t1 <span class="keyword">WHERE</span> t1.salary = (<span class="keyword">SELECT</span> <span class="keyword">max</span>(salary) <span class="keyword">FROM</span> emp);</span><br></pre></td></tr></table></figure>
 
 <center>
-<img src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql42.png" />
+<img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql42.png" />
 </center>
 
 
@@ -936,7 +789,7 @@
 <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> emp t1 <span class="keyword">WHERE</span> t1.salary &lt; (<span class="keyword">SELECT</span> <span class="keyword">avg</span>(salary) <span class="keyword">FROM</span> emp);</span><br></pre></td></tr></table></figure>
 
 <center>
-<img src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql43.png" />
+<img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql43.png" />
 </center>
 
 
@@ -944,7 +797,7 @@
 <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span></span><br><span class="line">    t1.name</span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">     dept t1</span><br><span class="line"><span class="keyword">WHERE</span></span><br><span class="line">    t1.id <span class="keyword">IN</span> (<span class="keyword">SELECT</span> emp.dept_id <span class="keyword">FROM</span> emp <span class="keyword">WHERE</span> emp.salary &gt; <span class="number">5000</span>);</span><br></pre></td></tr></table></figure>
 
 <center>
-<img src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql44.png" />
+<img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql44.png" />
 </center>
 
 
@@ -973,7 +826,7 @@
 </ul>
 <p>假设有这么一张表，里面存储的是用户名和余额信息</p>
 <center>
-<img src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql45.png" />
+<img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/mysql45.png" />
 </center>
 
 
@@ -1158,326 +1011,17 @@
 <li><a href="https://www.cnblogs.com/bypp/p/8618382.html" target="_blank" rel="noopener">MySQL数据查询之多表查询</a></li>
 <li><a href="https://blog.csdn.net/ch717828/article/details/41357431" target="_blank" rel="noopener">MySQL插入中文错误</a></li>
 </ul>
-
-        </div>
-
-        <blockquote class="post-copyright">
-    
-    <div class="content">
-        
-<span class="post-time">
-    最后更新时间：<time datetime="2019-09-13T16:00:00.000Z" itemprop="dateUpdated">2019-09-14 00:00:00</time>
-</span><br>
-
-
-        
-    </div>
-    
-    <footer>
-        <a href="https://lastknightcoder.gitee.io">
-            <img src="https://lastknightcoder.gitee.io/img/avatar.jpg" alt="熊滔">
-            熊滔
-        </a>
-    </footer>
-</blockquote>
-
-        
-<div class="page-reward">
-    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
-</div>
-
-
-
-        <div class="post-footer">
-            
-	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="https://lastknightcoder.gitee.io/tags/MySQL/" rel="tag">MySQL</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="https://lastknightcoder.gitee.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag">数据库</a></li></ul>
-
-
-            
-<div class="page-share-wrap">
-    
-
-<div class="page-share" id="pageShare">
-    <ul class="reset share-icons">
-      <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://lastknightcoder.gitee.io/MySQL%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/&title=《MySQL学习笔记》 — Coder&pic=https://lastknightcoder.gitee.io/img/avatar.jpg" data-title="微博">
-          <i class="icon icon-weibo"></i>
-        </a>
-      </li>
-      <li>
-        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
-          <i class="icon icon-weixin"></i>
-        </a>
-      </li>
-      <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://lastknightcoder.gitee.io/MySQL%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/&title=《MySQL学习笔记》 — Coder&source=人生天地间，忽如远行客" data-title=" QQ">
-          <i class="icon icon-qq"></i>
-        </a>
-      </li>
-      <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://lastknightcoder.gitee.io/MySQL%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" data-title=" Facebook">
-          <i class="icon icon-facebook"></i>
-        </a>
-      </li>
-      <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《MySQL学习笔记》 — Coder&url=https://lastknightcoder.gitee.io/MySQL%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/&via=https://lastknightcoder.gitee.io" data-title=" Twitter">
-          <i class="icon icon-twitter"></i>
-        </a>
-      </li>
-      <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://lastknightcoder.gitee.io/MySQL%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" data-title=" Google+">
-          <i class="icon icon-google-plus"></i>
-        </a>
-      </li>
-    </ul>
- </div>
-
-
-
-    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
-        <i class="icon icon-share-alt icon-lg"></i>
-    </a>
-</div>
-
-
-
-        </div>
-    </div>
-
-    
-<nav class="post-nav flex-row flex-justify-between">
-  
-    <div class="waves-block waves-effect prev">
-      <a href="https://lastknightcoder.gitee.io/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84--Java%E6%8F%8F%E8%BF%B0/" id="post-prev" class="post-nav-link">
-        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
-        <h4 class="title">数据结构--Java描述</h4>
-      </a>
-    </div>
-  
-
-  
-    <div class="waves-block waves-effect next">
-      <a href="https://lastknightcoder.gitee.io/JavaWeb/" id="post-next" class="post-nav-link">
-        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
-        <h4 class="title">Java Web笔记</h4>
-      </a>
-    </div>
-  
-</nav>
-
-
-
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</article>
-
-<div id="reward" class="page-modal reward-lay">
-    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <h3 class="reward-title">
-        <i class="icon icon-quote-left"></i>
-        谢谢大爷~
-        <i class="icon icon-quote-right"></i>
-    </h3>
-    <div class="reward-content">
-        
-        <div class="reward-code">
-            <img id="rewardCode" src="https://lastknightcoder.gitee.io/img/wechatpay.png" alt="打赏二维码">
-        </div>
-        
-        <label class="reward-toggle">
-            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
-                data-wechat="https://lastknightcoder.gitee.io/img/wechatpay.png" data-alipay="https://lastknightcoder.gitee.io/img/alipay.png">
-            <div class="reward-toggle-ctrol">
-                <span class="reward-toggle-item wechat">微信</span>
-                <span class="reward-toggle-label"></span>
-                <span class="reward-toggle-item alipay">支付宝</span>
-            </div>
-        </label>
-        
-    </div>
-</div>
-
-
-
-</div>
-
-        <footer class="footer">
-    <div class="top">
-        
-<p>
-    <span id="busuanzi_container_site_uv" style='display:none'>
-        站点总访客数：<span id="busuanzi_value_site_uv"></span>
-    </span>
-    <span id="busuanzi_container_site_pv" style='display:none'>
-        站点总访问量：<span id="busuanzi_value_site_pv"></span>
-    </span>
-</p>
-
-
-        <p>
-            
-                <span><a href="https://lastknightcoder.gitee.io/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
-            
-            <span>博客内容遵循 <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
-        </p>
-    </div>
-    <div class="bottom">
-        <p><span>熊滔 &copy; 2019 - 2020</span>
-            <span>
-                
-                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
-            </span>
-        </p>
-    </div>
-</footer>
-
-    </main>
-    <div class="mask" id="mask"></div>
-<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
-
-
-
-<div class="global-share" id="globalShare">
-    <ul class="reset share-icons">
-      <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://lastknightcoder.gitee.io/MySQL%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/&title=《MySQL学习笔记》 — Coder&pic=https://lastknightcoder.gitee.io/img/avatar.jpg" data-title="微博">
-          <i class="icon icon-weibo"></i>
-        </a>
-      </li>
-      <li>
-        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
-          <i class="icon icon-weixin"></i>
-        </a>
-      </li>
-      <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://lastknightcoder.gitee.io/MySQL%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/&title=《MySQL学习笔记》 — Coder&source=人生天地间，忽如远行客" data-title=" QQ">
-          <i class="icon icon-qq"></i>
-        </a>
-      </li>
-      <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://lastknightcoder.gitee.io/MySQL%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" data-title=" Facebook">
-          <i class="icon icon-facebook"></i>
-        </a>
-      </li>
-      <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《MySQL学习笔记》 — Coder&url=https://lastknightcoder.gitee.io/MySQL%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/&via=https://lastknightcoder.gitee.io" data-title=" Twitter">
-          <i class="icon icon-twitter"></i>
-        </a>
-      </li>
-      <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://lastknightcoder.gitee.io/MySQL%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" data-title=" Google+">
-          <i class="icon icon-google-plus"></i>
-        </a>
-      </li>
-    </ul>
- </div>
-
-
-<div class="page-modal wx-share" id="wxShare">
-    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACtklEQVR42u3ay3LCMBAEwPz/TydVuYLNjFYKpKp9ogx+tA6SmN2vr/j4/j0ezzyef/z26tr7+zyev3rWhgMPDw9v6dWvjvZh95j8zNVA5O+Mh4eHd5qX37odmvulIv+8Nrh4eHh47+UlW+R8w538PhkUPDw8vM/ntbFFPtHj4eHh/S9eEkbsCg7un/u2rAUPDw8v5rUFsE/4fLC+h4eHhzeoqudH2zqQbKPnb4iHh4d3grcW184LZpPPdWEMDw8PbytvspHNX+J+gPKhrCMSPDw8vD/h3f/hz6PY5D7t+TpixsPDwzvGa6fmyTZ6V8EsugoPDw/vGK+NGybh7NpmOhncF+seHh4e3iZeUpJv257aLfJaTFz8JcDDw8PbymvDiLYRqo4PykF/8bZ4eHh4B3h5UNtO65MN8Rx8+Us8PDy8MW9yo/aFdm2788IYHh4e3gne2oSel6ny3+Rb8AKGh4eHd4zXLgzzYljbWLArHMHDw8Ob83a1OuVT9tqy0RbhnoQReHh4eAd4a+Wl9lWSyLgNgi+fi4eHh3eMNwkO8pJYPoiTAPfJwoCHh4e3lTe53aTYPzlfh854eHh4W3mTaKBtGmiXmTaH3ralxsPDwyt5k6JXu8CsDcS2dis8PDy8Aa+d1tdedK1hKwl8LwcXDw8P7wCvnmrjFqj82jwOzotheHh4eOd4bUvT2nBMmgbyElqUT+Ph4eGNeXlUOolxJxvrdkF6UeXDw8PDG/O+y6ONBtb2+JOoougpw8PDw1viTabdecGsbRRY2/rj4eHhneBNFoN8al5jrG3BL8NcPDw8vK28XYtBfoe1tq3FrBoPDw/vA3i7pu92o9xGGHh4eHjv5bWT8jxWaFuyRgsDHh4eXsnLb51/m1yVg0cLAx4eHt5W3oaOrQPnJ+0IG+p7eHh4eM/P/ABM3pKX7fyC3gAAAABJRU5ErkJggg==" alt="微信分享二维码">
-</div>
-
-
-
-
-    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
-<script>
-var BLOG = { ROOT: 'https://lastknightcoder.gitee.io/', SHARE: true, REWARD: true };
-
-
-</script>
-
-<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
-
-
-<div class="search-panel" id="search-panel">
-    <ul class="search-result" id="search-result"></ul>
-</div>
-<template id="search-tpl">
-<li class="item">
-    <a href="{path}" class="waves-block waves-effect">
-        <div class="title ellipsis" title="{title}">{title}</div>
-        <div class="flex-row flex-middle">
-            <div class="tags ellipsis">
-                {tags}
-            </div>
-            <time class="flex-col time">{date}</time>
-        </div>
-    </a>
-</li>
-</template>
-
-<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
-
-
-
-<!-- mathjax config similar to math.stackexchange -->
-
-<script type="text/x-mathjax-config">
-MathJax.Hub.Config({
-    tex2jax: {
-        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
-        processEscapes: true,
-        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-    }
-});
-
-MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-    for(i=0; i < all.length; i += 1) {
-        all[i].SourceElement().parentNode.className += ' has-jax';
-    }
-});
-</script>
-
-<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
-
-
-
-
-<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-
-
-<script>
-(function() {
-    var OriginTitile = document.title, titleTime;
-    document.addEventListener('visibilitychange', function() {
-        if (document.hidden) {
-            document.title = '死鬼去哪里了！';
-            clearTimeout(titleTime);
-        } else {
-            document.title = '(つェ⊂)咦!又好了!';
-            titleTime = setTimeout(function() {
-                document.title = OriginTitile;
-            },2000);
-        }
-    });
-})();
-</script>
-
-
-
-</body>
-</html>
+</div><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">熊滔</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://lastknightcoder.gitee.io/MySQL%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">https://lastknightcoder.gitee.io/MySQL%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://lastknightcoder.gitee.io" target="_blank">Coder</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="https://lastknightcoder.gitee.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a><a class="post-meta__tags" href="https://lastknightcoder.gitee.io/tags/MySQL/">MySQL</a></div><div class="post_share"><div class="social-share" data-image="https://gitee.com/lastknightcoder/blogimage/raw/master/img/bg83.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"/><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js"></script></div></div><div class="post-reward"><a class="reward-button button--primary button--animated"> <i class="fa fa-qrcode"></i> 打赏<div class="reward-main"><ul class="reward-all"><li class="reward-item"><img class="post-qr-code__img" src="https://lastknightcoder.gitee.io/img/wechatpay.png" alt="微信"/><div class="post-qr-code__desc">微信</div></li><li class="reward-item"><img class="post-qr-code__img" src="https://lastknightcoder.gitee.io/img/alipay.png" alt="支付宝"/><div class="post-qr-code__desc">支付宝</div></li></ul></div></a></div><nav class="pagination_post" id="pagination"><div class="prev-post pull_left"><a href="https://lastknightcoder.gitee.io/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84--Java%E6%8F%8F%E8%BF%B0/"><img class="prev_cover" data-src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/bg65.jpg" onerror="onerror=null;src='https://lastknightcoder.gitee.io/img/404.jpg'"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">数据结构--Java描述</div></div></a></div><div class="next-post pull_right"><a href="https://lastknightcoder.gitee.io/JavaWeb/"><img class="next_cover" data-src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/bg67.jpg" onerror="onerror=null;src='https://lastknightcoder.gitee.io/img/404.jpg'"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Java Web笔记</div></div></a></div></nav><div class="relatedPosts"><div class="relatedPosts_headline"><i class="fa fa-fw fa-thumbs-up" aria-hidden="true"></i><span> 相关推荐</span></div><div class="relatedPosts_list"><div class="relatedPosts_item"><a href="https://lastknightcoder.gitee.io//JDBC/" title="JDBC"><img class="relatedPosts_cover" data-src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/bg71.png"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2019-08-15</div><div class="relatedPosts_title">JDBC</div></div></a></div></div><div class="clear_both"></div></div></article></main><footer id="footer" data-type="color"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2020 By 熊滔</div><div class="framework-info"><span>驱动 </span><a href="https://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 </span><a href="https://github.com/jerryc127/hexo-theme-butterfly" target="_blank" rel="noopener"><span>Butterfly</span></a></div></div></footer></div><section class="rightside" id="rightside"><div id="rightside-config-hide"><i class="fa fa-book" id="readmode" title="阅读模式"></i><i class="fa fa-plus" id="font_plus" title="放大字体"></i><i class="fa fa-minus" id="font_minus" title="缩小字体"></i><a class="translate_chn_to_cht" id="translateLink" href="javascript:translatePage();" title="简繁转换" target="_self">简</a><i class="darkmode far fa-moon" id="darkmode" title="夜间模式"></i></div><div id="rightside-config-show"><div id="rightside_config" title="设置"><i class="fa fa-cog" aria-hidden="true"></i></div><i class="fa fa-list-ul close" id="mobile-toc-button" title="目录" aria-hidden="true"></i><i class="fa fa-arrow-up" id="go-up" title="回到顶部" aria-hidden="true"></i></div></section><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a href="https://github.com/wzpan/hexo-generator-search" target="_blank" rel="noopener" style="color:#49B1F5;">hexo-generator-search</a>
+ <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fa fa-times"></i></span></div><div class="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://lastknightcoder.gitee.io/js/utils.js"></script><script src="https://lastknightcoder.gitee.io/js/main.js"></script><script src="https://lastknightcoder.gitee.io/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/medium-zoom/dist/medium-zoom.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script id="ribbon_piao" mobile="false" src="https://lastknightcoder.gitee.io/js/third-party/piao.js"></script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@latest/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/lozad/dist/lozad.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js"></script><script>document.addEventListener('DOMContentLoaded', function() {
+      pangu.spacingElementById('content-inner')
+})</script><script src="https://lastknightcoder.gitee.io/js/search/local-search.js"></script><script>if (document.getElementsByClassName('mermaid').length) {
+  loadScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js',function () {
+    mermaid.initialize({
+      theme: 'default',
+  })
+})
+}</script><script>var endLoading = function () {
+  document.body.style.overflow = 'auto';
+  document.getElementById('loading-box').classList.add("loaded")
+}
+window.addEventListener('load',endLoading)</script></body></html>
