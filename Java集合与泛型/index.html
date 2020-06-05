@@ -1,12 +1,195 @@
-<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="author" content="熊滔"><meta name="description" content="人生天地间，忽如远行客"><link rel="alternative" href="/atom.xml" title="Coder" type="application/atom+xml"><link rel="icon" href="/favicon.png"><title>Java集合与泛型 - Coder</title>
-<link rel="stylesheet" href="https://lastknightcoder.gitee.io/css/main.css">
+<!DOCTYPE html>
+<html>
+<head>
+    
 
-<link rel="stylesheet" href="https://lastknightcoder.gitee.io/js/fancybox/jquery.fancybox.min.css">
-<!--[if lt IE 9]><script>(function(a,b){a="abbr article aside audio bdi canvas data datalist details dialog figcaption figure footer header hgroup main mark meter nav output progress section summary template time video".split(" ");for(b=a.length-1;b>=0;b--)document.createElement(a[b])})()</script><![endif]-->
-<script src="https://lastknightcoder.gitee.io/js/jquery-3.1.1.min.js"></script>
+    
 
-<script src="https://lastknightcoder.gitee.io/js/fancybox/jquery.fancybox.min.js"></script>
-<meta name="generator" content="Hexo 4.2.0"></head><body style="opacity:0"><header class="head"><h1 class="head-title u-fl"><a href="https://lastknightcoder.gitee.io/">Coder</a></h1><nav class="head-nav u-fr"><ul class="head-nav__list"><li class="head-nav__item"><a class="head-nav__link" href="https://lastknightcoder.gitee.io/tags">标签</a></li><li class="head-nav__item"><a class="head-nav__link" href="https://lastknightcoder.gitee.io/archives">目录</a></li></ul></nav></header><main class="main"><article class="post"><header class="post__head"><time class="post__time" datetime="2019-07-07T16:00:00.000Z">2019-07-08 00:00:00</time><h1 class="post__title"><a href="https://lastknightcoder.gitee.io/Java%E9%9B%86%E5%90%88%E4%B8%8E%E6%B3%9B%E5%9E%8B/">Java集合与泛型</a></h1><div class="post__main echo"><h2 id="Collection"><a href="#Collection" class="headerlink" title="Collection"></a>Collection</h2><p>Collection是集合的意思，你可以把它看做一种装东西的容器，就像数组一样。它是一个接口，有很多的类实现了它，比如Arralist，LinkedList，HashMap，等等很多。不同的类使用不同的方法去实现，所以他们之间的某些性能是不同的。</p>
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>Java集合与泛型 | Coder</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Java,泛型,集合">
+    <meta name="description" content="讲解Java常用的集合以及与泛型有关的知识">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java集合与泛型">
+<meta property="og:url" content="https://lastknightcoder.gitee.io/Java%E9%9B%86%E5%90%88%E4%B8%8E%E6%B3%9B%E5%9E%8B/">
+<meta property="og:site_name" content="Coder">
+<meta property="og:description" content="讲解Java常用的集合以及与泛型有关的知识">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/Java21.png">
+<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/Java22.gif">
+<meta property="article:published_time" content="2019-07-07T16:00:00.000Z">
+<meta property="article:modified_time" content="2019-07-07T16:00:00.000Z">
+<meta property="article:author" content="熊滔">
+<meta property="article:tag" content="Java 集合 泛型 Arraylist LinkedList HashMap Set">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/Java21.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="Coder" href="https://lastknightcoder.gitee.io/atom.xml">
+    
+    <link rel="shortcut icon" href="https://lastknightcoder.gitee.io/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(https://lastknightcoder.gitee.io/img/brand.jpg)">
+      <div class="brand">
+        <a href="https://lastknightcoder.gitee.io/" class="avatar waves-effect waves-circle waves-light">
+          <img src="https://lastknightcoder.gitee.io/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">熊滔</h5>
+          <a href="mailto:2223106858@qq.com" title="2223106858@qq.com" class="mail">2223106858@qq.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.gitee.io/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.gitee.io/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.gitee.io/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.gitee.io/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/LastKnightCoder" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Java集合与泛型</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Java集合与泛型</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2019-07-07T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2019-07-08
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="https://lastknightcoder.gitee.io/categories/Java/">Java</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="https://lastknightcoder.gitee.io/categories/Java/Element/">Element</a></li></ul></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Collection"><span class="post-toc-number">1.</span> <span class="post-toc-text">Collection</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Collection中的方法"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">Collection中的方法</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Iterator"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">Iterator</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#foreach循环"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">foreach循环</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#泛型"><span class="post-toc-number">2.</span> <span class="post-toc-text">泛型</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#概述"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">概述</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#泛型的定义"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">泛型的定义</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#类"><span class="post-toc-number">2.2.1.</span> <span class="post-toc-text">类</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#方法"><span class="post-toc-number">2.2.2.</span> <span class="post-toc-text">方法</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#接口"><span class="post-toc-number">2.2.3.</span> <span class="post-toc-text">接口</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#通配符"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">通配符</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#List"><span class="post-toc-number">3.</span> <span class="post-toc-text">List</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#List集合的特点"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">List集合的特点</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#List的遍历"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">List的遍历</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#ArrayList"><span class="post-toc-number">3.3.</span> <span class="post-toc-text">ArrayList</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#LinkedList"><span class="post-toc-number">3.4.</span> <span class="post-toc-text">LinkedList</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#基本类型与包装类"><span class="post-toc-number">4.</span> <span class="post-toc-text">基本类型与包装类</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#装箱与拆箱"><span class="post-toc-number">4.1.</span> <span class="post-toc-text">装箱与拆箱</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#自动装箱和自动拆箱"><span class="post-toc-number">4.2.</span> <span class="post-toc-text">自动装箱和自动拆箱</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#基本数据类型与字符串类型相互转换"><span class="post-toc-number">4.3.</span> <span class="post-toc-text">基本数据类型与字符串类型相互转换</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Set"><span class="post-toc-number">5.</span> <span class="post-toc-text">Set</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Set集合的特点"><span class="post-toc-number">5.1.</span> <span class="post-toc-text">Set集合的特点</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Set集合的遍历"><span class="post-toc-number">5.2.</span> <span class="post-toc-text">Set集合的遍历</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#LinkedHashSet"><span class="post-toc-number">5.3.</span> <span class="post-toc-text">LinkedHashSet</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#可变参数"><span class="post-toc-number">6.</span> <span class="post-toc-text">可变参数</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Collections"><span class="post-toc-number">7.</span> <span class="post-toc-text">Collections</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Map"><span class="post-toc-number">8.</span> <span class="post-toc-text">Map</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Map集合的方法"><span class="post-toc-number">8.1.</span> <span class="post-toc-text">Map集合的方法</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#遍历Map集合"><span class="post-toc-number">8.2.</span> <span class="post-toc-text">遍历Map集合</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#斗地主案例练习"><span class="post-toc-number">9.</span> <span class="post-toc-text">斗地主案例练习</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#分析"><span class="post-toc-number">9.1.</span> <span class="post-toc-text">分析</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#代码实现"><span class="post-toc-number">9.2.</span> <span class="post-toc-text">代码实现</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-Java集合与泛型"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Java集合与泛型</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2019-07-08 00:00:00" datetime="2019-07-07T16:00:00.000Z"  itemprop="datePublished">2019-07-08</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="https://lastknightcoder.gitee.io/categories/Java/">Java</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="https://lastknightcoder.gitee.io/categories/Java/Element/">Element</a></li></ul></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h2 id="Collection"><a href="#Collection" class="headerlink" title="Collection"></a>Collection</h2><p>Collection是集合的意思，你可以把它看做一种装东西的容器，就像数组一样。它是一个接口，有很多的类实现了它，比如Arralist，LinkedList，HashMap，等等很多。不同的类使用不同的方法去实现，所以他们之间的某些性能是不同的。</p>
 <h3 id="Collection中的方法"><a href="#Collection中的方法" class="headerlink" title="Collection中的方法"></a>Collection中的方法</h3><p>我们这次学习的是Collection接口中的方法，虽然实现它的类很多，但是它们实现的方法的功能都是一样。这里介绍七个方法</p>
 <ul>
 <li>add(E e)<ul>
@@ -460,21 +643,326 @@
     <img src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/Java22.gif"/>
 </center>
 
-</div></header><footer class="post__foot u-cf"><ul class="post__tag u-fl"><li class="post__tag__item"><a class="post__tag__link" href="https://lastknightcoder.gitee.io/tags/Java/">Java</a></li><li class="post__tag__item"><a class="post__tag__link" href="https://lastknightcoder.gitee.io/tags/%E6%B3%9B%E5%9E%8B/">泛型</a></li><li class="post__tag__item"><a class="post__tag__link" href="https://lastknightcoder.gitee.io/tags/%E9%9B%86%E5%90%88/">集合</a></li></ul></footer></article><section class="reward"><a class="btn-reward" href="#">打赏</a><div class="reward-wrapper clearfix"><img src="https://lastknightcoder.gitee.io/img/wechatpay.png" title="微信"><img src="https://lastknightcoder.gitee.io/img/alipay.png" title="支付宝"></div></section><script type="text/x-mathjax-config">MathJax.Hub.Config({
-  tex2jax: {
-    inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
-    processEscapes: true,
-    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-  }
-});
-MathJax.Hub.Queue(function() {
-  var all = MathJax.Hub.getAllJax(), i;
-  for(i=0; i < all.length; i += 1) {
-    all[i].SourceElement().parentNode.className += ' has-jax';
-  }
-});
-</script><script src="//cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script></main><footer class="foot"><div class="foot-copy">&copy; 2019 - 2020 熊滔</div></footer>
-<script src="https://lastknightcoder.gitee.io/js/scroller.js"></script>
 
-<script src="https://lastknightcoder.gitee.io/js/main.js"></script>
-</body></html>
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2019-07-07T16:00:00.000Z" itemprop="dateUpdated">2019-07-08 00:00:00</time>
+</span><br>
+
+
+        
+    </div>
+    
+    <footer>
+        <a href="https://lastknightcoder.gitee.io">
+            <img src="https://lastknightcoder.gitee.io/img/avatar.jpg" alt="熊滔">
+            熊滔
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="https://lastknightcoder.gitee.io/tags/Java/" rel="tag">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="https://lastknightcoder.gitee.io/tags/%E6%B3%9B%E5%9E%8B/" rel="tag">泛型</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="https://lastknightcoder.gitee.io/tags/%E9%9B%86%E5%90%88/" rel="tag">集合</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://lastknightcoder.gitee.io/Java%E9%9B%86%E5%90%88%E4%B8%8E%E6%B3%9B%E5%9E%8B/&title=《Java集合与泛型》 — Coder&pic=https://lastknightcoder.gitee.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://lastknightcoder.gitee.io/Java%E9%9B%86%E5%90%88%E4%B8%8E%E6%B3%9B%E5%9E%8B/&title=《Java集合与泛型》 — Coder&source=人生天地间，忽如远行客" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://lastknightcoder.gitee.io/Java%E9%9B%86%E5%90%88%E4%B8%8E%E6%B3%9B%E5%9E%8B/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Java集合与泛型》 — Coder&url=https://lastknightcoder.gitee.io/Java%E9%9B%86%E5%90%88%E4%B8%8E%E6%B3%9B%E5%9E%8B/&via=https://lastknightcoder.gitee.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://lastknightcoder.gitee.io/Java%E9%9B%86%E5%90%88%E4%B8%8E%E6%B3%9B%E5%9E%8B/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="https://lastknightcoder.gitee.io/Java%E5%B8%B8%E7%94%A8API/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">Java常用API</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="https://lastknightcoder.gitee.io/Java%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Java面向对象</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="https://lastknightcoder.gitee.io/img/wechatpay.png" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="https://lastknightcoder.gitee.io/img/wechatpay.png" data-alipay="https://lastknightcoder.gitee.io/img/alipay.png">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="https://lastknightcoder.gitee.io/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>熊滔 &copy; 2019 - 2020</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://lastknightcoder.gitee.io/Java%E9%9B%86%E5%90%88%E4%B8%8E%E6%B3%9B%E5%9E%8B/&title=《Java集合与泛型》 — Coder&pic=https://lastknightcoder.gitee.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://lastknightcoder.gitee.io/Java%E9%9B%86%E5%90%88%E4%B8%8E%E6%B3%9B%E5%9E%8B/&title=《Java集合与泛型》 — Coder&source=人生天地间，忽如远行客" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://lastknightcoder.gitee.io/Java%E9%9B%86%E5%90%88%E4%B8%8E%E6%B3%9B%E5%9E%8B/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Java集合与泛型》 — Coder&url=https://lastknightcoder.gitee.io/Java%E9%9B%86%E5%90%88%E4%B8%8E%E6%B3%9B%E5%9E%8B/&via=https://lastknightcoder.gitee.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://lastknightcoder.gitee.io/Java%E9%9B%86%E5%90%88%E4%B8%8E%E6%B3%9B%E5%9E%8B/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACsklEQVR42u3aQW7jQAwEQP//07vAXr1Sujmi40PpFBjxSDUBNEyTr1d8/fl3vX/y/nm72v3K79dr48LDw8Mb3ex+ueQhZivfs++fJ1oZDw8Pb42X3yzh3X83P1ry7b78HA8PD+9Xec9uR7Lm/Wp4eHh4389LXu73P8/K99kW4+Hh4W3zTv75zyOG5L55Sf1w1oKHh4e30EX6np8X+3t4eHh4B131thk2OxJmxXf0tHh4eHgLvI3HbUnJ6z757uU6eHh4eI/y2sb/s+2rdmCr/S4eHh7eHi8/Kmav/jZ4nY0sXP7HgIeHh/coLx+HyocG8qK5bX21xxgeHh7eNi+/5ewlfl6UtwNYeHh4eBu8WZE6e/W329oOCkStLzw8PLxj3uxXnwod2gL6fLvx8PDwznltxNCWwu3xkDOi9fHw8PAWeCdBwyycTQrr/HeSPw8eHh7es7w8qM2PkHw7Tkav6nwaDw8P71FeHpi2xfQs4GiLbzw8PLzP887j17z9PxuiGh5ReHh4eAu8PALIX8ezAKKNG4pDBQ8PD2+Bl1ehbZPs5GhpI4zojnh4eHjHvOTR26XbNv9JSf3DkAEeHh7eAi9/9PZlnTf42+ZWG/Xi4eHhbfBm0epsI9o75vfCw8PD+wwvL4LbECEPZFtqMUaAh4eHt8xrxwLy6DaPfdug9oetx8PDw1vgtUFq28I/iSfaYDcqrPHw8PCOeW3LfxYKnI8RJCNceHh4eN/Dm40XtK21/KGL+BgPDw9vgZdfbZl73mA7CYjrCw8PD6/kzeKDHD8bnGoPmMvtw8PDw1vjJdHARmHdjhHUW4aHh4f3q7yTQ2J2GOQF/eVT4eHh4X0BL2+GbYwI1JuIh4eHt8Zrm14nQwBtAZ0fG3h4eHif4c0aYMmD5sFrGzSs9/fw8PDw/r/CX/3JIhYfqq8fAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: 'https://lastknightcoder.gitee.io/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

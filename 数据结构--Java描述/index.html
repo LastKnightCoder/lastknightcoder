@@ -1,12 +1,259 @@
-<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="author" content="熊滔"><meta name="description" content="人生天地间，忽如远行客"><link rel="alternative" href="/atom.xml" title="Coder" type="application/atom+xml"><link rel="icon" href="/favicon.png"><title>数据结构--Java描述 - Coder</title>
-<link rel="stylesheet" href="https://lastknightcoder.gitee.io/css/main.css">
+<!DOCTYPE html>
+<html>
+<head>
+    
 
-<link rel="stylesheet" href="https://lastknightcoder.gitee.io/js/fancybox/jquery.fancybox.min.css">
-<!--[if lt IE 9]><script>(function(a,b){a="abbr article aside audio bdi canvas data datalist details dialog figcaption figure footer header hgroup main mark meter nav output progress section summary template time video".split(" ");for(b=a.length-1;b>=0;b--)document.createElement(a[b])})()</script><![endif]-->
-<script src="https://lastknightcoder.gitee.io/js/jquery-3.1.1.min.js"></script>
+    
 
-<script src="https://lastknightcoder.gitee.io/js/fancybox/jquery.fancybox.min.js"></script>
-<meta name="generator" content="Hexo 4.2.0"></head><body style="opacity:0"><header class="head"><h1 class="head-title u-fl"><a href="https://lastknightcoder.gitee.io/">Coder</a></h1><nav class="head-nav u-fr"><ul class="head-nav__list"><li class="head-nav__item"><a class="head-nav__link" href="https://lastknightcoder.gitee.io/tags">标签</a></li><li class="head-nav__item"><a class="head-nav__link" href="https://lastknightcoder.gitee.io/archives">目录</a></li></ul></nav></header><main class="main"><article class="post"><header class="post__head"><time class="post__time" datetime="2019-09-23T16:00:00.000Z">2019-09-24 00:00:00</time><h1 class="post__title"><a href="https://lastknightcoder.gitee.io/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84--Java%E6%8F%8F%E8%BF%B0/">数据结构--Java描述</a></h1><div class="post__main echo"><p>本篇文章是为了记录自己在学习数据结构时的笔记，会对常见的数据结构做基本的介绍以及使用Java语言进行实现。包括</p>
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>数据结构--Java描述 | Coder</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="算法,数据结构">
+    <meta name="description" content="本篇文章是为了记录自己在学习数据结构时的笔记，会对常见的数据结构做基本的介绍以及使用Java语言进行实现。包括  动态数组 栈 队列 链表 二分搜索树 优先队列和堆 线段树 Trie 并查集 AVL 树 红黑树 哈希表  动态数组API介绍数组是一种根据下标操作的数据结构，它的查询速度很快，但是它有缺点，那就是数组的容量一旦在创建时确定，就不能进行更改，所以为了克服这一缺点，我们实现一个自己的数组">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据结构--Java描述">
+<meta property="og:url" content="https://lastknightcoder.gitee.io/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84--Java%E6%8F%8F%E8%BF%B0/">
+<meta property="og:site_name" content="Coder">
+<meta property="og:description" content="本篇文章是为了记录自己在学习数据结构时的笔记，会对常见的数据结构做基本的介绍以及使用Java语言进行实现。包括  动态数组 栈 队列 链表 二分搜索树 优先队列和堆 线段树 Trie 并查集 AVL 树 红黑树 哈希表  动态数组API介绍数组是一种根据下标操作的数据结构，它的查询速度很快，但是它有缺点，那就是数组的容量一旦在创建时确定，就不能进行更改，所以为了克服这一缺点，我们实现一个自己的数组">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/datastr01.png">
+<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/datastr02.png">
+<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/datastr03.png">
+<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/datastr04.png">
+<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/datastr05.png">
+<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/datastr06.png">
+<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/datastr07.png">
+<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/datastr08.png">
+<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/datastr09.png">
+<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/datastr10.png">
+<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/datastr11.png">
+<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/datastr12.png">
+<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/datastr13.png">
+<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/datastr16.png">
+<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/datastr16.png">
+<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/datastr16.png">
+<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/datastr17x.png">
+<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/datastr18.png">
+<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/datastr19.png">
+<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/datastr20.png">
+<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/datastr21.png">
+<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/datastr22.png">
+<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/datastr23.png">
+<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/datastr24.png">
+<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/datastr25.png">
+<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/datastr26.png">
+<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/datastr27.png">
+<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/datastr28.png">
+<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/datastr29.png">
+<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/datastr30.png">
+<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/datastr31.png">
+<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/datastr32.png">
+<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/datastr33.png">
+<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/datastr34.png">
+<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/datastr35.png">
+<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/datastr36.png">
+<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/datastr37.png">
+<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/datastr38.png">
+<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/datastr39.png">
+<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/datastr40.png">
+<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/datastr41.png">
+<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/datastr42.png">
+<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/datastr43.png">
+<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/datastr44.png">
+<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/datastr45.png">
+<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/datastr46.png">
+<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/datastr47.png">
+<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/datastr48.png">
+<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/datastr49.png">
+<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/datastr50.png">
+<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/datastr51.png">
+<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/datastr52.png">
+<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/datastr53.png">
+<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/datastr54.png">
+<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/datastr55.png">
+<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/datastr56.png">
+<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/datastr57.png">
+<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/datastr58.png">
+<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/datastr63.png">
+<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/datastr64.png">
+<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/datastr65.png">
+<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/datastr62.png">
+<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/datastr66.png">
+<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/datastr67.png">
+<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/datastr68.png">
+<meta property="article:published_time" content="2019-09-23T16:00:00.000Z">
+<meta property="article:modified_time" content="2019-09-23T16:00:00.000Z">
+<meta property="article:author" content="熊滔">
+<meta property="article:tag" content="算法">
+<meta property="article:tag" content="数据结构">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/datastr01.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="Coder" href="https://lastknightcoder.gitee.io/atom.xml">
+    
+    <link rel="shortcut icon" href="https://lastknightcoder.gitee.io/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(https://lastknightcoder.gitee.io/img/brand.jpg)">
+      <div class="brand">
+        <a href="https://lastknightcoder.gitee.io/" class="avatar waves-effect waves-circle waves-light">
+          <img src="https://lastknightcoder.gitee.io/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">熊滔</h5>
+          <a href="mailto:2223106858@qq.com" title="2223106858@qq.com" class="mail">2223106858@qq.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.gitee.io/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.gitee.io/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.gitee.io/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.gitee.io/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/LastKnightCoder" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">数据结构--Java描述</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">数据结构--Java描述</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2019-09-23T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2019-09-24
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="https://lastknightcoder.gitee.io/categories/Algorithms/">Algorithms</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#动态数组"><span class="post-toc-number">1.</span> <span class="post-toc-text">动态数组</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#API介绍"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">API介绍</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#方法实现"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">方法实现</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#栈"><span class="post-toc-number">2.</span> <span class="post-toc-text">栈</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#队列"><span class="post-toc-number">3.</span> <span class="post-toc-text">队列</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#数组队列"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">数组队列</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#循环队列"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">循环队列</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#链表"><span class="post-toc-number">4.</span> <span class="post-toc-text">链表</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#链表实现"><span class="post-toc-number">4.1.</span> <span class="post-toc-text">链表实现</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#添加元素"><span class="post-toc-number">4.1.1.</span> <span class="post-toc-text">添加元素</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#向链表头添加元素"><span class="post-toc-number">4.1.1.1.</span> <span class="post-toc-text">向链表头添加元素</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#在链表的中间添加一个元素"><span class="post-toc-number">4.1.1.2.</span> <span class="post-toc-text">在链表的中间添加一个元素</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#向链表的尾部添加一个元素"><span class="post-toc-number">4.1.1.3.</span> <span class="post-toc-text">向链表的尾部添加一个元素</span></a></li></ol></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#虚拟头结点"><span class="post-toc-number">4.1.2.</span> <span class="post-toc-text">虚拟头结点</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#获得某个索引的值"><span class="post-toc-number">4.1.3.</span> <span class="post-toc-text">获得某个索引的值</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#更新某个索引的值"><span class="post-toc-number">4.1.4.</span> <span class="post-toc-text">更新某个索引的值</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#查找链表是否存在元素e"><span class="post-toc-number">4.1.5.</span> <span class="post-toc-text">查找链表是否存在元素e</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#删除链表中的元素"><span class="post-toc-number">4.1.6.</span> <span class="post-toc-text">删除链表中的元素</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#toString-NaN"><span class="post-toc-number">4.1.7.</span> <span class="post-toc-text">toString()</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#全部代码"><span class="post-toc-number">4.1.8.</span> <span class="post-toc-text">全部代码</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#使用链表实现栈"><span class="post-toc-number">4.2.</span> <span class="post-toc-text">使用链表实现栈</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#使用链表实现队列"><span class="post-toc-number">4.3.</span> <span class="post-toc-text">使用链表实现队列</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#二分搜索树"><span class="post-toc-number">5.</span> <span class="post-toc-text">二分搜索树</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#概念"><span class="post-toc-number">5.1.</span> <span class="post-toc-text">概念</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#实现"><span class="post-toc-number">5.2.</span> <span class="post-toc-text">实现</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#添加元素-1"><span class="post-toc-number">5.2.1.</span> <span class="post-toc-text">添加元素</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#查询操作"><span class="post-toc-number">5.2.2.</span> <span class="post-toc-text">查询操作</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#二叉树的遍历"><span class="post-toc-number">5.2.3.</span> <span class="post-toc-text">二叉树的遍历</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#前序遍历"><span class="post-toc-number">5.2.3.1.</span> <span class="post-toc-text">前序遍历</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#中序遍历"><span class="post-toc-number">5.2.3.2.</span> <span class="post-toc-text">中序遍历</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#后序遍历"><span class="post-toc-number">5.2.3.3.</span> <span class="post-toc-text">后序遍历</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#前序遍历的非递归实现"><span class="post-toc-number">5.2.3.4.</span> <span class="post-toc-text">前序遍历的非递归实现</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#层序遍历"><span class="post-toc-number">5.2.3.5.</span> <span class="post-toc-text">层序遍历</span></a></li></ol></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#删除元素"><span class="post-toc-number">5.2.4.</span> <span class="post-toc-text">删除元素</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#完整代码"><span class="post-toc-number">5.2.5.</span> <span class="post-toc-text">完整代码</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#优先队列和堆"><span class="post-toc-number">6.</span> <span class="post-toc-text">优先队列和堆</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#堆的结构"><span class="post-toc-number">6.1.</span> <span class="post-toc-text">堆的结构</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#堆的实现"><span class="post-toc-number">6.2.</span> <span class="post-toc-text">堆的实现</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#向堆中添加元素"><span class="post-toc-number">6.2.1.</span> <span class="post-toc-text">向堆中添加元素</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#向堆中取出最大元素"><span class="post-toc-number">6.2.2.</span> <span class="post-toc-text">向堆中取出最大元素</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#replace"><span class="post-toc-number">6.2.3.</span> <span class="post-toc-text">replace</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#heapify"><span class="post-toc-number">6.2.4.</span> <span class="post-toc-text">heapify</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#完整代码-1"><span class="post-toc-number">6.2.5.</span> <span class="post-toc-text">完整代码</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#基于堆的优先队列"><span class="post-toc-number">6.3.</span> <span class="post-toc-text">基于堆的优先队列</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#线段树"><span class="post-toc-number">7.</span> <span class="post-toc-text">线段树</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#线段树的表示"><span class="post-toc-number">7.1.</span> <span class="post-toc-text">线段树的表示</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#实现-1"><span class="post-toc-number">7.2.</span> <span class="post-toc-text">实现</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#创建线段树"><span class="post-toc-number">7.2.1.</span> <span class="post-toc-text">创建线段树</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#查询"><span class="post-toc-number">7.2.2.</span> <span class="post-toc-text">查询</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#更新"><span class="post-toc-number">7.2.3.</span> <span class="post-toc-text">更新</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#完整代码-2"><span class="post-toc-number">7.2.4.</span> <span class="post-toc-text">完整代码</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Trie"><span class="post-toc-number">8.</span> <span class="post-toc-text">Trie</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#实现-2"><span class="post-toc-number">8.1.</span> <span class="post-toc-text">实现</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#添加单词"><span class="post-toc-number">8.1.1.</span> <span class="post-toc-text">添加单词</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#查询单词"><span class="post-toc-number">8.1.2.</span> <span class="post-toc-text">查询单词</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#前缀搜索"><span class="post-toc-number">8.1.3.</span> <span class="post-toc-text">前缀搜索</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#简单字符匹配"><span class="post-toc-number">8.2.</span> <span class="post-toc-text">简单字符匹配</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#全部代码-1"><span class="post-toc-number">8.3.</span> <span class="post-toc-text">全部代码</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#并查集"><span class="post-toc-number">9.</span> <span class="post-toc-text">并查集</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Quick-Find"><span class="post-toc-number">9.1.</span> <span class="post-toc-text">Quick Find</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Quick-Union"><span class="post-toc-number">9.2.</span> <span class="post-toc-text">Quick Union</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#基于rank的优化"><span class="post-toc-number">9.3.</span> <span class="post-toc-text">基于rank的优化</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#路径压缩"><span class="post-toc-number">9.4.</span> <span class="post-toc-text">路径压缩</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#AVL树"><span class="post-toc-number">10.</span> <span class="post-toc-text">AVL树</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#概念及实现"><span class="post-toc-number">10.1.</span> <span class="post-toc-text">概念及实现</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#完整代码-3"><span class="post-toc-number">10.2.</span> <span class="post-toc-text">完整代码</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#红黑树"><span class="post-toc-number">11.</span> <span class="post-toc-text">红黑树</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2-3树"><span class="post-toc-number">11.1.</span> <span class="post-toc-text">2-3树</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#红黑树与2-3树的等价性"><span class="post-toc-number">11.2.</span> <span class="post-toc-text">红黑树与2-3树的等价性</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#红黑树的性质"><span class="post-toc-number">11.3.</span> <span class="post-toc-text">红黑树的性质</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#向红黑树中添加元素"><span class="post-toc-number">11.4.</span> <span class="post-toc-text">向红黑树中添加元素</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#完整代码-4"><span class="post-toc-number">11.5.</span> <span class="post-toc-text">完整代码</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#哈希表"><span class="post-toc-number">12.</span> <span class="post-toc-text">哈希表</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#哈希函数的设计"><span class="post-toc-number">12.1.</span> <span class="post-toc-text">哈希函数的设计</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#链地址法"><span class="post-toc-number">12.2.</span> <span class="post-toc-text">链地址法</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#完整代码-5"><span class="post-toc-number">12.3.</span> <span class="post-toc-text">完整代码</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#参考链接"><span class="post-toc-number">13.</span> <span class="post-toc-text">参考链接</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-数据结构--Java描述"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">数据结构--Java描述</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2019-09-24 00:00:00" datetime="2019-09-23T16:00:00.000Z"  itemprop="datePublished">2019-09-24</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="https://lastknightcoder.gitee.io/categories/Algorithms/">Algorithms</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>本篇文章是为了记录自己在学习数据结构时的笔记，会对常见的数据结构做基本的介绍以及使用Java语言进行实现。包括</p>
 <ul>
 <li>动态数组</li>
 <li>栈</li>
@@ -878,8 +1125,326 @@
 <h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><ul>
 <li><a href="https://coding.imooc.com/class/chapter/207.html" target="_blank" rel="noopener">玩转数据结构</a></li>
 </ul>
-</div></header><footer class="post__foot u-cf"><ul class="post__tag u-fl"><li class="post__tag__item"><a class="post__tag__link" href="https://lastknightcoder.gitee.io/tags/%E7%AE%97%E6%B3%95/">算法</a></li><li class="post__tag__item"><a class="post__tag__link" href="https://lastknightcoder.gitee.io/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a></li></ul></footer></article><section class="reward"><a class="btn-reward" href="#">打赏</a><div class="reward-wrapper clearfix"><img src="https://lastknightcoder.gitee.io/img/wechatpay.png" title="微信"><img src="https://lastknightcoder.gitee.io/img/alipay.png" title="支付宝"></div></section></main><footer class="foot"><div class="foot-copy">&copy; 2019 - 2020 熊滔</div></footer>
-<script src="https://lastknightcoder.gitee.io/js/scroller.js"></script>
 
-<script src="https://lastknightcoder.gitee.io/js/main.js"></script>
-</body></html>
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2019-09-23T16:00:00.000Z" itemprop="dateUpdated">2019-09-24 00:00:00</time>
+</span><br>
+
+
+        
+    </div>
+    
+    <footer>
+        <a href="https://lastknightcoder.gitee.io">
+            <img src="https://lastknightcoder.gitee.io/img/avatar.jpg" alt="熊滔">
+            熊滔
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="https://lastknightcoder.gitee.io/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="https://lastknightcoder.gitee.io/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://lastknightcoder.gitee.io/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84--Java%E6%8F%8F%E8%BF%B0/&title=《数据结构--Java描述》 — Coder&pic=https://lastknightcoder.gitee.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://lastknightcoder.gitee.io/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84--Java%E6%8F%8F%E8%BF%B0/&title=《数据结构--Java描述》 — Coder&source=人生天地间，忽如远行客" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://lastknightcoder.gitee.io/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84--Java%E6%8F%8F%E8%BF%B0/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《数据结构--Java描述》 — Coder&url=https://lastknightcoder.gitee.io/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84--Java%E6%8F%8F%E8%BF%B0/&via=https://lastknightcoder.gitee.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://lastknightcoder.gitee.io/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84--Java%E6%8F%8F%E8%BF%B0/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="https://lastknightcoder.gitee.io/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">常见排序算法</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="https://lastknightcoder.gitee.io/MySQL%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">MySQL学习笔记</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="https://lastknightcoder.gitee.io/img/wechatpay.png" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="https://lastknightcoder.gitee.io/img/wechatpay.png" data-alipay="https://lastknightcoder.gitee.io/img/alipay.png">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="https://lastknightcoder.gitee.io/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>熊滔 &copy; 2019 - 2020</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://lastknightcoder.gitee.io/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84--Java%E6%8F%8F%E8%BF%B0/&title=《数据结构--Java描述》 — Coder&pic=https://lastknightcoder.gitee.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://lastknightcoder.gitee.io/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84--Java%E6%8F%8F%E8%BF%B0/&title=《数据结构--Java描述》 — Coder&source=人生天地间，忽如远行客" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://lastknightcoder.gitee.io/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84--Java%E6%8F%8F%E8%BF%B0/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《数据结构--Java描述》 — Coder&url=https://lastknightcoder.gitee.io/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84--Java%E6%8F%8F%E8%BF%B0/&via=https://lastknightcoder.gitee.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://lastknightcoder.gitee.io/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84--Java%E6%8F%8F%E8%BF%B0/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2CAAAAADAeSUUAAADJklEQVR42u3ay44aQQwF0Pn/nyZSVpESGl+7JkObUyuE+lGnWBg/vr7K6/F7XX++vv7PlV75eLKu93BgYWNjY9+E/bhcf19zfW/laHr4653XLdjY2Nhb2fUglEaHeiBMg1wvoGJjY2N/MrvyuOsrRyHnUGqEjY2Njd1LOSbhChsbGxu7wq6X4CcFoHpqUSls/adaGjY2Nvbbs081et/h8w/0t7GxsbF/lP0I19m70rDUC1r/eC82Njb2InZ97KYXHSqlq0p6M9lVkIFhY2Nj35DdK773Qlc6fNMbIXr2DTY2NvbnsCdjOvVt9cpGvXZFqbONjY2NfXN2WgCKh2PKATId6GkeEDY2NvYidvD3vVVCSp/Qo/YGj7CxsbF3sF/8ZR8X7icJSZrYBGkVNjY29iJ2r8BUeVnlOCat4usfKWgMY2NjY9+cnQJ6ASZtKlcCauXtT5+JjY2NvY6d3lwf36k3D+ppSRq0nhaVsLGxsVeze43YespRP8R6gAzaydjY2Njr2PUgkQ7KxJWtQYgKQiA2Njb2OnbllfNAkt47aQOX2gPY2NjYK9jpqE0vbZgP7qTHWippYWNjY69j9wr99dUrBs0PLhjcwcbGxl7B7qUWaaH/VGDrtSKwsbGx97ErBf1JWf+7v+kdOjY2NvYOdloYqvzFT8v9aTo0uTf+hbGxsbHfnp0OyqSN22NN2XLDIE1gsLGxse/OTsPGpK17ClY/rKdPw8bGxl7ETmNdb1hnzu41hl/ci42Njb2C/R2ks0Gufk1QWsLGxsZexE4L9/W2br0AdPbKerDExsbG3sGeFHHSNCMNPGnrIihjYWNjY38Mu76tNM2oP6H+nHpLAxsbG3sTex5s4l7E4L1psGzuChsbG/tW7Ee40iNID2tyBEGgwsbGxl7E7gWVXr293u6djOxUPmNjY2PvY/eCVrqh9IBONZVfjOxgY2NjL2KnVah5gSmNpZNkAxsbGxu73lidNGJ7T6vc+w8pNjY29geze8OavYLRJFl6sVtsbGzsdex5c3fSPDhVVAr6IdjY2NiL2JNGb30QZz6aM2fE92JjY2O/O/sXGnXEcEG/7oEAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: 'https://lastknightcoder.gitee.io/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>
