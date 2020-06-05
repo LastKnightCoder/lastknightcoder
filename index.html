@@ -17,6 +17,8 @@
     <title>Coder</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
+    <meta name="theme-color" content="#3F51B5">
+    
     
     <meta name="keywords" content="">
     <meta name="description" content="人生天地间，忽如远行客">
@@ -31,8 +33,8 @@
     
         <link rel="alternate" type="application/atom+xml" title="Coder" href="https://lastknightcoder.gitee.io/atom.xml">
     
-    <link rel="shortcut icon" href="https://lastknightcoder.gitee.io/">
-    <link rel="stylesheet" href="https://lastknightcoder.gitee.io/css/style.css?v=1.7.2">
+    <link rel="shortcut icon" href="https://lastknightcoder.gitee.io/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
     <script>window.lazyScripts=[]</script>
 
     <!-- custom head -->
@@ -48,19 +50,54 @@
     <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
         <i class="icon icon-lg icon-close"></i>
     </a>
-    <div class="brand-wrap" style="background-image:url(https://lastknightcoder.gitee.io/)">
+    <div class="brand-wrap" style="background-image:url(https://lastknightcoder.gitee.io/img/brand.jpg)">
       <div class="brand">
         <a href="https://lastknightcoder.gitee.io/" class="avatar waves-effect waves-circle waves-light">
-          <img src="https://lastknightcoder.gitee.io/">
+          <img src="https://lastknightcoder.gitee.io/img/avatar.jpg">
         </a>
         <hgroup class="introduce">
           <h5 class="nickname">熊滔</h5>
-          <a href="mailto:undefined" class="mail">
+          <a href="mailto:2223106858@qq.com" title="2223106858@qq.com" class="mail">2223106858@qq.com</a>
         </hgroup>
       </div>
     </div>
     <div class="scroll-wrap flex-col">
       <ul class="nav">
+        
+            <li class="waves-block waves-effect active">
+              <a href="https://lastknightcoder.gitee.io/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.gitee.io/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.gitee.io/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.gitee.io/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/LastKnightCoder" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
         
       </ul>
     </div>
@@ -85,6 +122,10 @@
             </a>
         </div>
         
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
         
     </div>
 </header>
@@ -138,7 +179,8 @@
 
     
         
-题目：用两个栈实现一个队列。队列的声明如下，请实现它...
+题目：用两个栈实现一个队列。队列的声明如下，请实现它的两个函数 appendTail 和 deleteHead，分别完成在队列尾部插入节点和在队列头部删除节点的功能。
+public class TwoStackToQueue &#123;    private Stack&lt;Intege...
     
 
         <a href="https://lastknightcoder.gitee.io/%E7%94%A8%E4%B8%A4%E4%B8%AA%E6%A0%88%E5%AE%9E%E7%8E%B0%E9%98%9F%E5%88%97/" class="post-more waves-effect waves-button">
@@ -185,7 +227,7 @@
     <div class="post-content" id="post-content" itemprop="postContent">
 
     
-        在使用的 JavaScript 的过程中，对 offs...
+        在使用的 JavaScript 的过程中，对 offset，page，client 等等所表示的距离一直不是很清楚，现趁有时间系统的学习了一下。上面所述的 offsetX，pageX 等等都是事件对象 event 的属性，当有鼠标事件触发时，可以获得相应的事件对象，该对象中包含着鼠标的各种距离...
     
 
         <a href="https://lastknightcoder.gitee.io/offsetX,pageX,clientX,screenX/" class="post-more waves-effect waves-button">
@@ -233,7 +275,12 @@
 
     
         
-题目：给定一棵二叉树和其中的一个节点，如何找出中序遍...
+题目：给定一棵二叉树和其中的一个节点，如何找出中序遍历序列的下一个节点? 树中的节点除了有两个分别指向左、右子节点的指针，还有一个指向父节点的指针。(树的中序遍历指的是先打印左子树，然后打印根节点，最后打印右子树)
+
+我们以下图来分析二叉树的下一个节点
+
+
+其中标在节点旁边的数字表示打印的顺...
     
 
         <a href="https://lastknightcoder.gitee.io/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E4%B8%8B%E4%B8%80%E4%B8%AA%E8%8A%82%E7%82%B9/" class="post-more waves-effect waves-button">
@@ -281,7 +328,18 @@
 
     
         
-题目：输入某二叉树的前序遍历和中序遍历的结果，请重建...
+题目：输入某二叉树的前序遍历和中序遍历的结果，请重建该二叉树。假设输入的前序遍历和中序遍历的结果中都不含重复的数字。
+
+首先通过一个例子看看前序遍历和中序遍历的特点，如下二叉树
+
+
+它的前序遍历和中序遍历的结果为
+
+
+我们分析一下前序遍历和中序遍历的结构
+
+
+我们的思路是首先根据前序遍历找到...
     
 
         <a href="https://lastknightcoder.gitee.io/%E9%87%8D%E5%BB%BA%E4%BA%8C%E5%8F%89%E6%A0%91/" class="post-more waves-effect waves-button">
@@ -328,7 +386,9 @@
     <div class="post-content" id="post-content" itemprop="postContent">
 
     
-        介绍TypeScript是什么TypeScript 是...
+        介绍TypeScript是什么TypeScript 是什么? 引用官方的定义
+
+TypeScript is a typed superset of JavaScript that compiles to plain JavaScript. Any browser. Any host. Any ...
     
 
         <a href="https://lastknightcoder.gitee.io/TypeScript%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/" class="post-more waves-effect waves-button">
@@ -375,7 +435,8 @@
     <div class="post-content" id="post-content" itemprop="postContent">
 
     
-        在字符串的处理中，我们经常要进行字符串的匹配，校验等等...
+        在字符串的处理中，我们经常要进行字符串的匹配，校验等等操作。比如校验字符串的格式是否符合邮箱，电话号码的格式，校验密码是否符合要求，密码中是否包含数字和字母等等；又或者匹配得到某种规则的字符串。这一些操作如果使用常规的方法进行字符串操作，会花费较大的代价，包括时间和精力。
+正则表达式是用来表达...
     
 
         <a href="https://lastknightcoder.gitee.io/JavaScript%E4%B9%8B%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" class="post-more waves-effect waves-button">
@@ -422,7 +483,8 @@
     <div class="post-content" id="post-content" itemprop="postContent">
 
     
-        介绍 Spring 框架中的常见注解(NO XML)，...
+        介绍 Spring 框架中的常见注解(NO XML)，在介绍 Spring 注解之前，简要的介绍一下 IoC。
+IoC简要介绍IoC(Inverse of Control) 的意思是控制反转，意思就是控制权发生转换，以前我们需要某个类的对象，都是直接 new 出来的，现在有了IoC，对象创建的...
     
 
         <a href="https://lastknightcoder.gitee.io/Spring%E5%B8%B8%E8%A7%81%E6%B3%A8%E8%A7%A3/" class="post-more waves-effect waves-button">
@@ -469,7 +531,18 @@
     <div class="post-content" id="post-content" itemprop="postContent">
 
     
-        同源策略什么是同源策略：同 domain(或IP)，同...
+        同源策略什么是同源策略：同 domain(或IP)，同端口，同协议视为同一个域，一个域内的脚本仅仅具有本域内的权限，可以理解为本域脚本只能读写本域内的资源，而无法访问其它域的资源，这种安全限制称为同源策略。我们看几个例子判断两个链接是否是同源
+
+
+
+url1
+url2
+是否同源
+原因
+
+
+
+h...
     
 
         <a href="https://lastknightcoder.gitee.io/Ajax%E8%B7%A8%E5%9F%9F/" class="post-more waves-effect waves-button">
@@ -516,7 +589,11 @@
     <div class="post-content" id="post-content" itemprop="postContent">
 
     
-        柯里化介绍函数柯里化指的是函数处理一部分的参数，然后返...
+        柯里化介绍函数柯里化指的是函数处理一部分的参数，然后返回一个函数来处理剩余的参数，如比如有一个加法函数如下
+function add(x, y) &#123;    return x + y;&#125;add(1, 2); // 3
+
+现在如果这个函数被柯里化，那么我们可以如下使用
+cons...
     
 
         <a href="https://lastknightcoder.gitee.io/JavaScript%E6%9F%AF%E9%87%8C%E5%8C%96/" class="post-more waves-effect waves-button">
@@ -563,7 +640,15 @@
     <div class="post-content" id="post-content" itemprop="postContent">
 
     
-        JavaScript的作用域JavaScript 的作...
+        JavaScript的作用域JavaScript 的作用域有两种
+
+全局作用域
+函数作用域
+
+与其他语言不同的是，JavaScript 没有块级作用域，参考以下程序
+if (true) &#123;    var x = 1;&#125;console.log(x); // 1
+
+上面的变量 ...
     
 
         <a href="https://lastknightcoder.gitee.io/JavaScript%E9%97%AD%E5%8C%85/" class="post-more waves-effect waves-button">
@@ -596,6 +681,15 @@
         <footer class="footer">
     <div class="top">
         
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
 
         <p>
             
@@ -605,7 +699,7 @@
         </p>
     </div>
     <div class="bottom">
-        <p><span>熊滔 &copy; 2020</span>
+        <p><span>熊滔 &copy; 2019 - 2020</span>
             <span>
                 
                 Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
@@ -619,14 +713,60 @@
 <a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
 
 
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://lastknightcoder.gitee.io/&title=Coder&pic=https://lastknightcoder.gitee.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://lastknightcoder.gitee.io/&title=Coder&source=人生天地间，忽如远行客" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://lastknightcoder.gitee.io/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=Coder&url=https://lastknightcoder.gitee.io/&via=https://lastknightcoder.gitee.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://lastknightcoder.gitee.io/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK4AAACuCAAAAACKZ2kyAAABw0lEQVR42u3ay4qEMBAF0P7/n3ZgVgOD8VYqCTacrBq049FFqNfnE6/rd42v/l13V/M9WwsXF7fNvYbr/9Z3jxlDk/3H9+Di4p7njh/feYHkIMs/AS4u7tu4c4dU8gK4uLjfy63emQQ0uLi4b+ZWk5P+623P1XBxcRvcasF0x++N9V1cXNwi9yqu8b86R1X0dFxc3CPcccljVTpUDXEedsDFxT3I7Tc8Vo1ZlHM1XFzcpdwOdFWgUxjhwsXFPcLNj6e5smYSuFTTKlxc3N3cTlAy11itDmHcVnFwcXE3c/vjWZ2Wbd7ExcXFPcOdK1Xkzdfq0MayXjEuLm6bm7Q98uNmrk1SuB8XF/cIdy7hyR9TSG/y8AsXF3cbN29+VIOhahgUJWC4uLhHuMtKmcGRlBc+HvbExcXdzM1HKDpDGPmHePgEuLi4B7lzxZGN1dlOkxUXF3cRN1+djkZ+tEV2XFzcbdy5Yke1bLpqT1xc3JPcuYHLuZJK3rJ9mCbDxcU9wq3WWTtDmZ1mDC4u7tu4nVJI9cC6fT1cXNxXcucaJAmoNayJi4u7gbs2ZMmTonJzFxcX9wi3WjDNQ5ZVs2O4uLgHuT9WB+ceO0H5MQAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
     <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
 <script>
-var BLOG = { ROOT: 'https://lastknightcoder.gitee.io/', SHARE: , REWARD: false };
+var BLOG = { ROOT: 'https://lastknightcoder.gitee.io/', SHARE: true, REWARD: false };
 
 
 </script>
 
-<script src="https://lastknightcoder.gitee.io/js/main.min.js?v=1.7.2"></script>
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
 
 
 <div class="search-panel" id="search-panel">
@@ -646,14 +786,54 @@ var BLOG = { ROOT: 'https://lastknightcoder.gitee.io/', SHARE: , REWARD: false }
 </li>
 </template>
 
-<script src="https://lastknightcoder.gitee.io/js/search.min.js?v=1.7.2" async></script>
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
 
 
 
 
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
 
 
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
 
 
 

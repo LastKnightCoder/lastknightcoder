@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>常见排序算法 | Coder</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Java,排序">
+    <meta name="description" content="讲解常见的排序算法，并用Java实现">
+<meta property="og:type" content="article">
+<meta property="og:title" content="常见排序算法">
+<meta property="og:url" content="https://lastknightcoder.gitee.io/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/">
+<meta property="og:site_name" content="Coder">
+<meta property="og:description" content="讲解常见的排序算法，并用Java实现">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/imgsort01.png">
+<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/imgsort02.png">
+<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/imgsort03.png">
+<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/imgsort06.png">
+<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/imgsort04.png">
+<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/imgsort05.png">
+<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/imgsort10.png">
+<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/imgsort11.png">
+<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/imgsort12.png">
+<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/imgsort13.png">
+<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/imgsort14.png">
+<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/imgsort15.png">
+<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/imgsort16.png">
+<meta property="article:published_time" content="2019-10-01T16:00:00.000Z">
+<meta property="article:modified_time" content="2019-10-01T16:00:00.000Z">
+<meta property="article:author" content="熊滔">
+<meta property="article:tag" content="Java 排序 选择排序 插入排序 希尔排序 归并排序 快速排序">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/imgsort01.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="Coder" href="https://lastknightcoder.gitee.io/atom.xml">
+    
+    <link rel="shortcut icon" href="https://lastknightcoder.gitee.io/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(https://lastknightcoder.gitee.io/img/brand.jpg)">
+      <div class="brand">
+        <a href="https://lastknightcoder.gitee.io/" class="avatar waves-effect waves-circle waves-light">
+          <img src="https://lastknightcoder.gitee.io/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">熊滔</h5>
+          <a href="mailto:2223106858@qq.com" title="2223106858@qq.com" class="mail">2223106858@qq.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.gitee.io/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.gitee.io/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.gitee.io/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.gitee.io/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/LastKnightCoder" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">常见排序算法</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">常见排序算法</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2019-10-01T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2019-10-02
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="https://lastknightcoder.gitee.io/categories/Algorithms/">Algorithms</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#准备工作"><span class="post-toc-number">1.</span> <span class="post-toc-text">准备工作</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#选择排序"><span class="post-toc-number">2.</span> <span class="post-toc-text">选择排序</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#插入排序"><span class="post-toc-number">3.</span> <span class="post-toc-text">插入排序</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#希尔排序"><span class="post-toc-number">4.</span> <span class="post-toc-text">希尔排序</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#归并排序"><span class="post-toc-number">5.</span> <span class="post-toc-text">归并排序</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#自顶向下的归并排序"><span class="post-toc-number">5.1.</span> <span class="post-toc-text">自顶向下的归并排序</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#优化"><span class="post-toc-number">5.1.1.</span> <span class="post-toc-text">优化</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#自底向上的归并排序"><span class="post-toc-number">5.2.</span> <span class="post-toc-text">自底向上的归并排序</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#快速排序"><span class="post-toc-number">6.</span> <span class="post-toc-text">快速排序</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#基本算法"><span class="post-toc-number">6.1.</span> <span class="post-toc-text">基本算法</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#随机快排"><span class="post-toc-number">6.2.</span> <span class="post-toc-text">随机快排</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#三路快排"><span class="post-toc-number">6.3.</span> <span class="post-toc-text">三路快排</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#堆排序"><span class="post-toc-number">7.</span> <span class="post-toc-text">堆排序</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-排序算法"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">常见排序算法</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2019-10-02 00:00:00" datetime="2019-10-01T16:00:00.000Z"  itemprop="datePublished">2019-10-02</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="https://lastknightcoder.gitee.io/categories/Algorithms/">Algorithms</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>由于近期在学习排序算法，决定将自己的学习过程记录下来，一是为了自己能够方便的复习，另一个是将这个知识分享给大家。我将使用Java语言实现下列排序算法</p>
+<ul>
+<li>选择排序</li>
+<li>插入排序</li>
+<li>希尔排序</li>
+<li>归并排序</li>
+<li>快速排序</li>
+<li>堆排序</li>
+</ul>
+<h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><p>为了对实现的算法进行测试，我们准备一个工具类Helper，里面包括我们由于测试算法正确与否的方法以及性能测试的代码，包括交换数组中的两个元素(这个操作在排序时经常用到，所以抽象出一个方法)，还有产生一个指定容量和范围的随机数组，还有判断数组是否有序的函数以及性能测试的函数</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Arrays;</span><br><span class="line"><span class="keyword">import</span> java.util.Random;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Helper</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//交换arr[i]和arr[j]</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">swap</span><span class="params">(<span class="keyword">int</span>[] arr, <span class="keyword">int</span> i, <span class="keyword">int</span> j)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> temp = arr[i];</span><br><span class="line">        arr[i] = arr[j];</span><br><span class="line">        arr[j] = temp;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//产生一个范围在rangeL-rangeR，容量为n的数组</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span>[] generateArray(<span class="keyword">int</span> n, <span class="keyword">int</span> rangeL, <span class="keyword">int</span> rangeR) &#123;</span><br><span class="line">        Random random = <span class="keyword">new</span> Random();</span><br><span class="line">        <span class="keyword">int</span>[] arr = <span class="keyword">new</span> <span class="keyword">int</span>[n];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">            arr[i] = random.nextInt(rangeR - rangeL + <span class="number">1</span>) + rangeL;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> arr;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//判断数组是否有序(从小到大)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">isSorted</span><span class="params">(<span class="keyword">int</span>[] arr)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; arr.length - <span class="number">1</span>; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (arr[i] &gt; arr[i + <span class="number">1</span>]) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//测试排序需要的时间 需要传入一个函数接口Sort</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">double</span> <span class="title">testTime</span><span class="params">(<span class="keyword">int</span>[] arr, Sort sort)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">long</span> startTime = System.nanoTime();</span><br><span class="line">        sort.sort(arr);</span><br><span class="line">        <span class="keyword">long</span> endTime = System.nanoTime();</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> (endTime - startTime) / <span class="number">1000000000.0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其中testTime需要传入一个函数式接口Sort，该接口定义如下</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Sort</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sort</span><span class="params">(<span class="keyword">int</span>[] arr)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们在调用该方法时，只要将我们的排序算法的方法引用传入即可。</p>
+<h2 id="选择排序"><a href="#选择排序" class="headerlink" title="选择排序"></a>选择排序</h2><p>为了描述的精确性，我们把数组分为两部分，一部分是已经排好序的区域，一部分是未排序的区域</p>
+<center>
+<img src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/imgsort01.png"/>
+</center>
+
+<p>选择排序的策略就是在未排序的区域找出最小元素的位置，然后将它交换到未排序区域的最前方，然后已排序区域向前扩大一位，然后接着上面策略，直至未排序的区域为空，排序结束。下面以一个例子进行说明，我们默认蓝色区域代表已排序区域，白色区域代表未排序区域</p>
+<center>
+<img src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/imgsort02.png"/>
+</center>
+
+<p>代码如下</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SelectionSort</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">sort</span><span class="params">(<span class="keyword">int</span>[] arr)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (arr == <span class="keyword">null</span> || arr.length &lt; <span class="number">2</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; arr.length; i++) &#123;</span><br><span class="line">            <span class="keyword">int</span> minIndex = i;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = i + <span class="number">1</span>; j &lt; arr.length; j++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (arr[j] &lt; arr[minIndex]) &#123;</span><br><span class="line">                    minIndex = j;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            Helper.swap(arr,minIndex,i);</span><br><span class="line">            minIndex = i + <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//对100000个数进行排序</span></span><br><span class="line">        <span class="keyword">int</span> n = <span class="number">100000</span>;</span><br><span class="line">        <span class="comment">//产生随机数组</span></span><br><span class="line">        <span class="keyword">int</span>[] arr = Helper.generateArray(n, <span class="number">0</span>, n);</span><br><span class="line">        <span class="comment">//传入排序算法的引用，得到排序所需时间</span></span><br><span class="line">        <span class="keyword">double</span> time = Helper.testTime(arr,SelectionSort::sort);</span><br><span class="line">        <span class="comment">//确定算法是否排好序</span></span><br><span class="line">        System.out.println(<span class="string">"isSorted: "</span> + Helper.isSorted(arr));</span><br><span class="line">        <span class="comment">//打印排序所需时间</span></span><br><span class="line">        System.out.println(time + <span class="string">"s"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>输出为</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">isSorted: <span class="keyword">true</span></span><br><span class="line"><span class="number">7.319637673</span>s</span><br></pre></td></tr></table></figure>
+
+<p>可见算法已经排好序，并且选择排序对100000个数据排序所需的时间为7.32s左右。</p>
+<h2 id="插入排序"><a href="#插入排序" class="headerlink" title="插入排序"></a>插入排序</h2><p>插入排序就像是你在打斗地主，当你摸牌时你对牌的排序。向上面一样，我们将数组分为已排序的部分和未排序的部分，以排序的部分就是你已经排好序的牌，现在你又摸到了一张牌，那么你是不是会将这张牌与排好序的牌进行比较，插入到合适的位置，然后继续摸下一张牌，然后又进行插入排序，直到牌已经摸完了(未排序的部分为空)，那么你就已经拍好序了，下面看一个例子</p>
+<center>
+<img src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/imgsort03.png"/>
+</center>
+
+<p>代码为</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">InsertSort</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">sort</span><span class="params">(<span class="keyword">int</span>[] arr)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//i = 1开始，因为默认第一张牌是排好序的</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; arr.length; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = i; j &gt; <span class="number">0</span>; j--) &#123;</span><br><span class="line">                <span class="comment">//如果后面比前面小，进行交换</span></span><br><span class="line">                <span class="keyword">if</span> (arr[j - <span class="number">1</span>] &gt; arr[j]) &#123;</span><br><span class="line">                    Helper.swap(arr,j - <span class="number">1</span>, j);</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="comment">//如果后面比前面大，结束交换</span></span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = <span class="number">100000</span>;</span><br><span class="line">        <span class="keyword">int</span>[] arr = Helper.generateArray(n, <span class="number">0</span>, n);</span><br><span class="line">        <span class="keyword">double</span> time = Helper.testTime(arr,InsertSort::sort);</span><br><span class="line">        System.out.println(<span class="string">"isSorted: "</span> + Helper.isSorted(arr));</span><br><span class="line">        System.out.println(time + <span class="string">"s"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>输出为</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">isSorted: <span class="keyword">true</span></span><br><span class="line"><span class="number">8.863959818</span>s</span><br></pre></td></tr></table></figure>
+
+<p>这表明插入排序对100000个数据排序所需的时间为8.86s左右。它的速度比选择排序还要慢一些，这时因为插入排序中含有大量的交换操作，如果我们将上面的交换操作替换为赋值操作</p>
+<center>
+<img src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/imgsort06.png"/>
+</center>
+
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">sort</span><span class="params">(<span class="keyword">int</span>[] arr)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; arr.length; i++) &#123;</span><br><span class="line">        <span class="keyword">int</span> e = arr[i]; <span class="comment">//保存要插入的元素</span></span><br><span class="line">        <span class="keyword">int</span> j; <span class="comment">//记录要插入的位置</span></span><br><span class="line">        <span class="keyword">for</span> (j = i; j &gt; <span class="number">0</span>; j--) &#123;</span><br><span class="line">            <span class="keyword">if</span> (arr[j - <span class="number">1</span>] &gt; e) &#123;</span><br><span class="line">                <span class="comment">//向后移动</span></span><br><span class="line">                arr[j] = arr[j - <span class="number">1</span>];</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        arr[j] = e;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这时需要的时间为</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">isSorted: <span class="keyword">true</span></span><br><span class="line"><span class="number">2.293106947</span>s</span><br></pre></td></tr></table></figure>
+
+<p>并且对于近乎有序的数组，插入排序的速度非常的快，甚至比后面要介绍的O(NlogN)的速度还要快。</p>
+<h2 id="希尔排序"><a href="#希尔排序" class="headerlink" title="希尔排序"></a>希尔排序</h2><p>希尔排序是对插入排序的改进。既然是改进，那么我们就要知道插入排序有什么问题：如果有一个很小的数在数组的后方，那么这个数就会进行很长时间的交换才能插入到合适的位置，这明显是一个比较慢的过程</p>
+<center>
+<img src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/imgsort04.png"/>
+</center>
+
+<p>而希尔排序将解决这一个问题，希尔排序首先将数组分组，比如</p>
+<center>
+<img src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/imgsort05.png"/>
+</center>
+
+<p>上面的示例中，我们从每隔3个一组到每隔2个一组最后每隔1个一组，我们把上面的”3,2,1”称之为增幅序列h，不同的递增序列对算法的性能也有影响，有很多的论文研究了不同的递增序列，但都无法证明某个递增序列是最好的，下面的程序考虑使用”1, 4, 13, …”这个递增序列(h = 1, h = 3 * h + 1)，代码如下</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ShellSort</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">sort</span><span class="params">(<span class="keyword">int</span>[] arr)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> N = arr.length;</span><br><span class="line">        <span class="keyword">int</span> h = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span> (h &lt; N / <span class="number">3</span>) &#123;</span><br><span class="line">            h = <span class="number">3</span>*h + <span class="number">1</span>; <span class="comment">// 1 4 13 40 121 ...</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// h = 1的时候就是对整个数组进行插入排序</span></span><br><span class="line">        <span class="keyword">while</span> (h &gt;= <span class="number">1</span>) &#123;</span><br><span class="line">            <span class="comment">//每隔h个元素(将数组分成了h组)进行插入排序</span></span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = h; i &lt; N; i++) &#123;</span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">int</span> j = i; j &gt; h - <span class="number">1</span>; j -= h) &#123;</span><br><span class="line">                    <span class="keyword">if</span> (arr[j - h] &gt; arr[j]) &#123;</span><br><span class="line">                        Helper.swap(arr, j, j-h);</span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            h = h/<span class="number">3</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = <span class="number">100000</span>;</span><br><span class="line">        <span class="keyword">int</span> m = <span class="number">10</span>;</span><br><span class="line">        <span class="keyword">double</span> time = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m; i++) &#123;</span><br><span class="line">            <span class="keyword">int</span>[] arr = Helper.generateArray(n, <span class="number">0</span>, n);</span><br><span class="line">            time += Helper.testTime(arr, ShellSort::sort);</span><br><span class="line">            System.out.println(<span class="string">"isSorted: "</span> + Helper.isSorted(arr));</span><br><span class="line">        &#125;</span><br><span class="line">        time = time / m;</span><br><span class="line">        System.out.println(time + <span class="string">"s"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>输出为</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">isSorted: <span class="keyword">true</span></span><br><span class="line"><span class="number">0.0292856418</span>s</span><br></pre></td></tr></table></figure>
+
+<p>希尔排序10次平均所需的时间只有0.03s，与选择排序和插入排序不是一个等级上的。</p>
+<h2 id="归并排序"><a href="#归并排序" class="headerlink" title="归并排序"></a>归并排序</h2><h3 id="自顶向下的归并排序"><a href="#自顶向下的归并排序" class="headerlink" title="自顶向下的归并排序"></a>自顶向下的归并排序</h3><p>归并排序的思想是将数组一分为二，然后对左、右两边的数组进行排序，然后将左右两边的已经有序数组进行融合成一个有序的数组，而左右两边的排序问题也可以按照上面的思想进行，直到数组只剩下一个元素，我们认为已经是有序的了，然后向上进行融合</p>
+<center>
+<img src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/imgsort10.png"/>
+</center>
+
+<p>下面的代码简要的简述了上面的过程</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Arrays;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MergeSort</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">sort</span><span class="params">(<span class="keyword">int</span>[] arr)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (arr == <span class="keyword">null</span> || arr.length &lt; <span class="number">2</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> ;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        mergeSort(arr,<span class="number">0</span>, arr.length-<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">mergeSort</span><span class="params">(<span class="keyword">int</span>[] arr, <span class="keyword">int</span> left, <span class="keyword">int</span> right)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//如果只有一个元素，可认为是有序的了</span></span><br><span class="line">        <span class="keyword">if</span> (left == right) &#123;</span><br><span class="line">            <span class="keyword">return</span> ;</span><br><span class="line">        &#125;</span><br><span class="line">		</span><br><span class="line">        <span class="keyword">int</span> mid = left + (right - left) / <span class="number">2</span>;</span><br><span class="line">        <span class="comment">//对左右两边进行排序</span></span><br><span class="line">        mergeSort(arr,left,mid);</span><br><span class="line">        mergeSort(arr,mid + <span class="number">1</span>, right);</span><br><span class="line">		</span><br><span class="line">        <span class="comment">//融合左右两边的数组</span></span><br><span class="line">        merge(arr,left,right);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>现在的关键是如何融合左右两个有序的数组为一个有序的数组，来看下面这个例子</p>
+<center>
+<img src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/imgsort11.png"/>
+</center>
+
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">merge</span><span class="params">(<span class="keyword">int</span>[] arr, <span class="keyword">int</span> left, <span class="keyword">int</span> right)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//要融合的数组</span></span><br><span class="line">    <span class="keyword">int</span>[] help = <span class="keyword">new</span> <span class="keyword">int</span>[right - left + <span class="number">1</span>];</span><br><span class="line">    <span class="keyword">int</span> mid = left + (right - left) / <span class="number">2</span>;</span><br><span class="line">    <span class="comment">//左右数组的首部</span></span><br><span class="line">    <span class="keyword">int</span> p1 = left;</span><br><span class="line">    <span class="keyword">int</span> p2 = mid + <span class="number">1</span>;</span><br><span class="line">    <span class="comment">//要融合数组的首部</span></span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">    <span class="comment">//如果两个数组都没有遍历完毕</span></span><br><span class="line">    <span class="keyword">while</span> (p1 &lt;= mid &amp;&amp; p2 &lt;= right) &#123;</span><br><span class="line">        <span class="keyword">if</span> (arr[p1] &lt;= arr[p2]) &#123;</span><br><span class="line">            help[i++] = arr[p1++];</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            help[i++] = arr[p2++];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//如果p2遍历完毕了，将p1中剩下的元素复制到融合的数组中</span></span><br><span class="line">    <span class="keyword">while</span> (p1 &lt;= mid) &#123;</span><br><span class="line">        help[i++] = arr[p1++];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//同上</span></span><br><span class="line">    <span class="keyword">while</span> (p2 &lt;= right) &#123;</span><br><span class="line">        help[i++] = arr[p2++];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//将融合的数组按序赋值给我们要排序的数组</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> j = left; j &lt;= right; j++) &#123;</span><br><span class="line">        arr[j] = help[j - left];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们来测试一下10次平均所需时间为</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">isSorted: <span class="keyword">true</span></span><br><span class="line"><span class="number">0.0334043239</span>s</span><br></pre></td></tr></table></figure>
+
+<p>归并排序是O(NlogN)级别的算法，比选择排序和插入排序要快很多。</p>
+<h4 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h4><p>上面我们在对左右两个数组排好序之后，直接进行了merge操作</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">mergeSort(arr,left,mid);</span><br><span class="line">mergeSort(arr,mid + <span class="number">1</span>, right);</span><br><span class="line">merge(arr,left,right);</span><br></pre></td></tr></table></figure>
+
+<p>但是如果考虑到如下情况</p>
+<center>
+<img src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/imgsort12.png"/>
+</center>
+
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">mergeSort(arr,left,mid);</span><br><span class="line">mergeSort(arr,mid + <span class="number">1</span>, right);</span><br><span class="line"><span class="keyword">if</span> (arr[mid] &gt; arr[mid + <span class="number">1</span>])</span><br><span class="line">    merge(arr,left,right);</span><br></pre></td></tr></table></figure>
+
+<p>我们还可以进行优化，在上面我们提到，插入排序在数组近乎有序的情况下排序的速度非常的快，所以我们可以考虑当数组被划分到小于一定的规模(当数组小于一定规模时，近乎有序的概率很大)时我们不在向下划分，而是转而用插入排序，所以我们在Helper中添加一个方法</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">insertSort</span><span class="params">(<span class="keyword">int</span>[] arr, <span class="keyword">int</span> l, <span class="keyword">int</span> r)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = l + <span class="number">1</span>; i &lt;= r; i++) &#123;</span><br><span class="line">        <span class="keyword">int</span> e = arr[i]; <span class="comment">//保存要插入的元素</span></span><br><span class="line">        <span class="keyword">int</span> j; <span class="comment">//记录要插入的位置</span></span><br><span class="line">        <span class="keyword">for</span> (j = i; j &gt; l; j--) &#123;</span><br><span class="line">            <span class="keyword">if</span> (arr[j - <span class="number">1</span>] &gt; e) &#123;</span><br><span class="line">                arr[j] = arr[j - <span class="number">1</span>];</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        arr[j] = e;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个方法与插入排序的算法很相似，不过规定了对什么范围的数组进行排序，所以归并排序的算法可以修改如下</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">mergeSort</span><span class="params">(<span class="keyword">int</span>[] arr, <span class="keyword">int</span> left, <span class="keyword">int</span> right)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//当数组小于15时，使用插入排序</span></span><br><span class="line">    <span class="keyword">if</span> (right - left &lt; <span class="number">15</span>) &#123;</span><br><span class="line">        Helper.insertSort(arr, left, right);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">int</span> mid = left + (right - left) / <span class="number">2</span>;</span><br><span class="line">    mergeSort(arr,left,mid);</span><br><span class="line">    mergeSort(arr,mid + <span class="number">1</span>, right);</span><br><span class="line">    <span class="keyword">if</span> (arr[mid] &gt; arr[mid + <span class="number">1</span>])</span><br><span class="line">        merge(arr,left,right);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>再次测试10次平均所需时间</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">isSorted: <span class="keyword">true</span></span><br><span class="line"><span class="number">0.028484280499999997</span>s</span><br></pre></td></tr></table></figure>
+
+<h3 id="自底向上的归并排序"><a href="#自底向上的归并排序" class="headerlink" title="自底向上的归并排序"></a>自底向上的归并排序</h3><p>我们在上面使用的归并排序是自顶向下使用递归来完成的，但是我们不一定要自顶向下的完成这个排序过程，而是可以自底向上进行排序，首先将底层的序拍好，然后进行merge一路向上完成排序</p>
+<center>
+<img src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/imgsort13.png"/>
+</center>
+
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">sortBU</span><span class="params">(<span class="keyword">int</span>[] arr)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (arr == <span class="keyword">null</span> || arr.length &lt; <span class="number">2</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> ;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//每轮2*sz个元素，为什么不直接sz = 2, 因为我们后面传入mid是要/2，所以这里的粒度就为sz</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> sz = <span class="number">1</span>; sz &lt;= arr.length; sz += sz) &#123;</span><br><span class="line">        <span class="comment">//mid &lt;= arr.length - 1</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i + sz &lt; arr.length; i += (sz + sz)) &#123;</span><br><span class="line">            <span class="comment">//小数组使用插入排序</span></span><br><span class="line">            <span class="keyword">if</span> (<span class="number">2</span> * sz &lt; <span class="number">15</span>) &#123;</span><br><span class="line">                Helper.insertSort(arr,i, i + sz + sz - <span class="number">1</span>);</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">//只有当右边最小比左边最大还大时才需要merge</span></span><br><span class="line">            <span class="keyword">if</span> (arr[i + sz -<span class="number">1</span>] &gt; arr[Math.min(i + sz, arr.length - <span class="number">1</span>)]) <span class="comment">//防止越界</span></span><br><span class="line">                merge(arr, i, i + sz - <span class="number">1</span>, Math.min(i + sz + sz - <span class="number">1</span>, arr.length - <span class="number">1</span>)); <span class="comment">//防止越界</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">merge</span><span class="params">(<span class="keyword">int</span>[] arr, <span class="keyword">int</span> left, <span class="keyword">int</span> mid, <span class="keyword">int</span> right)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span>[] help = <span class="keyword">new</span> <span class="keyword">int</span>[right - left + <span class="number">1</span>];</span><br><span class="line">    <span class="keyword">int</span> p1 = left;</span><br><span class="line">    <span class="keyword">int</span> p2 = mid + <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (p1 &lt;= mid &amp;&amp; p2 &lt;= right) &#123;</span><br><span class="line">        <span class="keyword">if</span> (arr[p1] &lt;= arr[p2]) &#123;</span><br><span class="line">            help[i++] = arr[p1++];</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            help[i++] = arr[p2++];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span> (p1 &lt;= mid) &#123;</span><br><span class="line">        help[i++] = arr[p1++];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span> (p2 &lt;= right) &#123;</span><br><span class="line">        help[i++] = arr[p2++];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> j = left; j &lt;= right; j++) &#123;</span><br><span class="line">        arr[j] = help[j - left];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>你可能发现这次的merge需要自己传入mid值，而不是自己计算。可以思考一下为什么? 现在我们测试一下自底向上排序所需要的时间</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">isSorted: <span class="keyword">true</span></span><br><span class="line"><span class="number">0.031012182500000006</span>s</span><br></pre></td></tr></table></figure>
+
+<p>自底向上的排序会比自顶向下的排序慢，但是自底向上的排序有一个非常重要的特点，它没有利用数组随机访问的特点，即数组通过下标对元素访问(插入排序中有，但是你可以不优化这里)，这意味着我们可以对链表使用自底向上的排序。</p>
+<h2 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h2><h3 id="基本算法"><a href="#基本算法" class="headerlink" title="基本算法"></a>基本算法</h3><p>在看快速排序算法前我们先来看一个问题，给定一个数，要求数组左边的数都小于等于这个数，数组右边的数都大于这个数，请问这个算法怎么写。首先我们将数组标记为小于等于区和大于区，并用less和more标记区域的范围，所有index &lt;= less的元素都小于指定数，所有index &gt;= more的都大于指定数，下图将讲解具体的算法</p>
+<center>
+<img src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/imgsort14.png"/>
+</center>
+
+<p>上面的过程我们称为partition，对应的代码如下</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> e = <span class="number">6</span>;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">partition</span><span class="params">(<span class="keyword">int</span>[] arr, <span class="keyword">int</span> L, <span class="keyword">int</span> R)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> less = L - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">int</span> more = R + <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">int</span> cur = L;</span><br><span class="line">    <span class="keyword">while</span> (cur &lt; more) &#123;</span><br><span class="line">        <span class="keyword">if</span> (arr[cur] &lt;= e) &#123;</span><br><span class="line">            <span class="comment">//如果当前元素小于指定元素 less和cur向前移动</span></span><br><span class="line">            less++;</span><br><span class="line">            cur++;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (arr[cur] &gt; e) &#123;</span><br><span class="line">            Helper.swap(arr,--more,cur);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            cur++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//返回两个数组的分界处</span></span><br><span class="line">    <span class="keyword">return</span> less;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>那么快速排序的思想就是选定一个数(一般我们选择要排序范围内的最后一个数arr[R])，要求左边的数比这个数小(或等于)，右边的数比这个数大。然后又接着对左右两边的数进行上述的分割(partition)，直至分割后的数组只剩下一个元素，可认为是有序的，这时数组就是有序的了</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">QuickSort</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">sort</span><span class="params">(<span class="keyword">int</span>[] arr)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (arr == <span class="keyword">null</span> || arr.length &lt; <span class="number">2</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        quickSort(arr,<span class="number">0</span>,arr.length-<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">quickSort</span><span class="params">(<span class="keyword">int</span>[] arr, <span class="keyword">int</span> l, <span class="keyword">int</span> r)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//当数组较小时，使用插入排序</span></span><br><span class="line">        <span class="keyword">if</span> (r - l &lt; <span class="number">15</span>) &#123;</span><br><span class="line">            Helper.insertSort(arr, l, r);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> (l &lt; r) &#123;</span><br><span class="line">            <span class="keyword">int</span> p = partition(arr, l, r);</span><br><span class="line">            quickSort(arr, l, p);</span><br><span class="line">            quickSort(arr, p + <span class="number">1</span>, r);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">partition</span><span class="params">(<span class="keyword">int</span>[] arr, <span class="keyword">int</span> L, <span class="keyword">int</span> R)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> less = L - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">int</span> more = R + <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> cur = L;</span><br><span class="line">        <span class="keyword">while</span> (cur &lt; more) &#123;</span><br><span class="line">            <span class="keyword">if</span> (arr[cur] &lt;= arr[R]) &#123;</span><br><span class="line">                less++;</span><br><span class="line">                cur++;</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (arr[cur] &gt; arr[R]) &#123;</span><br><span class="line">                Helper.swap(arr,--more,cur);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> less;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>测试此时10次平均所需的时间</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">isSorted: <span class="keyword">true</span></span><br><span class="line"><span class="number">0.023240137399999996</span>s</span><br></pre></td></tr></table></figure>
+
+<h3 id="随机快排"><a href="#随机快排" class="headerlink" title="随机快排"></a>随机快排</h3><p>但是此时有一个问题，如果此时数组是近乎有序的，那么我们根据最后一个元素划分元素会划分出左右两边的数组失衡</p>
+<center>
+<img src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/imgsort15.png"/>
+</center>
+
+<p>所以我们不能选择最后一个元素，而是选择一个随机的元素，我们只要在上面的程序中加入下面的一行代码即可</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (l &lt; r) &#123;</span><br><span class="line">    <span class="comment">//随机一个下标和最后一个元素交换</span></span><br><span class="line">    Helper.swap(arr, (<span class="keyword">int</span>)Math.random() * (r - l + <span class="number">1</span>) + l, r); <span class="comment">// 随机快排</span></span><br><span class="line">    <span class="keyword">int</span> p = partition(arr, l, r);</span><br><span class="line">    quickSort(arr, l, p);</span><br><span class="line">    quickSort(arr, p + <span class="number">1</span>, r);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="三路快排"><a href="#三路快排" class="headerlink" title="三路快排"></a>三路快排</h3><p>这时需要考虑这么一种情况，如果数组中有十分多的重复元素，那么就会有元素重复的子数组，这时应该就不应该排序了，但是我们的算法还是会把数组继续切分为更小的数组进行排序，这就有很大的改进潜力。所以我们考虑我们的partition算法不再划分为两部分，而是划分为三部分，小于，等于和大于三个区域</p>
+<center>
+<img src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/imgsort16.png"/>
+</center>
+
+<p>所以我们修改上面的排序算法如下</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">quickSort</span><span class="params">(<span class="keyword">int</span>[] arr, <span class="keyword">int</span> l, <span class="keyword">int</span> r)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (r - l &lt; <span class="number">15</span>) &#123;</span><br><span class="line">        Helper.insertSort(arr, l, r);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (l &lt; r) &#123;</span><br><span class="line">        Helper.swap(arr, (<span class="keyword">int</span>)Math.random() * (r - l + <span class="number">1</span>) + l, r); <span class="comment">// 随机快排</span></span><br><span class="line">        <span class="comment">//p得到的是等于区的范围</span></span><br><span class="line">        <span class="keyword">int</span>[] p = partition(arr,l,r);</span><br><span class="line">        <span class="comment">//对等于区不用排序</span></span><br><span class="line">        quickSort(arr,l,p[<span class="number">0</span>] - <span class="number">1</span>);</span><br><span class="line">        quickSort(arr,p[<span class="number">1</span>] + <span class="number">1</span>, r);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span>[] partition(<span class="keyword">int</span>[] arr, <span class="keyword">int</span> L, <span class="keyword">int</span> R) &#123;</span><br><span class="line">    <span class="keyword">int</span> less = L - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">int</span> more = R;</span><br><span class="line">    <span class="keyword">int</span> cur = L;</span><br><span class="line">    <span class="keyword">while</span> (cur &lt; more) &#123;</span><br><span class="line">        <span class="keyword">if</span> (arr[cur] &lt; arr[R]) &#123;</span><br><span class="line">            <span class="comment">//与less的前一个元素进行交换 并且less和cur向前移动</span></span><br><span class="line">            Helper.swap(arr,++less,cur++);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (arr[cur] &gt; arr[R]) &#123;</span><br><span class="line">            <span class="comment">//与more的后一个元素进行交换 并且more向后移动，并且cur和less都不移动</span></span><br><span class="line">            Helper.swap(arr,--more,cur);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">//如果等于，将cur向前移动即可</span></span><br><span class="line">            cur++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//最后将最后一个元素与more位置的元素进行交换</span></span><br><span class="line">    Helper.swap(arr,R,more);</span><br><span class="line">    <span class="comment">//返回等于区的左右下标</span></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;less+<span class="number">1</span>,more&#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="堆排序"><a href="#堆排序" class="headerlink" title="堆排序"></a>堆排序</h2><p>堆的有关知识可以参考<a href="https://lastknightcoder.gitee.io//%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84--Java%E6%8F%8F%E8%BF%B0/">数据结构–Java描述</a>中优先队列与堆的内容，如果你已经仔细的阅读了话，相比你已经熟悉了堆的性质了，那么下面就直接上代码了</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Arrays;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HeapSort</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">sort</span><span class="params">(<span class="keyword">int</span>[] arr)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (arr == <span class="keyword">null</span> || arr.length &lt; <span class="number">2</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//将数组变成堆结构</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; arr.length; i++) &#123;</span><br><span class="line">            heapInsert(arr,i);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> heapSize = arr.length;</span><br><span class="line">        <span class="keyword">while</span> (heapSize &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            Helper.swap(arr,<span class="number">0</span>,--heapSize);</span><br><span class="line">            heapify(arr,<span class="number">0</span>,heapSize);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">heapInsert</span><span class="params">(<span class="keyword">int</span>[] arr, <span class="keyword">int</span> index)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">while</span> (arr[index] &gt; arr[(index-<span class="number">1</span>)/<span class="number">2</span>]) &#123;</span><br><span class="line">            Helper.swap(arr,index,(index-<span class="number">1</span>)/<span class="number">2</span>);</span><br><span class="line">            index = (index - <span class="number">1</span>)/<span class="number">2</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">heapify</span><span class="params">(<span class="keyword">int</span>[] arr, <span class="keyword">int</span> index, <span class="keyword">int</span> heapSize)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> left = <span class="number">2</span> * index + <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> (left &lt; heapSize) &#123;</span><br><span class="line">            <span class="keyword">int</span> right = left + <span class="number">1</span>;</span><br><span class="line">            <span class="comment">//假设左更大</span></span><br><span class="line">            <span class="keyword">int</span> larger = left;</span><br><span class="line">            <span class="comment">//如果右比左大 改变larger为右</span></span><br><span class="line">            <span class="keyword">if</span> (right &lt; heapSize &amp;&amp; arr[right] &gt; arr[left]) &#123;</span><br><span class="line">                larger = right;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">//如果父比左右子节点都大，说明还是堆，直接退出循环</span></span><br><span class="line">            <span class="keyword">if</span> (arr[larger] &lt; arr[index]) &#123;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">//如果不是，那么就和比较大的交换交换</span></span><br><span class="line">            Helper.swap(arr,larger,index);</span><br><span class="line">            index = larger;</span><br><span class="line">            left = index * <span class="number">2</span> + <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = <span class="number">100000</span>;</span><br><span class="line">        <span class="keyword">int</span> m = <span class="number">10</span>;</span><br><span class="line">        <span class="keyword">double</span> time = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m; i++) &#123;</span><br><span class="line">            <span class="keyword">int</span>[] arr = Helper.generateArray(n, <span class="number">0</span>, n);</span><br><span class="line">            time += Helper.testTime(arr, HeapSort::sort);</span><br><span class="line">            System.out.println(<span class="string">"isSorted: "</span> + Helper.isSorted(arr));</span><br><span class="line">        &#125;</span><br><span class="line">        time = time / m;</span><br><span class="line">        System.out.println(time + <span class="string">"s"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>测试10次平均所需时间为</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">isSorted: <span class="keyword">true</span></span><br><span class="line"><span class="number">0.060118443099999995</span>s</span><br></pre></td></tr></table></figure>
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2019-10-01T16:00:00.000Z" itemprop="dateUpdated">2019-10-02 00:00:00</time>
+</span><br>
+
+
+        
+    </div>
+    
+    <footer>
+        <a href="https://lastknightcoder.gitee.io">
+            <img src="https://lastknightcoder.gitee.io/img/avatar.jpg" alt="熊滔">
+            熊滔
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="https://lastknightcoder.gitee.io/tags/Java/" rel="tag">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="https://lastknightcoder.gitee.io/tags/%E6%8E%92%E5%BA%8F/" rel="tag">排序</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://lastknightcoder.gitee.io/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/&title=《常见排序算法》 — Coder&pic=https://lastknightcoder.gitee.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://lastknightcoder.gitee.io/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/&title=《常见排序算法》 — Coder&source=人生天地间，忽如远行客" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://lastknightcoder.gitee.io/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《常见排序算法》 — Coder&url=https://lastknightcoder.gitee.io/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/&via=https://lastknightcoder.gitee.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://lastknightcoder.gitee.io/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="https://lastknightcoder.gitee.io/Maven%E5%AE%89%E8%A3%85%E5%8F%8A%E9%85%8D%E7%BD%AE/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">Maven安装及配置</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="https://lastknightcoder.gitee.io/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84--Java%E6%8F%8F%E8%BF%B0/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">数据结构--Java描述</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="https://lastknightcoder.gitee.io/img/wechatpay.png" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="https://lastknightcoder.gitee.io/img/wechatpay.png" data-alipay="https://lastknightcoder.gitee.io/img/alipay.png">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="https://lastknightcoder.gitee.io/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>熊滔 &copy; 2019 - 2020</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://lastknightcoder.gitee.io/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/&title=《常见排序算法》 — Coder&pic=https://lastknightcoder.gitee.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://lastknightcoder.gitee.io/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/&title=《常见排序算法》 — Coder&source=人生天地间，忽如远行客" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://lastknightcoder.gitee.io/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《常见排序算法》 — Coder&url=https://lastknightcoder.gitee.io/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/&via=https://lastknightcoder.gitee.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://lastknightcoder.gitee.io/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACuUlEQVR42u3aQW7kMAwEQP//0wmwp1xsN0kxmQXKp8CYkVUOIHGauq74+vp33d3/eU1GeL7/PP7owsPDw2tN/e6av7lktOocks/j4eHhbfOel/K7oee8ZGvJXzceHh7ep/Gey9+8pp2X1Hh4eHj/Cy9nV5f75MXh4eHhfRovCQKe7yej5VOszudA1oKHh4cX86oNsE/4e7G/h4eHhzfoqudL/KTRlccf5bnh4eHhLfAmDa3ku9UX1It9X2aOh4eHd5TXC1LzkCIfIQlk89DhZd/Dw8PDG/CqkWiylEePXNtmmik1Hh4eXvF3+iQOSMapLvS94vvK9xY8PDy8Ma86ld6xqnwbqM7q9lt4eHh4C7zJ4adqiVxNl+fNMzw8PLwN3iSGmIcLzX5dHv7i4eHhLfCSR/baXb222bxJFl14eHh4y7xqcDA5VlWNel9+K+Dh4eGt8SaT6G0P+daSBx8vWTUeHh7eMm/vKEC+U/UC32hjwMPDwxvw8pi12qaq1rR5cX/gZAQeHh7emNeLVnv3J4cSygktHh4e3jIveXwviq02/pMDVVGBjoeHh7fA6zX7J5PuvbKkWL+dIR4eHt5RXtJ26hW++bGt/CWWtxw8PDy8ZV51Ce4dMsiDhkmcgYeHh7fHS8rT/P4kyOiV0fkT8fDw8PZ41aI2L5FPfSYJcws1Ph4eHl6LNwkO8gbVqeAjD0Hw8PDwtnmT1n6ybVRj2Ty2iPp7eHh4eId4G0tzb7q94vvl34OHh4e3wOtNrld2T1pc1SL+mrx7PDw8vIBX3Qx6G8mp5b46Ph4eHt4eL98MkmW6d2Brfjwrylrw8PDwfp33shAfOsuQF9wvY+Lh4eH9Ka9aEFdbYnmGkMwBDw8Pb5uXD5F8Nw8U5lHFy8vCw8PDW+BNGmB5uZw3+Ktl+oEuHx4eHl7K+waN4NB1n4xgXgAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: 'https://lastknightcoder.gitee.io/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

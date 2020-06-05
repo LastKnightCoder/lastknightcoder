@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>重建二叉树 | Coder</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="剑指offer">
+    <meta name="description" content="题目：输入某二叉树的前序遍历和中序遍历的结果，请重建该二叉树。假设输入的前序遍历和中序遍历的结果中都不含重复的数字。  首先通过一个例子看看前序遍历和中序遍历的特点，如下二叉树   它的前序遍历和中序遍历的结果为   我们分析一下前序遍历和中序遍历的结构   我们的思路是首先根据前序遍历找到根节点的值(第一个)，接着根据找到的根节点的值，在中序遍历中找到根节点的位置，在中序遍历中根节点左边的值是">
+<meta property="og:type" content="article">
+<meta property="og:title" content="重建二叉树">
+<meta property="og:url" content="https://lastknightcoder.gitee.io/%E9%87%8D%E5%BB%BA%E4%BA%8C%E5%8F%89%E6%A0%91/">
+<meta property="og:site_name" content="Coder">
+<meta property="og:description" content="题目：输入某二叉树的前序遍历和中序遍历的结果，请重建该二叉树。假设输入的前序遍历和中序遍历的结果中都不含重复的数字。  首先通过一个例子看看前序遍历和中序遍历的特点，如下二叉树   它的前序遍历和中序遍历的结果为   我们分析一下前序遍历和中序遍历的结构   我们的思路是首先根据前序遍历找到根节点的值(第一个)，接着根据找到的根节点的值，在中序遍历中找到根节点的位置，在中序遍历中根节点左边的值是">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/image-20200602190620264.png">
+<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/20200601125610.png">
+<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/20200601125638.png">
+<meta property="article:published_time" content="2020-05-31T16:00:00.000Z">
+<meta property="article:modified_time" content="2020-05-31T16:00:00.000Z">
+<meta property="article:author" content="熊滔">
+<meta property="article:tag" content="剑指offer">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/image-20200602190620264.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="Coder" href="https://lastknightcoder.gitee.io/atom.xml">
+    
+    <link rel="shortcut icon" href="https://lastknightcoder.gitee.io/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(https://lastknightcoder.gitee.io/img/brand.jpg)">
+      <div class="brand">
+        <a href="https://lastknightcoder.gitee.io/" class="avatar waves-effect waves-circle waves-light">
+          <img src="https://lastknightcoder.gitee.io/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">熊滔</h5>
+          <a href="mailto:2223106858@qq.com" title="2223106858@qq.com" class="mail">2223106858@qq.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.gitee.io/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.gitee.io/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.gitee.io/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.gitee.io/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/LastKnightCoder" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">重建二叉树</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">重建二叉树</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2020-05-31T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2020-06-01
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="https://lastknightcoder.gitee.io/categories/%E5%89%91%E6%8C%87offer/">剑指offer</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+
+<article id="post-重建二叉树"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">重建二叉树</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2020-06-01 00:00:00" datetime="2020-05-31T16:00:00.000Z"  itemprop="datePublished">2020-06-01</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="https://lastknightcoder.gitee.io/categories/%E5%89%91%E6%8C%87offer/">剑指offer</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <blockquote>
+<p>题目：输入某二叉树的前序遍历和中序遍历的结果，请重建该二叉树。假设输入的前序遍历和中序遍历的结果中都不含重复的数字。</p>
+</blockquote>
+<p>首先通过一个例子看看前序遍历和中序遍历的特点，如下二叉树</p>
+<img src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/image-20200602190620264.png" width="50%"/>
+
+<p>它的前序遍历和中序遍历的结果为</p>
+<img src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/20200601125610.png" width="60%"/>
+
+<p>我们分析一下前序遍历和中序遍历的结构</p>
+<img src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/20200601125638.png" width="60%"/>
+
+<p>我们的思路是首先根据前序遍历找到根节点的值(第一个)，接着根据找到的根节点的值，在中序遍历中找到根节点的位置，在中序遍历中根节点左边的值是它的左子树的中序遍历，右边是它的右子树的中序遍历，并且进一步可以得到左右子树的长度，根据左右子树的长度，可以在前序遍历中找到左子树的前序遍历和右子树的前序遍历，然后重复上面的过程，又可以找到左右子树的根节点的值以及相应的左右子树，以此类推，即可重建二叉树。</p>
+<p>完整代码如下：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 二叉树的定义</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">BinaryTree</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> value;</span><br><span class="line">        BinaryTree left;</span><br><span class="line">        BinaryTree right;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">BinaryTree</span><span class="params">(<span class="keyword">int</span> value)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">this</span>.value = value;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// preorder 前序遍历的数组</span></span><br><span class="line">    <span class="comment">// inorder 中序遍历的数组</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> BinaryTree <span class="title">constructBinaryTree</span><span class="params">(<span class="keyword">int</span>[] preorder, <span class="keyword">int</span>[] inorder)</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (preorder == <span class="keyword">null</span> || inorder == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> Exception(<span class="string">"preorder or inorder is null"</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> helpContructBinaryTree(preorder, <span class="number">0</span>, preorder.length - <span class="number">1</span>,</span><br><span class="line">                inorder, <span class="number">0</span>, inorder.length - <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 根据前序遍历数组和中序遍历数组获得根节点</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> BinaryTree <span class="title">helpContructBinaryTree</span><span class="params">(<span class="keyword">int</span>[] preorder, <span class="keyword">int</span> preStart, <span class="keyword">int</span> preEnd,</span></span></span><br><span class="line"><span class="function"><span class="params">                               <span class="keyword">int</span>[] inorder, <span class="keyword">int</span> inStart, <span class="keyword">int</span> inEnd)</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 前序遍历的第一个值就是根节点</span></span><br><span class="line">        BinaryTree root = <span class="keyword">new</span> BinaryTree(preorder[preStart]);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 如果只有数组只有一个值</span></span><br><span class="line">        <span class="keyword">if</span> (preStart == preEnd) &#123;</span><br><span class="line">            <span class="keyword">if</span> (inStart == inEnd &amp;&amp; preorder[preStart] == inorder[inStart]) &#123;</span><br><span class="line">                <span class="keyword">return</span> root;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> Exception(<span class="string">"wrong input"</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 获得中序遍历根节点的位置</span></span><br><span class="line">        <span class="keyword">int</span> inOrderRoot = inStart;</span><br><span class="line">        <span class="keyword">for</span> (; inOrderRoot &lt;= inEnd; inOrderRoot++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (inorder[inOrderRoot] == root.value) &#123;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 如果在中序遍历中没有找到根节点 则输入的数组有错误</span></span><br><span class="line">        <span class="keyword">if</span> (inOrderRoot &gt; inEnd) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> Exception(<span class="string">"wrong input"</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 左右子树的长度</span></span><br><span class="line">        <span class="keyword">int</span> leftLength = inOrderRoot - inStart;</span><br><span class="line">        <span class="keyword">int</span> rightLength = inEnd - inOrderRoot;</span><br><span class="line">        <span class="keyword">if</span> (leftLength &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="comment">// 根据左子树的前序遍历和中序遍历获得左子树的根节点</span></span><br><span class="line">            <span class="comment">// [preStart + 1, preStart + leftLength] 左子树的前序遍历的范围</span></span><br><span class="line">            <span class="comment">// [inStart, inOrderRoot - 1] 左子树的中序遍历的范围</span></span><br><span class="line">            root.left = helpContructBinaryTree(preorder, preStart + <span class="number">1</span>, preStart + leftLength,</span><br><span class="line">                    inorder, inStart, inOrderRoot - <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (rightLength &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="comment">// 同左子树</span></span><br><span class="line">            root.right = helpContructBinaryTree(preorder, preStart + leftLength + <span class="number">1</span>, preEnd,</span><br><span class="line">                    inorder, inOrderRoot + <span class="number">1</span>, inEnd);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> root;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-05-31T16:00:00.000Z" itemprop="dateUpdated">2020-06-01 00:00:00</time>
+</span><br>
+
+
+        
+    </div>
+    
+    <footer>
+        <a href="https://lastknightcoder.gitee.io">
+            <img src="https://lastknightcoder.gitee.io/img/avatar.jpg" alt="熊滔">
+            熊滔
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="https://lastknightcoder.gitee.io/tags/%E5%89%91%E6%8C%87offer/" rel="tag">剑指offer</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://lastknightcoder.gitee.io/%E9%87%8D%E5%BB%BA%E4%BA%8C%E5%8F%89%E6%A0%91/&title=《重建二叉树》 — Coder&pic=https://lastknightcoder.gitee.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://lastknightcoder.gitee.io/%E9%87%8D%E5%BB%BA%E4%BA%8C%E5%8F%89%E6%A0%91/&title=《重建二叉树》 — Coder&source=人生天地间，忽如远行客" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://lastknightcoder.gitee.io/%E9%87%8D%E5%BB%BA%E4%BA%8C%E5%8F%89%E6%A0%91/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《重建二叉树》 — Coder&url=https://lastknightcoder.gitee.io/%E9%87%8D%E5%BB%BA%E4%BA%8C%E5%8F%89%E6%A0%91/&via=https://lastknightcoder.gitee.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://lastknightcoder.gitee.io/%E9%87%8D%E5%BB%BA%E4%BA%8C%E5%8F%89%E6%A0%91/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="https://lastknightcoder.gitee.io/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E4%B8%8B%E4%B8%80%E4%B8%AA%E8%8A%82%E7%82%B9/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">二叉树的下一个节点</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="https://lastknightcoder.gitee.io/TypeScript%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">TypeScript入门指南</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="https://lastknightcoder.gitee.io/img/wechatpay.png" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="https://lastknightcoder.gitee.io/img/wechatpay.png" data-alipay="https://lastknightcoder.gitee.io/img/alipay.png">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="https://lastknightcoder.gitee.io/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>熊滔 &copy; 2019 - 2020</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://lastknightcoder.gitee.io/%E9%87%8D%E5%BB%BA%E4%BA%8C%E5%8F%89%E6%A0%91/&title=《重建二叉树》 — Coder&pic=https://lastknightcoder.gitee.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://lastknightcoder.gitee.io/%E9%87%8D%E5%BB%BA%E4%BA%8C%E5%8F%89%E6%A0%91/&title=《重建二叉树》 — Coder&source=人生天地间，忽如远行客" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://lastknightcoder.gitee.io/%E9%87%8D%E5%BB%BA%E4%BA%8C%E5%8F%89%E6%A0%91/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《重建二叉树》 — Coder&url=https://lastknightcoder.gitee.io/%E9%87%8D%E5%BB%BA%E4%BA%8C%E5%8F%89%E6%A0%91/&via=https://lastknightcoder.gitee.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://lastknightcoder.gitee.io/%E9%87%8D%E5%BB%BA%E4%BA%8C%E5%8F%89%E6%A0%91/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACuUlEQVR42u3aQW7jQAwEQP//01kg2EMOG7ubnHGyQOlkCJI8pYM4aPLxiI+Pz+Pr769nNnfl55N/HB54eHh4o6V/d+TXPH/m8yUm54frwcPDw7vGax/93b3tXfnv4WvCw8PD+1HeKcxsY42Hh4f3v/OS7ezzZT1/Gh4eHt7v5yVhRL6U/OOeHG/KWvDw8PC63LVugP3s7+v9PTw8PLxRVz3/ZD/f1CZNsrOr+vtMPDw8vAu8fLs8iwz2jbQ8EImyFjw8PLwLvPzDPRs72I9Y1cOseHh4eBd47SKSF7F5Wp4qFIEFHh4e3iFeOxyQhwWzLfuVrAUPDw/vGq8NWPeNq/xfkmLzIsDFw8PDO8TLI9pTW94ZOOcVS8TDw8Mb8fbxQfsikivzkLeIbvHw8PAO8U5tZPMikTz5FB4PDw/vNm/WpspD3jbGnYUa9QABHh4e3oLXhqpJcysZopo13lZZCx4eHt6Cl2+j9+2xdvvbxsf/uAsPDw/vGq9ta+Wf7NnAVltUvj2Ph4eHd4HXtpdmUcJmLDUPlF+cx8PDwzvK24xA5e2xdiz1VNHCw8PDO8vLU968VOTb3/Z3XrqaaQI8PDy8jpePVbWL2F+ziX1f1D08PDy8BW/2B/UkV/mVzjfWL1aCh4eH90O8NoSdtaySZ7ZrwMPDw7vBy0ed2ubTLN7dtL7w8PDw3sNrW1xJGchTkE1Ziq7Ew8PDu8Bry0Petm835XUFKxt1eHh4eKd4H+WRBw1nxxFm5/Hw8PBu8NoP7iaYyGOOzcjCY3bg4eHhlby8GGze3yzYnRWMovrh4eHhLXhJMWi3zvkLyjfidfnBw8PD+2W8fYTRDgS8tTDg4eHhrXnt5z75xOcLbQcd8PDw8G7zZmHEMCAoX19eKg5nLXh4eHiLDvusxXWq9dUWlVV/Dw8PD+8Z7w9Mg7tgNFbdsAAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: 'https://lastknightcoder.gitee.io/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>
