@@ -1,90 +1,12 @@
-<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>CSS3 新特性 | Coder</title><meta name="description" content="讲解CSS3的新特性 几乎包括了各个方面"><meta name="keywords" content="CSS3 新特性"><meta name="author" content="熊滔"><meta name="copyright" content="熊滔"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="https://lastknightcoder.gitee.io/img/favicon.png"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="dns-prefetch" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="https://fonts.googleapis.com" crossorigin="crossorigin"/><link rel="dns-prefetch" href="https://fonts.googleapis.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="dns-prefetch" href="//busuanzi.ibruce.info"/><meta name="twitter:card" content="summary"><meta name="twitter:title" content="CSS3 新特性"><meta name="twitter:description" content="讲解CSS3的新特性 几乎包括了各个方面"><meta name="twitter:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/bg29.jpg"><meta property="og:type" content="article"><meta property="og:title" content="CSS3 新特性"><meta property="og:url" content="https://lastknightcoder.gitee.io/CSS3/"><meta property="og:site_name" content="Coder"><meta property="og:description" content="讲解CSS3的新特性 几乎包括了各个方面"><meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/bg29.jpg"><meta property="article:published_time" content="2019-12-24T16:00:00.000Z"><meta property="article:modified_time" content="2019-12-24T16:00:00.000Z"><script src="https://cdn.jsdelivr.net/npm/js-cookie/dist/js.cookie.min.js"></script><script>var autoChangeMode = '1'
-var t = Cookies.get("theme")
-if (autoChangeMode == '1'){
-  var isDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches
-  var isLightMode = window.matchMedia("(prefers-color-scheme: light)").matches
-  var isNotSpecified = window.matchMedia("(prefers-color-scheme: no-preference)").matches
-  var hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="author" content="熊滔"><meta name="description" content="人生天地间，忽如远行客"><link rel="alternative" href="/atom.xml" title="Coder" type="application/atom+xml"><link rel="icon" href="/favicon.png"><title>CSS3 新特性 - Coder</title>
+<link rel="stylesheet" href="https://lastknightcoder.gitee.io/css/main.css">
 
-  if (t === undefined){
-    if (isLightMode) activateLightMode()
-    else if (isDarkMode) activateDarkMode()
-    else if (isNotSpecified || hasNoSupport){
-      console.log('You specified no preference for a color scheme or your browser does not support it. I Schedule dark mode during night time.')
-      var now = new Date()
-      var hour = now.getHours()
-      var isNight = hour < 6 || hour >= 18
-      isNight ? activateDarkMode() : activateLightMode()
-  }
-  } else if (t == 'light') activateLightMode()
-  else activateDarkMode()
+<link rel="stylesheet" href="https://lastknightcoder.gitee.io/js/fancybox/jquery.fancybox.min.css">
+<!--[if lt IE 9]><script>(function(a,b){a="abbr article aside audio bdi canvas data datalist details dialog figcaption figure footer header hgroup main mark meter nav output progress section summary template time video".split(" ");for(b=a.length-1;b>=0;b--)document.createElement(a[b])})()</script><![endif]-->
+<script src="https://lastknightcoder.gitee.io/js/jquery-3.1.1.min.js"></script>
 
-} else if (autoChangeMode == '2'){
-  now = new Date();
-  hour = now.getHours();
-  isNight = hour < 6 || hour >= 18
-  if(t === undefined) isNight? activateDarkMode() : activateLightMode()
-  else if (t === 'light') activateLightMode()
-  else activateDarkMode() 
-} else {
-  if ( t == 'dark' ) activateDarkMode()
-  else if ( t == 'light') activateLightMode()
-}
-
-function activateDarkMode(){
-  document.documentElement.setAttribute('data-theme', 'dark')
-  if (document.querySelector('meta[name="theme-color"]') !== null){
-    document.querySelector('meta[name="theme-color"]').setAttribute('content','#000')
-  }
-}
-function activateLightMode(){
-  document.documentElement.setAttribute('data-theme', 'light')
-  if (document.querySelector('meta[name="theme-color"]') !== null){
-  document.querySelector('meta[name="theme-color"]').setAttribute('content','#fff')
-  }
-}</script><link rel="stylesheet" href="https://lastknightcoder.gitee.io/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css"><link rel="canonical" href="https://lastknightcoder.gitee.io/CSS3/"><link rel="prev" title="使用React搭建一个基于富文本编辑器的博客系统" href="https://lastknightcoder.gitee.io/%E4%BD%BF%E7%94%A8React%E6%90%AD%E5%BB%BA%E4%B8%80%E4%B8%AA%E5%9F%BA%E4%BA%8E%E5%AF%8C%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8%E7%9A%84%E5%8D%9A%E5%AE%A2%E7%B3%BB%E7%BB%9F/"><link rel="next" title="HTML5超详细了解" href="https://lastknightcoder.gitee.io/HTML5%E5%85%A5%E9%97%A8/"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css"><script src="https://cdn.jsdelivr.net/npm/gitalk@latest/dist/gitalk.min.js"></script><script src="https://cdn.jsdelivr.net/npm/blueimp-md5/js/md5.min.js"></script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web"><script>var GLOBAL_CONFIG = { 
-  root: 'https://lastknightcoder.gitee.io/',
-  algolia: undefined,
-  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容:${query}"}},
-  translate: {"defaultEncoding":2,"translateDelay":0,"cookieDomain":"https://lastknightcoder.gitee.io/","msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
-  copy: {
-    success: '复制成功',
-    error: '复制错误',
-    noSupport: '浏览器不支持'
-  },
-  bookmark: {
-    message_prev: '按',
-    message_next: '键将本页加入书签'
-  },
-  runtime_unit: '天',
-  runtime: true,
-  copyright: undefined,
-  ClickShowText: undefined,
-  medium_zoom: true,
-  fancybox: false,
-  Snackbar: {"bookmark":{"message_prev":"按","message_next":"键将本页加入书签"},"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#2d3035","position":"bottom-left"},
-  baiduPush: true,
-  highlightCopy: true,
-  highlightLang: true,
-  highlightShrink: 'false',
-  isFontAwesomeV5: true,
-  isPhotoFigcaption: false,
-  islazyload: true,
-  isanchor: false
-  
-}</script><script>var GLOBAL_CONFIG_SITE = { 
-  isPost: true,
-  isHome: false,
-  isSidebar: true  
-  }</script><noscript><style>
-#page-header {
-  opacity: 1
-}
-.justified-gallery img{
-  opacity: 1
-}
-</style></noscript><meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="https://lastknightcoder.gitee.io/atom.xml" title="Coder" type="application/atom+xml">
-</head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><canvas class="fireworks"></canvas><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="https://lastknightcoder.gitee.io/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="https://lastknightcoder.gitee.io/archives/"><div class="headline">文章</div><div class="length_num">45</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="https://lastknightcoder.gitee.io/tags/"><div class="headline">标签</div><div class="length_num">46</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="https://lastknightcoder.gitee.io/categories/"><div class="headline">分类</div><div class="length_num">14</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="https://lastknightcoder.gitee.io/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="https://lastknightcoder.gitee.io/archives/"><i class="fa-fw fa fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="https://lastknightcoder.gitee.io/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="https://lastknightcoder.gitee.io/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="https://lastknightcoder.gitee.io/link/"><i class="fa-fw fa fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="https://lastknightcoder.gitee.io/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div></div></div><i class="fa fa-arrow-right on" id="toggle-sidebar" aria-hidden="true">     </i><div id="sidebar"><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#CSS3新特性样式"><span class="toc-number">1.</span> <span class="toc-text">CSS3新特性样式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#背景"><span class="toc-number">1.1.</span> <span class="toc-text">背景</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#background-origin"><span class="toc-number">1.1.1.</span> <span class="toc-text">background-origin</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#background-clip"><span class="toc-number">1.1.2.</span> <span class="toc-text">background-clip</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#background-size"><span class="toc-number">1.1.3.</span> <span class="toc-text">background-size</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#边框"><span class="toc-number">1.2.</span> <span class="toc-text">边框</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#边框圆角"><span class="toc-number">1.2.1.</span> <span class="toc-text">边框圆角</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#边框图片"><span class="toc-number">1.2.2.</span> <span class="toc-text">边框图片</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#阴影"><span class="toc-number">1.3.</span> <span class="toc-text">阴影</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#盒子阴影"><span class="toc-number">1.3.1.</span> <span class="toc-text">盒子阴影</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#文本阴影"><span class="toc-number">1.3.2.</span> <span class="toc-text">文本阴影</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CSS3选择器"><span class="toc-number">2.</span> <span class="toc-text">CSS3选择器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#属性选择器"><span class="toc-number">2.1.</span> <span class="toc-text">属性选择器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#结构伪类选择器"><span class="toc-number">2.2.</span> <span class="toc-text">结构伪类选择器</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CSS3颜色渐变"><span class="toc-number">3.</span> <span class="toc-text">CSS3颜色渐变</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#线性渐变"><span class="toc-number">3.1.</span> <span class="toc-text">线性渐变</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#径向渐变"><span class="toc-number">3.2.</span> <span class="toc-text">径向渐变</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CSS3-2D变换"><span class="toc-number">4.</span> <span class="toc-text">CSS3 2D变换</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CSS3-3D"><span class="toc-number">5.</span> <span class="toc-text">CSS3 3D</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CSS3动画"><span class="toc-number">6.</span> <span class="toc-text">CSS3动画</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#transition"><span class="toc-number">6.1.</span> <span class="toc-text">transition</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#animation"><span class="toc-number">6.2.</span> <span class="toc-text">animation</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CSS3-flex布局"><span class="toc-number">7.</span> <span class="toc-text">CSS3 flex布局</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#container上的属性"><span class="toc-number">7.1.</span> <span class="toc-text">container上的属性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#item上的属性"><span class="toc-number">7.2.</span> <span class="toc-text">item上的属性</span></a></li></ol></li></ol></div></div></div><div id="body-wrap"><div class="post-bg" id="nav" style="background-image: url(https://gitee.com/lastknightcoder/blogimage/raw/master/img/bg29.jpg)"><div id="page-header"><span class="pull_left" id="blog_name"><a class="blog_title" id="site-name" href="https://lastknightcoder.gitee.io/">Coder</a></span><span class="pull_right menus"><div id="search_button"><a class="site-page social-icon search"><i class="fa fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="https://lastknightcoder.gitee.io/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="https://lastknightcoder.gitee.io/archives/"><i class="fa-fw fa fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="https://lastknightcoder.gitee.io/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="https://lastknightcoder.gitee.io/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="https://lastknightcoder.gitee.io/link/"><i class="fa-fw fa fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="https://lastknightcoder.gitee.io/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div><span class="toggle-menu close"><a class="site-page"><i class="fa fa-bars fa-fw" aria-hidden="true"></i></a></span></span></div><div id="post-info"><div id="post-title"><div class="posttitle">CSS3 新特性</div></div><div id="post-meta"><div class="meta-firstline"><time class="post-meta__date"><span class="post-meta__date-created" title="发表于 2019-12-25 00:00:00"><i class="fa fa-calendar" aria-hidden="true"></i> 发表于 2019-12-25</span><span class="post-meta__separator">|</span><span class="post-meta__date-updated" title="更新于 2019-12-25 00:00:00"><i class="fa fa-history" aria-hidden="true"></i> 更新于 2019-12-25</span></time><span class="post-meta__categories"><span class="post-meta__separator">|</span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="https://lastknightcoder.gitee.io/categories/Web/">Web</a><i class="fa fa-angle-right post-meta__separator" aria-hidden="true"></i><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="https://lastknightcoder.gitee.io/categories/Web/CSS/">CSS</a></span></div><div class="meta-secondline"> </div><div class="meta-thirdline"><span class="post-meta-pv-cv"><i class="fa fa-eye post-meta__icon" aria-hidden="true"> </i><span>阅读量:</span><span id="busuanzi_value_page_pv"></span></span><span class="post-meta-commentcount"><span class="post-meta__separator">|</span><i class="post-meta__icon far fa-comments" aria-hidden="true"></i><span>评论数:</span><a href="https://lastknightcoder.gitee.io/CSS3/#post-comment"><span class="gitalk-comment-count comment-count"></span></a></span></div></div></div></div><main class="layout_post" id="content-inner"><article id="post"><div class="post-content" id="article-container"><h2 id="CSS3新特性样式"><a href="#CSS3新特性样式" class="headerlink" title="CSS3新特性样式"></a>CSS3新特性样式</h2><h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><h4 id="background-origin"><a href="#background-origin" class="headerlink" title="background-origin"></a>background-origin</h4><p>我们知道盒子的大小有三部分组成：border, padding, content，当我们设置背景图片时，图片是会以左上角对齐，但是是以border的左上角对齐还是以padding的左上角或者content的左上角对齐? border-origin正是用来设置这个的，它有三个可选值</p>
+<script src="https://lastknightcoder.gitee.io/js/fancybox/jquery.fancybox.min.js"></script>
+<meta name="generator" content="Hexo 4.2.0"></head><body style="opacity:0"><header class="head"><h1 class="head-title u-fl"><a href="https://lastknightcoder.gitee.io/">Coder</a></h1><nav class="head-nav u-fr"><ul class="head-nav__list"><li class="head-nav__item"><a class="head-nav__link" href="https://lastknightcoder.gitee.io/tags">标签</a></li><li class="head-nav__item"><a class="head-nav__link" href="https://lastknightcoder.gitee.io/archives">目录</a></li></ul></nav></header><main class="main"><article class="post"><header class="post__head"><time class="post__time" datetime="2019-12-24T16:00:00.000Z">2019-12-25 00:00:00</time><h1 class="post__title"><a href="https://lastknightcoder.gitee.io/CSS3/">CSS3 新特性</a></h1><div class="post__main echo"><h2 id="CSS3新特性样式"><a href="#CSS3新特性样式" class="headerlink" title="CSS3新特性样式"></a>CSS3新特性样式</h2><h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><h4 id="background-origin"><a href="#background-origin" class="headerlink" title="background-origin"></a>background-origin</h4><p>我们知道盒子的大小有三部分组成：border, padding, content，当我们设置背景图片时，图片是会以左上角对齐，但是是以border的左上角对齐还是以padding的左上角或者content的左上角对齐? border-origin正是用来设置这个的，它有三个可选值</p>
 <a id="more"></a>
 
 <ul>
@@ -102,7 +24,7 @@ function activateLightMode(){
 </ul>
 <p>具体可以参考网站<a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/background-clip" target="_blank" rel="noopener">background-clip</a>，这里演示一下上面的效果</p>
 <center>
-<img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="https://raw.githubusercontent.com/LastKnightCoder/img/master/CSS301.gif">
+<img src="https://raw.githubusercontent.com/LastKnightCoder/img/master/CSS301.gif">
 </center>
 
 <h4 id="background-size"><a href="#background-size" class="headerlink" title="background-size"></a>background-size</h4><p>background-size用以设置背景图片大小。单张图片的背景大小可以使用以下三种方法中的一种来规定：</p>
@@ -113,22 +35,22 @@ function activateLightMode(){
 </ul>
 <p>设定指定的宽度和高度值想必不用多加介绍。contain和cover会等比例的缩放图片，以使得图片能够最大的被完整包含或者最小的覆盖背景区。</p>
 <center>
-<img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="https://raw.githubusercontent.com/LastKnightCoder/img/master/CSS302.gif">
+<img src="https://raw.githubusercontent.com/LastKnightCoder/img/master/CSS302.gif">
 </center>
 
 <center>
-<img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="https://raw.githubusercontent.com/LastKnightCoder/img/master/CSS303.gif">
+<img src="https://raw.githubusercontent.com/LastKnightCoder/img/master/CSS303.gif">
 </center>
 
 <p>如果背景区(由background-origin决定)的宽高比和图片的宽高比是一样的，那么cover和contain的结果是一样的，会完全的覆盖背景区并完整的显示。</p>
 <h3 id="边框"><a href="#边框" class="headerlink" title="边框"></a>边框</h3><h4 id="边框圆角"><a href="#边框圆角" class="headerlink" title="边框圆角"></a>边框圆角</h4><p>使用border-radius可以设置边框为圆角的，border-radius的值就是圆角边框的半径。</p>
 <center>
-<img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="https://img-blog.csdnimg.cn/20190121192025792.png">
+<img src="https://img-blog.csdnimg.cn/20190121192025792.png">
 </center>
 
 <figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">width</span>: 100<span class="selector-tag">px</span>;</span><br><span class="line"><span class="selector-tag">height</span>: 100<span class="selector-tag">px</span>;</span><br><span class="line"><span class="selector-tag">margin</span>: 0 <span class="selector-tag">auto</span>;</span><br><span class="line"><span class="selector-tag">border-radius</span>: 20<span class="selector-tag">px</span>;</span><br><span class="line"><span class="selector-tag">background-color</span>: <span class="selector-tag">pink</span>;</span><br></pre></td></tr></table></figure>
 <center>
-<img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="https://img-blog.csdnimg.cn/20190121192340237.png">
+<img src="https://img-blog.csdnimg.cn/20190121192340237.png">
 </center>
 
 <p>与padding一样，取不同个数的值，代表设置不同地方的圆角半径，如</p>
@@ -161,7 +83,7 @@ function activateLightMode(){
 
 <p>我们设置四个角的水平半径为50px,四个角的水平半径为60px,得到效果如下</p>
 <center>
-<img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="https://img-blog.csdnimg.cn/20190121193308161.png">
+<img src="https://img-blog.csdnimg.cn/20190121193308161.png">
 </center>
 
 <p>如果不分开设置，则默认水平半径和垂直半径是相同的。</p>
@@ -169,7 +91,7 @@ function activateLightMode(){
 <h4 id="边框图片"><a href="#边框图片" class="headerlink" title="边框图片"></a>边框图片</h4><p>找到一篇写的很好的博文<a href="https://aotu.io/notes/2016/11/02/border-image/index.html" target="_blank" rel="noopener">border-image的正确用法</a>，所以这里就不自己写了。</p>
 <h3 id="阴影"><a href="#阴影" class="headerlink" title="阴影"></a>阴影</h3><h4 id="盒子阴影"><a href="#盒子阴影" class="headerlink" title="盒子阴影"></a>盒子阴影</h4><p>为了知道什么是盒子阴影，观看如下效果</p>
 <center>
-<img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="https://img-blog.csdnimg.cn/20190123143605852.gif">
+<img src="https://img-blog.csdnimg.cn/20190123143605852.gif">
 </center>
 
 <p>这里选取了小米的做法，由于设置阴影的颜色比较淡，所以可能比较难看出来。</p>
@@ -186,7 +108,7 @@ function activateLightMode(){
 <p>为了观看设置这些值的效果，我们首先创建一个盒子</p>
 <figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">width</span>: 200<span class="selector-tag">px</span>;</span><br><span class="line"><span class="selector-tag">height</span>: 200<span class="selector-tag">px</span>;</span><br><span class="line"><span class="selector-tag">border</span>: 1<span class="selector-tag">px</span> <span class="selector-tag">solid</span> <span class="selector-id">#CCC</span>;</span><br><span class="line"><span class="selector-tag">margin</span>: 100<span class="selector-tag">px</span> <span class="selector-tag">auto</span>;</span><br></pre></td></tr></table></figure>
 <center>
-<img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="https://img-blog.csdnimg.cn/20190123152039866.png">
+<img src="https://img-blog.csdnimg.cn/20190123152039866.png">
 </center>
 
 <p>为盒子添加阴影</p>
@@ -194,22 +116,22 @@ function activateLightMode(){
 
 <p>水平阴影大小的影响(正值，阴影向右移动，负值，阴影向左移动)</p>
 <center>
-<img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="https://img-blog.csdnimg.cn/20190123153228640.gif">
+<img src="https://img-blog.csdnimg.cn/20190123153228640.gif">
 </center>
 
 <p>垂直阴影大小的影响(正值，阴影向下移动，负值，阴影向上移动)</p>
 <center>
-<img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="https://img-blog.csdnimg.cn/20190123153439339.gif">
+<img src="https://img-blog.csdnimg.cn/20190123153439339.gif">
 </center>
 
 <p>模糊距离大小的影响</p>
 <center>
-<img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="https://img-blog.csdnimg.cn/20190123153534212.gif">
+<img src="https://img-blog.csdnimg.cn/20190123153534212.gif">
 </center>
 
 <p>阴影尺寸大小的影响</p>
 <center>
-<img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="https://img-blog.csdnimg.cn/20190123153544203.gif">
+<img src="https://img-blog.csdnimg.cn/20190123153544203.gif">
 </center>
 
 <h4 id="文本阴影"><a href="#文本阴影" class="headerlink" title="文本阴影"></a>文本阴影</h4><p>使用text-shadow来设置文本阴影。使用与box-shadow差不多，具体可以参照<a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/text-shadow" target="_blank" rel="noopener">text-shadow</a>。</p>
@@ -262,7 +184,7 @@ function activateLightMode(){
 
 <p>效果为</p>
 <center>
-<img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="https://raw.githubusercontent.com/LastKnightCoder/img/master/CSS04.png">
+<img src="https://raw.githubusercontent.com/LastKnightCoder/img/master/CSS04.png">
 </center>
 
 <p>其中</p>
@@ -282,7 +204,7 @@ function activateLightMode(){
 
 <p>其中角度所代表的的方向如下所示</p>
 <center>
-<img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="https://raw.githubusercontent.com/LastKnightCoder/img/master/CSS05.jpg" width="70%" title="图片来自于菜鸟教程">
+<img src="https://raw.githubusercontent.com/LastKnightCoder/img/master/CSS05.jpg" width="70%" title="图片来自于菜鸟教程">
 </center>
 
 
@@ -291,7 +213,7 @@ function activateLightMode(){
 <figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">background-image</span>: <span class="selector-tag">linear-gradient</span>(<span class="selector-tag">to</span> <span class="selector-tag">right</span>, <span class="selector-tag">red</span>, <span class="selector-tag">orange</span>, <span class="selector-tag">yellow</span>, <span class="selector-tag">green</span>, <span class="selector-tag">blue</span>, <span class="selector-tag">indigo</span>, <span class="selector-tag">violet</span>);</span><br></pre></td></tr></table></figure>
 
 <center>
-<img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="https://raw.githubusercontent.com/LastKnightCoder/img/master/CSS06.png">
+<img src="https://raw.githubusercontent.com/LastKnightCoder/img/master/CSS06.png">
 </center>
 
 <p>除此之外，还可以在颜色后面加上数值或者百分比，如</p>
@@ -299,7 +221,7 @@ function activateLightMode(){
 
 <p><code>blue 10%</code>表示<code>blue</code>颜色节点在该线性方向<code>10%</code>的位置，所以从<code>0%-10%</code>是红色到蓝色的渐变，<code>10%-100%</code>是蓝色到紫色的渐变。</p>
 <center>
-<img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="https://raw.githubusercontent.com/LastKnightCoder/img/master/CSS07.png">
+<img src="https://raw.githubusercontent.com/LastKnightCoder/img/master/CSS07.png">
 </center>
 
 <p>接下来介绍渐变的最后一个特性：渐变重复。看下面一个例子</p>
@@ -307,7 +229,7 @@ function activateLightMode(){
 
 <p>上面的意思是从<code>0%-23%</code>实现红色到黄色的渐变，然后重复直至<code>100%</code>。</p>
 <center>
-<img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="https://raw.githubusercontent.com/LastKnightCoder/img/master/CSS08.png">
+<img src="https://raw.githubusercontent.com/LastKnightCoder/img/master/CSS08.png">
 </center>
 
 <h3 id="径向渐变"><a href="#径向渐变" class="headerlink" title="径向渐变"></a>径向渐变</h3><p>径向渐变是指以某点为圆心，向外进行颜色渐变。所以为了实现径向渐变，我们要规定圆心的位置和起点颜色和终点颜色。径向渐变的语法为</p>
@@ -329,28 +251,28 @@ function activateLightMode(){
 <figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.box</span> &#123;</span><br><span class="line">    <span class="attribute">width</span>:<span class="number">400px</span>;</span><br><span class="line">    <span class="attribute">height</span>:<span class="number">200px</span>;</span><br><span class="line">    <span class="comment">/* 设置size大小为离最近的边的距离 */</span></span><br><span class="line">    <span class="attribute">background-image</span>: <span class="built_in">repeating-radial-gradient</span>(circle closest-side at <span class="number">200px</span> <span class="number">100px</span>, red, red <span class="number">10%</span>,green <span class="number">12.5%</span>, green <span class="number">25%</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <center>
-<img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="https://raw.githubusercontent.com/LastKnightCoder/img/master/CSS09.png">
+<img src="https://raw.githubusercontent.com/LastKnightCoder/img/master/CSS09.png">
 </center>
 
 <p>可见离最近的边有4个完整的重复。</p>
 <figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* 设置size大小为离最远的边的距离 */</span></span><br><span class="line"><span class="selector-tag">background-image</span>: <span class="selector-tag">repeating-radial-gradient</span>(<span class="selector-tag">circle</span> <span class="selector-tag">farthest-side</span> <span class="selector-tag">at</span> 200<span class="selector-tag">px</span> 100<span class="selector-tag">px</span>, <span class="selector-tag">red</span>, <span class="selector-tag">red</span> 10%,<span class="selector-tag">green</span> 12<span class="selector-class">.5</span>%, <span class="selector-tag">green</span> 25%)</span><br></pre></td></tr></table></figure>
 
 <center>
-<img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="https://raw.githubusercontent.com/LastKnightCoder/img/master/CSS10.png">
+<img src="https://raw.githubusercontent.com/LastKnightCoder/img/master/CSS10.png">
 </center>
 
 <p>可见离最远的边有4个完整的重复。</p>
 <figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*为了使最远的角和最近的角的距离不同 position不能设置在中心 */</span></span><br><span class="line"><span class="comment">/* 设置size大小为离最近的角的距离 */</span></span><br><span class="line"><span class="selector-tag">background-image</span>: <span class="selector-tag">repeating-radial-gradient</span>(<span class="selector-tag">circle</span> <span class="selector-tag">closest-corner</span> <span class="selector-tag">at</span> 100<span class="selector-tag">px</span> 100<span class="selector-tag">px</span>, <span class="selector-tag">red</span>, <span class="selector-tag">red</span> 10%,<span class="selector-tag">green</span> 12<span class="selector-class">.5</span>%, <span class="selector-tag">green</span> 25%)</span><br></pre></td></tr></table></figure>
 
 <center>
-<img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="https://raw.githubusercontent.com/LastKnightCoder/img/master/CSS11.png">
+<img src="https://raw.githubusercontent.com/LastKnightCoder/img/master/CSS11.png">
 </center>
 
 <p>可见离最近的角有4个完整的重复。</p>
 <figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* 设置size大小为离最远的角的距离 */</span></span><br><span class="line"><span class="selector-tag">background-image</span>: <span class="selector-tag">repeating-radial-gradient</span>(<span class="selector-tag">circle</span> <span class="selector-tag">farthest-corner</span> <span class="selector-tag">at</span> 100<span class="selector-tag">px</span> 100<span class="selector-tag">px</span>, <span class="selector-tag">red</span>, <span class="selector-tag">red</span> 10%,<span class="selector-tag">green</span> 12<span class="selector-class">.5</span>%, <span class="selector-tag">green</span> 25%)</span><br></pre></td></tr></table></figure>
 
 <center>
-<img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="https://raw.githubusercontent.com/LastKnightCoder/img/master/CSS12.png">
+<img src="https://raw.githubusercontent.com/LastKnightCoder/img/master/CSS12.png">
 </center>
 
 <p>可见离最远的角有4个完整的重复。</p>
@@ -387,7 +309,7 @@ function activateLightMode(){
 <figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Title<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">style</span>&gt;</span></span><br><span class="line">        div &#123;</span><br><span class="line">            width: 100px;</span><br><span class="line">            height: 100px;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"><span class="css">        <span class="comment">/* 为每个div设置颜色 */</span></span></span><br><span class="line"><span class="css">        <span class="selector-class">.box1</span> &#123;</span></span><br><span class="line">            background-color: red;</span><br><span class="line">        &#125;</span><br><span class="line"><span class="css">        <span class="selector-class">.box2</span> &#123;</span></span><br><span class="line">            background-color: aqua;</span><br><span class="line">        &#125;</span><br><span class="line"><span class="css">        <span class="selector-class">.box3</span> &#123;</span></span><br><span class="line">            background-color: chocolate;</span><br><span class="line">        &#125;</span><br><span class="line"><span class="css">        <span class="selector-class">.box4</span> &#123;</span></span><br><span class="line">            background-color: darkcyan;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"><span class="css">        <span class="comment">/* 为每个盒子设置不同的2D变换效果 */</span></span></span><br><span class="line"><span class="css">        <span class="selector-class">.box1</span><span class="selector-pseudo">:hover</span> &#123;</span></span><br><span class="line">            transform: translateX(100px);</span><br><span class="line">        &#125;</span><br><span class="line"><span class="css">        <span class="selector-class">.box2</span><span class="selector-pseudo">:hover</span> &#123;</span></span><br><span class="line"><span class="css">            <span class="selector-tag">transform</span>: <span class="selector-tag">scale</span>(0<span class="selector-class">.5</span>);</span></span><br><span class="line">        &#125;</span><br><span class="line"><span class="css">        <span class="selector-class">.box3</span><span class="selector-pseudo">:hover</span> &#123;</span></span><br><span class="line">            transform: rotate(-30deg);</span><br><span class="line">        &#125;</span><br><span class="line"><span class="css">        <span class="selector-class">.box4</span><span class="selector-pseudo">:hover</span> &#123;</span></span><br><span class="line">            transform: skew(30deg);</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"box1"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"box2"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"box3"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"box4"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span>  </span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 <center>
-<img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="https://raw.githubusercontent.com/LastKnightCoder/img/master/CSS313.gif">
+<img src="https://raw.githubusercontent.com/LastKnightCoder/img/master/CSS313.gif">
 </center>
 
 <h2 id="CSS3-3D"><a href="#CSS3-3D" class="headerlink" title="CSS3 3D"></a>CSS3 3D</h2><p>3D变换的操作同2D相同，只是多了一个对Z轴的操作，如translateZ()，而rotate也分为rotateX(), rotateY(), rotateZ()，分别表示绕着X轴，Y轴，Z轴旋转。2D变换的rotate()其实就相当于rotateZ()。</p>
@@ -395,7 +317,7 @@ function activateLightMode(){
 <figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.box</span> &#123;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">100px</span>;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">100px</span>;</span><br><span class="line">    <span class="attribute">background-color</span>: black;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.box</span><span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">    <span class="attribute">transform</span>: <span class="built_in">translateX</span>(<span class="number">600px</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <center>
-<img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="https://raw.githubusercontent.com/LastKnightCoder/img/master/CSS314.gif">
+<img src="https://raw.githubusercontent.com/LastKnightCoder/img/master/CSS314.gif">
 </center>
 
 <p>当我们把鼠标放在盒子上时，盒子向右移动了600px，但是这个过程是在瞬间完成的，十分的突兀，我们希望是缓慢由一个转态转变到另一个状态的，这种效果又叫做过渡，这时就需要用到transition属性了。</p>
@@ -412,7 +334,7 @@ function activateLightMode(){
 <figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* 默认值为0s */</span></span><br><span class="line"><span class="selector-tag">transition-duration</span>: 1<span class="selector-tag">s</span>; <span class="comment">/* 单位可以为s */</span></span><br><span class="line"><span class="selector-tag">transition-duration</span>: 100<span class="selector-tag">ms</span>; <span class="comment">/* 单位也可以为ms */</span></span><br></pre></td></tr></table></figure>
 
 <center>
-<img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="https://raw.githubusercontent.com/LastKnightCoder/img/master/CSS315.gif">
+<img src="https://raw.githubusercontent.com/LastKnightCoder/img/master/CSS315.gif">
 </center>
 
 <p>除了上面必须设置的两个属性，还可以设置下面的属性</p>
@@ -449,7 +371,7 @@ function activateLightMode(){
 <figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Title<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="css">        <span class="selector-class">.box</span> &#123;</span></span><br><span class="line">            width: 100px;</span><br><span class="line">            height: 100px;</span><br><span class="line">            background-color: aqua;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line"><span class="css">        <span class="selector-class">.box</span><span class="selector-pseudo">:hover</span> &#123;</span></span><br><span class="line">           animation-name: move;</span><br><span class="line">           animation-duration: 1s;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"><span class="css">       <span class="comment">/* 创建一个关键帧动画 动画名为move */</span></span></span><br><span class="line"><span class="css">       <span class="comment">/* 调用时使用animation-name: move调用 */</span></span></span><br><span class="line"><span class="css">        <span class="keyword">@keyframes</span> move &#123;</span></span><br><span class="line"><span class="css">            <span class="comment">/* 第一个状态 0% 时的状态 可以使用from代替 */</span></span></span><br><span class="line"><span class="css">            <span class="comment">/* 这里的百分比是指 总时间 * 百分比 得到的某个时刻的状态*/</span></span></span><br><span class="line">            0% &#123;</span><br><span class="line">                transform: translateX(0px);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            50% &#123;</span><br><span class="line">                transform: translateX(100px);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line"><span class="css">            <span class="comment">/* 100% 可以使用 to 代替 */</span></span></span><br><span class="line">            100% &#123;</span><br><span class="line">                transform: translateY(100px);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"box"</span>&gt;</span></span><br><span class="line">        </span><br><span class="line">   <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 <center>
-<img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="https://raw.githubusercontent.com/LastKnightCoder/img/master/CSS316.gif">
+<img src="https://raw.githubusercontent.com/LastKnightCoder/img/master/CSS316.gif">
 </center>
 
 
@@ -457,7 +379,7 @@ function activateLightMode(){
 <figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.box</span> &#123;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">100px</span>;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">100px</span>;</span><br><span class="line">    <span class="attribute">background-color</span>: aqua;</span><br><span class="line">    <span class="attribute">animation-name</span>: move;</span><br><span class="line">    <span class="attribute">animation-duration</span>: <span class="number">1s</span>;</span><br><span class="line">    <span class="comment">/* 播放次数默认值为 1 */</span></span><br><span class="line">    <span class="attribute">animation-iteration-count</span>: infinite;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <center>
-<img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="https://raw.githubusercontent.com/LastKnightCoder/img/master/CSS317.gif">
+<img src="https://raw.githubusercontent.com/LastKnightCoder/img/master/CSS317.gif">
 </center>
 
 
@@ -471,7 +393,7 @@ function activateLightMode(){
 <figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.box</span><span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">   <span class="attribute">animation-name</span>: move;</span><br><span class="line">   <span class="attribute">animation-duration</span>: <span class="number">1s</span>;</span><br><span class="line">   <span class="attribute">animation-iteration-count</span>: <span class="number">2</span>;</span><br><span class="line">   <span class="attribute">animation-direction</span>: alternate;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <center>
-<img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="https://raw.githubusercontent.com/LastKnightCoder/img/master/CSS318.gif">
+<img src="https://raw.githubusercontent.com/LastKnightCoder/img/master/CSS318.gif">
 </center>
 
 <p>animation-play-state用来设置动画的播放状态，有两种取值</p>
@@ -483,7 +405,7 @@ function activateLightMode(){
 <figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.box</span> &#123;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">100px</span>;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">100px</span>;</span><br><span class="line">    <span class="attribute">background-color</span>: aqua;</span><br><span class="line">    <span class="attribute">animation-name</span>: move;</span><br><span class="line">    <span class="attribute">animation-duration</span>: <span class="number">1s</span>;</span><br><span class="line">    <span class="attribute">animation-iteration-count</span>: infinite;</span><br><span class="line">    <span class="attribute">animation-direction</span>: alternate;</span><br><span class="line">&#125;</span><br><span class="line">         </span><br><span class="line"><span class="selector-class">.box</span><span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">    <span class="comment">/* 当鼠标放上去时 动画暂停 */</span></span><br><span class="line">   <span class="attribute">animation-play-state</span>: paused;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <center>
-<img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="https://raw.githubusercontent.com/LastKnightCoder/img/master/CSS319.gif">
+<img src="https://raw.githubusercontent.com/LastKnightCoder/img/master/CSS319.gif">
 </center>
 
 <p>animation-fill-mode用来定义动画开始帧之前和结束帧之后的动作，有以下四种取值</p>
@@ -497,14 +419,14 @@ function activateLightMode(){
 <figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.box</span> &#123;</span><br><span class="line">   <span class="attribute">width</span>: <span class="number">100px</span>;</span><br><span class="line">   <span class="attribute">height</span>: <span class="number">100px</span>;</span><br><span class="line">   <span class="attribute">background-color</span>: aqua;</span><br><span class="line">&#125;</span><br><span class="line">         </span><br><span class="line"><span class="selector-class">.box</span><span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">   <span class="attribute">animation-name</span>: move;</span><br><span class="line">   <span class="attribute">animation-duration</span>: <span class="number">1s</span>;</span><br><span class="line">   <span class="comment">/* 动画结束后，停留在动画结束的位置 */</span></span><br><span class="line">   <span class="attribute">animation-fill-mode</span>: forwards;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <center>
-<img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="https://raw.githubusercontent.com/LastKnightCoder/img/master/CSS320.gif">
+<img src="https://raw.githubusercontent.com/LastKnightCoder/img/master/CSS320.gif">
 </center>
 
 <h2 id="CSS3-flex布局"><a href="#CSS3-flex布局" class="headerlink" title="CSS3 flex布局"></a>CSS3 flex布局</h2><p>当一个父元素被设置为display:flex时，它就是弹性布局，子元素的float、clear和vertical-align属性将失效。此时我们把父元素称之为container(容器)，把子元素称之为item(项目)。当父元素被设置为弹性布局后，对子元素有什么影响? 先来感受一下</p>
 <figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Title<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="css">        <span class="selector-class">.container</span> &#123;</span></span><br><span class="line">            display: flex;</span><br><span class="line">            width: 500px;</span><br><span class="line">            height: 400px;</span><br><span class="line">            background-color: crimson;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"><span class="css">        <span class="selector-class">.item</span> &#123;</span></span><br><span class="line">            width: 100px;</span><br><span class="line">            height: 100px;</span><br><span class="line">            background-color: aqua;</span><br><span class="line">            position: relative;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line"><span class="css">        <span class="comment">/* 这个是为了演示方便 样式不重要 不必细看 */</span></span></span><br><span class="line"><span class="css">        <span class="selector-class">.item</span> <span class="selector-tag">div</span>&#123;</span></span><br><span class="line">           width: 50%;</span><br><span class="line">           height: 50%;</span><br><span class="line">           position: absolute;</span><br><span class="line"><span class="css">           <span class="comment">/* 下面三行语句是为了设置居中对齐 */</span></span></span><br><span class="line">           top: 50%;</span><br><span class="line">           left: 50%;</span><br><span class="line">           transform: translate(-50%, -50%);</span><br><span class="line">           background-color: brown;</span><br><span class="line"><span class="css">           <span class="comment">/* 圆角边框 */</span></span></span><br><span class="line">           border-radius: 50%;</span><br><span class="line"><span class="css">           <span class="comment">/* 下面两行设置文字居中对齐 */</span></span></span><br><span class="line">           text-align: center;</span><br><span class="line">           line-height: 50px;</span><br><span class="line"><span class="css">           <span class="comment">/* 设置字体样式 */</span></span></span><br><span class="line">           font-size: 30px;</span><br><span class="line">           font-weight: 700;</span><br><span class="line">           color: white;</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"container"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"item"</span>&gt;</span><span class="tag">&lt;<span class="name">div</span>&gt;</span>1<span class="tag">&lt;/<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"item"</span>&gt;</span><span class="tag">&lt;<span class="name">div</span>&gt;</span>2<span class="tag">&lt;/<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"item"</span>&gt;</span><span class="tag">&lt;<span class="name">div</span>&gt;</span>3<span class="tag">&lt;/<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 <center>
-<img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="https://raw.githubusercontent.com/LastKnightCoder/img/master/CSS330.png">
+<img src="https://raw.githubusercontent.com/LastKnightCoder/img/master/CSS330.png">
 </center>
 
 
@@ -531,20 +453,20 @@ function activateLightMode(){
 <figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">flex-direction</span>: <span class="selector-tag">row-reverse</span>;</span><br></pre></td></tr></table></figure>
 
 <center>
-<img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="https://raw.githubusercontent.com/LastKnightCoder/img/master/CSS331.png">
+<img src="https://raw.githubusercontent.com/LastKnightCoder/img/master/CSS331.png">
 </center>
 
 <figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">flex-direction</span>: <span class="selector-tag">column</span>;</span><br></pre></td></tr></table></figure>
 
 <center>
-<img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="https://raw.githubusercontent.com/LastKnightCoder/img/master/CSS323.png">
+<img src="https://raw.githubusercontent.com/LastKnightCoder/img/master/CSS323.png">
 </center>
 
 
 <figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">flex-direction</span>: <span class="selector-tag">column-reverse</span>;</span><br></pre></td></tr></table></figure>
 
 <center>
-<img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="https://raw.githubusercontent.com/LastKnightCoder/img/master/CSS324.png">
+<img src="https://raw.githubusercontent.com/LastKnightCoder/img/master/CSS324.png">
 </center>
 
 <p>为了演示flex-wrap，我们添加9个item(此时flex-direction为默认值row，除非特别声明，否则我们在演示其一个flex属性时，会将其他flex属性设置为默认值)</p>
@@ -552,7 +474,7 @@ function activateLightMode(){
 
 <p>效果为</p>
 <center>
-<img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="https://raw.githubusercontent.com/LastKnightCoder/img/master/CSS332.png">
+<img src="https://raw.githubusercontent.com/LastKnightCoder/img/master/CSS332.png">
 </center>
 
 <p>我们发现9个item排成了一排，没有换行。为了使得item能够换行，我们需要设置flex-wrap，它有三个值可选</p>
@@ -564,13 +486,13 @@ function activateLightMode(){
 <figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">flex-wrap</span>: <span class="selector-tag">wrap</span>;</span><br></pre></td></tr></table></figure>
 
 <center>
-<img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="https://raw.githubusercontent.com/LastKnightCoder/img/master/CSS333.png">
+<img src="https://raw.githubusercontent.com/LastKnightCoder/img/master/CSS333.png">
 </center>
 
 <figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">flex-wrap</span>: <span class="selector-tag">wrap-reverse</span>;</span><br></pre></td></tr></table></figure>
 
 <center>
-<img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="https://raw.githubusercontent.com/LastKnightCoder/img/master/CSS334.png">
+<img src="https://raw.githubusercontent.com/LastKnightCoder/img/master/CSS334.png">
 </center>
 
 <p>flex-flow是flex-direction和flex-wrap两个属性的简写，默认值为row wrap</p>
@@ -588,13 +510,13 @@ function activateLightMode(){
 <figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">justify-content</span>: <span class="selector-tag">space-between</span>;</span><br></pre></td></tr></table></figure>
 
 <center>
-<img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="https://raw.githubusercontent.com/LastKnightCoder/img/master/CSS328.png">
+<img src="https://raw.githubusercontent.com/LastKnightCoder/img/master/CSS328.png">
 </center>
 
 <figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">justify-content</span>: <span class="selector-tag">space-around</span>;</span><br></pre></td></tr></table></figure>
 
 <center>
-<img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="https://raw.githubusercontent.com/LastKnightCoder/img/master/CSS329.png">
+<img src="https://raw.githubusercontent.com/LastKnightCoder/img/master/CSS329.png">
 </center>
 
 <p>align-items定义了在侧轴上的对齐方式(以从上往下的侧轴为例)</p>
@@ -609,7 +531,7 @@ function activateLightMode(){
 <figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.container</span> &#123;</span><br><span class="line">    <span class="attribute">display</span>: flex;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">500px</span>;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">400px</span>;</span><br><span class="line">    <span class="attribute">background-color</span>: crimson;</span><br><span class="line">    <span class="attribute">align-items</span>: stretch;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.item</span> &#123;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">100px</span>;</span><br><span class="line">    <span class="comment">/* height: 100px; */</span></span><br><span class="line">    <span class="attribute">background-color</span>: aqua;</span><br><span class="line">    <span class="attribute">position</span>: relative;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.item</span> <span class="selector-tag">div</span> &#123;</span><br><span class="line">    <span class="comment">/* 修改line-height为200px使文字居中 */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <center>
-<img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="https://raw.githubusercontent.com/LastKnightCoder/img/master/CSS335.png">
+<img src="https://raw.githubusercontent.com/LastKnightCoder/img/master/CSS335.png">
 </center>
 
 <p>align-content，当我们设置flex-wrap为wrap或者wrap-reverse时，item会占据多行，这个属性是用来设置占据多行item在侧轴上的对齐方式，如果没有多行，这个属性无效。有下列值可选(以侧轴为从上往下为例)</p>
@@ -634,21 +556,21 @@ function activateLightMode(){
 <figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.item</span><span class="selector-pseudo">:nth-child(2)</span>&#123;</span><br><span class="line">    <span class="attribute">order</span>: <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <center>
-<img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="https://raw.githubusercontent.com/LastKnightCoder/img/master/CSS336.png">
+<img src="https://raw.githubusercontent.com/LastKnightCoder/img/master/CSS336.png">
 </center>
 
 <p>如果存在剩余空间，那么flex-grow可以用来设置item占据剩余空间的份数(这会导致item增大)，默认值为0，意味着即使有剩余空间，也不增大，现在设置各自的flex-grow</p>
 <figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.item</span><span class="selector-pseudo">:first-child</span> &#123;</span><br><span class="line">    <span class="comment">/* 第一个item占 1 / (1 + 2 + 1) = 1/4 的剩余间 */</span></span><br><span class="line">    <span class="attribute">flex-grow</span>: <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.item</span><span class="selector-pseudo">:nth-child(2)</span> &#123;</span><br><span class="line">    <span class="comment">/* 第二个item占 2/4 的剩余空间*/</span></span><br><span class="line">    <span class="attribute">flex-grow</span>: <span class="number">2</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.item</span><span class="selector-pseudo">:last-child</span> &#123;</span><br><span class="line">    <span class="comment">/* 第三个item占 1/4 的剩余空间 */</span></span><br><span class="line">    <span class="attribute">flex-grow</span>: <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <center>
-<img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="https://raw.githubusercontent.com/LastKnightCoder/img/master/CSS337.png">
+<img src="https://raw.githubusercontent.com/LastKnightCoder/img/master/CSS337.png">
 </center>
 
 <p>flex-shrink与flex-grow相反，当空间不足时，item缩小的以使得所有item被包含在container中。默认值是1，即每个item会等比例缩小</p>
 <figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.item</span><span class="selector-pseudo">:first-child</span> &#123;</span><br><span class="line">    <span class="attribute">flex-shrink</span>: <span class="number">2</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.item</span><span class="selector-pseudo">:nth-child(2)</span> &#123;</span><br><span class="line">    <span class="attribute">flex-shrink</span>: <span class="number">2</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.item</span><span class="selector-pseudo">:last-child</span> &#123;</span><br><span class="line">    <span class="attribute">flex-shrink</span>: <span class="number">2</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <center>
-<img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="https://raw.githubusercontent.com/LastKnightCoder/img/master/CSS338.png">
+<img src="https://raw.githubusercontent.com/LastKnightCoder/img/master/CSS338.png">
 </center>
 
 <p>可见第一个、第二个和最后一个缩小的更多。</p>
@@ -659,62 +581,22 @@ function activateLightMode(){
 <figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.container</span> &#123;</span><br><span class="line">    ... ...</span><br><span class="line">    <span class="selector-tag">align-items</span>: <span class="selector-tag">center</span>;</span><br><span class="line">    <span class="selector-tag">flex-wrap</span>: <span class="selector-tag">wrap</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.item</span><span class="selector-pseudo">:first-child</span> &#123;</span><br><span class="line">    <span class="attribute">align-self</span>: flex-start;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <center>
-<img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="https://raw.githubusercontent.com/LastKnightCoder/img/master/CSS339.png">
-</center></div><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">熊滔</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://lastknightcoder.gitee.io/CSS3/">https://lastknightcoder.gitee.io/CSS3/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://lastknightcoder.gitee.io" target="_blank">Coder</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="https://lastknightcoder.gitee.io/tags/CSS3/">CSS3</a></div><div class="post_share"><div class="social-share" data-image="https://gitee.com/lastknightcoder/blogimage/raw/master/img/20200602200240.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"/><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js"></script></div></div><div class="post-reward"><a class="reward-button button--primary button--animated"> <i class="fa fa-qrcode"></i> 打赏<div class="reward-main"><ul class="reward-all"><li class="reward-item"><img class="post-qr-code__img" src="https://lastknightcoder.gitee.io/img/wechatpay.png" alt="微信"/><div class="post-qr-code__desc">微信</div></li><li class="reward-item"><img class="post-qr-code__img" src="https://lastknightcoder.gitee.io/img/alipay.png" alt="支付宝"/><div class="post-qr-code__desc">支付宝</div></li></ul></div></a></div><nav class="pagination_post" id="pagination"><div class="prev-post pull_left"><a href="https://lastknightcoder.gitee.io/%E4%BD%BF%E7%94%A8React%E6%90%AD%E5%BB%BA%E4%B8%80%E4%B8%AA%E5%9F%BA%E4%BA%8E%E5%AF%8C%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8%E7%9A%84%E5%8D%9A%E5%AE%A2%E7%B3%BB%E7%BB%9F/"><img class="prev_cover" data-src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/bg73.png" onerror="onerror=null;src='https://lastknightcoder.gitee.io/img/404.jpg'"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">使用React搭建一个基于富文本编辑器的博客系统</div></div></a></div><div class="next-post pull_right"><a href="https://lastknightcoder.gitee.io/HTML5%E5%85%A5%E9%97%A8/"><img class="next_cover" data-src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/bg39.png" onerror="onerror=null;src='https://lastknightcoder.gitee.io/img/404.jpg'"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">HTML5超详细了解</div></div></a></div></nav><hr><div id="post-comment"><div class="comment_headling"><i class="fa fa-comments fa-fw" aria-hidden="true"></i><span> 评论</span></div><div id="gitalk-container"></div><script>var gitalk = new Gitalk({
-  clientID: 'be3279b05a3d99c8e41f',
-  clientSecret: '5a2f84ce9033ebf48f72253dc06940844f8dfa13',
-  repo: 'lastknightcoder.github.io',
-  owner: 'LastKnightCoder',
-  admin: ['LastKnightCoder'],
-  id: md5(decodeURI(location.pathname)),
-  language: 'zh-CN',
-  perPage: 100,
-  distractionFreeMode: false,
-  pagerDirection: 'last',
-  createIssueManually: false,
-  updateCountCallback: commentCount
-})
-gitalk.render('gitalk-container')
-
-function commentCount(n){
-  try {
-    document.getElementsByClassName('gitalk-comment-count')[0].innerHTML= n
-  } catch (e) {
-    return false
-  }
-}</script></div></article></main><footer id="footer" data-type="color"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2020 By 熊滔</div><div class="framework-info"><span>驱动 </span><a href="https://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 </span><a href="https://github.com/jerryc127/hexo-theme-butterfly" target="_blank" rel="noopener"><span>Butterfly</span></a></div></div></footer></div><section class="rightside" id="rightside"><div id="rightside-config-hide"><i class="fa fa-book" id="readmode" title="阅读模式"></i><i class="fa fa-plus" id="font_plus" title="放大字体"></i><i class="fa fa-minus" id="font_minus" title="缩小字体"></i><a class="translate_chn_to_cht" id="translateLink" href="javascript:translatePage();" title="简繁转换" target="_self">简</a><i class="darkmode far fa-moon" id="darkmode" title="夜间模式"></i></div><div id="rightside-config-show"><div id="rightside_config" title="设置"><i class="fa fa-cog" aria-hidden="true"></i></div><a id="to_comment" href="#post-comment" title="直达评论"><i class="scroll_to_comment fa fa-comments">  </i></a><i class="fa fa-list-ul close" id="mobile-toc-button" title="目录" aria-hidden="true"></i><i class="fa fa-arrow-up" id="go-up" title="回到顶部" aria-hidden="true"></i></div></section><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a href="https://github.com/wzpan/hexo-generator-search" target="_blank" rel="noopener" style="color:#49B1F5;">hexo-generator-search</a>
- <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fa fa-times"></i></span></div><div class="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://lastknightcoder.gitee.io/js/utils.js"></script><script src="https://lastknightcoder.gitee.io/js/main.js"></script><script src="https://lastknightcoder.gitee.io/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/medium-zoom/dist/medium-zoom.min.js"></script><script type="text/x-mathjax-config">MathJax.Hub.Config({
+<img src="https://raw.githubusercontent.com/LastKnightCoder/img/master/CSS339.png">
+</center></div></header><footer class="post__foot u-cf"><ul class="post__tag u-fl"><li class="post__tag__item"><a class="post__tag__link" href="https://lastknightcoder.gitee.io/tags/CSS3/">CSS3</a></li></ul></footer></article><section class="reward"><a class="btn-reward" href="#">打赏</a><div class="reward-wrapper clearfix"><img src="https://lastknightcoder.gitee.io/img/wechatpay.png" title="微信"><img src="https://lastknightcoder.gitee.io/img/alipay.png" title="支付宝"></div></section><script type="text/x-mathjax-config">MathJax.Hub.Config({
   tex2jax: {
     inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
     processEscapes: true,
     skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-  },
-  CommonHTML: {
-    linebreaks: { automatic: true, width: "90% container" }
-  },
-  "HTML-CSS": { 
-    linebreaks: { automatic: true, width: "90% container" }
-  },
-  "SVG": { 
-    linebreaks: { automatic: true, width: "90% container" }
   }
 });
-</script><script type="text/x-mathjax-config">MathJax.Hub.Queue(function() {
+MathJax.Hub.Queue(function() {
   var all = MathJax.Hub.getAllJax(), i;
-  for (i=0; i < all.length; i += 1) {
+  for(i=0; i < all.length; i += 1) {
     all[i].SourceElement().parentNode.className += ' has-jax';
   }
 });
-</script><script src="https://cdn.jsdelivr.net/npm/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script src="https://lastknightcoder.gitee.io/js/third-party/fireworks.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script id="ribbon_piao" mobile="false" src="https://lastknightcoder.gitee.io/js/third-party/piao.js"></script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@latest/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/lozad/dist/lozad.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js"></script><script>document.addEventListener('DOMContentLoaded', function() {
-      pangu.spacingElementById('content-inner')
-})</script><script src="https://lastknightcoder.gitee.io/js/search/local-search.js"></script><script>if (document.getElementsByClassName('mermaid').length) {
-  loadScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js',function () {
-    mermaid.initialize({
-      theme: 'default',
-  })
-})
-}</script><script>var endLoading = function () {
-  document.body.style.overflow = 'auto';
-  document.getElementById('loading-box').classList.add("loaded")
-}
-window.addEventListener('load',endLoading)</script></body></html>
+</script><script src="//cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script></main><footer class="foot"><div class="foot-copy">&copy; 2019 - 2020 熊滔</div></footer>
+<script src="https://lastknightcoder.gitee.io/js/scroller.js"></script>
+
+<script src="https://lastknightcoder.gitee.io/js/main.js"></script>
+</body></html>
