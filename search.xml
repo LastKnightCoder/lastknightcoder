@@ -29,6 +29,81 @@
     
     
     <entry>
+      <title>表示数值的字符串</title>
+      <link href="https://lastknightcoder.gitee.io//%E8%A1%A8%E7%A4%BA%E6%95%B0%E5%80%BC%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
+      <url>https://lastknightcoder.gitee.io//%E8%A1%A8%E7%A4%BA%E6%95%B0%E5%80%BC%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2/</url>
+      
+        <content type="html"><![CDATA[<blockquote><p>题目：请实现一个函数用来判断字符串是否表示数值(包括整数和小数)。例如，字符串 <code>+100, 5e2, -123, 3.14e+1</code> 都表示数值，而 <code>12e, 1a3.12, 1.2.3, +-5</code> 都不是。</p></blockquote><p>首先我们要明白数值的格式为 <code>A.B[e|E]C</code>，其中 <code>A, B, C</code> 代表的是数字，有一点不同的是 <code>A, C</code> 中的前方可以有正负号，而 <code>B</code> 不能有正负号。我们变成的思路便是，首先扫描字符串，看是否匹配 <code>A</code>，即字符串的前方是否是数字(可包含正负号)，接着如果碰到小数点，则扫描小数点后的字符是否是数字(不能包含正负号)；最后匹配科学计数法，如果碰到 <code>e|E</code>，那么扫描后面的字符是否是数字(可包含正负号)。</p><p>代码如下：</p><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">IsNumberic</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 全局变量，控制从哪里开始扫描字符串</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> index;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">isNumberic</span><span class="params">(<span class="keyword">char</span>[] str)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (str == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 扫描字符串开头是否是数字(可带正负号)</span></span><br><span class="line">        <span class="keyword">boolean</span> numberic = scanInteger(str, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (index &lt; str.length) &#123;</span><br><span class="line">            <span class="comment">// 如果有小数点</span></span><br><span class="line">            <span class="keyword">if</span> (str[index] == <span class="string">'.'</span>) &#123;</span><br><span class="line">                index++;</span><br><span class="line">                <span class="comment">// 扫描小数点后的数字(不带正负号)</span></span><br><span class="line">                <span class="comment">// 使用 || 是因为 A. 或者 .B都算有效的数值</span></span><br><span class="line">                numberic = scanUnsignedInteger(str, index) || numberic;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> (index &lt; str.length) &#123;</span><br><span class="line">            <span class="comment">// 如果扫描到 e|E</span></span><br><span class="line">            <span class="keyword">if</span> (str[index] == <span class="string">'e'</span> || str[index] == <span class="string">'E'</span>) &#123;</span><br><span class="line">                index++;</span><br><span class="line">                <span class="comment">// 扫描 e|E 字符后面是否为数字(可带正负号)</span></span><br><span class="line">                numberic = numberic &amp;&amp; scanInteger(str, index);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 符合A.B[e|E]C的形式，并且字符串全部扫描完毕</span></span><br><span class="line">        <span class="keyword">return</span> numberic &amp;&amp; index == str.length;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 判断从某个位置开始，后面是否有数字(可带正负号)</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">scanInteger</span><span class="params">(<span class="keyword">char</span>[] str, <span class="keyword">int</span> start)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (start &gt;= str.length) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (str[start] == <span class="string">'+'</span> || str[start] == <span class="string">'-'</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> scanUnsignedInteger(str, start + <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> scanUnsignedInteger(str, start);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 判断从某个位置开始，后面是否有数字(不带正负号)</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">scanUnsignedInteger</span><span class="params">(<span class="keyword">char</span>[] str, <span class="keyword">int</span> start)</span> </span>&#123;</span><br><span class="line">        index = start;</span><br><span class="line">        <span class="keyword">if</span> (index &lt; str.length) &#123;</span><br><span class="line">            <span class="keyword">while</span>(str[index] &gt;= <span class="string">'0'</span> &amp;&amp; str[index] &lt;= <span class="string">'9'</span>) &#123;</span><br><span class="line">                index++;</span><br><span class="line">                <span class="keyword">if</span> (index == str.length) &#123;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> index &gt; start;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        System.out.println(isNumberic(<span class="string">".123"</span>.toCharArray())); <span class="comment">// true</span></span><br><span class="line">        System.out.println(isNumberic(<span class="string">"123."</span>.toCharArray())); <span class="comment">// true</span></span><br><span class="line">        System.out.println(isNumberic(<span class="string">"+.123"</span>.toCharArray())); <span class="comment">// true</span></span><br><span class="line">        System.out.println(isNumberic(<span class="string">"-.123"</span>.toCharArray())); <span class="comment">// true</span></span><br><span class="line">        System.out.println(isNumberic(<span class="string">".123e-2"</span>.toCharArray())); <span class="comment">// true</span></span><br><span class="line">        System.out.println(isNumberic(<span class="string">"1.2.2"</span>.toCharArray())); <span class="comment">// false</span></span><br><span class="line">        System.out.println(isNumberic(<span class="string">"1.2e+2"</span>.toCharArray())); <span class="comment">// true</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> 剑指offer </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 剑指offer </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>删除链表的节点</title>
+      <link href="https://lastknightcoder.gitee.io//%E5%88%A0%E9%99%A4%E9%93%BE%E8%A1%A8%E7%9A%84%E8%8A%82%E7%82%B9/"/>
+      <url>https://lastknightcoder.gitee.io//%E5%88%A0%E9%99%A4%E9%93%BE%E8%A1%A8%E7%9A%84%E8%8A%82%E7%82%B9/</url>
+      
+        <content type="html"><![CDATA[<blockquote><p>题目：给定单向链表的头指针和一个节点指针，定义一个函数在 $O(1)$ 时间内删除该节点。</p></blockquote><p>常规我们删除节点是从头节点开始遍历，找到要删除的节点，然后删除它。之所以要从头结点开始，是因为我们要找到该节点的前一个节点，然后才能删除该节点，有如下链表</p><img src="https://gitee.com/lastknightcoder/blogimage/raw/master/删除节点202006121910.svg"/><p>比如我们要删除节点 <code>3</code>，这个时候我们必须找到它的前一个节点 <code>2</code>，将节点 <code>2</code> 的下一个指针指向节点 <code>3</code> 的下一个节点，如下</p><img src="https://gitee.com/lastknightcoder/blogimage/raw/master/删除节点202006121922.svg"/><p>但是从头结点开始查找的话，它的时间复杂度就是 $O(n)$，达不到题目所要求的 $O(1)$ 的时间复杂度，这个时候我们就要另辟蹊径了。还是以删除节点 <code>3</code> 为例，这个时候可以将它下一个节点的值覆盖要被删除节点的值，即用 <code>4</code> 覆盖 <code>3</code>，然后删除节点 <code>4</code>，因为我们知道节点 <code>4</code> 的前一个节点(即给定的要删除的节点)，所以可以将节点 <code>4</code> 删除，如下</p><img src="https://gitee.com/lastknightcoder/blogimage/raw/master/删除节点202006121949.svg"/><p>这时我们不用从头结点进行遍历，所需要的复杂度是 $O(1)$。</p><p>但是事情到这里还没有完成，如果要删除的节点是最后一个节点呢? 这个时候它没有下一个节点，我们就不得不从头结点开始遍历来删除这个节点了，这个时候就得知道它的前一个节点。这里又要考虑一种情况，因为要知道尾结点的前一个节点，如果链表只有一个元素的话，尾结点就没有前一个节点，这种情况要做特殊处理。代码如下：</p><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DeleteNode</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">ListNode</span> </span>&#123;</span><br><span class="line">        ListNode next;</span><br><span class="line">        <span class="keyword">int</span> value;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">ListNode</span><span class="params">(<span class="keyword">int</span> value)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">this</span>.value = value;</span><br><span class="line">            <span class="keyword">this</span>.next = <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> ListNode <span class="title">deleteNode</span><span class="params">(ListNode root, ListNode toBeDeletedNode)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (root == <span class="keyword">null</span> || toBeDeletedNode == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> root;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 如果不是尾结点</span></span><br><span class="line">        <span class="keyword">if</span> (toBeDeletedNode.next != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="comment">// 将后面节点的值覆盖要删除的节点的值</span></span><br><span class="line">            toBeDeletedNode.value = toBeDeletedNode.next.value;</span><br><span class="line">            <span class="comment">// 删除下一个节点</span></span><br><span class="line">            ListNode deleteNext = toBeDeletedNode.next;</span><br><span class="line">            toBeDeletedNode.next = deleteNext.next;</span><br><span class="line">            deleteNext = <span class="keyword">null</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">// 被删除的节点是尾结点</span></span><br><span class="line">            ListNode cur = root;</span><br><span class="line">            <span class="comment">// 同时被删除的节点也是头结点，即只有一个元素</span></span><br><span class="line">            <span class="keyword">if</span> (cur == toBeDeletedNode) &#123;</span><br><span class="line">                root = <span class="keyword">null</span>;</span><br><span class="line">                toBeDeletedNode = <span class="keyword">null</span>;</span><br><span class="line">                <span class="keyword">return</span> root;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 从头结点遍历找到前一个节点</span></span><br><span class="line">            <span class="keyword">while</span>(cur.next != toBeDeletedNode) &#123;</span><br><span class="line">                cur = cur.next;</span><br><span class="line">            &#125;</span><br><span class="line">            cur.next = <span class="keyword">null</span>;</span><br><span class="line">            toBeDeletedNode = <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> root;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 打印链表的方法</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">printList</span><span class="params">(ListNode root)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">while</span> (root != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (root.next != <span class="keyword">null</span>) &#123;</span><br><span class="line">                System.out.print(root.value + <span class="string">"-&gt;"</span>);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                System.out.println(root.value);</span><br><span class="line">            &#125;</span><br><span class="line">            root = root.next;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 测试代码</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        ListNode root = <span class="keyword">new</span> ListNode(<span class="number">1</span>);</span><br><span class="line">        root.next = <span class="keyword">new</span> ListNode(<span class="number">2</span>);</span><br><span class="line">        root.next.next = <span class="keyword">new</span> ListNode(<span class="number">3</span>);</span><br><span class="line">        root.next.next.next = <span class="keyword">new</span> ListNode(<span class="number">4</span>);</span><br><span class="line">        root.next.next.next.next = <span class="keyword">new</span> ListNode(<span class="number">5</span>);</span><br><span class="line">        printList(root); <span class="comment">// 1-&gt;2-&gt;3-&gt;4-&gt;5</span></span><br><span class="line"></span><br><span class="line">        root = deleteNode(root, root.next.next.next.next);</span><br><span class="line">        printList(root); <span class="comment">// 1-&gt;2-&gt;3-&gt;4</span></span><br><span class="line"></span><br><span class="line">        root = deleteNode(root, root);</span><br><span class="line">        printList(root); <span class="comment">// 2-&gt;3-&gt;4</span></span><br><span class="line"></span><br><span class="line">        root = deleteNode(root, root.next);</span><br><span class="line">        printList(root); <span class="comment">// 2-&gt;4</span></span><br><span class="line"></span><br><span class="line">        root = deleteNode(root, root.next);</span><br><span class="line">        printList(root); <span class="comment">// 2</span></span><br><span class="line"></span><br><span class="line">        root = deleteNode(root, root);</span><br><span class="line">        printList(root); <span class="comment">// </span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><blockquote><p>题目：在一个排序的链表中，如何删除重复的节点?</p></blockquote><p>这道题仔细一想的话非常简单，因为这个链表是有序的，这就意味着重复的节点是连在一起的，所以我们只要比较当前节点与下一个节点的值是否相同，如果相同，则删除下一个节点，如果不同则移动当前节点到下一个节点，代码如下：</p><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DeleteDuplicationNode</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">ListNode</span> </span>&#123;</span><br><span class="line">        ListNode next;</span><br><span class="line">        <span class="keyword">int</span> value;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">ListNode</span><span class="params">(<span class="keyword">int</span> value)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">this</span>.value = value;</span><br><span class="line">            <span class="keyword">this</span>.next = <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">deleteDuplicationNode</span><span class="params">(ListNode root)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (root == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        ListNode cur = root;</span><br><span class="line">        <span class="keyword">while</span>(cur.next != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="comment">// 如果当前节点的值与下一个节点的值相同，删除下一个节点</span></span><br><span class="line">            <span class="keyword">if</span> (cur.value == cur.next.value) &#123;</span><br><span class="line">                ListNode curNext = cur.next;</span><br><span class="line">                cur.next = curNext.next;</span><br><span class="line">                curNext = <span class="keyword">null</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="comment">// 否则移动当前节点</span></span><br><span class="line">                cur = cur.next;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 打印链表</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">printList</span><span class="params">(ListNode root)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">while</span> (root != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (root.next != <span class="keyword">null</span>) &#123;</span><br><span class="line">                System.out.print(root.value + <span class="string">"-&gt;"</span>);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                System.out.println(root.value);</span><br><span class="line">            &#125;</span><br><span class="line">            root = root.next;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        ListNode root = <span class="keyword">new</span> ListNode(<span class="number">1</span>);</span><br><span class="line">        root.next = <span class="keyword">new</span> ListNode(<span class="number">1</span>);</span><br><span class="line">        root.next.next = <span class="keyword">new</span> ListNode(<span class="number">2</span>);</span><br><span class="line">        root.next.next.next = <span class="keyword">new</span> ListNode(<span class="number">2</span>);</span><br><span class="line">        root.next.next.next.next = <span class="keyword">new</span> ListNode(<span class="number">2</span>);</span><br><span class="line">        root.next.next.next.next.next = <span class="keyword">new</span> ListNode(<span class="number">3</span>);</span><br><span class="line"></span><br><span class="line">        printList(root); <span class="comment">// 1-&gt;1-&gt;2-&gt;2-&gt;2-&gt;3</span></span><br><span class="line"></span><br><span class="line">        deleteDuplicationNode(root); <span class="comment">// 1-&gt;2-&gt;3</span></span><br><span class="line"></span><br><span class="line">        printList(root);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> 剑指offer </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 剑指offer </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>正则表达式的匹配</title>
+      <link href="https://lastknightcoder.gitee.io//%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%9A%84%E5%8C%B9%E9%85%8D/"/>
+      <url>https://lastknightcoder.gitee.io//%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%9A%84%E5%8C%B9%E9%85%8D/</url>
+      
+        <content type="html"><![CDATA[<blockquote><p>题目：请实现一个函数用来匹配包含 <code>&#39;.&#39;</code> 和 <code>&#39;*&#39;</code> 的正则表达式，模式中的字符 <code>&#39;.&#39;</code> 表示任意一个字符，而 <code>&#39;*&#39;</code> 表示它前面的字符可以出现任意次(含 <code>0</code> 次)。在本题中，匹配是指字符串的所有字符匹配整个模式。例如，字符串 <code>&quot;aaa&quot;</code> 与模式字符串 <code>&quot;a.a&quot;</code> 和 <code>&quot;ab*ac*a&quot;</code> 匹配，但是与 <code>&quot;aa.a&quot;</code> 和 <code>&quot;ab*a&quot;</code> 均不匹配。</p></blockquote><img src="https://gitee.com/lastknightcoder/blogimage/raw/master/match202006122123.svg"/><p>在匹配字符串时，每次我们拿出匹配字符串中的一个字符与模式字符串中的字符进行匹配，匹配字符与模式字符之间的匹配分为三种情况：</p><ol><li><p>当前要匹配的模式字符的下一个字符不是 <code>&#39;*&#39;</code>，那么当匹配字符与模式字符相同或者模式字符为 <code>&#39;.&#39;</code> 时都算匹配成功，当匹配成功时，进行匹配下一个字符</p><img src="https://gitee.com/lastknightcoder/blogimage/raw/master/match202006122054.svg"/></li><li><p>模式字符的后一位为 <code>&#39;*&#39;</code>，并且当前字符匹配时，因为 <code>&#39;*&#39;</code> 代表任意次，它可以有以下三种匹配行为</p><img src="https://gitee.com/lastknightcoder/blogimage/raw/master/match202006122102.svg"/><ul><li><p>选择只匹配一个</p><img src="https://gitee.com/lastknightcoder/blogimage/raw/master/match202006122106.svg"/></li><li><p>选择不匹配</p><img src="https://gitee.com/lastknightcoder/blogimage/raw/master/match202006122108.svg"/></li><li><p>选择匹配多个</p><img src="https://gitee.com/lastknightcoder/blogimage/raw/master/match202006122109.svg"/></li></ul><p>上述三种行为，只要有一种情况匹配最后匹配成功，那么就匹配成功，所以它们之间是或的关系。</p></li><li><p>模式字符的后一位为 <code>&#39;*&#39;</code>，并且当前字符不匹配时</p><img src="https://gitee.com/lastknightcoder/blogimage/raw/master/match202006122120.svg"/></li></ol><p>当匹配字符与模式字符匹配成功时，才继续进行匹配，当匹配字符串和模式字符串同时匹配完毕时，那么说匹配字符串与模式字符串匹配成功了，代码如下</p><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Match</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">match</span><span class="params">(<span class="keyword">char</span>[] str, <span class="keyword">char</span>[] pattern)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (str == <span class="keyword">null</span> || pattern == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 匹配字符串和模式字符串都从起始字符进行匹配</span></span><br><span class="line">        <span class="keyword">return</span> matchCore(str, <span class="number">0</span>, pattern, <span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">matchCore</span><span class="params">(<span class="keyword">char</span>[] str, <span class="keyword">int</span> strIndex, <span class="keyword">char</span>[] pattern, <span class="keyword">int</span> patternIndex)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 二者同时匹配完毕时，才匹配成功</span></span><br><span class="line">        <span class="keyword">if</span> (strIndex == str.length  &amp;&amp; patternIndex == pattern.length) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 模式字符串匹配完毕，但是匹配字符串还有字符没有匹配</span></span><br><span class="line">        <span class="keyword">if</span> (strIndex != str.length &amp;&amp; patternIndex == pattern.length) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 匹配字符串匹配完毕，但是模式字符串还有字符未被匹配</span></span><br><span class="line">        <span class="keyword">if</span> (strIndex == str.length &amp;&amp; patternIndex != pattern.length) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 如果下一个字符为 *</span></span><br><span class="line">        <span class="keyword">if</span> ((patternIndex + <span class="number">1</span>) &lt; pattern.length &amp;&amp; pattern[patternIndex + <span class="number">1</span>] == <span class="string">'*'</span>) &#123;</span><br><span class="line">            <span class="comment">// 匹配时有三种选择</span></span><br><span class="line">            <span class="keyword">if</span> (pattern[patternIndex] == str[strIndex] || pattern[patternIndex] == <span class="string">'.'</span>) &#123;</span><br><span class="line">                <span class="keyword">boolean</span> result = matchCore(str, strIndex + <span class="number">1</span>, pattern, patternIndex + <span class="number">2</span>)</span><br><span class="line">                || matchCore(str, strIndex + <span class="number">1</span>, pattern, patternIndex)</span><br><span class="line">                || matchCore(str, strIndex, pattern, patternIndex + <span class="number">2</span>);</span><br><span class="line">                <span class="keyword">return</span> result;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="comment">// 当前字符不匹配，匹配字符向后移两个字符</span></span><br><span class="line">                <span class="keyword">return</span> matchCore(str, strIndex, pattern, patternIndex + <span class="number">2</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 第二个字符不为*，这时如果匹配字符与模式字符相同或者模式字符为 .都算匹配成功</span></span><br><span class="line">        <span class="comment">// 这时匹配字符和模式字符都向后移一个字符</span></span><br><span class="line">        <span class="keyword">if</span> (str[strIndex] == pattern[patternIndex] || (pattern[patternIndex] == <span class="string">'.'</span>)) &#123;</span><br><span class="line">            <span class="keyword">return</span> matchCore(str, strIndex + <span class="number">1</span>, pattern, patternIndex + <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">char</span>[] str = <span class="string">"aaa"</span>.toCharArray();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">char</span>[] pattern1 = <span class="string">"a.a"</span>.toCharArray();</span><br><span class="line">        System.out.println(match(str, pattern1)); <span class="comment">// true</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">char</span>[] pattern2 = <span class="string">"ab*ac*a"</span>.toCharArray();</span><br><span class="line">        System.out.println(match(str, pattern2)); <span class="comment">// true</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">char</span>[] pattern3 = <span class="string">"aa.a"</span>.toCharArray();</span><br><span class="line">        System.out.println(match(str, pattern3)); <span class="comment">// false</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">char</span>[] pattern4 = <span class="string">"ab*a"</span>.toCharArray();</span><br><span class="line">        System.out.println(match(str, pattern4)); <span class="comment">// false</span></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> 剑指offer </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 剑指offer </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>数值的整数次方</title>
       <link href="https://lastknightcoder.gitee.io//%E6%95%B0%E5%80%BC%E7%9A%84%E6%95%B4%E6%95%B0%E6%AC%A1%E6%96%B9/"/>
       <url>https://lastknightcoder.gitee.io//%E6%95%B0%E5%80%BC%E7%9A%84%E6%95%B4%E6%95%B0%E6%AC%A1%E6%96%B9/</url>
@@ -226,7 +301,7 @@
       
         <tags>
             
-            <tag> offset client page screen scroll </tag>
+            <tag> JavaScript </tag>
             
         </tags>
       
@@ -330,7 +405,9 @@
       
         <tags>
             
-            <tag> JavaScript 正则表达式 </tag>
+            <tag> JavaScript </tag>
+            
+            <tag> 正则表达式 </tag>
             
         </tags>
       
@@ -357,7 +434,11 @@
       
         <tags>
             
-            <tag> Java Spring 注解开发 </tag>
+            <tag> Java </tag>
+            
+            <tag> Spring </tag>
+            
+            <tag> IOC </tag>
             
         </tags>
       
@@ -411,7 +492,9 @@
       
         <tags>
             
-            <tag> JavaScript 柯里化 </tag>
+            <tag> JavaScript </tag>
+            
+            <tag> 柯里化 </tag>
             
         </tags>
       
@@ -438,7 +521,9 @@
       
         <tags>
             
-            <tag> JavaScript 闭包 </tag>
+            <tag> JavaScript </tag>
+            
+            <tag> 闭包 </tag>
             
         </tags>
       
@@ -515,7 +600,9 @@
       
         <tags>
             
-            <tag> jQuery JavaScript </tag>
+            <tag> JavaScript </tag>
+            
+            <tag> jQuery </tag>
             
         </tags>
       
@@ -619,7 +706,9 @@
       
         <tags>
             
-            <tag> JavaScript 冒泡与捕获 </tag>
+            <tag> JavaScript </tag>
+            
+            <tag> 冒泡与捕获 </tag>
             
         </tags>
       
@@ -673,7 +762,9 @@
       
         <tags>
             
-            <tag> Java SpringMVC </tag>
+            <tag> Java </tag>
+            
+            <tag> SpringMVC </tag>
             
         </tags>
       
@@ -725,7 +816,9 @@
       
         <tags>
             
-            <tag> Java Spring IOC AOP </tag>
+            <tag> Java </tag>
+            
+            <tag> Spring </tag>
             
         </tags>
       
@@ -751,6 +844,8 @@
       
       
         <tags>
+            
+            <tag> Java </tag>
             
             <tag> MyBatis </tag>
             
@@ -851,7 +946,7 @@
       
       <categories>
           
-          <category> 软件安装及配置 </category>
+          <category> Java </category>
           
       </categories>
       
@@ -938,6 +1033,8 @@
       
       
         <tags>
+            
+            <tag> Java </tag>
             
             <tag> 数据库 </tag>
             
@@ -1208,8 +1305,6 @@
             
             <tag> 多线程 </tag>
             
-            <tag> 学习 </tag>
-            
         </tags>
       
     </entry>
@@ -1238,8 +1333,6 @@
             <tag> Java </tag>
             
             <tag> 多线程 </tag>
-            
-            <tag> 学习 </tag>
             
         </tags>
       
@@ -1356,8 +1449,6 @@
         <tags>
             
             <tag> Java </tag>
-            
-            <tag> 学习 </tag>
             
             <tag> 软件安装及配置 </tag>
             
