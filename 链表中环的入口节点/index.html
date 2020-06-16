@@ -21,12 +21,12 @@
     
     
     <meta name="keywords" content="剑指offer">
-    <meta name="description" content="如何链表中包含环，如何找出环的入口节点? 例如，在如图所示的链表中，环的入口节点是节点 $3$。   解决这道题的思路分为两步，第一步是确定该链表有没有环，我们定义两个指针，一个快指针，一个满指针，快指针一次性走两步，慢指针一次性走一步。如果有环的话，那么快指针和慢指针就会相遇，并且是在环内相遇；如果没有环的话，那么快指针就会到达尾节点，慢指针与快指针不会相遇。 public static Li">
+    <meta name="description" content="如何链表中包含环，如何找出环的入口节点? 例如，在如图所示的链表中，环的入口节点是节点 $3$。   解决这道题的思路分为两步，第一步是确定该链表有没有环，我们定义两个指针，一个快指针，一个慢指针，快指针一次性走两步，慢指针一次性走一步。如果有环的话，那么快指针和慢指针就会相遇，并且是在环内相遇；如果没有环的话，那么快指针就会到达尾节点，慢指针与快指针不会相遇。 public static Li">
 <meta property="og:type" content="article">
 <meta property="og:title" content="链表中环的入口节点">
 <meta property="og:url" content="https://lastknightcoder.gitee.io/%E9%93%BE%E8%A1%A8%E4%B8%AD%E7%8E%AF%E7%9A%84%E5%85%A5%E5%8F%A3%E8%8A%82%E7%82%B9/">
 <meta property="og:site_name" content="Coder">
-<meta property="og:description" content="如何链表中包含环，如何找出环的入口节点? 例如，在如图所示的链表中，环的入口节点是节点 $3$。   解决这道题的思路分为两步，第一步是确定该链表有没有环，我们定义两个指针，一个快指针，一个满指针，快指针一次性走两步，慢指针一次性走一步。如果有环的话，那么快指针和慢指针就会相遇，并且是在环内相遇；如果没有环的话，那么快指针就会到达尾节点，慢指针与快指针不会相遇。 public static Li">
+<meta property="og:description" content="如何链表中包含环，如何找出环的入口节点? 例如，在如图所示的链表中，环的入口节点是节点 $3$。   解决这道题的思路分为两步，第一步是确定该链表有没有环，我们定义两个指针，一个快指针，一个慢指针，快指针一次性走两步，慢指针一次性走一步。如果有环的话，那么快指针和慢指针就会相遇，并且是在环内相遇；如果没有环的话，那么快指针就会到达尾节点，慢指针与快指针不会相遇。 public static Li">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/202006161919.svg">
 <meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/202006161937.svg">
@@ -186,7 +186,7 @@
 <p>如何链表中包含环，如何找出环的入口节点? 例如，在如图所示的链表中，环的入口节点是节点 $3$。</p>
 <img src="https://gitee.com/lastknightcoder/blogimage/raw/master/202006161919.svg"/>
 </blockquote>
-<p>解决这道题的思路分为两步，第一步是确定该链表有没有环，我们定义两个指针，一个快指针，一个满指针，快指针一次性走两步，慢指针一次性走一步。如果有环的话，那么快指针和慢指针就会相遇，并且是在环内相遇；如果没有环的话，那么快指针就会到达尾节点，慢指针与快指针不会相遇。</p>
+<p>解决这道题的思路分为两步，第一步是确定该链表有没有环，我们定义两个指针，一个快指针，一个慢指针，快指针一次性走两步，慢指针一次性走一步。如果有环的话，那么快指针和慢指针就会相遇，并且是在环内相遇；如果没有环的话，那么快指针就会到达尾节点，慢指针与快指针不会相遇。</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> ListNode <span class="title">meetingNode</span><span class="params">(ListNode root)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (root == <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 慢指针先走一步</span></span><br><span class="line">    ListNode slow = root.next;</span><br><span class="line">    <span class="keyword">if</span> (slow == <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125; </span><br><span class="line">    <span class="comment">// 快指针先走两步</span></span><br><span class="line">    ListNode fast = slow.next;</span><br><span class="line">    <span class="keyword">while</span> (slow != <span class="keyword">null</span> &amp;&amp; fast != <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (slow == fast) &#123;</span><br><span class="line">            <span class="keyword">return</span> fast;</span><br><span class="line">        &#125;</span><br><span class="line">        slow = slow.next;</span><br><span class="line">        fast = fast.next;</span><br><span class="line">        <span class="keyword">if</span> (fast != <span class="keyword">null</span>) &#123;</span><br><span class="line">            fast = fast.next;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">null</span>;</span><br></pre></td></tr></table></figure>
 
 <p>第二步就是确定环的入口节点，首先我们拿到在第一步中快慢指针相遇的节点，让这个节点遍历环以统计环的数目，当这个节点回到原地时即走了一圈。拿到环的数目 $k$ 以后，我们继续定义两个指针，一个指针先走 $k$ 步，然后两个指针继续走，当两个指针相遇时，即是环的入口节点</p>
