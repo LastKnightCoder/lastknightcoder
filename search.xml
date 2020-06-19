@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>树的子结构</title>
+      <link href="https://lastknightcoder.gitee.io//%E6%A0%91%E7%9A%84%E5%AD%90%E7%BB%93%E6%9E%84/"/>
+      <url>https://lastknightcoder.gitee.io//%E6%A0%91%E7%9A%84%E5%AD%90%E7%BB%93%E6%9E%84/</url>
+      
+        <content type="html"><![CDATA[<blockquote><p>题目：输入两棵二叉树 <code>A</code> 和 <code>B</code>，判断 <code>B</code> 是不是 <code>A</code> 的子结构。二叉树节点的定义如下：</p><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">BinaryTreeNode</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> BinaryTreeNode left;</span><br><span class="line">    <span class="keyword">private</span> BinaryTreeNode right;</span><br><span class="line">    <span class="keyword">int</span> value;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">BinaryTreeNode</span><span class="params">(<span class="keyword">int</span> value)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.left = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">this</span>.right = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">this</span>.value = value;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></blockquote><p>相对于链表，树的题目就比较难了。这道题我们可以分为两步，第一步遍历树 <code>A</code>，如果 <code>A</code> 中某节点的值与 <code>B</code> 树的根节点的值相同，那么进一步判断 <code>B</code> 的左右子树是否与该节点的左右子树相同，如果相同，则说明 <code>B</code> 是 <code>A</code> 的子结构，如果不同，则继续遍历树 <code>A</code>，如果再次找到某节点的值与 <code>B</code> 树的根节点的值相同，重复上面的过程，如果遍历完 <code>A</code> 都没有发现与 <code>B</code> 一样的子结构，那么说明 <code>B</code> 不是 <code>A</code> 的子结构。</p><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 遍历树</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">hasSubTree</span><span class="params">(BinaryTreeNode root, BinaryTreeNode subRoot)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">boolean</span> result = <span class="keyword">false</span>;</span><br><span class="line">    <span class="keyword">if</span> (root != <span class="keyword">null</span> &amp;&amp; subRoot != <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="comment">// 找到某节点的值与 B 的根节点的值相同 进一步进行深入的比较</span></span><br><span class="line">        <span class="keyword">if</span> (root.value == subRoot.value) &#123;</span><br><span class="line">            <span class="comment">// root 是否包含 subRoot</span></span><br><span class="line">            result = DoesTree1HaveTree2(root, subRoot);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 目前节点的值与B的根节点的值不同或者该节点的左右子树与B的左右子树不同</span></span><br><span class="line">        <span class="comment">// 进一步遍历 A 树</span></span><br><span class="line">        <span class="keyword">if</span> (!result) &#123;</span><br><span class="line">            result = hasSubTree(root.left, subRoot);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (!result) &#123;</span><br><span class="line">            result = hasSubTree(root.right, subRoot);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// root 是否包含 subRoot</span></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">DoesTree1HaveTree2</span><span class="params">(BinaryTreeNode root, BinaryTreeNode subRoot)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (subRoot == <span class="keyword">null</span>) &#123; </span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (root == <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (root.value != subRoot.value) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> DoesTree1HaveTree2(root.left, subRoot.left) &amp;&amp; </span><br><span class="line">           DoesTree1HaveTree2(root.right, subRoot.right);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> 剑指offer </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 剑指offer </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>反转链表</title>
       <link href="https://lastknightcoder.gitee.io//%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8/"/>
       <url>https://lastknightcoder.gitee.io//%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8/</url>
