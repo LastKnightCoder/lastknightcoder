@@ -6,7 +6,7 @@
   <link href="https://lastknightcoder.gitee.io/atom.xml" rel="self"/>
   
   <link href="https://lastknightcoder.gitee.io/"/>
-  <updated>2020-06-18T16:00:00.000Z</updated>
+  <updated>2020-06-20T16:00:00.000Z</updated>
   <id>https://lastknightcoder.gitee.io/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>二叉树的镜像</title>
+    <link href="https://lastknightcoder.gitee.io/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E9%95%9C%E5%83%8F/"/>
+    <id>https://lastknightcoder.gitee.io/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E9%95%9C%E5%83%8F/</id>
+    <published>2020-06-20T16:00:00.000Z</published>
+    <updated>2020-06-20T16:00:00.000Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote><p>题目：请完成一个函数，输入一棵二叉树，该函数输出它的镜像。二叉树节点的定义如下：</p><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">BinaryTreeNode</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> BinaryTreeNode left;</span><br><span class="line">    <span class="keyword">private</span> BinaryTreeNode right;</span><br><span class="line">    <span class="keyword">int</span> value;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">BinaryTreeNode</span><span class="params">(<span class="keyword">int</span> value)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.left = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">this</span>.right = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">this</span>.value = value;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></blockquote><p>镜像对大家来说应该是一个比较陌生的概念，为了理解这个概念，我们画出一棵树和它的镜像</p><center>    <img src="https://gitee.com/lastknightcoder/blogimage/raw/master/202006211922.svg"/></center><p>可见这两棵树是左右对称的，就像是在照镜子一样。那么镜像二叉树与原来的二叉树有什么特点? 对于根节点来说，它的左右子树的位置进行了交换，对于左右子树来说，他们的左右子树也是进行了交换，所以使用递归不难写出这样的程序</p><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> BinaryTreeNode <span class="title">mirrorTree</span><span class="params">(BinaryTreeNode root)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (root == <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 左右子树进行交换</span></span><br><span class="line">    BinaryTreeNode temp = root.left;</span><br><span class="line">    root.left = root.right;</span><br><span class="line">    root.right = temp;</span><br><span class="line">    <span class="comment">// 对左右子树也进行镜像操作</span></span><br><span class="line">    <span class="keyword">if</span> (root.left != <span class="keyword">null</span>) &#123;</span><br><span class="line">        root.left = mirrorTree(root.left);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (root.right != <span class="keyword">null</span>) &#123;</span><br><span class="line">        root.right = mirrorTree(root.right);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> root;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><blockquote><p>请实现一个函数，用来判断一棵二叉树是不是对称的。如果一棵二叉树和它的镜像一样，那么它是对称的。</p></blockquote><p>一棵树如果它是对称的，那么它的左子树和右子树是对称的，所以我们判断一棵树是否对称，只需要判断这棵树的左子树和右子树是否对称。为了简单起见，我们将这棵树复制一份一样的树，我们比较这两棵树是否对称</p><center>    <img src="https://gitee.com/lastknightcoder/blogimage/raw/master/202006212151.svg"/></center>如果这两棵树是对称的，那么它们的根节点的值相同，并且第一棵树的左子树与另一棵树的右子树是对称的，右子树与左子树是对称的<center>    <img src="https://gitee.com/lastknightcoder/blogimage/raw/master/202006212213.svg"/></center><p>而比较左右子树是否对称的问题，又是重复上面的过程，比较它们根节点的值以及各自的左子树与右子树是否对称</p><center>    <img src="https://gitee.com/lastknightcoder/blogimage/raw/master/202006212216.svg"/></center><p>我们可以使用递归来解决这个问题</p><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">isSymmetrical</span><span class="params">(BinaryTreeNode root)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> isSymmetrical(root, root);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">isSymmetrical</span><span class="params">(BinaryTreeNode root1, BinaryTreeNode root2)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (root1 == <span class="keyword">null</span> &amp;&amp; root2 == <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (root1 == <span class="keyword">null</span> || root2 == <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (root1.value != root2.value) &#123; </span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 两棵树的左子树与右子树、右子树与左子树是否对称</span></span><br><span class="line">    <span class="keyword">return</span> isSymmetrical(root1.left, root2.right) &amp;&amp; isSymmetrical(root1.right, root2.left);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;blockquote&gt;
+&lt;p&gt;题目：请完成一个函数，输入一棵二叉树，该函数输出它的镜像。二叉树节点的定义如下：&lt;/p&gt;
+&lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;li
+      
+    
+    </summary>
+    
+    
+      <category term="剑指offer" scheme="https://lastknightcoder.gitee.io/categories/%E5%89%91%E6%8C%87offer/"/>
+    
+    
+      <category term="剑指offer" scheme="https://lastknightcoder.gitee.io/tags/%E5%89%91%E6%8C%87offer/"/>
+    
+  </entry>
   
   <entry>
     <title>树的子结构</title>
