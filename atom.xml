@@ -6,7 +6,7 @@
   <link href="https://lastknightcoder.gitee.io/atom.xml" rel="self"/>
   
   <link href="https://lastknightcoder.gitee.io/"/>
-  <updated>2020-06-20T16:00:00.000Z</updated>
+  <updated>2020-06-21T16:00:00.000Z</updated>
   <id>https://lastknightcoder.gitee.io/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>顺时针打印矩阵</title>
+    <link href="https://lastknightcoder.gitee.io/%E9%A1%BA%E6%97%B6%E9%92%88%E6%89%93%E5%8D%B0%E7%9F%A9%E9%98%B5/"/>
+    <id>https://lastknightcoder.gitee.io/%E9%A1%BA%E6%97%B6%E9%92%88%E6%89%93%E5%8D%B0%E7%9F%A9%E9%98%B5/</id>
+    <published>2020-06-21T16:00:00.000Z</published>
+    <updated>2020-06-21T16:00:00.000Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote><p>题目：输入一个矩阵，按照从外向里以顺时针的顺序依次打印出每一个数字。例如输入如下矩阵：</p><img src="https://gitee.com/lastknightcoder/blogimage/raw/master/202006220952.svg"/><p>则依次打印出 <code>1, 2, 3, 4, 8, 12, 16, 15, 14, 13, 9, 5, 6, 7, 11, 10</code>。</p></blockquote><p>首先我们可以把一个矩阵看做是一个个圈组成的</p><img src="https://gitee.com/lastknightcoder/blogimage/raw/master/202006221018.svg"/><p>我们每次都打印矩阵的一个圈，我们定义左上角的坐标为 <code>(start, start)</code>，比如第一圈的左上角坐标为 <code>(0, 0)</code>，打印完一圈之后，左上角的横、纵坐标加一，那什么时候结束打印呢</p><img src="https://gitee.com/lastknightcoder/blogimage/raw/master/202006221032.svg"/><p>从上图可以知道，当</p>$$\begin{aligned}rows - start * 2 &> 0 \\columns - start * 2 &> 0\end{aligned}$$<p>时才要继续打印，所以初步的代码如下</p><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">printMatrixClockwisely</span><span class="params">(<span class="keyword">int</span>[][] matrix)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (matrix == <span class="keyword">null</span> || matrix.length == <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (matrix.length != <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (matrix[<span class="number">0</span>].length == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// start表示左上角坐标</span></span><br><span class="line">    <span class="keyword">int</span> start = <span class="number">0</span>;</span><br><span class="line">    <span class="comment">// 获得行数和列数</span></span><br><span class="line">    <span class="keyword">int</span> rows = matrix.length;</span><br><span class="line">    <span class="keyword">int</span> columns = matrix[<span class="number">0</span>].length;</span><br><span class="line">    <span class="comment">// 上面分析过的判断条件</span></span><br><span class="line">    <span class="keyword">while</span> (rows &gt; start * <span class="number">2</span> &amp;&amp; columns &gt; start * <span class="number">2</span>) &#123;</span><br><span class="line">        <span class="comment">// 打印圈</span></span><br><span class="line">        printCircle(matrix, start);</span><br><span class="line">        <span class="comment">// 左上角移动</span></span><br><span class="line">        start++;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>下面就是如何打印圈的代码了</p><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">printCircle</span><span class="params">(<span class="keyword">int</span>[][] matrix, <span class="keyword">int</span> start)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> rows = matrix.length;</span><br><span class="line">    <span class="keyword">int</span> columns = matrix[<span class="number">0</span>].length;</span><br><span class="line">    <span class="comment">// 要打印圈的末尾横坐标</span></span><br><span class="line">    <span class="keyword">int</span> endX = columns - <span class="number">1</span> - start;</span><br><span class="line">    <span class="comment">// 要打印圈的末尾纵坐标</span></span><br><span class="line">    <span class="keyword">int</span> endY = rows - <span class="number">1</span> - start;</span><br><span class="line">    <span class="comment">// 打印圈的上行</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = start; i &lt;= endX; i++) &#123;</span><br><span class="line">        System.out.print(matrix[start][i]);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 打印圈的右列</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = start + <span class="number">1</span>; i &lt;= endY; i++) &#123;</span><br><span class="line">        System.out.print(matrix[i][endX]);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 首先判断圈是否有两行，有的话打印下行</span></span><br><span class="line">    <span class="keyword">if</span> (endY &gt; start) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = endX - <span class="number">1</span>; i &gt;= start; i--) &#123;</span><br><span class="line">            System.out.print(matrix[endY][i]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 判断圈是否有两列，有的话打印左列</span></span><br><span class="line">    <span class="keyword">if</span> (endX &gt; start) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = endY - <span class="number">1</span>; i &gt;= start + <span class="number">1</span>; i--) &#123;</span><br><span class="line">            System.out.print(matrix[i][start]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;   </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;blockquote&gt;
+&lt;p&gt;题目：输入一个矩阵，按照从外向里以顺时针的顺序依次打印出每一个数字。例如输入如下矩阵：&lt;/p&gt;
+&lt;img src=&quot;https://gitee.com/lastknightcoder/blogimage/raw/master/20200622095
+      
+    
+    </summary>
+    
+    
+      <category term="剑指offer" scheme="https://lastknightcoder.gitee.io/categories/%E5%89%91%E6%8C%87offer/"/>
+    
+    
+      <category term="剑指offer" scheme="https://lastknightcoder.gitee.io/tags/%E5%89%91%E6%8C%87offer/"/>
+    
+  </entry>
   
   <entry>
     <title>二叉树的镜像</title>
