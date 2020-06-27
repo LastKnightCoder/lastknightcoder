@@ -6,7 +6,7 @@
   <link href="https://lastknightcoder.gitee.io/atom.xml" rel="self"/>
   
   <link href="https://lastknightcoder.gitee.io/"/>
-  <updated>2020-06-25T16:00:00.000Z</updated>
+  <updated>2020-06-26T16:00:00.000Z</updated>
   <id>https://lastknightcoder.gitee.io/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>二叉搜索树的后序遍历序列</title>
+    <link href="https://lastknightcoder.gitee.io/%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E7%9A%84%E5%90%8E%E5%BA%8F%E9%81%8D%E5%8E%86%E5%BA%8F%E5%88%97/"/>
+    <id>https://lastknightcoder.gitee.io/%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E7%9A%84%E5%90%8E%E5%BA%8F%E9%81%8D%E5%8E%86%E5%BA%8F%E5%88%97/</id>
+    <published>2020-06-26T16:00:00.000Z</published>
+    <updated>2020-06-26T16:00:00.000Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote><p>题目：输入一个整数数组，判断该数组是不是某二叉搜索树的后序遍历结果。如果是则返回 <code>true</code>，否则返回 <code>false</code>。假设输入的数组的任意两个数字都互不相同。例如，输入数组 <code>{5, 7, 6, 9, 11, 10, 8}</code>，则返回 <code>true</code>，因为这个整数序列是下面二叉搜索树的后序遍历的结果。如果输入的数组是 <code>{7, 4, 6, 5}</code>，则由于没有哪棵二叉搜索树的后序遍历结果是这个序列，因为返回 <code>false</code>。</p><center>    <img src="https://gitee.com/lastknightcoder/blogimage/raw/master/202006270951.svg"/></center></blockquote><p>我们来看一下二叉搜索树后序遍历序列的结构</p><center>    <img src="https://gitee.com/lastknightcoder/blogimage/raw/master/202006270950.svg"/></center><p>后序遍历的最后一个节点是根节点，前部分是树的左子树，后部分是树的右子树。因为该树为二叉搜索树，所以左子树中的所有值都比根节点小，右子树的所有值都比根节点大。根据后序遍历的特点，我们的方法是</p><ol><li>先拿到根节点的值</li><li>然后遍历数组，找到第一个比根节点大的值，即右子树的起点，接着判断右子树中是否所有值都大于根节点，如果大于根节点，那么该树可能是后序遍历，接着判断左子树和右子树的后序遍历是否符合情况</li><li>如果右子树中有值小于根节点，说明该序列不可能是后序遍历序列</li></ol><p>代码如下</p><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">versifySequenceOfBST</span><span class="params">(<span class="keyword">int</span>[] sequence, <span class="keyword">int</span> start, <span class="keyword">int</span> end)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 先拿到根节点的值</span></span><br><span class="line">    <span class="keyword">int</span> root = sequence[end];</span><br><span class="line">    <span class="comment">// 拿到右子树的起始</span></span><br><span class="line">    <span class="keyword">int</span> index = start;</span><br><span class="line">    <span class="keyword">for</span> (; index &lt; end; index++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (sequence[index] &gt; root) &#123;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> mid = index;</span><br><span class="line">    <span class="keyword">for</span> (; index &lt; end; index++) &#123;</span><br><span class="line">        <span class="comment">// 如果右子树中有小于根节点的值，那么不可能是后序遍历的结果</span></span><br><span class="line">        <span class="keyword">if</span> (sequence[index] &lt; root) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">boolean</span> left = <span class="keyword">true</span>;</span><br><span class="line">    <span class="comment">// mid &gt; 0 说明有左子树</span></span><br><span class="line">    <span class="keyword">if</span> (mid &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        left = versifySequenceOfBST(sequence, <span class="number">0</span>, mid - <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">boolean</span> right = <span class="keyword">true</span>;</span><br><span class="line">    <span class="comment">// mid &lt; end 说明有右子树</span></span><br><span class="line">    <span class="keyword">if</span> (mid &lt; end) &#123;</span><br><span class="line">        right = versifySequenceOfBST(sequence, mid, end - <span class="number">1</span>);;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> left &amp;&amp; right;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;blockquote&gt;
+&lt;p&gt;题目：输入一个整数数组，判断该数组是不是某二叉搜索树的后序遍历结果。如果是则返回 &lt;code&gt;true&lt;/code&gt;，否则返回 &lt;code&gt;false&lt;/code&gt;。假设输入的数组的任意两个数字都互不相同。例如，输入数组 &lt;code&gt;{5, 7, 
+      
+    
+    </summary>
+    
+    
+      <category term="剑指offer" scheme="https://lastknightcoder.gitee.io/categories/%E5%89%91%E6%8C%87offer/"/>
+    
+    
+      <category term="剑指offer" scheme="https://lastknightcoder.gitee.io/tags/%E5%89%91%E6%8C%87offer/"/>
+    
+  </entry>
   
   <entry>
     <title>从上到下打印二叉树</title>
