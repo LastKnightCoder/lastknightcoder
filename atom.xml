@@ -6,7 +6,7 @@
   <link href="https://lastknightcoder.gitee.io/atom.xml" rel="self"/>
   
   <link href="https://lastknightcoder.gitee.io/"/>
-  <updated>2020-06-27T16:00:00.000Z</updated>
+  <updated>2020-06-28T06:06:00.000Z</updated>
   <id>https://lastknightcoder.gitee.io/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>复杂链表的复制</title>
+    <link href="https://lastknightcoder.gitee.io/%E5%A4%8D%E6%9D%82%E9%93%BE%E8%A1%A8%E7%9A%84%E5%A4%8D%E5%88%B6/"/>
+    <id>https://lastknightcoder.gitee.io/%E5%A4%8D%E6%9D%82%E9%93%BE%E8%A1%A8%E7%9A%84%E5%A4%8D%E5%88%B6/</id>
+    <published>2020-06-28T06:06:00.000Z</published>
+    <updated>2020-06-28T06:06:00.000Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote><p>题目：请实现函数 <code>ComplexListNode Clone(ComplexListNode root)</code>，复制一个复杂链表。在复杂链表中，每个节点除了有一个 <code>next</code> 指针指向下一个节点，还有一个 <code>sbling</code> 指针指向链表中的任意节点或者 <code>null</code>。复杂链表的节点定义如下：</p><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">ComplexListNode</span> </span>&#123;</span><br><span class="line">    ComplexListNode next;</span><br><span class="line">    ComplexListNode sibling;</span><br><span class="line">    <span class="keyword">int</span> value;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ComplexListNode</span><span class="params">(<span class="keyword">int</span> value)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.value = value;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></blockquote><p>一个复杂链表的示例如下所示</p><img src="https://gitee.com/lastknightcoder/blogimage/raw/master/202006281302.svg"/><p>看到这个问题，很多人的解决方案是首先复制链表的每一个节点，并使用 <code>next</code> 指针连接起来，第二步再次遍历链表，并且逐次设置 <code>sbling</code> 指针。考虑该链表的长度为 <code>N</code>，那么在每次设置 <code>sbling</code> 节点时都要搜索整个链表，搜索的时间复杂度是 $O(N)$，对于每一个节点都有这个搜索过程，所以整个时间复杂度为 $O(N^2)$。</p><p>现在我们可以考虑第二种方法，第一步仍然是根据原始链表的节点 <code>N</code> 创建复制的节点 <code>N&#39;</code>，并将 <code>&lt;N,N&#39;&gt;</code> 放入到一个哈希表中，那么这样一来，第二步就不需要去搜索整个链表，只需要以 $O(1)$ 的复杂度就可以从哈希表中拿到想要的节点。这种情况就是以空间换时间，我们需要 $O(N)$ 的空间复杂度把时间复杂度从 $O(N^2)$ 降到 $O(N)$。</p><p>现在我们在考虑一种方法，首先第一步还是根据原始链表的节点 <code>N</code> 复制节点 <code>N&#39;</code>，并且将 <code>N&#39;</code> 链接到 <code>N</code> 之后，如下所示</p><img src="https://gitee.com/lastknightcoder/blogimage/raw/master/202006281352.svg"/><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">cloneNodes</span><span class="params">(ComplexListNode root)</span> </span>&#123;</span><br><span class="line">    ComplexListNode cur = root;</span><br><span class="line">    <span class="keyword">while</span> (cur != <span class="keyword">null</span>) &#123;</span><br><span class="line">        ComplexListNode cloneNode = <span class="keyword">new</span> ComplexListNode(cur.value);</span><br><span class="line">        cloneNode.next = cur.next;</span><br><span class="line">        cur.next = cloneNode;</span><br><span class="line">        cur = cloneNode.next;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>第二步设置复制出来的节点的 <code>sbling</code>，如果节点 <code>N</code> 的 <code>sbling</code> 指针指向的是 <code>S</code>，那么 <code>N&#39;</code> 的 <code>sbling</code> 指向的就是 <code>S.next</code>，如下</p><img src="https://gitee.com/lastknightcoder/blogimage/raw/master/202006281356.svg"/><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">siblingNodes</span><span class="params">(ComplexListNode root)</span> </span>&#123;</span><br><span class="line">    ComplexListNode cur = root;</span><br><span class="line">    <span class="keyword">while</span> (cur != <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (cur.sibling != <span class="keyword">null</span>) &#123;</span><br><span class="line">            cur.next.sibling = cur.sibling.next;</span><br><span class="line">        &#125;</span><br><span class="line">        cur = cur.next.next;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>最后一步就是选择这些链表的第偶数个节点通过 <code>next</code> 连接起来，然后返回根节点</p><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> ComplexListNode <span class="title">reconnect</span><span class="params">(ComplexListNode root)</span> </span>&#123;</span><br><span class="line">    ComplexListNode cur = root;</span><br><span class="line">    ComplexListNode cloneRoot = <span class="keyword">null</span>;</span><br><span class="line">    ComplexListNode curClone = <span class="keyword">null</span>;</span><br><span class="line">    <span class="keyword">if</span> (cur != <span class="keyword">null</span>) &#123;</span><br><span class="line">        cloneRoot = cur.next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span> (cur != <span class="keyword">null</span>) &#123;</span><br><span class="line">        curClone = cur.next;</span><br><span class="line">        cur = cur.next.next;</span><br><span class="line">        curClone = curClone.next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> cloneRoot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>我们把上面三步接合起来，就是复制链表的完整过程</p><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> ComplexListNode <span class="title">clone</span><span class="params">(ComplexListNode root)</span> </span>&#123;</span><br><span class="line">    cloneNodes(root);</span><br><span class="line">    siblingNodes(root);</span><br><span class="line">    <span class="keyword">return</span> reconnect(root);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;blockquote&gt;
+&lt;p&gt;题目：请实现函数 &lt;code&gt;ComplexListNode Clone(ComplexListNode root)&lt;/code&gt;，复制一个复杂链表。在复杂链表中，每个节点除了有一个 &lt;code&gt;next&lt;/code&gt; 指针指向下一个节点，还有一个
+      
+    
+    </summary>
+    
+    
+      <category term="剑指offer" scheme="https://lastknightcoder.gitee.io/categories/%E5%89%91%E6%8C%87offer/"/>
+    
+    
+      <category term="剑指offer" scheme="https://lastknightcoder.gitee.io/tags/%E5%89%91%E6%8C%87offer/"/>
+    
+  </entry>
   
   <entry>
     <title>手写Promise</title>
