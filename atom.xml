@@ -6,7 +6,7 @@
   <link href="https://lastknightcoder.gitee.io/atom.xml" rel="self"/>
   
   <link href="https://lastknightcoder.gitee.io/"/>
-  <updated>2020-06-29T07:29:00.000Z</updated>
+  <updated>2020-06-29T08:15:00.000Z</updated>
   <id>https://lastknightcoder.gitee.io/</id>
   
   <author>
@@ -15,6 +15,35 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>数据流中的中位数</title>
+    <link href="https://lastknightcoder.gitee.io/%E6%95%B0%E6%8D%AE%E6%B5%81%E4%B8%AD%E7%9A%84%E4%B8%AD%E4%BD%8D%E6%95%B0/"/>
+    <id>https://lastknightcoder.gitee.io/%E6%95%B0%E6%8D%AE%E6%B5%81%E4%B8%AD%E7%9A%84%E4%B8%AD%E4%BD%8D%E6%95%B0/</id>
+    <published>2020-06-29T08:15:00.000Z</published>
+    <updated>2020-06-29T08:15:00.000Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote><p>题目：如何得到一个数据流中的中位数? 如果从数据流中读出奇数个数值，那么中位数就是所有数值排序之后位于中间的数值。如果从数据流中读出偶数个数值，那么中位数就是所有数值排序之后中间两个数的平均值。</p></blockquote><p>我们使用两个堆来存储这些数据，一个最大堆，一个最小堆。我们首先随便往一个堆中存入一个数据，然后遍历数组，如果数组中的数字小于最大堆的堆首元素，那么将这个数字添加到最大堆中，如果大于最大堆的堆首元素，那么将元素添加到最小堆中，这样的添加方法可以保证最小堆中的元素始终大于最大堆中的元素。</p><p>这样的方法可以使得数组中的元素分为两堆，如果这两个堆中元素的数目相同或者另一个堆中只比另一个堆多一个元素。例如，如果数组中元素的个数是偶数个，如果最大堆中的元素和最小堆中的元素相同，那么中位数就是两个堆首的平均值(最大堆的堆首是该堆中的最大值，最小堆的堆首是该堆中的最小值)；如果数组中元素的个数是奇数，那么就会有一个堆比另一个堆多出一个元素，假设最大堆比最小堆多一个元素，那么中位数就是最大堆的堆首元素。</p><p>所以我们在向两个堆中添加元素时，要使得两个堆中元素个数的差值不能大于 $1$ 个，比如如果向最大堆添加一个元素，使得它们元素个数的差值大于 $1$，那么我们可以将最大堆的堆首添加到最小堆中，这样的添加方式使得最小堆中的所有元素还是大于最大堆中的所有元素，对于最小堆中元素个数多与最大堆的情况，只需要将最小堆的堆首元素添加到最大堆中即可。</p><p>代码如下</p><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">double</span> <span class="title">getMiddleNumber</span><span class="params">(<span class="keyword">int</span>[] data)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (data == <span class="keyword">null</span> || data.length == <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">"数组为空或null"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 最大堆</span></span><br><span class="line">    Queue&lt;Integer&gt; maxHeap = <span class="keyword">new</span> PriorityQueue&lt;&gt;(<span class="keyword">new</span> MaxComparator());</span><br><span class="line">    <span class="comment">// 最小堆</span></span><br><span class="line">    Queue&lt;Integer&gt; minHeap = <span class="keyword">new</span> PriorityQueue&lt;&gt;(<span class="keyword">new</span> MinComparator());</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 首先向最大堆中添加一个元素</span></span><br><span class="line">    maxHeap.add(data[<span class="number">0</span>]);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; data.length; i++) &#123;</span><br><span class="line">        <span class="comment">// 如果比最大堆堆首的值小，那么添加到最大堆中，否则添加到最小堆中</span></span><br><span class="line">        <span class="keyword">if</span> (data[i] &lt; maxHeap.peek()) &#123;</span><br><span class="line">            maxHeap.add(data[i]);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            minHeap.add(data[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 如果最大堆元素个数比最小堆元素个数多于 2 个或以上，将最大堆的堆首元素添加到最小堆中</span></span><br><span class="line">        <span class="keyword">if</span> (maxHeap.size() - minHeap.size() &gt;= <span class="number">2</span>) &#123;</span><br><span class="line">            <span class="keyword">int</span> res = maxHeap.remove();</span><br><span class="line">            minHeap.add(res);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (minHeap.size() - maxHeap.size() &gt;= <span class="number">2</span>) &#123;</span><br><span class="line">            <span class="comment">// 对最小堆同理</span></span><br><span class="line">            <span class="keyword">int</span> res = minHeap.remove();</span><br><span class="line">            maxHeap.add(res);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 中位数的求法</span></span><br><span class="line">    <span class="keyword">double</span> result;</span><br><span class="line">    <span class="keyword">if</span> (maxHeap.size() - minHeap.size() &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        result = maxHeap.peek();</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (maxHeap.size() - minHeap.size() &lt; <span class="number">0</span>) &#123;</span><br><span class="line">        result = minHeap.peek();</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        result = ((<span class="keyword">double</span>)maxHeap.peek() + (<span class="keyword">double</span>)minHeap.peek()) / <span class="number">2</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">MaxComparator</span> <span class="keyword">implements</span> <span class="title">Comparator</span>&lt;<span class="title">Integer</span>&gt; </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compare</span><span class="params">(Integer num1, Integer num2)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> num2 - num1;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">MinComparator</span> <span class="keyword">implements</span> <span class="title">Comparator</span>&lt;<span class="title">Integer</span>&gt; </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compare</span><span class="params">(Integer num1, Integer num2)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> num1 - num2;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;blockquote&gt;
+&lt;p&gt;题目：如何得到一个数据流中的中位数? 如果从数据流中读出奇数个数值，那么中位数就是所有数值排序之后位于中间的数值。如果从数据流中读出偶数个数值，那么中位数就是所有数值排序之后中间两个数的平均值。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;我们使用两
+      
+    
+    </summary>
+    
+    
+      <category term="剑指offer" scheme="https://lastknightcoder.gitee.io/categories/%E5%89%91%E6%8C%87offer/"/>
+    
+    
+      <category term="剑指offer" scheme="https://lastknightcoder.gitee.io/tags/%E5%89%91%E6%8C%87offer/"/>
+    
+  </entry>
   
   <entry>
     <title>最小的k个数</title>
