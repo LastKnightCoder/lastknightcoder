@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>字符串的排列</title>
+      <link href="https://lastknightcoder.gitee.io//%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E6%8E%92%E5%88%97/"/>
+      <url>https://lastknightcoder.gitee.io//%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E6%8E%92%E5%88%97/</url>
+      
+        <content type="html"><![CDATA[<blockquote><p>题目：输入一个字符串，打印出该字符串中字符的所有排列。例如，输入字符串 <code>abc</code>，则打印出由字符 <code>a、b、c</code> 所能排列出来的所有字符串 <code>abc、acb、bac、bca、cab</code> 和 <code>cba</code>。</p></blockquote><p>我们要打印出字符串中字符的所有排列，<strong>就是要让字符能够出现在所有的位置上</strong>。我们的方法如下，首先将字符串分为两部分，第一部分只有首字符一个字符，第二部分是剩下的部分。接着我们分为两步出来</p><ol><li>第一步让所有的字符都能够出现在首位，将首字符依次与后面的字符进行交换，这样能够保证首字符可以出现在后面的每个位置上，也可以保证后面的字符出现在第一个位置上</li><li>第二步我们固定第一个字符，接着处理第二部分，而第二部分的处理也是将第二部分也分为两部分，首字符与剩下的部分两部分，这是一个递归的过程，通过这样的处理，我们确保每个字符都能够出现在每个位置上</li></ol><p>代码如下：</p><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">permutation</span><span class="params">(String string)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">char</span>[] str = string.toCharArray();</span><br><span class="line">    permutation(str, <span class="number">0</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">permutation</span><span class="params">(<span class="keyword">char</span>[] str, <span class="keyword">int</span> index)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (index == str.length) &#123;</span><br><span class="line">        System.out.println(<span class="keyword">new</span> String(str));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = index; i &lt; str.length; i++) &#123;</span><br><span class="line">        <span class="comment">// 首字符与后面的字符进行交换</span></span><br><span class="line">        <span class="keyword">char</span> temp = str[i];</span><br><span class="line">        str[i] = str[index];</span><br><span class="line">        str[index] = temp;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 固定首字符，处理第二部分</span></span><br><span class="line">        permutation(str, index + <span class="number">1</span>);</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 将字符交换回来，以便首字符能够出现在后面的每个位置</span></span><br><span class="line">        temp = str[i];</span><br><span class="line">        str[i] =  str[index];</span><br><span class="line">        str[index] = temp;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> 剑指offer </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 剑指offer </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>序列化二叉树</title>
       <link href="https://lastknightcoder.gitee.io//%E5%BA%8F%E5%88%97%E5%8C%96%E4%BA%8C%E5%8F%89%E6%A0%91/"/>
       <url>https://lastknightcoder.gitee.io//%E5%BA%8F%E5%88%97%E5%8C%96%E4%BA%8C%E5%8F%89%E6%A0%91/</url>
