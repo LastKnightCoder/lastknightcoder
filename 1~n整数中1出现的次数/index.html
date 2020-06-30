@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>1~n整数中1出现的次数 | Coder</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="剑指offer">
+    <meta name="description" content="题目：输入一个整数 $n$，求 $1 - n$ 这 $n$ 个整数的十进制表示中 $1$ 出现的次数。例如输入 $12$，$1 - 12$ 这些整数中包含 $1$ 的数字有 $1、 10、 11、 12$，$1$ 一共出现了 $5$ 次。  如果我们不考虑时间效率的话，我们可以从 $1$ 开始遍历到输入的整数，在遍历的过程中统计数字中 $1$ 出现的个数，如下 public static int">
+<meta property="og:type" content="article">
+<meta property="og:title" content="1~n整数中1出现的次数">
+<meta property="og:url" content="https://lastknightcoder.gitee.io/1~n%E6%95%B4%E6%95%B0%E4%B8%AD1%E5%87%BA%E7%8E%B0%E7%9A%84%E6%AC%A1%E6%95%B0/">
+<meta property="og:site_name" content="Coder">
+<meta property="og:description" content="题目：输入一个整数 $n$，求 $1 - n$ 这 $n$ 个整数的十进制表示中 $1$ 出现的次数。例如输入 $12$，$1 - 12$ 这些整数中包含 $1$ 的数字有 $1、 10、 11、 12$，$1$ 一共出现了 $5$ 次。  如果我们不考虑时间效率的话，我们可以从 $1$ 开始遍历到输入的整数，在遍历的过程中统计数字中 $1$ 出现的个数，如下 public static int">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-06-30T02:03:00.000Z">
+<meta property="article:modified_time" content="2020-06-30T02:03:00.000Z">
+<meta property="article:author" content="熊滔">
+<meta property="article:tag" content="剑指offer">
+<meta name="twitter:card" content="summary">
+    
+        <link rel="alternate" type="application/atom+xml" title="Coder" href="https://lastknightcoder.gitee.io/atom.xml">
+    
+    <link rel="shortcut icon" href="https://lastknightcoder.gitee.io/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(https://lastknightcoder.gitee.io/img/brand.jpg)">
+      <div class="brand">
+        <a href="https://lastknightcoder.gitee.io/" class="avatar waves-effect waves-circle waves-light">
+          <img src="https://lastknightcoder.gitee.io/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">熊滔</h5>
+          <a href="mailto:2223106858@qq.com" title="2223106858@qq.com" class="mail">2223106858@qq.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.gitee.io/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.gitee.io/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.gitee.io/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.gitee.io/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/LastKnightCoder" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">1~n整数中1出现的次数</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">1~n整数中1出现的次数</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2020-06-30T02:03:00.000Z" itemprop="datePublished" class="page-time">
+  2020-06-30
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="https://lastknightcoder.gitee.io/categories/%E5%89%91%E6%8C%87offer/">剑指offer</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+
+<article id="post-1~n整数中1出现的次数"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">1~n整数中1出现的次数</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2020-06-30 10:03:00" datetime="2020-06-30T02:03:00.000Z"  itemprop="datePublished">2020-06-30</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="https://lastknightcoder.gitee.io/categories/%E5%89%91%E6%8C%87offer/">剑指offer</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <blockquote>
+<p>题目：输入一个整数 $n$，求 $1 - n$ 这 $n$ 个整数的十进制表示中 $1$ 出现的次数。例如输入 $12$，$1 - 12$ 这些整数中包含 $1$ 的数字有 $1、 10、 11、 12$，$1$ 一共出现了 $5$ 次。</p>
+</blockquote>
+<p>如果我们不考虑时间效率的话，我们可以从 $1$ 开始遍历到输入的整数，在遍历的过程中统计数字中 $1$ 出现的个数，如下</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">numberOfOneToN</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">        count += numberOfOne(i);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> count;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">numberOfOne</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (n != <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (n % <span class="number">10</span> == <span class="number">1</span>) &#123;</span><br><span class="line">            count++;</span><br><span class="line">        &#125;</span><br><span class="line">        n /= <span class="number">10</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> count;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上面每次都要对数字求余计算 $1$ 出现的次数，时间复杂度为 $O(n \lg n)$，我们找找是否有数字的规律，我们以数字 $54321$ 为例。我们将数字分为两部分 $1-4321$ 以及 $4322 - 54321$。</p>
+<p>那我们首先统计 $4322-54321$ 这 $50000$ 个数字中 $1$ 出现的个数，首先我们统计首位 $1$ 出现的个数，首位为 $1$ 的情况有 $10000 - 19999$ 共 $10^4$ 种情况，如果我们输入的数字最高位是 $1$，比如 $12345$，那么首位为 $1$ 出现的次数为 $10000-12345$ 共$2346$ 种情况。接下来统计后面四位出现 $1$ 的情况，我们随便固定一位为 $1$，另外 $3$ 位可以任意的从 $0-9$ 取值，且首位可以从 $1$ 取到 $5$，共有 $5 * 10^3$ 种情况，总共有四位，所以后面四位为 $1$ 的情况有 $5 * 4 * 10^3$ 种情况。</p>
+<p>现在处理 $1-4321$ 的部分，这个部分不就相当于输入数字 $4321$ 求 $1$ 出现的个数嘛！我们可以再次将 $4321$ 也分为两部分，$1- 321$ 以及 $322-4321$，不难看出，这个可以使用递归解决。</p>
+<p>代码如下</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">numberOf1Between1AndN</span><span class="params">(<span class="keyword">int</span> number)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">char</span>[] str = Integer.toString(number).toCharArray();</span><br><span class="line">    <span class="keyword">return</span> numberOfOne(str, <span class="number">0</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">numberOfOne</span><span class="params">(<span class="keyword">char</span>[] str, <span class="keyword">int</span> start)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (start == str.length) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 最高位</span></span><br><span class="line">    <span class="keyword">int</span> first = str[start] - <span class="string">'0'</span>;</span><br><span class="line">    <span class="keyword">int</span> restLength = str.length - start;</span><br><span class="line">    <span class="keyword">if</span> (restLength == <span class="number">1</span> &amp;&amp; first == <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (restLength == <span class="number">1</span> &amp;&amp; first &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> numFirstDigit = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span> (first &gt; <span class="number">1</span>) &#123;</span><br><span class="line">        <span class="comment">// 如果首位大于 1，那么出现 1 的次数为 10^(n-1)</span></span><br><span class="line">        <span class="comment">// 例如例子中的 10^4</span></span><br><span class="line">        numFirstDigit = (<span class="keyword">int</span>)Math.pow(<span class="number">10</span>, restLength - <span class="number">1</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (first == <span class="number">1</span>) &#123;</span><br><span class="line">        <span class="comment">// 如果首位是 1，如12345，那么首位出现 1 的次数为 2346</span></span><br><span class="line">        String s = <span class="keyword">new</span> String(str);</span><br><span class="line">        s = s.substring(start + <span class="number">1</span>) ;</span><br><span class="line">        numFirstDigit = Integer.parseInt(s) + <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 非首位出现的次数为 first(首位数字) * (n - 1) * 10^(n-2)</span></span><br><span class="line">    <span class="comment">// 例如例子中的 5 * 4 * 10^3</span></span><br><span class="line">    <span class="keyword">int</span> numOtherDigit = (<span class="keyword">int</span>)(first * (restLength - <span class="number">1</span>) * Math.pow(<span class="number">10</span>, restLength - <span class="number">2</span>));</span><br><span class="line">    <span class="comment">// 递归求解另一部分 1 出现的数字</span></span><br><span class="line">    <span class="keyword">int</span> numRecursive = numberOfOne(str, start + <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">return</span> numFirstDigit + numOtherDigit + numRecursive;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-06-30T02:03:00.000Z" itemprop="dateUpdated">2020-06-30 10:03:00</time>
+</span><br>
+
+
+        
+    </div>
+    
+    <footer>
+        <a href="https://lastknightcoder.gitee.io">
+            <img src="https://lastknightcoder.gitee.io/img/avatar.jpg" alt="熊滔">
+            熊滔
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="https://lastknightcoder.gitee.io/tags/%E5%89%91%E6%8C%87offer/" rel="tag">剑指offer</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://lastknightcoder.gitee.io/1~n%E6%95%B4%E6%95%B0%E4%B8%AD1%E5%87%BA%E7%8E%B0%E7%9A%84%E6%AC%A1%E6%95%B0/&title=《1~n整数中1出现的次数》 — Coder&pic=https://lastknightcoder.gitee.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://lastknightcoder.gitee.io/1~n%E6%95%B4%E6%95%B0%E4%B8%AD1%E5%87%BA%E7%8E%B0%E7%9A%84%E6%AC%A1%E6%95%B0/&title=《1~n整数中1出现的次数》 — Coder&source=人生天地间，忽如远行客" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://lastknightcoder.gitee.io/1~n%E6%95%B4%E6%95%B0%E4%B8%AD1%E5%87%BA%E7%8E%B0%E7%9A%84%E6%AC%A1%E6%95%B0/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《1~n整数中1出现的次数》 — Coder&url=https://lastknightcoder.gitee.io/1~n%E6%95%B4%E6%95%B0%E4%B8%AD1%E5%87%BA%E7%8E%B0%E7%9A%84%E6%AC%A1%E6%95%B0/&via=https://lastknightcoder.gitee.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://lastknightcoder.gitee.io/1~n%E6%95%B4%E6%95%B0%E4%B8%AD1%E5%87%BA%E7%8E%B0%E7%9A%84%E6%AC%A1%E6%95%B0/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="https://lastknightcoder.gitee.io/%E6%9C%80%E5%A4%A7%E5%AD%90%E6%95%B0%E7%BB%84%E5%92%8C%E4%BB%A5%E5%8F%8A%E6%9C%80%E9%95%BF%E5%AD%90%E5%AD%97%E7%AC%A6%E4%B8%B2/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">最大子数组和以及最长子字符串</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="https://lastknightcoder.gitee.io/img/wechatpay.png" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="https://lastknightcoder.gitee.io/img/wechatpay.png" data-alipay="https://lastknightcoder.gitee.io/img/alipay.png">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="https://lastknightcoder.gitee.io/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>熊滔 &copy; 2019 - 2020</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://lastknightcoder.gitee.io/1~n%E6%95%B4%E6%95%B0%E4%B8%AD1%E5%87%BA%E7%8E%B0%E7%9A%84%E6%AC%A1%E6%95%B0/&title=《1~n整数中1出现的次数》 — Coder&pic=https://lastknightcoder.gitee.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://lastknightcoder.gitee.io/1~n%E6%95%B4%E6%95%B0%E4%B8%AD1%E5%87%BA%E7%8E%B0%E7%9A%84%E6%AC%A1%E6%95%B0/&title=《1~n整数中1出现的次数》 — Coder&source=人生天地间，忽如远行客" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://lastknightcoder.gitee.io/1~n%E6%95%B4%E6%95%B0%E4%B8%AD1%E5%87%BA%E7%8E%B0%E7%9A%84%E6%AC%A1%E6%95%B0/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《1~n整数中1出现的次数》 — Coder&url=https://lastknightcoder.gitee.io/1~n%E6%95%B4%E6%95%B0%E4%B8%AD1%E5%87%BA%E7%8E%B0%E7%9A%84%E6%AC%A1%E6%95%B0/&via=https://lastknightcoder.gitee.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://lastknightcoder.gitee.io/1~n%E6%95%B4%E6%95%B0%E4%B8%AD1%E5%87%BA%E7%8E%B0%E7%9A%84%E6%AC%A1%E6%95%B0/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQ4AAAEOCAAAAABd2qZ5AAAD10lEQVR42u3aO3IiURAEQN3/0lp3HaCqu0FSRGIRCph5kxil/nx9xa/v/16P/pJfIX89v1pywq93vHDgwIEDx+Kg7cMk129Bn98luXJxZhw4cODAccTxPMzy2LtiTYiTM+TPiAMHDhw4forj+aPm79tv5ej5z4kDBw4cOH4Pxyz8rrpzs/jHgQMHDhyf5EhKr7Zhl7fwNlfYl444cODAgeOWIw+/v/v+LfsdOHDgwIGjLJY2QZhfYRV4QXlWPB0OHDhw4DgKis2yWr4AN3vsvPCblWc4cODAgeN9HO1CWz52mkXsrEG5aT7iwIEDB449RxKZybLC1cpCO+Iq1hSSNiIOHDhw4DjlyLMmP/osPtsBUlscPnwiHDhw4MCx5sgPulk7a5feWtbNoKuua3HgwIEDx2h23z7krIW3GRrlxEUM48CBAweONUfe2psFXl5i5QHfrjXkZDhw4MCBY88xG+HMSqb2uHkMXy1G4MCBAweOPUe7rJCXdsljv+9es9jGgQMHDhx7jrwoartns+BsB1rPg7b+VwAHDhw4cHyE42DtLAbaLE88P0kUxjhw4MCBY82RD5bypuGsCXgV53mJ+OIuOHDgwIFjxJGUam2R1kZvC90GcHFmHDhw4MCx5miba9HC2QgrX0fYjK+iIMeBAwcOHEccxQbEYqUgv+/t1kZR1OHAgQMHjgVH28KbBfOmgdg2BGeDNBw4cODAccWRF0v5QsPsM5uh1ObkD7+FAwcOHDhOOdryKS/bZqOmzWLEcCSGAwcOHDhOOWYx3C7P5fTJj5F8voh/HDhw4MCx4JgtImyWIdrmYB2T5RmiXxUHDhw4cJQcbeDlEZuXUrNCcfbYw1oWBw4cOHDEHG1htgm//Lj5I+1BceDAgQPHniMPztloahbMm9JuNgzDgQMHDhxXHJvhUDKamn1+E//5vwg4cODAgeMdHLPbt2Xbph15W/i9uBcOHDhw4DjiaMuwtsSatQiTu7TF5As+HDhw4MDxEY7b1mHbFmzDuP3x6qDFgQMHDhyjsdNspSBvFG5GVsm98vPjwIEDB45bjmI2FR+rXT5o25H7M0dTOBw4cODAMTrnd/maxVhesLWPmpPVEYsDBw4cOEYcsxWENvBmA6p20WE23Bqi4MCBAweOuISbDXjyNuJw1aBcpFgFLQ4cOHDgOOJog2offnm0tzSzViYOHDhw4PjNHLdLBvly3ubkOHDgwIHjZznypuGsuNqMrA5mcThw4MCB421rDbPlg6uybRb8SRH48Ls4cODAgWPNMQu5Ng7bxl87gkqidNbQxIEDBw4cMcc/YtqmGA4h+DwAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: 'https://lastknightcoder.gitee.io/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>
