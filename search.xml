@@ -994,8 +994,6 @@
       
       <categories>
           
-          <category> Web </category>
-          
           <category> JavaScript </category>
           
       </categories>
@@ -1071,8 +1069,6 @@
       
       <categories>
           
-          <category> Web </category>
-          
           <category> TypeScript </category>
           
       </categories>
@@ -1097,8 +1093,6 @@
       
       
       <categories>
-          
-          <category> Web </category>
           
           <category> JavaScript </category>
           
@@ -1127,9 +1121,7 @@
       
       <categories>
           
-          <category> Java </category>
-          
-          <category> Web </category>
+          <category> Spring </category>
           
       </categories>
       
@@ -1158,8 +1150,6 @@
       
       <categories>
           
-          <category> Web </category>
-          
           <category> JavaScript </category>
           
       </categories>
@@ -1184,8 +1174,6 @@
       
       
       <categories>
-          
-          <category> Web </category>
           
           <category> JavaScript </category>
           
@@ -1213,8 +1201,6 @@
       
       
       <categories>
-          
-          <category> Web </category>
           
           <category> JavaScript </category>
           
@@ -1292,8 +1278,6 @@
       
       
       <categories>
-          
-          <category> Web </category>
           
           <category> JavaScript </category>
           
@@ -1399,8 +1383,6 @@
       
       <categories>
           
-          <category> Web </category>
-          
           <category> JavaScript </category>
           
       </categories>
@@ -1428,9 +1410,7 @@
       
       <categories>
           
-          <category> Java </category>
-          
-          <category> Web </category>
+          <category> Spring </category>
           
       </categories>
       
@@ -1455,9 +1435,7 @@
       
       <categories>
           
-          <category> Java </category>
-          
-          <category> Web </category>
+          <category> Spring MVC </category>
           
       </categories>
       
@@ -1509,9 +1487,7 @@
       
       <categories>
           
-          <category> Java </category>
-          
-          <category> Web </category>
+          <category> Spring </category>
           
       </categories>
       
@@ -1538,9 +1514,7 @@
       
       <categories>
           
-          <category> Java </category>
-          
-          <category> Web </category>
+          <category> MyBatis </category>
           
       </categories>
       
@@ -1592,8 +1566,6 @@
       
       <categories>
           
-          <category> Web </category>
-          
           <category> CSS </category>
           
       </categories>
@@ -1618,8 +1590,6 @@
       
       
       <categories>
-          
-          <category> Web </category>
           
           <category> HTML </category>
           
@@ -1648,7 +1618,7 @@
       
       <categories>
           
-          <category> Java </category>
+          <category> Maven </category>
           
       </categories>
       
@@ -1808,9 +1778,7 @@
       
       <categories>
           
-          <category> Java </category>
-          
-          <category> Web </category>
+          <category> Java Web </category>
           
       </categories>
       
@@ -1837,9 +1805,7 @@
       
       <categories>
           
-          <category> Java </category>
-          
-          <category> Element </category>
+          <category> Java SE </category>
           
       </categories>
       
@@ -1868,9 +1834,7 @@
       
       <categories>
           
-          <category> Java </category>
-          
-          <category> Element </category>
+          <category> Java SE </category>
           
       </categories>
       
@@ -1897,9 +1861,7 @@
       
       <categories>
           
-          <category> Java </category>
-          
-          <category> Element </category>
+          <category> Java SE </category>
           
       </categories>
       
@@ -1926,9 +1888,7 @@
       
       <categories>
           
-          <category> Java </category>
-          
-          <category> Element </category>
+          <category> Java SE </category>
           
       </categories>
       
@@ -1957,9 +1917,7 @@
       
       <categories>
           
-          <category> Java </category>
-          
-          <category> Element </category>
+          <category> Java SE </category>
           
       </categories>
       
@@ -1986,9 +1944,7 @@
       
       <categories>
           
-          <category> Java </category>
-          
-          <category> Element </category>
+          <category> Java SE </category>
           
       </categories>
       
@@ -2015,9 +1971,7 @@
       
       <categories>
           
-          <category> Java </category>
-          
-          <category> Element </category>
+          <category> Java SE </category>
           
       </categories>
       
@@ -2044,9 +1998,7 @@
       
       <categories>
           
-          <category> Java </category>
-          
-          <category> Element </category>
+          <category> Java SE </category>
           
       </categories>
       
@@ -2073,9 +2025,7 @@
       
       <categories>
           
-          <category> Java </category>
-          
-          <category> Element </category>
+          <category> Java SE </category>
           
       </categories>
       
@@ -2102,9 +2052,7 @@
       
       <categories>
           
-          <category> Java </category>
-          
-          <category> Element </category>
+          <category> Java SE </category>
           
       </categories>
       
@@ -2133,9 +2081,7 @@
       
       <categories>
           
-          <category> Java </category>
-          
-          <category> Element </category>
+          <category> Java SE </category>
           
       </categories>
       
@@ -2162,9 +2108,7 @@
       
       <categories>
           
-          <category> Java </category>
-          
-          <category> Element </category>
+          <category> Java SE </category>
           
       </categories>
       
@@ -2191,9 +2135,7 @@
       
       <categories>
           
-          <category> Java </category>
-          
-          <category> Element </category>
+          <category> Java SE </category>
           
       </categories>
       
@@ -2219,8 +2161,6 @@
       
       
       <categories>
-          
-          <category> Web </category>
           
           <category> CSS </category>
           
@@ -2248,8 +2188,6 @@
       
       
       <categories>
-          
-          <category> Web </category>
           
           <category> HTML </category>
           
