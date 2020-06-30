@@ -6,7 +6,7 @@
   <link href="https://lastknightcoder.gitee.io/atom.xml" rel="self"/>
   
   <link href="https://lastknightcoder.gitee.io/"/>
-  <updated>2020-06-30T11:50:00.000Z</updated>
+  <updated>2020-06-30T16:21:00.000Z</updated>
   <id>https://lastknightcoder.gitee.io/</id>
   
   <author>
@@ -15,6 +15,62 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>数组中的逆序对</title>
+    <link href="https://lastknightcoder.gitee.io/%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E9%80%86%E5%BA%8F%E5%AF%B9/"/>
+    <id>https://lastknightcoder.gitee.io/%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E9%80%86%E5%BA%8F%E5%AF%B9/</id>
+    <published>2020-06-30T16:21:00.000Z</published>
+    <updated>2020-06-30T16:21:00.000Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote><p>题目：在数组中的两个数字，如果前面一个数字大于后面的数字，则这两个数字组成一个逆序对。输入一个数组，求出这个数组中的逆序对的总数。例如，在数组 $[7, 5, 6, 4]$ 中，一共存在 $5$ 个逆序对，分别是 $(7, 6)、(7, 5)、 (7, 4)、 (6, 4)$ 和 $(5, 4)$。</p></blockquote><p>最简单的做法就是扫描数组，当访问一个数字时，比较后面有没有数字比它小，如果有的话，则这两个数字就组成了一个逆序对。如果数组的长度为 $n$ 的话，那么时间复杂度将会是 $O(n^2)$。</p><p>使用归并排序的思想，我们可以找到 $O(n \log n)$ 的算法，具体如下，我们将数组分为两部分，先统计这两部分内部各自的逆序对，并将各自排序，然后统计这两部分之间产生的逆序对数。我们以数组 $[7, 5, 6, 4]$ 为例</p><img src="https://gitee.com/lastknightcoder/blogimage/raw/master/202006301756.svg"/><p>下面我们将以数组 $[5, 7]$ 与 $[4, 6]$ 合并为例，讲解如何在合并的过程中统计逆序对数</p><img src="https://gitee.com/lastknightcoder/blogimage/raw/master/202007010013.svg"/><p>代码如下</p><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">inversePairs</span><span class="params">(<span class="keyword">int</span>[] data)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (data == <span class="keyword">null</span> || data.length == <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> inversePairs(data, <span class="number">0</span>, data.length - <span class="number">1</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">inversePairs</span><span class="params">(<span class="keyword">int</span>[] data, <span class="keyword">int</span> start, <span class="keyword">int</span> end)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (start == end) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">int</span> mid = start + (end - start) / <span class="number">2</span>;</span><br><span class="line">    <span class="comment">// 数组分为两部分</span></span><br><span class="line">    <span class="keyword">int</span> left = inversePairs(data, start, mid);</span><br><span class="line">    <span class="keyword">int</span> right = inversePairs(data, mid + <span class="number">1</span>, end);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">int</span> p1 = mid;</span><br><span class="line">    <span class="keyword">int</span> p2 = end;</span><br><span class="line">    <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span>[] help = <span class="keyword">new</span> <span class="keyword">int</span>[end - start + <span class="number">1</span>];</span><br><span class="line">    <span class="keyword">int</span> helpIndex = help.length - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span> (p1 &gt;= start &amp;&amp; p2 &gt;= mid + <span class="number">1</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (data[p1] &gt; data[p2]) &#123;</span><br><span class="line">            count += (p2 - mid);</span><br><span class="line">            help[helpIndex--] = data[p1];</span><br><span class="line">            p1--;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            help[helpIndex--] = data[p2];</span><br><span class="line">            p2--;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span> (p1 &gt;= start) &#123;</span><br><span class="line">        help[helpIndex--] = data[p1--];</span><br><span class="line">    &#125; </span><br><span class="line">    <span class="keyword">while</span> (p2 &gt;= mid + <span class="number">1</span>) &#123;</span><br><span class="line">        help[helpIndex--] = data[p2--];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = start; i &lt;= end; i++) &#123;</span><br><span class="line">        data[i] = help[i - start];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> left + right + count;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;blockquote&gt;
+&lt;p&gt;题目：在数组中的两个数字，如果前面一个数字大于后面的数字，则这两个数字组成一个逆序对。输入一个数组，求出这个数组中的逆序对的总数。例如，在数组 $[7, 5, 6, 4]$ 中，一共存在 $5$ 个逆序对，分别是 $(7, 6)、(7, 5)、 (
+      
+    
+    </summary>
+    
+    
+      <category term="剑指offer" scheme="https://lastknightcoder.gitee.io/categories/%E5%89%91%E6%8C%87offer/"/>
+    
+    
+      <category term="剑指offer" scheme="https://lastknightcoder.gitee.io/tags/%E5%89%91%E6%8C%87offer/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>第一个只出现一次的字符</title>
+    <link href="https://lastknightcoder.gitee.io/%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%8F%AA%E5%87%BA%E7%8E%B0%E4%B8%80%E6%AC%A1%E7%9A%84%E5%AD%97%E7%AC%A6/"/>
+    <id>https://lastknightcoder.gitee.io/%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%8F%AA%E5%87%BA%E7%8E%B0%E4%B8%80%E6%AC%A1%E7%9A%84%E5%AD%97%E7%AC%A6/</id>
+    <published>2020-06-30T15:28:00.000Z</published>
+    <updated>2020-06-30T15:28:00.000Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote><p>题目：在字符串中找出第一个只出现一次的字符。如输入 <code>&quot;abaccdeff&quot;</code>，则输出 <code>&#39;b&#39;</code>。</p></blockquote><p>首先最直观的想法是从头扫描字符串，当访问到某个字符时，就拿这个字符和后面的字符进行比较，如果在后面没有发现重复的字符，那么这个字符就是第一次只出现一次的字符。如果字符串的长度为 $n$，每次都要和后面的 $O(n)$ 个字符进行比较，所以总的时间复杂度为 $O(n^2)$。</p><p>我们还可以找到更快的方法，使用哈希表来以空间换时间，我们维持一个哈希表表，键是字符串中的字符，值是字符在字符串中出现的次数，首先我们遍历一次字符串，统计每个字符出现的次数，接着我们再次遍历一次字符串，找到第一个字符出现次数为 $1$ 的字符。</p><p>代码如下</p><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">char</span> <span class="title">findFirstNotRepeating</span><span class="params">(<span class="keyword">char</span>[] str)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (str == <span class="keyword">null</span> || str.length == <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">'\0'</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 哈希表存储字符出现的次数</span></span><br><span class="line">    HashMap&lt;Character, Integer&gt; map = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; str.length; i++) &#123;</span><br><span class="line">        <span class="comment">// 如果字符以前出现过，次数加 1</span></span><br><span class="line">        <span class="keyword">if</span> (map.containsKey(str[i])) &#123;</span><br><span class="line">            map.put(str[i], map.get(str[i]) + <span class="number">1</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">// 字符未出现过，初始化次数为 1</span></span><br><span class="line">            map.put(str[i], <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 再次遍历字符串，找到第一个出现次数为 1 的字符串</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; str.length; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (map.get(str[i]) == <span class="number">1</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> str[i];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">'\0'</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;blockquote&gt;
+&lt;p&gt;题目：在字符串中找出第一个只出现一次的字符。如输入 &lt;code&gt;&amp;quot;abaccdeff&amp;quot;&lt;/code&gt;，则输出 &lt;code&gt;&amp;#39;b&amp;#39;&lt;/code&gt;。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;首先最直观的想法是从头扫
+      
+    
+    </summary>
+    
+    
+      <category term="剑指offer" scheme="https://lastknightcoder.gitee.io/categories/%E5%89%91%E6%8C%87offer/"/>
+    
+    
+      <category term="剑指offer" scheme="https://lastknightcoder.gitee.io/tags/%E5%89%91%E6%8C%87offer/"/>
+    
+  </entry>
   
   <entry>
     <title>丑数</title>
