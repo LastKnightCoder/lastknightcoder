@@ -657,34 +657,6 @@
   </entry>
   
   <entry>
-    <title>合并两个排序的链表</title>
-    <link href="https://lastknightcoder.gitee.io/%E5%90%88%E5%B9%B6%E4%B8%A4%E4%B8%AA%E6%8E%92%E5%BA%8F%E7%9A%84%E9%93%BE%E8%A1%A8/"/>
-    <id>https://lastknightcoder.gitee.io/%E5%90%88%E5%B9%B6%E4%B8%A4%E4%B8%AA%E6%8E%92%E5%BA%8F%E7%9A%84%E9%93%BE%E8%A1%A8/</id>
-    <published>2020-06-16T16:00:00.000Z</published>
-    <updated>2020-06-16T16:00:00.000Z</updated>
-    
-    <content type="html"><![CDATA[<blockquote><p>题目：输入两个递增排序的链表，合并这两个链表并使新链表中的节点仍然是递增排序的。例如，输入如图中的链表 $1$ 和链表 $2$，则合并之后的升序链表如链表 $3$ 所示。链表节点定义如下：</p><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">ListNode</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> ListNode next;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span> value;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ListNode</span><span class="params">(<span class="keyword">int</span> value)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.next = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">this</span>.value = value;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><img src="https://gitee.com/lastknightcoder/blogimage/raw/master/202006171628.svg"/></blockquote><p>熟悉归并排序就会明白，这个过程正是归并排序的 <code>merge</code> 过程，在这个过程中，我们定义两个指针分别指向两个递增列表的开头，接着比较两个指针指向的值的大小，值较小的节点添加到新的链表中，直到其中一个指针已经指向链表的结尾，这时将另一个指针指向的节点及后续节点添加到新链表中，如下</p><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> ListNode <span class="title">merge</span><span class="params">(ListNode root1, ListNode root2)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (root1 == <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> root2;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (root2 == <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> root1;</span><br><span class="line">    &#125;</span><br><span class="line">    ListNode root = <span class="keyword">null</span>;</span><br><span class="line">    <span class="comment">// 为了不对外部的root1和root2产生影响，使用p1和p2接收</span></span><br><span class="line">    ListNode p1 = root1;</span><br><span class="line">    ListNode p2 = root2;</span><br><span class="line">    <span class="keyword">if</span> (p1.value &lt;= p2.value) &#123;</span><br><span class="line">        root = p1;</span><br><span class="line">        p1 = p1.next;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        root = p2;</span><br><span class="line">        p2 = p2.next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 使用 cur 表示遍历的节点</span></span><br><span class="line">    ListNode cur = root;</span><br><span class="line">    <span class="keyword">while</span> (p1 != <span class="keyword">null</span> &amp;&amp; p1 != <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (p1.value &lt;= p2.value) &#123;</span><br><span class="line">            cur.next = p1;</span><br><span class="line">            cur = cur.next;</span><br><span class="line">            p1 = p1.next;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            cur.next = p2;</span><br><span class="line">            cur = cur.next;</span><br><span class="line">            p2 = p2.next;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 如果 p1 为 null，则将 p2 指向的节点及后续节点添加到链表中</span></span><br><span class="line">    <span class="keyword">if</span> (p1 == <span class="keyword">null</span>) &#123;</span><br><span class="line">        cur.next = p2;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 反之，将 p1 指向的节点及后续节点添加到链表中</span></span><br><span class="line">    <span class="keyword">if</span> (p2 == <span class="keyword">null</span>) &#123;</span><br><span class="line">        cur.next = p1;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> root;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>我们也可以使用递归的方法</p><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> ListNode <span class="title">merge</span><span class="params">(ListNode root1, ListNode root2)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (root1 == <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> root2;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (root2 == <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> root1;</span><br><span class="line">    &#125;</span><br><span class="line">    ListNode mergeRoot = <span class="keyword">null</span>;</span><br><span class="line">    <span class="keyword">if</span> (root1.value &lt;= root2.value) &#123;</span><br><span class="line">        mergeRoot = root1;</span><br><span class="line">        mergeRoot.next = merge(root1.next, root2);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        mergeRoot = root2;</span><br><span class="line">        mergeRoot.next = merge(root1, root2.next);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> mergeRoot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;blockquote&gt;
-&lt;p&gt;题目：输入两个递增排序的链表，合并这两个链表并使新链表中的节点仍然是递增排序的。例如，输入如图中的链表 $1$ 和链表 $2$，则合并之后的升序链表如链表 $3$ 所示。链表节点定义如下：&lt;/p&gt;
-&lt;figure class=&quot;highlight 
-      
-    
-    </summary>
-    
-    
-      <category term="剑指offer" scheme="https://lastknightcoder.gitee.io/categories/%E5%89%91%E6%8C%87offer/"/>
-    
-    
-      <category term="剑指offer" scheme="https://lastknightcoder.gitee.io/tags/%E5%89%91%E6%8C%87offer/"/>
-    
-  </entry>
-  
-  <entry>
     <title>反转链表</title>
     <link href="https://lastknightcoder.gitee.io/%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8/"/>
     <id>https://lastknightcoder.gitee.io/%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8/</id>
@@ -713,21 +685,21 @@
   </entry>
   
   <entry>
-    <title>链表中环的入口节点</title>
-    <link href="https://lastknightcoder.gitee.io/%E9%93%BE%E8%A1%A8%E4%B8%AD%E7%8E%AF%E7%9A%84%E5%85%A5%E5%8F%A3%E8%8A%82%E7%82%B9/"/>
-    <id>https://lastknightcoder.gitee.io/%E9%93%BE%E8%A1%A8%E4%B8%AD%E7%8E%AF%E7%9A%84%E5%85%A5%E5%8F%A3%E8%8A%82%E7%82%B9/</id>
-    <published>2020-06-15T16:00:00.000Z</published>
-    <updated>2020-06-15T16:00:00.000Z</updated>
+    <title>合并两个排序的链表</title>
+    <link href="https://lastknightcoder.gitee.io/%E5%90%88%E5%B9%B6%E4%B8%A4%E4%B8%AA%E6%8E%92%E5%BA%8F%E7%9A%84%E9%93%BE%E8%A1%A8/"/>
+    <id>https://lastknightcoder.gitee.io/%E5%90%88%E5%B9%B6%E4%B8%A4%E4%B8%AA%E6%8E%92%E5%BA%8F%E7%9A%84%E9%93%BE%E8%A1%A8/</id>
+    <published>2020-06-16T16:00:00.000Z</published>
+    <updated>2020-06-16T16:00:00.000Z</updated>
     
-    <content type="html"><![CDATA[<blockquote><p>如何链表中包含环，如何找出环的入口节点? 例如，在如图所示的链表中，环的入口节点是节点 $3$。</p><img src="https://gitee.com/lastknightcoder/blogimage/raw/master/202006161919.svg"/></blockquote><p>解决这道题的思路分为两步，第一步是确定该链表有没有环，我们定义两个指针，一个快指针，一个慢指针，快指针一次性走两步，慢指针一次性走一步。如果有环的话，那么快指针和慢指针就会相遇，并且是在环内相遇；如果没有环的话，那么快指针就会到达尾节点，慢指针与快指针不会相遇。</p><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> ListNode <span class="title">meetingNode</span><span class="params">(ListNode root)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (root == <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 慢指针先走一步</span></span><br><span class="line">    ListNode slow = root.next;</span><br><span class="line">    <span class="keyword">if</span> (slow == <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125; </span><br><span class="line">    <span class="comment">// 快指针先走两步</span></span><br><span class="line">    ListNode fast = slow.next;</span><br><span class="line">    <span class="keyword">while</span> (slow != <span class="keyword">null</span> &amp;&amp; fast != <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (slow == fast) &#123;</span><br><span class="line">            <span class="keyword">return</span> fast;</span><br><span class="line">        &#125;</span><br><span class="line">        slow = slow.next;</span><br><span class="line">        fast = fast.next;</span><br><span class="line">        <span class="keyword">if</span> (fast != <span class="keyword">null</span>) &#123;</span><br><span class="line">            fast = fast.next;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">null</span>;</span><br></pre></td></tr></table></figure><p>第二步就是确定环的入口节点，首先我们拿到在第一步中快慢指针相遇的节点，让这个节点遍历环以统计环的数目，当这个节点回到原地时即走了一圈。拿到环的数目 $k$ 以后，我们继续定义两个指针，一个指针先走 $k$ 步，然后两个指针继续走，当两个指针相遇时，即是环的入口节点</p><img src="https://gitee.com/lastknightcoder/blogimage/raw/master/202006161937.svg"/><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> ListNode <span class="title">entryNodeOfLoop</span><span class="params">(ListNode root)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 获得相遇的节点</span></span><br><span class="line">    ListNode meetingNode = meetingNode(root);</span><br><span class="line">    <span class="keyword">if</span> (meetingNode == <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 统计环中节点数目</span></span><br><span class="line">    <span class="keyword">int</span> count = <span class="number">1</span>;</span><br><span class="line">    ListNode loopNode = meetingNode;</span><br><span class="line">    <span class="keyword">while</span> (loopNode.next != meetingNode) &#123;</span><br><span class="line">        count++;</span><br><span class="line">        loopNode = loopNode.next;</span><br><span class="line">    &#125;</span><br><span class="line">    ListNode ahead = root;</span><br><span class="line">    ListNode after = root;</span><br><span class="line">    <span class="comment">// ahead 先走 count 步</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; count; i++) &#123;</span><br><span class="line">        ahead = ahead.next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 相遇节点即为环的入口节点</span></span><br><span class="line">    <span class="keyword">while</span> (ahead != after) &#123;</span><br><span class="line">        ahead = ahead.next;</span><br><span class="line">        after = after.next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> after;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>测试如下</p><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    ListNode root = <span class="keyword">new</span> ListNode(<span class="number">1</span>);</span><br><span class="line">    root.next = <span class="keyword">new</span> ListNode(<span class="number">2</span>);</span><br><span class="line">    root.next.next = <span class="keyword">new</span> ListNode(<span class="number">3</span>);</span><br><span class="line">    root.next.next.next = <span class="keyword">new</span> ListNode(<span class="number">4</span>);</span><br><span class="line">    root.next.next.next.next = <span class="keyword">new</span> ListNode(<span class="number">5</span>);</span><br><span class="line">    root.next.next.next.next.next = <span class="keyword">new</span> ListNode(<span class="number">6</span>);</span><br><span class="line">    root.next.next.next.next.next.next = root.next.next;</span><br><span class="line">    ListNode entryNode = entryNodeOfLoop(root);</span><br><span class="line">    System.out.println(entryNode != <span class="keyword">null</span> ? entryNode.value : <span class="string">"null"</span>); <span class="comment">// 3</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+    <content type="html"><![CDATA[<blockquote><p>题目：输入两个递增排序的链表，合并这两个链表并使新链表中的节点仍然是递增排序的。例如，输入如图中的链表 $1$ 和链表 $2$，则合并之后的升序链表如链表 $3$ 所示。链表节点定义如下：</p><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">ListNode</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> ListNode next;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span> value;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ListNode</span><span class="params">(<span class="keyword">int</span> value)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.next = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">this</span>.value = value;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><img src="https://gitee.com/lastknightcoder/blogimage/raw/master/202006171628.svg"/></blockquote><p>熟悉归并排序就会明白，这个过程正是归并排序的 <code>merge</code> 过程，在这个过程中，我们定义两个指针分别指向两个递增列表的开头，接着比较两个指针指向的值的大小，值较小的节点添加到新的链表中，直到其中一个指针已经指向链表的结尾，这时将另一个指针指向的节点及后续节点添加到新链表中，如下</p><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> ListNode <span class="title">merge</span><span class="params">(ListNode root1, ListNode root2)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (root1 == <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> root2;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (root2 == <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> root1;</span><br><span class="line">    &#125;</span><br><span class="line">    ListNode root = <span class="keyword">null</span>;</span><br><span class="line">    <span class="comment">// 为了不对外部的root1和root2产生影响，使用p1和p2接收</span></span><br><span class="line">    ListNode p1 = root1;</span><br><span class="line">    ListNode p2 = root2;</span><br><span class="line">    <span class="keyword">if</span> (p1.value &lt;= p2.value) &#123;</span><br><span class="line">        root = p1;</span><br><span class="line">        p1 = p1.next;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        root = p2;</span><br><span class="line">        p2 = p2.next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 使用 cur 表示遍历的节点</span></span><br><span class="line">    ListNode cur = root;</span><br><span class="line">    <span class="keyword">while</span> (p1 != <span class="keyword">null</span> &amp;&amp; p1 != <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (p1.value &lt;= p2.value) &#123;</span><br><span class="line">            cur.next = p1;</span><br><span class="line">            cur = cur.next;</span><br><span class="line">            p1 = p1.next;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            cur.next = p2;</span><br><span class="line">            cur = cur.next;</span><br><span class="line">            p2 = p2.next;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 如果 p1 为 null，则将 p2 指向的节点及后续节点添加到链表中</span></span><br><span class="line">    <span class="keyword">if</span> (p1 == <span class="keyword">null</span>) &#123;</span><br><span class="line">        cur.next = p2;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 反之，将 p1 指向的节点及后续节点添加到链表中</span></span><br><span class="line">    <span class="keyword">if</span> (p2 == <span class="keyword">null</span>) &#123;</span><br><span class="line">        cur.next = p1;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> root;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>我们也可以使用递归的方法</p><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> ListNode <span class="title">merge</span><span class="params">(ListNode root1, ListNode root2)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (root1 == <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> root2;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (root2 == <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> root1;</span><br><span class="line">    &#125;</span><br><span class="line">    ListNode mergeRoot = <span class="keyword">null</span>;</span><br><span class="line">    <span class="keyword">if</span> (root1.value &lt;= root2.value) &#123;</span><br><span class="line">        mergeRoot = root1;</span><br><span class="line">        mergeRoot.next = merge(root1.next, root2);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        mergeRoot = root2;</span><br><span class="line">        mergeRoot.next = merge(root1, root2.next);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> mergeRoot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
     
     <summary type="html">
     
       
       
         &lt;blockquote&gt;
-&lt;p&gt;如何链表中包含环，如何找出环的入口节点? 例如，在如图所示的链表中，环的入口节点是节点 $3$。&lt;/p&gt;
-&lt;img src=&quot;https://gitee.com/lastknightcoder/blogimage/raw/master/202006
+&lt;p&gt;题目：输入两个递增排序的链表，合并这两个链表并使新链表中的节点仍然是递增排序的。例如，输入如图中的链表 $1$ 和链表 $2$，则合并之后的升序链表如链表 $3$ 所示。链表节点定义如下：&lt;/p&gt;
+&lt;figure class=&quot;highlight 
       
     
     </summary>
@@ -755,6 +727,34 @@
       
         &lt;blockquote&gt;
 &lt;p&gt;题目：输入一个链表，输出该链表的倒数第 $k$ 个节点。为了符合大多数人的习惯，本题从 $1$ 开始计数，即链表的尾节点是倒数第一个节点。例如，一个链表有 $6$ 个节点，如下 &lt;code&gt;1-&amp;gt;2-&amp;gt;3-&amp;gt;4-&amp;gt;5-&amp;gt
+      
+    
+    </summary>
+    
+    
+      <category term="剑指offer" scheme="https://lastknightcoder.gitee.io/categories/%E5%89%91%E6%8C%87offer/"/>
+    
+    
+      <category term="剑指offer" scheme="https://lastknightcoder.gitee.io/tags/%E5%89%91%E6%8C%87offer/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>链表中环的入口节点</title>
+    <link href="https://lastknightcoder.gitee.io/%E9%93%BE%E8%A1%A8%E4%B8%AD%E7%8E%AF%E7%9A%84%E5%85%A5%E5%8F%A3%E8%8A%82%E7%82%B9/"/>
+    <id>https://lastknightcoder.gitee.io/%E9%93%BE%E8%A1%A8%E4%B8%AD%E7%8E%AF%E7%9A%84%E5%85%A5%E5%8F%A3%E8%8A%82%E7%82%B9/</id>
+    <published>2020-06-15T16:00:00.000Z</published>
+    <updated>2020-06-15T16:00:00.000Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote><p>如何链表中包含环，如何找出环的入口节点? 例如，在如图所示的链表中，环的入口节点是节点 $3$。</p><img src="https://gitee.com/lastknightcoder/blogimage/raw/master/202006161919.svg"/></blockquote><p>解决这道题的思路分为两步，第一步是确定该链表有没有环，我们定义两个指针，一个快指针，一个慢指针，快指针一次性走两步，慢指针一次性走一步。如果有环的话，那么快指针和慢指针就会相遇，并且是在环内相遇；如果没有环的话，那么快指针就会到达尾节点，慢指针与快指针不会相遇。</p><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> ListNode <span class="title">meetingNode</span><span class="params">(ListNode root)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (root == <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 慢指针先走一步</span></span><br><span class="line">    ListNode slow = root.next;</span><br><span class="line">    <span class="keyword">if</span> (slow == <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125; </span><br><span class="line">    <span class="comment">// 快指针先走两步</span></span><br><span class="line">    ListNode fast = slow.next;</span><br><span class="line">    <span class="keyword">while</span> (slow != <span class="keyword">null</span> &amp;&amp; fast != <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (slow == fast) &#123;</span><br><span class="line">            <span class="keyword">return</span> fast;</span><br><span class="line">        &#125;</span><br><span class="line">        slow = slow.next;</span><br><span class="line">        fast = fast.next;</span><br><span class="line">        <span class="keyword">if</span> (fast != <span class="keyword">null</span>) &#123;</span><br><span class="line">            fast = fast.next;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">null</span>;</span><br></pre></td></tr></table></figure><p>第二步就是确定环的入口节点，首先我们拿到在第一步中快慢指针相遇的节点，让这个节点遍历环以统计环的数目，当这个节点回到原地时即走了一圈。拿到环的数目 $k$ 以后，我们继续定义两个指针，一个指针先走 $k$ 步，然后两个指针继续走，当两个指针相遇时，即是环的入口节点</p><img src="https://gitee.com/lastknightcoder/blogimage/raw/master/202006161937.svg"/><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> ListNode <span class="title">entryNodeOfLoop</span><span class="params">(ListNode root)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 获得相遇的节点</span></span><br><span class="line">    ListNode meetingNode = meetingNode(root);</span><br><span class="line">    <span class="keyword">if</span> (meetingNode == <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 统计环中节点数目</span></span><br><span class="line">    <span class="keyword">int</span> count = <span class="number">1</span>;</span><br><span class="line">    ListNode loopNode = meetingNode;</span><br><span class="line">    <span class="keyword">while</span> (loopNode.next != meetingNode) &#123;</span><br><span class="line">        count++;</span><br><span class="line">        loopNode = loopNode.next;</span><br><span class="line">    &#125;</span><br><span class="line">    ListNode ahead = root;</span><br><span class="line">    ListNode after = root;</span><br><span class="line">    <span class="comment">// ahead 先走 count 步</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; count; i++) &#123;</span><br><span class="line">        ahead = ahead.next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 相遇节点即为环的入口节点</span></span><br><span class="line">    <span class="keyword">while</span> (ahead != after) &#123;</span><br><span class="line">        ahead = ahead.next;</span><br><span class="line">        after = after.next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> after;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>测试如下</p><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    ListNode root = <span class="keyword">new</span> ListNode(<span class="number">1</span>);</span><br><span class="line">    root.next = <span class="keyword">new</span> ListNode(<span class="number">2</span>);</span><br><span class="line">    root.next.next = <span class="keyword">new</span> ListNode(<span class="number">3</span>);</span><br><span class="line">    root.next.next.next = <span class="keyword">new</span> ListNode(<span class="number">4</span>);</span><br><span class="line">    root.next.next.next.next = <span class="keyword">new</span> ListNode(<span class="number">5</span>);</span><br><span class="line">    root.next.next.next.next.next = <span class="keyword">new</span> ListNode(<span class="number">6</span>);</span><br><span class="line">    root.next.next.next.next.next.next = root.next.next;</span><br><span class="line">    ListNode entryNode = entryNodeOfLoop(root);</span><br><span class="line">    System.out.println(entryNode != <span class="keyword">null</span> ? entryNode.value : <span class="string">"null"</span>); <span class="comment">// 3</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;blockquote&gt;
+&lt;p&gt;如何链表中包含环，如何找出环的入口节点? 例如，在如图所示的链表中，环的入口节点是节点 $3$。&lt;/p&gt;
+&lt;img src=&quot;https://gitee.com/lastknightcoder/blogimage/raw/master/202006
       
     
     </summary>
@@ -1438,9 +1438,7 @@ f(n - 1) + f(n - 2),
     </summary>
     
     
-      <category term="Web" scheme="https://lastknightcoder.gitee.io/categories/Web/"/>
-    
-      <category term="CSS" scheme="https://lastknightcoder.gitee.io/categories/Web/CSS/"/>
+      <category term="CSS" scheme="https://lastknightcoder.gitee.io/categories/CSS/"/>
     
     
       <category term="CSS" scheme="https://lastknightcoder.gitee.io/tags/CSS/"/>
@@ -1960,7 +1958,7 @@ f(n - 1) + f(n - 2),
     </summary>
     
     
-      <category term="Java SE" scheme="https://lastknightcoder.gitee.io/categories/Java-SE/"/>
+      <category term="JavaSE" scheme="https://lastknightcoder.gitee.io/categories/JavaSE/"/>
     
     
       <category term="Java" scheme="https://lastknightcoder.gitee.io/tags/Java/"/>
@@ -1985,7 +1983,7 @@ f(n - 1) + f(n - 2),
     </summary>
     
     
-      <category term="Java SE" scheme="https://lastknightcoder.gitee.io/categories/Java-SE/"/>
+      <category term="JavaSE" scheme="https://lastknightcoder.gitee.io/categories/JavaSE/"/>
     
     
       <category term="Java" scheme="https://lastknightcoder.gitee.io/tags/Java/"/>
@@ -2010,7 +2008,7 @@ f(n - 1) + f(n - 2),
     </summary>
     
     
-      <category term="Java SE" scheme="https://lastknightcoder.gitee.io/categories/Java-SE/"/>
+      <category term="JavaSE" scheme="https://lastknightcoder.gitee.io/categories/JavaSE/"/>
     
     
       <category term="Java" scheme="https://lastknightcoder.gitee.io/tags/Java/"/>
@@ -2037,7 +2035,7 @@ f(n - 1) + f(n - 2),
     </summary>
     
     
-      <category term="Java SE" scheme="https://lastknightcoder.gitee.io/categories/Java-SE/"/>
+      <category term="JavaSE" scheme="https://lastknightcoder.gitee.io/categories/JavaSE/"/>
     
     
       <category term="Java" scheme="https://lastknightcoder.gitee.io/tags/Java/"/>
@@ -2062,7 +2060,7 @@ f(n - 1) + f(n - 2),
     </summary>
     
     
-      <category term="Java SE" scheme="https://lastknightcoder.gitee.io/categories/Java-SE/"/>
+      <category term="JavaSE" scheme="https://lastknightcoder.gitee.io/categories/JavaSE/"/>
     
     
       <category term="Java" scheme="https://lastknightcoder.gitee.io/tags/Java/"/>
@@ -2087,7 +2085,7 @@ f(n - 1) + f(n - 2),
     </summary>
     
     
-      <category term="Java SE" scheme="https://lastknightcoder.gitee.io/categories/Java-SE/"/>
+      <category term="JavaSE" scheme="https://lastknightcoder.gitee.io/categories/JavaSE/"/>
     
     
       <category term="Java" scheme="https://lastknightcoder.gitee.io/tags/Java/"/>
@@ -2112,7 +2110,7 @@ f(n - 1) + f(n - 2),
     </summary>
     
     
-      <category term="Java SE" scheme="https://lastknightcoder.gitee.io/categories/Java-SE/"/>
+      <category term="JavaSE" scheme="https://lastknightcoder.gitee.io/categories/JavaSE/"/>
     
     
       <category term="Java" scheme="https://lastknightcoder.gitee.io/tags/Java/"/>
@@ -2137,7 +2135,7 @@ f(n - 1) + f(n - 2),
     </summary>
     
     
-      <category term="Java SE" scheme="https://lastknightcoder.gitee.io/categories/Java-SE/"/>
+      <category term="JavaSE" scheme="https://lastknightcoder.gitee.io/categories/JavaSE/"/>
     
     
       <category term="Java" scheme="https://lastknightcoder.gitee.io/tags/Java/"/>
@@ -2162,7 +2160,7 @@ f(n - 1) + f(n - 2),
     </summary>
     
     
-      <category term="Java SE" scheme="https://lastknightcoder.gitee.io/categories/Java-SE/"/>
+      <category term="JavaSE" scheme="https://lastknightcoder.gitee.io/categories/JavaSE/"/>
     
     
       <category term="Java" scheme="https://lastknightcoder.gitee.io/tags/Java/"/>
@@ -2189,7 +2187,7 @@ f(n - 1) + f(n - 2),
     </summary>
     
     
-      <category term="Java SE" scheme="https://lastknightcoder.gitee.io/categories/Java-SE/"/>
+      <category term="JavaSE" scheme="https://lastknightcoder.gitee.io/categories/JavaSE/"/>
     
     
       <category term="Java" scheme="https://lastknightcoder.gitee.io/tags/Java/"/>
@@ -2214,7 +2212,7 @@ f(n - 1) + f(n - 2),
     </summary>
     
     
-      <category term="Java SE" scheme="https://lastknightcoder.gitee.io/categories/Java-SE/"/>
+      <category term="JavaSE" scheme="https://lastknightcoder.gitee.io/categories/JavaSE/"/>
     
     
       <category term="基础知识" scheme="https://lastknightcoder.gitee.io/tags/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"/>
@@ -2239,7 +2237,7 @@ f(n - 1) + f(n - 2),
     </summary>
     
     
-      <category term="Java SE" scheme="https://lastknightcoder.gitee.io/categories/Java-SE/"/>
+      <category term="JavaSE" scheme="https://lastknightcoder.gitee.io/categories/JavaSE/"/>
     
     
       <category term="Java" scheme="https://lastknightcoder.gitee.io/tags/Java/"/>
