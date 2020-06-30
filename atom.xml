@@ -6,7 +6,7 @@
   <link href="https://lastknightcoder.gitee.io/atom.xml" rel="self"/>
   
   <link href="https://lastknightcoder.gitee.io/"/>
-  <updated>2020-06-30T02:03:00.000Z</updated>
+  <updated>2020-06-30T11:50:00.000Z</updated>
   <id>https://lastknightcoder.gitee.io/</id>
   
   <author>
@@ -15,6 +15,143 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>丑数</title>
+    <link href="https://lastknightcoder.gitee.io/%E4%B8%91%E6%95%B0/"/>
+    <id>https://lastknightcoder.gitee.io/%E4%B8%91%E6%95%B0/</id>
+    <published>2020-06-30T11:50:00.000Z</published>
+    <updated>2020-06-30T11:50:00.000Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote><p>题目：我们把只包含因子 $2、3$ 和 $5$ 的数称作丑数(<code>Ugly Number</code>)，例如，$6、8$ 都是丑数，但 $14$ 不是，因为它包含因子 $7$，求按从小到大的顺序的第 $n$ 个丑数。习惯上我们把 $1$ 当作第一个丑数。</p></blockquote><p>我们很容易写出判断一个数是不是丑数的代码</p><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">isUglyNumber</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">while</span> (n % <span class="number">2</span> == <span class="number">0</span>) &#123;</span><br><span class="line">        n = n / <span class="number">2</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span> (n % <span class="number">3</span> == <span class="number">0</span>) &#123;</span><br><span class="line">        n = n / <span class="number">3</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span> (n % <span class="number">5</span> == <span class="number">0</span>) &#123;</span><br><span class="line">        n = n / <span class="number">5</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> n == <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>所以我们可以遍历数字，直到第 $n$ 个数字</p><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">getUglyNumber</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> number = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (count &lt; n) &#123;</span><br><span class="line">        number++;</span><br><span class="line">        <span class="keyword">if</span> (isUglyNumber(number)) &#123;</span><br><span class="line">            count++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> number;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>这样的代码当然可以解决问题，但是效率并不是最优的。下面我们将介绍一种更快的方法，因为丑数是只包含 $2, 3, 5$ 的因子，所以丑数一定是之前的丑数乘 $2$ $3$ $5$ 得到的，所以如果我们能够保存之前出现的丑数，让它乘 $2, 3, 5$ 即可得到三个丑数，我们取最小的那个，即是最新的丑数，具体见代码</p><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">getUglyNumber</span><span class="params">(<span class="keyword">int</span> index)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (index &lt;= <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 使用一个数组来保存丑数</span></span><br><span class="line">    <span class="keyword">int</span>[] uglyNumbers = <span class="keyword">new</span> <span class="keyword">int</span>[index];</span><br><span class="line">    <span class="comment">// 第一个丑数是 1</span></span><br><span class="line">    uglyNumbers[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">    <span class="comment">// 已经乘过 2 的丑数的下标，下面同理</span></span><br><span class="line">    <span class="keyword">int</span> uglyNumberMultiply2Index = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> uglyNumberMultiply3Index = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> uglyNumberMultiply5Index = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; uglyNumbers.length; i++) &#123;</span><br><span class="line">        <span class="comment">// 取三个丑数中最小的</span></span><br><span class="line">        <span class="keyword">int</span> min = Math.min(uglyNumbers[uglyNumberMultiply2Index] * <span class="number">2</span>, </span><br><span class="line">        Math.min(uglyNumbers[uglyNumberMultiply3Index] * <span class="number">3</span>, uglyNumbers[uglyNumberMultiply5Index] * <span class="number">5</span>));</span><br><span class="line">        </span><br><span class="line">        uglyNumbers[i] = min;</span><br><span class="line">        <span class="comment">// 如果是乘的 2，那么乘 2 的丑数的下标增加，下面同理</span></span><br><span class="line">        <span class="keyword">if</span> (uglyNumbers[uglyNumberMultiply2Index] * <span class="number">2</span> == min) &#123;</span><br><span class="line">            uglyNumberMultiply2Index++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (uglyNumbers[uglyNumberMultiply3Index] * <span class="number">3</span> == min) &#123;</span><br><span class="line">            uglyNumberMultiply3Index++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (uglyNumbers[uglyNumberMultiply5Index] * <span class="number">5</span> == min) &#123;</span><br><span class="line">            uglyNumberMultiply5Index++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> uglyNumbers[index - <span class="number">1</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>这种算法的效率更快，但是它需要额外的空间来存储丑数，所以这是一个使用空间换时间的算法。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;blockquote&gt;
+&lt;p&gt;题目：我们把只包含因子 $2、3$ 和 $5$ 的数称作丑数(&lt;code&gt;Ugly Number&lt;/code&gt;)，例如，$6、8$ 都是丑数，但 $14$ 不是，因为它包含因子 $7$，求按从小到大的顺序的第 $n$ 个丑数。习惯上我们把 $1$ 
+      
+    
+    </summary>
+    
+    
+      <category term="剑指offer" scheme="https://lastknightcoder.gitee.io/categories/%E5%89%91%E6%8C%87offer/"/>
+    
+    
+      <category term="剑指offer" scheme="https://lastknightcoder.gitee.io/tags/%E5%89%91%E6%8C%87offer/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>礼物的最大价值</title>
+    <link href="https://lastknightcoder.gitee.io/%E7%A4%BC%E7%89%A9%E7%9A%84%E6%9C%80%E5%A4%A7%E4%BB%B7%E5%80%BC/"/>
+    <id>https://lastknightcoder.gitee.io/%E7%A4%BC%E7%89%A9%E7%9A%84%E6%9C%80%E5%A4%A7%E4%BB%B7%E5%80%BC/</id>
+    <published>2020-06-30T10:18:00.000Z</published>
+    <updated>2020-06-30T10:18:00.000Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote><p>题目：在一个 $m \times n$ 的棋盘的每一格都放有一个礼物，每个礼物都有一定的价值(价值大于 $0$)。你可以从棋盘的左上角开始拿格子里的礼物，并每次向左或向下移动一格，直到到达棋盘的右下角。给定一个棋盘及其上面的礼物，请计算你最多能拿到多少价值的礼物?</p></blockquote><p>例如，对于如下棋盘，沿着标有下划线的数字的线路，就可以拿到最大价值的礼物</p><img src="https://gitee.com/lastknightcoder/blogimage/raw/master/202006301752.svg"/><p>这是典型的能够使用动态规划解决的题，我们使用 $f(i, j)$ 表示达到坐标 $(i, j)$ 的格子时能够拿到的礼物总和的最大值。到达格子 $(i, j)$ 有两种方法，从左方 $(i - 1, j)$ 或者是从上方 $(i, j - 1)$ 到达，所以 $f(i ,j) = max[f(i-1, j), f(i, j - 1)] + gift(i, j)$，其中 $g(i, j)$ 表示格子 $(i, j)$ 上的礼物的价值。</p><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">getMaxGift</span><span class="params">(<span class="keyword">int</span>[][] matrix)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (matrix == <span class="keyword">null</span> || matrix.length == <span class="number">0</span> || matrix[<span class="number">0</span>].length == <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> rows = matrix.length;</span><br><span class="line">    <span class="keyword">int</span> columns = matrix[<span class="number">0</span>].length;</span><br><span class="line">    <span class="keyword">int</span>[][] maxMatrix = <span class="keyword">new</span> <span class="keyword">int</span>[rows][columns];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> row = <span class="number">0</span>; row &lt; rows; row++) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> column = <span class="number">0</span>; column &lt; columns; column++) &#123;</span><br><span class="line">            <span class="keyword">int</span> left = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">int</span> up = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">if</span> (row &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                left = maxMatrix[row - <span class="number">1</span>][column];</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (column &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                up = maxMatrix[row][column - <span class="number">1</span>];</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// f(i,j) = max[f(i-1,j),f(i,j-1)] + gift(i,j)</span></span><br><span class="line">            maxMatrix[row][column] = Math.max(left, up) + matrix[row][column];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> maxMatrix[rows - <span class="number">1</span>][columns - <span class="number">1</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;blockquote&gt;
+&lt;p&gt;题目：在一个 $m \times n$ 的棋盘的每一格都放有一个礼物，每个礼物都有一定的价值(价值大于 $0$)。你可以从棋盘的左上角开始拿格子里的礼物，并每次向左或向下移动一格，直到到达棋盘的右下角。给定一个棋盘及其上面的礼物，请计算你最多能拿到
+      
+    
+    </summary>
+    
+    
+      <category term="剑指offer" scheme="https://lastknightcoder.gitee.io/categories/%E5%89%91%E6%8C%87offer/"/>
+    
+    
+      <category term="剑指offer" scheme="https://lastknightcoder.gitee.io/tags/%E5%89%91%E6%8C%87offer/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>把数字翻译成字符串</title>
+    <link href="https://lastknightcoder.gitee.io/%E6%8A%8A%E6%95%B0%E5%AD%97%E7%BF%BB%E8%AF%91%E6%88%90%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
+    <id>https://lastknightcoder.gitee.io/%E6%8A%8A%E6%95%B0%E5%AD%97%E7%BF%BB%E8%AF%91%E6%88%90%E5%AD%97%E7%AC%A6%E4%B8%B2/</id>
+    <published>2020-06-30T08:32:00.000Z</published>
+    <updated>2020-06-30T08:32:00.000Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote><p>题目：给定一个数字，我们按照如下规则把它翻译为字符串，$0$ 翻译成 $a$，$1$ 翻译成 $b$， … …，$25$ 翻译成 $z$，求一个数字可能有多少种翻译。例如 $12258$ 有 $5$ 种不同的翻译，分别是 $bccfi, bwfi, bczi, mcfi, mzi$。请实现一个函数，用来计算一个数字有多少种不同的翻译方法。</p></blockquote><p>这道题可以考虑使用递归的方法进行解决，我们以 $f(i)$ 表示长度为 $i$ 的数字能够翻译为不同字符串的方法总数，如果当前数字和后面的一位数字大于 $25$，那么这时只有一次翻译方法，那就是将当前数字翻译为一个字符，这时 $f(i) = f(i - 1) + 1$；如果当前数字和后面的数字小于等于 $25$，那么就有两种翻译方法，第一种是直接翻译两个数字为字符，第二种是每次翻译一个数字为字符，所以这时 $f(i) = 2 + f(i - 2)$，上面的 $2$ 表示的就是 $2$ 中翻译方法。</p><p>代码如下</p><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">translateNumberToChar</span><span class="params">(<span class="keyword">int</span> number)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">char</span>[] numberStr = Integer.toString(number).toCharArray();</span><br><span class="line">    <span class="keyword">return</span> translateNumberToChar(numberStr, <span class="number">0</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">translateNumberToChar</span><span class="params">(<span class="keyword">char</span>[] numberStr, <span class="keyword">int</span> start)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (start == numberStr.length) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (start == numberStr.length - <span class="number">1</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 获得两个字符并转化为数字</span></span><br><span class="line">    <span class="keyword">char</span>[] num = &#123;numberStr[start], numberStr[start+<span class="number">1</span>]&#125;;</span><br><span class="line">    <span class="keyword">int</span> number = Integer.parseInt(<span class="keyword">new</span> String(num));</span><br><span class="line">    <span class="keyword">if</span> (number &lt; <span class="number">26</span>) &#123;</span><br><span class="line">        <span class="comment">// f(i) = 2 + f(i - 2)</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">2</span> + translateNumberToChar(numberStr, start + <span class="number">2</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// f(i) = 1 + f(i - 1)</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span> + translateNumberToChar(numberStr, start + <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;blockquote&gt;
+&lt;p&gt;题目：给定一个数字，我们按照如下规则把它翻译为字符串，$0$ 翻译成 $a$，$1$ 翻译成 $b$， … …，$25$ 翻译成 $z$，求一个数字可能有多少种翻译。例如 $12258$ 有 $5$ 种不同的翻译，分别是 $bccfi, bwfi,
+      
+    
+    </summary>
+    
+    
+      <category term="剑指offer" scheme="https://lastknightcoder.gitee.io/categories/%E5%89%91%E6%8C%87offer/"/>
+    
+    
+      <category term="剑指offer" scheme="https://lastknightcoder.gitee.io/tags/%E5%89%91%E6%8C%87offer/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>把数组排成最小的数</title>
+    <link href="https://lastknightcoder.gitee.io/%E6%8A%8A%E6%95%B0%E7%BB%84%E6%8E%92%E6%88%90%E6%9C%80%E5%B0%8F%E7%9A%84%E6%95%B0/"/>
+    <id>https://lastknightcoder.gitee.io/%E6%8A%8A%E6%95%B0%E7%BB%84%E6%8E%92%E6%88%90%E6%9C%80%E5%B0%8F%E7%9A%84%E6%95%B0/</id>
+    <published>2020-06-30T08:12:00.000Z</published>
+    <updated>2020-06-30T08:12:00.000Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote><p>输入一个正整数数组，把数组里所有数字拼接起来排成一个数，打印能拼接出所有数字中最小的一个。例如，输入数组 ${ 3, 32, 321 }$，则打印出这个 $3$ 个数字能排成的最小数字 $321323$。</p></blockquote><p>一个直观的方法是得到数组中数字的所有排列组合，然后在这些排列组合中取最小的数字。一个长度为 $n$ 的数组，它总共有 $n!$ 个排列，我们从这些排列中找出最小的排列，时间复杂度为 $O(n!)$，这个速度可是非常的慢，不能达到我们的要求。</p><p>根据题目的要求，对于两个数字 $m, n$ 能拼成的数字 $mn$ 和 $nm$，如果 $mn &lt; nm$，那么我们打印出 $mn$，否则打印出 $nm$。所以我们考虑以下面这种规则对数组进行排序</p><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">MyComparator</span> <span class="keyword">implements</span> <span class="title">Comparator</span>&lt;<span class="title">Integer</span>&gt; </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compare</span><span class="params">(Integer m, Integer n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> (<span class="string">""</span> + m + n).compareTo(<span class="string">""</span> + n + m);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>上面的排序规则是，如果 $mn &lt; nm$，那么 $m$ 排在 $n$ 前方，否则 $n$ 排在 $m$ 前方。具体的证明用到了数学证明，我还没搞通透，感兴趣自己手推一下。</p><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">minNumber</span><span class="params">(Integer[] numbers)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (numbers == <span class="keyword">null</span> || numbers.length == <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    Arrays.sort(numbers, <span class="keyword">new</span> MyComparator());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;blockquote&gt;
+&lt;p&gt;输入一个正整数数组，把数组里所有数字拼接起来排成一个数，打印能拼接出所有数字中最小的一个。例如，输入数组 ${ 3, 32, 321 }$，则打印出这个 $3$ 个数字能排成的最小数字 $321323$。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;
+      
+    
+    </summary>
+    
+    
+      <category term="剑指offer" scheme="https://lastknightcoder.gitee.io/categories/%E5%89%91%E6%8C%87offer/"/>
+    
+    
+      <category term="剑指offer" scheme="https://lastknightcoder.gitee.io/tags/%E5%89%91%E6%8C%87offer/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>数字序列中某一位的数字</title>
+    <link href="https://lastknightcoder.gitee.io/%E6%95%B0%E5%AD%97%E5%BA%8F%E5%88%97%E4%B8%AD%E6%9F%90%E4%B8%80%E4%BD%8D%E7%9A%84%E6%95%B0%E5%AD%97/"/>
+    <id>https://lastknightcoder.gitee.io/%E6%95%B0%E5%AD%97%E5%BA%8F%E5%88%97%E4%B8%AD%E6%9F%90%E4%B8%80%E4%BD%8D%E7%9A%84%E6%95%B0%E5%AD%97/</id>
+    <published>2020-06-30T06:03:00.000Z</published>
+    <updated>2020-06-30T06:03:00.000Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote><p>题目：数字以 $0123456789101112131415…$ 的格式序列化到一个字符序列中。在这个序列中，第 $5$ 位(从 $0$ 开始计数)是 $5$，第 $13$ 位是 $1$，第 $19$ 位是 $4$ 等等。请写一个函数，求任意第 $n$ 位对应的数字。</p></blockquote><p>最直观的方法就是从 $0$ 开始遍历数字，并统计数字的位数，将这出现数字的位数相加起来，如果已经大于等于 $n$，那么要查找的数字肯定在最后一个数字中，接着我们在该数字中查找对应的那一位。</p><p>但是不是有更快的方法，我们可以挖掘数字出现的规律，从而跳过某些数字。比如我想查找第 $15$ 位数字，因为一位的数字只有 $10$ 个，而 $15 &gt; 10$，所以我们完全可以跳过这 $10$ 个数字，去两位数中寻找。接着我们去两位数中寻找第 $15 - 10 = 5$ 位数字，因为两位数共有 $10-99$ 共 $90$ 个两位数，包含 $2 * 90 = 180$ 个数字，因为 $5 &lt; 180$，所以我们要找的数字一定在这些两位数中，因为 $5 = 2 * 2 + 1$，所以要找的数字是第二个两位数(从 $0$ 开始算)的第一位(从 $0$ 开始算)，第二个两位数是 $12$，它的第一位是 $2$，所以第 $15$ 位是 $2$。</p><p>很快我们可以写出这样的代码</p><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">digitAtIndex</span><span class="params">(<span class="keyword">int</span> index)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (index &lt; <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> digit = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</span><br><span class="line">        <span class="comment">// 获得 digit 位数的个数，比如对于两位数有 90 个</span></span><br><span class="line">        <span class="keyword">int</span> numbers = countInteger(digit);</span><br><span class="line">        <span class="comment">// 例如 5 &lt; 180，那么肯定在两位数中，去两位数中进行查找</span></span><br><span class="line">        <span class="keyword">if</span> (index &lt; numbers * digit) &#123;</span><br><span class="line">            <span class="keyword">return</span> digitAtIndex(index, digit);</span><br><span class="line">        &#125;</span><br><span class="line">        index -= numbers * digit;</span><br><span class="line">        digit++;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">countInteger</span><span class="params">(<span class="keyword">int</span> digit)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 一位数有10个，其他的有 90,900,9000... 个</span></span><br><span class="line">    <span class="keyword">if</span> (digit == <span class="number">1</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">10</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> (<span class="keyword">int</span>)Math.pow(<span class="number">10</span>, digit - <span class="number">1</span>) * <span class="number">9</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">digitAtIndex</span><span class="params">(<span class="keyword">int</span> index, <span class="keyword">int</span> digit)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 5 = 2 * 2 + 1</span></span><br><span class="line">    <span class="comment">// number = 2</span></span><br><span class="line">    <span class="keyword">int</span> number = beginNumber(digit) + index / digit;</span><br><span class="line">    <span class="comment">// 倒着查找，即从个位数开始计算，倒数第 2 - 1 = 1 个数字</span></span><br><span class="line">    <span class="keyword">int</span> indexFromRight = digit - index % digit;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; indexFromRight; i++) &#123;</span><br><span class="line">        number /= <span class="number">10</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> number % <span class="number">10</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">beginNumber</span><span class="params">(<span class="keyword">int</span> digit)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 一位数以 0 开始，其他的以 10,100,1000 开始</span></span><br><span class="line">    <span class="keyword">if</span> (digit == <span class="number">1</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> (<span class="keyword">int</span>)Math.pow(<span class="number">10</span>, digit - <span class="number">1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;blockquote&gt;
+&lt;p&gt;题目：数字以 $0123456789101112131415…$ 的格式序列化到一个字符序列中。在这个序列中，第 $5$ 位(从 $0$ 开始计数)是 $5$，第 $13$ 位是 $1$，第 $19$ 位是 $4$ 等等。请写一个函数，求任意第 $
+      
+    
+    </summary>
+    
+    
+      <category term="剑指offer" scheme="https://lastknightcoder.gitee.io/categories/%E5%89%91%E6%8C%87offer/"/>
+    
+    
+      <category term="剑指offer" scheme="https://lastknightcoder.gitee.io/tags/%E5%89%91%E6%8C%87offer/"/>
+    
+  </entry>
   
   <entry>
     <title>1~n整数中1出现的次数</title>
