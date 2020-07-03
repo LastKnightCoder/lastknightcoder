@@ -255,8 +255,9 @@
 
 <p>使用该命令会在本地生成一个文件夹blog，里面的内容如下</p>
 <center>
-<img src="https://gitee.com/lastknightcoder/blogimage/raw/master/20200703203219.png" width="60%"/>
+<img src="https://gitee.com/lastknightcoder/blogimage/raw/master/20200703203219.png" width="50%"/>
 </center>
+
 
 <p>其中src就是我们开发的文件夹，其中index.js是入口文件，里面的内容为</p>
 <figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"><span class="keyword">import</span> ReactDOM <span class="keyword">from</span> <span class="string">'react-dom'</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">'./index.css'</span>;</span><br><span class="line"><span class="keyword">import</span> App <span class="keyword">from</span> <span class="string">'./App'</span>;</span><br><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> serviceWorker <span class="keyword">from</span> <span class="string">'./serviceWorker'</span>;</span><br><span class="line"></span><br><span class="line">ReactDOM.render(<span class="xml"><span class="tag">&lt;<span class="name">App</span> /&gt;</span></span>, <span class="built_in">document</span>.getElementById(<span class="string">'root'</span>));</span><br><span class="line"></span><br><span class="line"><span class="comment">// If you want your app to work offline and load faster, you can change</span></span><br><span class="line"><span class="comment">// unregister() to register() below. Note this comes with some pitfalls.</span></span><br><span class="line"><span class="comment">// Learn more about service workers: https://bit.ly/CRA-PWA</span></span><br><span class="line">serviceWorker.unregister();</span><br></pre></td></tr></table></figure>
@@ -346,20 +347,17 @@
 <p><strong>React事件：</strong></p>
 <p>使用原生的JS为DOM元素添加事件，主要有下面三种方法</p>
 <ul>
-<li>在HTML中直接事件绑定</li>
-</ul>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">&gt;<span class="tag">&lt;<span class="name">p</span> <span class="attr">onclick</span>=<span class="string">"console.log('click')"</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<li><p>在HTML中直接事件绑定</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">onclick</span>=<span class="string">"console.log('click')"</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>直接绑定</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> divObj = <span class="built_in">document</span>.getElementById(<span class="string">"root"</span>);</span><br><span class="line">divObj.onclick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>对DOM对象进行事件监听处理,事件委托监听方式</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> divObj = <span class="built_in">document</span>.getElementById(<span class="string">"root"</span>);</span><br><span class="line">divObj.addEventListener(<span class="string">'click'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;);</span><br></pre></td></tr></table></figure>
 
-<ul>
-<li>直接绑定</li>
+</li>
 </ul>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&gt;<span class="keyword">let</span> divObj = <span class="built_in">document</span>.getElementById(<span class="string">"root"</span>);</span><br><span class="line">&gt;divObj.onclick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>对DOM对象进行事件监听处理,事件委托监听方式</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&gt;<span class="keyword">let</span> divObj = <span class="built_in">document</span>.getElementById(<span class="string">"root"</span>);</span><br><span class="line">&gt;divObj.addEventListener(<span class="string">'click'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;)</span><br></pre></td></tr></table></figure>
-
 <p>至于这三种方法的优缺点与及什么时候使用，这里却不在讨论。那么React中的事件是如何绑定的呢?</p>
 <p>在React中事件的绑定是直接写在JSX元素上的,不需要通过addEventListener事件委托的方式进行监听，写法上:</p>
 <ul>
@@ -368,12 +366,10 @@
 <li><p>使用JSX语法时,需要传入一个函数作为事件处理函数,而不是一个字符串,也就是props值应该是一个函数类型数据,事件函数方法外面得用一个双大括号包裹起来(也就是上面提到的插值语法)</p>
 </li>
 <li><p>on*EventType的事件类型属性,只能用作在普通的原生html标签上(例如:div,input,a,p等,例如:<code>&lt;div onClick={ 事件处理函数 }&gt;&lt;/div&gt;</code>),无法直接用在自定义组件标签上,也就是说下面这么写是没有作用的</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;HelloReact onClick=&#123;()=&gt; <span class="built_in">console</span>.log(<span class="string">"click me"</span>)&#125;&gt;</span><br></pre></td></tr></table></figure>
 </li>
-</ul>
-<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line">&gt;<span class="xml"><span class="tag">&lt;<span class="name">HelloReact</span> <span class="attr">onClick</span>=<span class="string">&#123;()</span>=&gt;</span> console.log("click me")&#125;&gt;</span></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>不能通过返回false的方式阻止默认行为,必须显示使用preventDefault</li>
+<li><p>不能通过返回false的方式阻止默认行为,必须显示使用preventDefault</p>
+</li>
 </ul>
 <p>具体React事件有哪些，可以参照<a href="https://react-cn.github.io/react/docs/events.html" target="_blank" rel="noopener">事件系统|React</a>。</p>
 </blockquote>

@@ -600,7 +600,7 @@ private static class ListNode &#123;    public List...
         </li>
     
         <li class="post-list-item fade">
-            <article id="post-链表中倒数第k个节点"
+            <article id="post-链表中环的入口节点"
   class="article-card article-type-post" itemprop="blogPost">
 
     <div class="post-meta">
@@ -618,7 +618,7 @@ private static class ListNode &#123;    public List...
 
   
     <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="https://lastknightcoder.gitee.io/%E9%93%BE%E8%A1%A8%E4%B8%AD%E5%80%92%E6%95%B0%E7%AC%ACk%E4%B8%AA%E8%8A%82%E7%82%B9/">链表的倒数第k个节点</a>
+      <a class="post-title-link" href="https://lastknightcoder.gitee.io/%E9%93%BE%E8%A1%A8%E4%B8%AD%E7%8E%AF%E7%9A%84%E5%85%A5%E5%8F%A3%E8%8A%82%E7%82%B9/">链表中环的入口节点</a>
     </h3>
   
 
@@ -629,10 +629,13 @@ private static class ListNode &#123;    public List...
 
     
         
-题目：输入一个链表，输出该链表的倒数第 $k$ 个节点。为了符合大多数人的习惯，本题从 $1$ 开始计数，即链表的尾节点是倒数第一个节点。例如，一个链表有 $6$ 个节点，如下 1-&gt;2-&gt;3-&gt;4-&gt;5-&gt;6，这个链表的倒数第 $3$ 个节点是值为 $4$ 的...
+如何链表中包含环，如何找出环的入口节点? 例如，在如图所示的链表中，环的入口节点是节点 $3$。
+
+
+解决这道题的思路分为两步，第一步是确定该链表有没有环，我们定义两个指针，一个快指针，一个慢指针，快指针一次性走两步，慢指针一次性走一步。如果有环的话，那么快指针和慢指针就会相遇，并且是在环内...
     
 
-        <a href="https://lastknightcoder.gitee.io/%E9%93%BE%E8%A1%A8%E4%B8%AD%E5%80%92%E6%95%B0%E7%AC%ACk%E4%B8%AA%E8%8A%82%E7%82%B9/" class="post-more waves-effect waves-button">
+        <a href="https://lastknightcoder.gitee.io/%E9%93%BE%E8%A1%A8%E4%B8%AD%E7%8E%AF%E7%9A%84%E5%85%A5%E5%8F%A3%E8%8A%82%E7%82%B9/" class="post-more waves-effect waves-button">
             阅读全文…
         </a>
     </div>
