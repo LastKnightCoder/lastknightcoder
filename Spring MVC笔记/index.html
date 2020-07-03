@@ -21,12 +21,12 @@
     
     
     <meta name="keywords" content="Java,SpringMVC">
-    <meta name="description" content="本片文章是我记录学习Spring MVC的学习笔记，作为初学者，对于这个框架的理解可能并不深刻，所以这篇文章主要讲述的是Spring MVC框架的使用，所以对于有些内容为什么要这么做，这么做有什么好处，由于才疏学浅，却不是我能解释的，所以本篇文章以代码偏多，文字解释偏少。 Hello Spring MVC先简单的的把Spring MVC用起来，然后在解释一下Spring MVC的用法。首先在pom">
+    <meta name="description" content="本片文章是我记录学习 Spring MVC 的学习笔记，作为初学者，对于这个框架的理解可能并不深刻，所以这篇文章主要讲述的是 Spring MVC 框架的使用，所以对于有些内容为什么要这么做，这么做有什么好处，由于才疏学浅，却不是我能解释的，所以本篇文章以代码偏多，文字解释偏少。 Hello Spring MVC先简单的的把 Spring MVC 用起来，然后在解释一下 Spring MVC 的用">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Spring MVC笔记">
 <meta property="og:url" content="https://lastknightcoder.gitee.io/Spring%20MVC%E7%AC%94%E8%AE%B0/">
 <meta property="og:site_name" content="Coder">
-<meta property="og:description" content="本片文章是我记录学习Spring MVC的学习笔记，作为初学者，对于这个框架的理解可能并不深刻，所以这篇文章主要讲述的是Spring MVC框架的使用，所以对于有些内容为什么要这么做，这么做有什么好处，由于才疏学浅，却不是我能解释的，所以本篇文章以代码偏多，文字解释偏少。 Hello Spring MVC先简单的的把Spring MVC用起来，然后在解释一下Spring MVC的用法。首先在pom">
+<meta property="og:description" content="本片文章是我记录学习 Spring MVC 的学习笔记，作为初学者，对于这个框架的理解可能并不深刻，所以这篇文章主要讲述的是 Spring MVC 框架的使用，所以对于有些内容为什么要这么做，这么做有什么好处，由于才疏学浅，却不是我能解释的，所以本篇文章以代码偏多，文字解释偏少。 Hello Spring MVC先简单的的把 Spring MVC 用起来，然后在解释一下 Spring MVC 的用">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/20200229235310.png">
 <meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/20200229235625.png">
@@ -35,7 +35,7 @@
 <meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/20200301110550.png">
 <meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/2020-03-01_11-39-48.png">
 <meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/20200301114644.png">
-<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/20200301130123.png">
+<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/20200703121833.png">
 <meta property="article:published_time" content="2020-02-29T16:00:00.000Z">
 <meta property="article:modified_time" content="2020-02-29T16:00:00.000Z">
 <meta property="article:author" content="熊滔">
@@ -196,140 +196,138 @@
 
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
-            <p>本片文章是我记录学习Spring MVC的学习笔记，作为初学者，对于这个框架的理解可能并不深刻，所以这篇文章主要讲述的是Spring MVC框架的使用，所以对于有些内容为什么要这么做，这么做有什么好处，由于才疏学浅，却不是我能解释的，所以本篇文章以代码偏多，文字解释偏少。</p>
-<h2 id="Hello-Spring-MVC"><a href="#Hello-Spring-MVC" class="headerlink" title="Hello Spring MVC"></a>Hello Spring MVC</h2><p>先简单的的把Spring MVC用起来，然后在解释一下Spring MVC的用法。首先在pom.xml中导入需要的包</p>
+            <p>本片文章是我记录学习 <code>Spring MVC</code> 的学习笔记，作为初学者，对于这个框架的理解可能并不深刻，所以这篇文章主要讲述的是 <code>Spring MVC</code> 框架的使用，所以对于有些内容为什么要这么做，这么做有什么好处，由于才疏学浅，却不是我能解释的，所以本篇文章以代码偏多，文字解释偏少。</p>
+<h2 id="Hello-Spring-MVC"><a href="#Hello-Spring-MVC" class="headerlink" title="Hello Spring MVC"></a>Hello Spring MVC</h2><p>先简单的的把 <code>Spring MVC</code> 用起来，然后在解释一下 <code>Spring MVC</code> 的用法。首先在 <code>pom.xml</code> 中导入需要的包</p>
 <figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-webmvc<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>5.2.0.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>4.12<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>javax.servlet<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>servlet-api<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.5<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>javax.servlet.jsp<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jsp-api<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.2<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>javax.servlet<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jstl<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.2<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
-<p>spring-webmvc就是我们需要的包，而junit不用说，是用来测试用的。Java底层对浏览器做出响应是基于Servlet，所以Spring MVC也是基于Servlet的，所以我们还导入了Servlet的包，以及对JSP的支持和JSTL语言的支持的包。</p>
-<p>由于我们建立的只是一个普通的Maven工程，我们要对项目添加支持，使其成为一个Web项目，单击项目右键选择Add Framework Support…，如下</p>
+<p><code>spring-webmvc</code> 就是我们需要的包，而 <code>junit</code> 不用说，是用来测试用的。<code>Java</code> 底层对浏览器做出响应是基于 <code>Servlet</code>，所以 <code>Spring MVC</code> 也是基于 <code>Servlet</code> 的，所以我们还导入了 <code>Servlet</code> 的包，以及对 <code>JSP</code> 的支持和 <code>JSTL</code> 语言的支持的包。</p>
+<p>由于我们建立的只是一个普通的 <code>Maven</code> 工程，我们要对项目添加支持，使其成为一个 <code>Web</code> 项目，单击项目右键选择 <code>Add Framework Support...</code>，如下</p>
 <img src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/20200229235310.png"/>
 
-<p>接着勾选WebApplication，点击OK</p>
+<p>接着勾选 <code>WebApplication</code>，点击 <code>OK</code></p>
 <img src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/20200229235625.png"/>
 
-<p>这时会在你的项目中为你生成一个web目录，如下</p>
+<p>这时会在你的项目中为你生成一个 <code>web</code> 目录，如下</p>
 <img src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/20200301000150.png"/>
 
-<p>这时我们配置web.xml如下</p>
+<p>这时我们配置 <code>web.xml</code> 如下</p>
 <figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">web-app</span> <span class="attr">xmlns</span>=<span class="string">"http://xmlns.jcp.org/xml/ns/javaee"</span></span></span><br><span class="line"><span class="tag">         <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span><br><span class="line"><span class="tag">         <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"</span></span></span><br><span class="line"><span class="tag">         <span class="attr">version</span>=<span class="string">"4.0"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">servlet</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>dispatch<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">servlet-class</span>&gt;</span>org.springframework.web.servlet.DispatcherServlet<span class="tag">&lt;/<span class="name">servlet-class</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">init-param</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">param-name</span>&gt;</span>contextConfigLocation<span class="tag">&lt;/<span class="name">param-name</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">param-value</span>&gt;</span>classpath:springmvc-config.xml<span class="tag">&lt;/<span class="name">param-value</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">init-param</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">servlet</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">servlet-mapping</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>dispatch<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>/<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">servlet-mapping</span>&gt;</span></span><br><span class="line">    </span><br><span class="line"><span class="tag">&lt;/<span class="name">web-app</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
-<p>我们知道JavaWeb的工作流程是根据浏览器的请求地址去找对应的Servlet去做处理，这里我们配置对所有的请求(<code>/</code>)都会使用Spring提供的DispatchServlet进行处理。具体的处理流程稍后会介绍，从上面的配置看出，DispatchServlet还需要一个配置文件地址的参数，这里我们写为了classpath:springmvc-config.xml，而这个文件还没有，所以我们在src/main/resources中新建springmvc-config.xml，内容如下</p>
+<p>我们知道 <code>JavaWeb</code> 的工作流程是根据浏览器的请求地址去找对应的 <code>Servlet</code> 去做处理，这里我们配置对所有的请求(<code>/</code>)都会使用 <code>Spring</code> 提供的 <code>DispatchServlet</code> 进行处理。具体的处理流程稍后会介绍，从上面的配置看出，<code>DispatchServlet</code> 还需要一个配置文件地址的参数，这里我们写为了 <code>classpath:springmvc-config.xml</code>，而这个文件还没有，所以我们在 <code>src/main/resources</code> 中新建 <code>springmvc-config.xml</code>，内容如下</p>
 <figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">"http://www.springframework.org/schema/beans"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xmlns:context</span>=<span class="string">"http://www.springframework.org/schema/context"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xmlns:mvc</span>=<span class="string">"http://www.springframework.org/schema/mvc"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://www.springframework.org/schema/beans</span></span></span><br><span class="line"><span class="tag"><span class="string">        https://www.springframework.org/schema/beans/spring-beans.xsd</span></span></span><br><span class="line"><span class="tag"><span class="string">        http://www.springframework.org/schema/context</span></span></span><br><span class="line"><span class="tag"><span class="string">        https://www.springframework.org/schema/context/spring-context.xsd</span></span></span><br><span class="line"><span class="tag"><span class="string">        http://www.springframework.org/schema/mvc</span></span></span><br><span class="line"><span class="tag"><span class="string">        http://www.springframework.org/schema/mvc/spring-mvc.xsd"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">mvc:annotation-driven</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">mvc:default-servlet-handler</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">context:component-scan</span> <span class="attr">base-package</span>=<span class="string">"com.controller"</span>/&gt;</span></span><br><span class="line">    </span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">class</span>=<span class="string">"org.springframework.web.servlet.view.InternalResourceViewResolver"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"prefix"</span> <span class="attr">value</span>=<span class="string">"WEB-INF/jsp/"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"suffix"</span> <span class="attr">value</span>=<span class="string">".jsp"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
-<p>我们在这个配置文件中对com.controller中的类开启了mvc注解支持。还配置了一个ServletHandler和ViewResolver，这两个东西与后面讲的Spring MVC执行流程有关，后面再说。</p>
-<p>现在新建com.controller.HandleRequest.java，内容如下</p>
+<p>我们在这个配置文件中对 <code>com.controller</code> 中的类开启了 <code>mvc</code> 注解支持。还配置了一个 <code>ServletHandler</code> 和 <code>ViewResolver</code>，这两个东西与后面讲的 <code>Spring MVC</code> 执行流程有关，后面再说。</p>
+<p>现在新建 <code>com.controller.HandleRequest.java</code>，内容如下</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> com.controller;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestMapping;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RestController;</span><br><span class="line"></span><br><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HandleRequest</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@RequestMapping</span>(<span class="string">"/hello"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">sayHello</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"Hello Spring MVC"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>该类的作用是当浏览器访问<code>/hello</code>时，会返回浏览器一个字符串”Hello Spring MVC”，现在使用tomcat服务器启动该项目，并且在地址栏后输入<code>/hello</code>，这时我们会得到一个错误如下</p>
+<p>该类的作用是当浏览器访问 <code>/hello</code> 时，会返回浏览器一个字符串 <code>&quot;Hello Spring MVC&quot;</code>，现在使用 <code>tomcat</code> 服务器启动该项目，并且在地址栏后输入 <code>/hello</code>，这时我们会得到一个错误如下</p>
 <img src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/20200301004227.png"/>
 
-<p>这是因为我们没有在项目中加入所依赖的包，这时我们在IDEA中的左上角找到File并点击，选择Project Structure，接着在Project Structure中选择Artifacts</p>
+<p>这是因为我们没有在项目中加入所依赖的包，这时我们在 <code>IDEA</code> 中的左上角找到 <code>File</code> 并点击，选择 <code>Project Structure</code>，接着在 <code>Project Structure</code> 中选择 <code>Artifacts</code></p>
 <img src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/20200301110550.png"/>
 
-<p>这时选择你的项目，比如我的是mvc-hello，右键选择Put into Output Root</p>
+<p>这时选择你的项目，比如我的是 <code>mvc-hello</code>，右键选择 <code>Put into Output Root</code></p>
 <img src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/2020-03-01_11-39-48.png"/>
 
-<p>接下来重新启动Tomcat，然后在浏览器地址栏后输入<code>/hello</code></p>
+<p>接下来重新启动 <code>Tomcat</code>，然后在浏览器地址栏后输入 <code>/hello</code></p>
 <img src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/20200301114644.png"/>
 
-<p>就可以看到Hello Spring MVC在浏览器上显示了出来。</p>
-<h2 id="Spring-MVC的执行流程"><a href="#Spring-MVC的执行流程" class="headerlink" title="Spring MVC的执行流程"></a>Spring MVC的执行流程</h2><img src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/20200301130123.png"/>
+<p>就可以看到 <code>Hello Spring MVC</code> 在浏览器上显示了出来。</p>
+<h2 id="Spring-MVC的执行流程"><a href="#Spring-MVC的执行流程" class="headerlink" title="Spring MVC的执行流程"></a>Spring MVC的执行流程</h2><img src="https://gitee.com/lastknightcoder/blogimage/raw/master/20200703121833.png"/>
 
-<p>上图演示了Spring MVC执行的流程，在这里稍作解释</p>
+<p>上图演示了 <code>Spring MVC</code> 执行的流程，在这里稍作解释</p>
 <ol>
-<li>用户发送请求至前端控制器DispatcherServlet</li>
-<li>DispatcherServlet收到请求调用处理器映射器HandlerMapping</li>
-<li>处理器映射器根据请求url找到具体的处理器，生成处理器执行链HandlerExecutionChain(包括处理器对象和处理器拦截器)一并返回给DispatcherServlet。</li>
-<li>DispatcherServlet根据处理器Handler获取处理器适配器HandlerAdapter，执行HandlerAdapter处理一系列的操作，如：参数封装，数据格式转换，数据验证等操作</li>
-<li>执行处理器Handler(Controller，也叫页面控制器)</li>
-<li>Handler执行完成返回ModelAndView</li>
-<li>HandlerAdapter将Handler执行结果ModelAndView返回到DispatcherServlet</li>
-<li>DispatcherServlet将ModelAndView传给ViewReslover视图解析器</li>
-<li>ViewReslover解析后返回具体View</li>
-<li>DispatcherServlet对View进行渲染视图(即将模型数据model填充至视图中)</li>
-<li>DispatcherServlet响应用户</li>
+<li>用户发送请求至前端控制器 <code>DispatcherServlet</code></li>
+<li><code>DispatcherServlet</code> 收到请求调用处理器映射器 <code>HandlerMapping</code></li>
+<li>处理器映射器根据请求 <code>url</code> 找到具体的处理器，生成处理器执行链 <code>HandlerExecutionChain</code>(包括处理器对象和处理器拦截器)一并返回给 <code>DispatcherServlet</code>。</li>
+<li><code>DispatcherServlet</code> 根据处理器 <code>Handler</code> 获取处理器适配器 <code>HandlerAdapter</code>，执行 <code>HandlerAdapter</code> 处理一系列的操作，如：参数封装，数据格式转换，数据验证等操作</li>
+<li>执行处理器 <code>Handler</code>(<code>Controller</code>，也叫页面控制器)</li>
+<li><code>Handler</code> 执行完成返回 <code>ModelAndView</code></li>
+<li><code>HandlerAdapter</code> 将 <code>Handler</code> 执行结果 <code>ModelAndView</code> 返回到 <code>DispatcherServlet</code></li>
+<li><code>DispatcherServlet</code> 将 <code>ModelAndView</code> 传给 <code>ViewReslover</code> 视图解析器</li>
+<li><code>ViewReslover</code> 解析后返回具体 <code>View</code></li>
+<li><code>DispatcherServlet</code> 对 <code>View</code> 进行渲染视图(即将模型数据 <code>model</code> 填充至视图中)</li>
+<li><code>DispatcherServlet</code> 响应用户</li>
 </ol>
 <p>现在稍加解释上面牵涉到的组件：</p>
 <ol>
-<li>DispatcherServlet：前端控制器，用户请求到达前端控制器，它就相当于MVC模式中的C，DispatcherServlet是整个流程控制的中心，由它调用其它组件处理用户的请求，DispatcherServlet的存在降低了组件之间的耦合性,系统扩展性提高</li>
-<li>HandlerMapping：处理器映射器，HandlerMapping负责根据用户请求的url找到Handler即处理器，SpringMVC提供了不同的映射器实现不同的映射方式，根据一定的规则去查找,例如：xml配置方式，实现接口方式，注解方式等</li>
-<li>Handler：处理器,Handler 是继DispatcherServlet前端控制器的后端控制器，在DispatcherServlet的控制下Handler对具体的用户请求进行处理。由于Handler涉及到具体的用户业务请求，所以一般情况需要程序员根据业务需求开发Handler</li>
-<li>HandlAdapter：处理器适配器,通过HandlerAdapter对处理器进行执行，这是适配器模式的应用，通过扩展适配器可以对更多类型的处理器进行执行</li>
-<li>ModelAndView是SpringMVC的封装对象，将Model和View封装在一起。</li>
-<li>ViewResolver：视图解析器,ViewResolver负责将处理结果生成View视图，ViewResolver首先根据逻辑视图名解析成物理视图名即具体的页面地址，再生成View视图对象，最后对View进行渲染将处理结果通过页面展示给用户。</li>
-<li>View:是SpringMVC的封装对象，是一个接口, SpringMVC框架提供了很多的View视图类型，包括：jspview，pdfview,jstlView、freemarkerView、pdfView等。一般情况下需要通过页面标签或页面模版技术将模型数据通过页面展示给用户，需要由程序员根据业务需求开发具体的页面。</li>
+<li><code>DispatcherServlet</code>：前端控制器，用户请求到达前端控制器，它就相当于 <code>MVC</code> 模式中的 <code>C</code>，<code>DispatcherServlet</code> 是整个流程控制的中心，由它调用其它组件处理用户的请求，<code>DispatcherServlet</code> 的存在降低了组件之间的耦合性,系统扩展性提高</li>
+<li><code>HandlerMapping</code>：处理器映射器，<code>HandlerMapping</code> 负责根据用户请求的 <code>url</code> 找到 <code>Handler</code> 即处理器，<code>SpringMVC</code> 提供了不同的映射器实现不同的映射方式，根据一定的规则去查找,例如：<code>xml</code> 配置方式，实现接口方式，注解方式等</li>
+<li><code>Handler</code>：处理器，<code>Handler</code> 是继 <code>DispatcherServlet</code> 前端控制器的后端控制器，在 <code>DispatcherServlet</code> 的控制下 <code>Handler</code> 对具体的用户请求进行处理。由于 <code>Handler</code> 涉及到具体的用户业务请求，所以一般情况需要程序员根据业务需求开发 <code>Handler</code></li>
+<li><code>HandlAdapter</code>：处理器适配器,通过 <code>HandlerAdapter</code> 对处理器进行执行，这是适配器模式的应用，通过扩展适配器可以对更多类型的处理器进行执行</li>
+<li><code>ModelAndView</code> 是 <code>SpringMVC</code> 的封装对象，将 <code>Model</code> 和 <code>View</code> 封装在一起。</li>
+<li><code>ViewResolver</code>：视图解析器，<code>ViewResolver</code> 负责将处理结果生成 <code>View</code> 视图，<code>ViewResolver</code> 首先根据逻辑视图名解析成物理视图名即具体的页面地址，再生成 <code>View</code> 视图对象，最后对 <code>View</code> 进行渲染将处理结果通过页面展示给用户。</li>
+<li><code>View</code>：是 <code>SpringMVC</code> 的封装对象，是一个接口, <code>SpringMVC</code> 框架提供了很多的 <code>View</code> 视图类型，包括：<code>jspview</code>，<code>pdfview</code>,<code>jstlView</code>、<code>freemarkerView</code>、<code>pdfView</code> 等。一般情况下需要通过页面标签或页面模版技术将模型数据通过页面展示给用户，需要由程序员根据业务需求开发具体的页面。</li>
 </ol>
-<h2 id="Spring-MVC注解"><a href="#Spring-MVC注解" class="headerlink" title="Spring MVC注解"></a>Spring MVC注解</h2><h3 id="Controller"><a href="#Controller" class="headerlink" title="@Controller"></a>@Controller</h3><p>@Controller注解表明了一个类是作为控制器的角色而存在的。Spring不要求你去继承任何控制器基类，也不要求你去实现Servlet的那套API。当然，如果你需要的话也可以去使用任何与Servlet相关的特性和设施。</p>
-<p>@Controller注解可以认为是被标注类的原型(stereotype)，表明了这个类所承担的角色。分派器(DispatcherServlet)会扫描所有注解了@Controller的类，检测其中通过@RequestMapping注解配置的方法(详见下一小节)。</p>
-<p>当然，你也可以不使用@Controller注解而显式地去定义被注解的bean，这点通过标准的Spring bean的定义方式，在dispather的上下文属性下配置即可做到。但是@Controller原型是可以被框架自动检测的，Spring支持classpath路径下组件类的自动检测，以及对已定义bean的自动注册。</p>
-<h3 id="RestController"><a href="#RestController" class="headerlink" title="@RestController"></a>@RestController</h3><p>这里说的是与@Controller，被@Controller注解的类，如果在方法中方法字符串，则会被视图解析器解析，即如下</p>
+<h2 id="Spring-MVC注解"><a href="#Spring-MVC注解" class="headerlink" title="Spring MVC注解"></a>Spring MVC注解</h2><h3 id="Controller"><a href="#Controller" class="headerlink" title="@Controller"></a>@Controller</h3><p><code>@Controller</code> 注解表明了一个类是作为控制器的角色而存在的。<code>Spring</code> 不要求你去继承任何控制器基类，也不要求你去实现 <code>Servlet</code> 的那套 <code>API</code>。当然，如果你需要的话也可以去使用任何与 <code>Servlet</code> 相关的特性和设施。</p>
+<p><code>@Controller</code> 注解可以认为是被标注类的原型(<code>stereotype</code>)，表明了这个类所承担的角色。分派器(<code>DispatcherServlet</code>)会扫描所有注解了 <code>@Controller</code> 的类，检测其中通过 <code>@RequestMapping</code> 注解配置的方法(详见下一小节)。</p>
+<p>当然，你也可以不使用 <code>@Controller</code> 注解而显式地去定义被注解的 <code>bean</code>，这点通过标准的 <code>Spring bean</code> 的定义方式，在 <code>dispather</code> 的上下文属性下配置即可做到。但是 <code>@Controller</code> 原型是可以被框架自动检测的，<code>Spring</code> 支持 <code>classpath</code> 路径下组件类的自动检测，以及对已定义 <code>bean</code> 的自动注册。</p>
+<h3 id="RestController"><a href="#RestController" class="headerlink" title="@RestController"></a>@RestController</h3><p>这里说的是与 <code>@Controller</code>，被 <code>@Controller</code> 注解的类，如果在方法中方法字符串，则会被视图解析器解析，即如下</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> com.controller;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Controller;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestMapping;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HandleRequest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping</span>(<span class="string">"/hello"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">sayHello</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"hello"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>当访问<code>/hello</code>时，会执行sayHello方法，这时返回的hello会被视图解析器解析，视图解析器会根据在springmvc-config.xml中的配置进行拼接</p>
+<p>当访问 <code>/hello</code> 时，会执行 <code>sayHello</code> 方法，这时返回的 <code>hello</code> 会被视图解析器解析，视图解析器会根据在 <code>springmvc-config.xml</code> 中的配置进行拼接</p>
 <figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">class</span>=<span class="string">"org.springframework.web.servlet.view.InternalResourceViewResolver"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"prefix"</span> <span class="attr">value</span>=<span class="string">"WEB-INF/jsp/"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"suffix"</span> <span class="attr">value</span>=<span class="string">".jsp"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
-<p>所以上面方法的hello会被拼接成WEB-INF/jsp/hello.jsp，接着会返回该jsp页面。</p>
-<p>而使用@RestController注解，则不会经过视图解析器，而是会将该结果直接返回，就像在前一节演示的例子一样。因为最近流行前后端分离，所以后端不需要写页面了，只需要将前端请求的数据返回，而前端负责渲染展示数据，所以@RestController类用的还是比较多的。</p>
-<h3 id="RequestMapping"><a href="#RequestMapping" class="headerlink" title="@RequestMapping"></a>@RequestMapping</h3><p>你可以使用@RequestMapping注解来将请求URL，如/appointments等，映射到整个类上或某个特定的处理器方法上。一般来说，类级别的注解负责将一个特定(或符合某种模式)的请求路径映射到一个控制器上，同时通过方法级别的注解来细化映射，即根据特定的HTTP请求方法（”GET” “POST”方法等）、HTTP请求中是否携带特定参数等条件，将请求映射到匹配的方法上。</p>
-<p>现在来讲一下@RequestMapping中的属性，@RequestMapping的源码如下</p>
+<p>所以上面方法的 <code>hello</code> 会被拼接成 <code>WEB-INF/jsp/hello.jsp</code>，接着会返回该 <code>jsp</code> 页面。</p>
+<p>而使用 <code>@RestController</code> 注解，则不会经过视图解析器，而是会将该结果直接返回，就像在前一节演示的例子一样。因为最近流行前后端分离，所以后端不需要写页面了，只需要将前端请求的数据返回，而前端负责渲染展示数据，所以 <code>@RestController</code> 类用的还是比较多的。</p>
+<h3 id="RequestMapping"><a href="#RequestMapping" class="headerlink" title="@RequestMapping"></a>@RequestMapping</h3><p>你可以使用 <code>@RequestMapping</code> 注解来将请求 <code>URL</code>，如 <code>/appointments</code> 等，映射到整个类上或某个特定的处理器方法上。一般来说，类级别的注解负责将一个特定(或符合某种模式)的请求路径映射到一个控制器上，同时通过方法级别的注解来细化映射，即根据特定的 <code>HTTP</code> 请求方法（<code>&quot;GET&quot; &quot;POST&quot;</code>方法等）、<code>HTTP</code> 请求中是否携带特定参数等条件，将请求映射到匹配的方法上。</p>
+<p>现在来讲一下 <code>@RequestMapping</code> 中的属性，<code>@RequestMapping</code> 的源码如下</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> RequestMapping &#123;</span><br><span class="line">    <span class="function">String <span class="title">name</span><span class="params">()</span> <span class="keyword">default</span> ""</span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@AliasFor</span>(<span class="string">"path"</span>)</span><br><span class="line">    String[] value() <span class="keyword">default</span> &#123;&#125;;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@AliasFor</span>(<span class="string">"value"</span>)</span><br><span class="line">    String[] path() <span class="keyword">default</span> &#123;&#125;;</span><br><span class="line"></span><br><span class="line">    RequestMethod[] method() <span class="keyword">default</span> &#123;&#125;;</span><br><span class="line"></span><br><span class="line">    String[] params() <span class="keyword">default</span> &#123;&#125;;</span><br><span class="line"></span><br><span class="line">    String[] headers() <span class="keyword">default</span> &#123;&#125;;</span><br><span class="line"></span><br><span class="line">    String[] consumes() <span class="keyword">default</span> &#123;&#125;;</span><br><span class="line"></span><br><span class="line">    String[] produces() <span class="keyword">default</span> &#123;&#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <ul>
-<li>name, value, path：是用来设置匹配的url路径的</li>
-<li>method：指定请求的method类型, GET、POST、PUT、DELETE等</li>
-<li>consumes：指定处理请求的提交内容类型(Content-Type)，例如application/json, text/html</li>
-<li>produces：指定返回的内容类型，仅当request请求头中的(Accept)类型中包含该指定类型才返回</li>
-<li>params：指定request中必须包含某些参数值时，才让该方法处理</li>
-<li>headers：指定request中必须包含某些指定的header值，才能让该方法处理请求</li>
+<li><code>name, value, path</code>：是用来设置匹配的 <code>url</code> 路径的</li>
+<li><code>method</code>：指定请求的 <code>method</code> 类型, <code>GET、POST、PUT、DELETE</code> 等</li>
+<li><code>consumes</code>：指定处理请求的提交内容类型(<code>Content-Type</code>)，例如 <code>application/json, text/html</code></li>
+<li><code>produces</code>：指定返回的内容类型，仅当 <code>request</code> 请求头中的(<code>Accept</code>)类型中包含该指定类型才返回</li>
+<li><code>params</code>：指定 <code>request</code> 中必须包含某些参数值时，才让该方法处理</li>
+<li><code>headers</code>：指定 <code>request</code> 中必须包含某些指定的 <code>header</code> 值，才能让该方法处理请求</li>
 </ul>
 <p>给个例子：</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@RequestMapping</span>(value=<span class="string">"/hello"</span>,</span><br><span class="line">                method = RequestMethod.GET,</span><br><span class="line">                params = <span class="string">"myParam=myValue"</span>,</span><br><span class="line">                headers=<span class="string">"Referer=www.baidu.com"</span>,</span><br><span class="line">                consumes=<span class="string">"application/json"</span>,</span><br><span class="line">                produces=<span class="string">"application/json"</span>)</span><br></pre></td></tr></table></figure>
 
-<p>除了可以使用method属性指定请求办法外，还可以使用注解：</p>
+<p>除了可以使用 <code>method</code> 属性指定请求办法外，还可以使用注解：</p>
 <ul>
-<li>@GetMapping(“/hello”)</li>
-<li>@PostMapping(“/hello”)</li>
-<li>……</li>
+<li><code>@GetMapping(&quot;/hello&quot;)</code></li>
+<li><code>@PostMapping(&quot;/hello&quot;)</code></li>
+<li><code>......</code></li>
 </ul>
-<p>这些注解与RequestMapping具有相同的属性，除了method属性。</p>
-<h3 id="RequestParam"><a href="#RequestParam" class="headerlink" title="@RequestParam"></a>@RequestParam</h3><p>该注解类型用于将指定的请求参数赋值给方法中的形参，那么@RequestParam注解有什么属性呢? 它有4种属性，下面将逐一介绍这四种属性：</p>
+<p>这些注解与 <code>RequestMapping</code> 具有相同的属性，除了 <code>method</code> 属性。</p>
+<h3 id="RequestParam"><a href="#RequestParam" class="headerlink" title="@RequestParam"></a>@RequestParam</h3><p>该注解类型用于将指定的请求参数赋值给方法中的形参，那么 <code>@RequestParam</code> 注解有什么属性呢? 它有 <code>4</code> 种属性，下面将逐一介绍这四种属性：</p>
 <ul>
-<li>name属性：该属性的类型是String类型，它可以指定请求头绑定的名称</li>
-<li>value属性：该属性的类型是String类型，它可以设置是name属性的别名</li>
-<li>required属性：该属性的类型是boolean类型，它可以设置指定参数是否必须绑定</li>
-<li>defalutValue属性：该属性的类型是String类型，它可以设置如果没有传递参数可以使用默认值</li>
+<li><code>name</code> 属性：该属性的类型是 <code>String</code> 类型，它可以指定请求头绑定的名称</li>
+<li><code>value</code> 属性：该属性的类型是 <code>String</code> 类型，它可以设置是 <code>name</code> 属性的别名</li>
+<li><code>required</code> 属性：该属性的类型是 <code>boolean</code> 类型，它可以设置指定参数是否必须绑定</li>
+<li><code>defalutValue</code> 属性：该属性的类型是 <code>String</code> 类型，它可以设置如果没有传递参数可以使用默认值</li>
 </ul>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@RequestMapping</span>(value=<span class="string">"/hello"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">hello</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">	@RequestParam(<span class="string">"loginname"</span>)</span> String loginname,</span></span><br><span class="line"><span class="function">	@<span class="title">RequestParam</span><span class="params">(<span class="string">"password"</span>)</span> String password) </span>&#123;</span><br><span class="line">	</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"hello"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h3 id="PathVaribale"><a href="#PathVaribale" class="headerlink" title="@PathVaribale"></a>@PathVaribale</h3><p>@PathVaribale注解，该注解类型可以非常方便的获得请求url中的动态参数。 @PathVaribale注解只支持一个属性value，类型String，表示绑定的名称，如果省略则默认绑定同名参数</p>
+<h3 id="PathVaribale"><a href="#PathVaribale" class="headerlink" title="@PathVaribale"></a>@PathVaribale</h3><p><code>@PathVaribale</code> 注解，该注解类型可以非常方便的获得请求 <code>url</code> 中的动态参数。<code>@PathVaribale</code> 注解只支持一个属性 <code>value</code>，类型 <code>String</code>，表示绑定的名称，如果省略则默认绑定同名参数</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@RequestMapping</span>(value=<span class="string">"/pathVariableTest/&#123;userId&#125;"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">pathVariableTest</span><span class="params">(@PathVaribale Integer userId)</span></span></span><br></pre></td></tr></table></figure>
 
-<h3 id="CookieValue"><a href="#CookieValue" class="headerlink" title="@CookieValue"></a>@CookieValue</h3><p>绑定cookie的值到Controller方法参数</p>
+<h3 id="CookieValue"><a href="#CookieValue" class="headerlink" title="@CookieValue"></a>@CookieValue</h3><p>绑定 <code>cookie</code> 的值到 <code>Controller</code> 方法参数</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@RequestMapping</span> ( <span class="string">"/hello"</span> )</span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">testCookieValue</span><span class="params">( @CookieValue(<span class="string">"hello"</span>)</span> String cookieValue) </span>&#123;</span><br><span class="line">   <span class="keyword">return</span> <span class="string">"cookieValue"</span> ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h3 id="RequestHeader"><a href="#RequestHeader" class="headerlink" title="@RequestHeader"></a>@RequestHeader</h3><p>@RequestHeader注解，该注解类型用于将请求的头的信息区域数据映射到功能处理方法的参数上。那么@RequestHeader注解有什么属性呢? 它和@RequestParam注解一样，也有4种属性，分别如下</p>
+<h3 id="RequestHeader"><a href="#RequestHeader" class="headerlink" title="@RequestHeader"></a>@RequestHeader</h3><p><code>@RequestHeader</code> 注解，该注解类型用于将请求的头的信息区域数据映射到功能处理方法的参数上。那么<code>@RequestHeader</code> 注解有什么属性呢? 它和 <code>@RequestParam</code> 注解一样，也有 <code>4</code> 种属性，分别如下</p>
 <ul>
-<li>name属性：该属性的类型是String类型，它可以指定请求头绑定的名称</li>
-<li>value属性：该属性的类型是String类型，它可以设置是name属性的别名</li>
-<li>required属性：该属性的类型是boolean类型，它可以设置指定参数是否必须绑定</li>
-<li>defalutValue属性：该属性的类型是String类型，它可以设置如果没有传递参数可以使用默认值</li>
+<li><code>name</code> 属性：该属性的类型是 <code>String</code> 类型，它可以指定请求头绑定的名称</li>
+<li><code>value</code> 属性：该属性的类型是 <code>String</code> 类型，它可以设置是 <code>name</code> 属性的别名</li>
+<li><code>required</code> 属性：该属性的类型是 <code>boolean</code> 类型，它可以设置指定参数是否必须绑定</li>
+<li><code>defalutValue</code> 属性：该属性的类型是 <code>String</code> 类型，它可以设置如果没有传递参数可以使用默认值</li>
 </ul>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@RequestMapping</span>(value=<span class="string">"/requestHeaderTest"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">requestHeaderTest</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">	@RequestHeader(<span class="string">"User-Agent"</span>)</span> String userAgent,</span></span><br><span class="line"><span class="function">	@<span class="title">RequestHeader</span><span class="params">(value=<span class="string">"Accept"</span>)</span> String[] accepts) </span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h3 id="RequestBody"><a href="#RequestBody" class="headerlink" title="@RequestBody"></a>@RequestBody</h3><p>@RequestBody注解是将HTTP请求正文插入方法中</p>
+<h3 id="RequestBody"><a href="#RequestBody" class="headerlink" title="@RequestBody"></a>@RequestBody</h3><p><code>@RequestBody</code> 注解是将 <code>HTTP</code> 请求正文插入方法中</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@RequestMapping</span>(value = <span class="string">"/login"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">login</span><span class="params">(@RequestBody Person person)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="string">"..."</span>; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>@RequestBody注解常用来处理Content-type不是默认的application/x-www-form-urlcoded编码的内容，比如说：application/json或者是application/xml等。一般情况下来说常用其来处理application/json类型。</p>
-<p>对于前端使用而言，form表单的enctype属性为编码方式，常用有两种：application/x-www-form-urlencoded和multipart/form-data，默认为application/x-www-form-urlencoded，所以在前端传输数据时，需要将Content-type显示指定为application/json。</p>
+<p><code>@RequestBody</code> 注解常用来处理 <code>Content-type</code> 不是默认的 <code>application/x-www-form-urlcoded</code> 编码的内容，比如说：<code>application/json</code> 或者是 <code>application/xml</code> 等。一般情况下来说常用其来处理 <code>application/json</code> 类型。</p>
+<p>对于前端使用而言，<code>form</code> 表单的 <code>enctype</code> 属性为编码方式，常用有两种：<code>application/x-www-form-urlencoded</code> 和 <code>multipart/form-data</code>，默认为 <code>application/x-www-form-urlencoded</code>，所以在前端传输数据时，需要将 <code>Content-type</code> 显示指定为 <code>application/json</code>。</p>
 <p><strong>总结：</strong></p>
 <ul>
-<li>ReuqestBody主要是处理json串格式的请求参数，要求使用方指定header Content-type:application/json</li>
-<li>RequestBody通常要求调用方使用post请求</li>
+<li><code>ReuqestBody</code> 主要是处理 <code>json</code> 串格式的请求参数，要求使用方指定 <code>header Content-type:application/json</code></li>
+<li><code>RequestBody</code> 通常要求调用方使用 <code>post</code> 请求</li>
 </ul>
-<h3 id="ResponseBody"><a href="#ResponseBody" class="headerlink" title="@ResponseBody"></a>@ResponseBody</h3><p>@ResponseBody注解的作用是将Controller的方法返回的对象通过适当的转换器转换为指定的格式之后，写入到response对象的body区，通常用来返回JSON数据或者是XML数据，需要注意的呢，在使用此注解之后不会再走视图处理器，而是直接将数据写入到输入流中，它的效果等同于通过response对象输出指定格式的数据。</p>
+<h3 id="ResponseBody"><a href="#ResponseBody" class="headerlink" title="@ResponseBody"></a>@ResponseBody</h3><p><code>@ResponseBody</code> 注解的作用是将 <code>Controller</code> 的方法返回的对象通过适当的转换器转换为指定的格式之后，写入到 <code>response</code> 对象的 <code>body</code> 区，通常用来返回 <code>JSON</code> 数据或者是 <code>XML</code> 数据，需要注意的呢，在使用此注解之后不会再走视图处理器，而是直接将数据写入到输入流中，它的效果等同于通过 <code>response</code> 对象输出指定格式的数据。</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@RequestMapping</span>(<span class="string">"/login"</span>)</span><br><span class="line"><span class="meta">@ResponseBody</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> User <span class="title">login</span><span class="params">(User user)</span></span>&#123;</span><br><span class="line">    <span class="comment">//User字段：userName pwd</span></span><br><span class="line">    <span class="comment">//那么在前台接收到的数据为：'&#123;"userName":"xxx","pwd":"xxx"&#125;'</span></span><br><span class="line">　　<span class="keyword">return</span> user;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//效果等同于如下代码：</span></span><br><span class="line"><span class="meta">@RequestMapping</span>(<span class="string">"/login"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">login</span><span class="params">(User user, HttpServletResponse response)</span></span>&#123;</span><br><span class="line">　　　response.getWriter.write(JSONObject.fromObject(user).toString());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
 
 <h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
 <li><a href="https://www.jianshu.com/p/8a20c547e245" target="_blank" rel="noopener">SpringMVC执行流程及工作原理</a></li>
