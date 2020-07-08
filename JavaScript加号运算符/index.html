@@ -225,7 +225,7 @@
 </tr>
 <tr>
 <td><code>object</code></td>
-<td>分为两步：<br />1. 先进行 <code>toPrimitive</code> 转化为基本数据类型，得到返回值 <code>ret</code><br />2. 然后对 <code>ret</code> 进行上面描述过程的转换，如果返回 <code>true</code>，得到 <code>1</code></td>
+<td>分为两步：<br />1. 先进行 <code>toPrimitive</code> 转化为基本数据类型，得到返回值 <code>ret</code><br />2. 然后对 <code>ret</code> 进行上面描述过程的转换，例如如果返回 <code>true</code>，得到 <code>1</code></td>
 </tr>
 </tbody></table>
 <p>下表是 <code>ECMAScript</code> 中的规范，上面的内容来自这里：</p>
@@ -297,7 +297,7 @@
 <p>上面是 <code>ECMAScript</code> 中的规范，如果英文不太熟的话，下面我将以中文简单翻译如下：</p>
 <ol>
 <li>首先将 <code>+</code> 号两边的值通过 <code>toPrimitive</code> 转化为基本数据类型(如果已经是基本数据类型，则原样返回)</li>
-<li>如果得到的两个基本数据类型中有字符串，那么调用二者转化为字符串拼接起来，将结果返回</li>
+<li>如果得到的两个基本数据类型中有字符串，那么将二者转化为字符串拼接起来，将结果返回</li>
 <li>如果两个基本数据类型中没有字符串，那么就将两个值转化为数字，然后进行相加</li>
 </ol>
 <p>下面来看几个例子：</p>
@@ -313,14 +313,14 @@
 <p>数组也是对象，因为数组没有 <code>[Symbol.toPrimitive]</code> 方法，所以首先会调用数组的 <code>valueOf</code> 方法，因为数组的 <code>valueOf</code> 方法返回的是数组本身，并不是基本数据类型，所以接着会调用数组的 <code>toString</code> 方法，得到一个空字符串 <code>&quot;&quot;</code> ，通过我们上面的讲解，如果两个值中有一个是字符串的话，则会将二者转化为字符串进行拼接，所以 <code>[] + 2 =&gt; &quot;&quot; + 2 = &quot;2&quot;</code>。下面在来看一个例子：</p>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> obj = &#123;</span><br><span class="line">    [<span class="built_in">Symbol</span>.toPrimitive](hint) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">20</span>;</span><br><span class="line">    &#125;,</span><br><span class="line">    valueOf() &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="number">2</span> + obj; <span class="comment">// 22</span></span><br></pre></td></tr></table></figure>
 
-<p>由于对象 <code>obj</code> 有 <code>[Symbol.toPrimitive]</code> 方法，所以在转化为基本数据类型时会调用该方法，得到的值为 <code>20</code>，所以 <code>2 + obj =&gt; 2 + 22 = 22</code>。</p>
+<p>由于对象 <code>obj</code> 有 <code>[Symbol.toPrimitive]</code> 方法，所以在转化为基本数据类型时会调用该方法，得到的值为 <code>20</code>，所以 <code>2 + obj =&gt; 2 + 20 = 22</code>。</p>
 <h2 id="题目讲解"><a href="#题目讲解" class="headerlink" title="题目讲解"></a>题目讲解</h2><p>回到开头我们提出的几个例子：</p>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">[] + &#123;&#125; <span class="comment">// '[object Object]'</span></span><br></pre></td></tr></table></figure>
 
-<p>首先看 <code>[] + {}</code>，首先将两个东西转化为基本数据类型，因为它们都没有 <code>[Symbol.toPrimitive]</code> 方法，所以接着会调用它们的 <code>valueOf</code> 方法，但是它们的 <code>valueOf</code> 方法返回的都是它们本身，所以接着会调用它们的 <code>toString</code> 方法，<code>[]</code> 的 <code>toString</code> 方法得到的是 <code>&#39;&#39;</code> 空字符串，<code>{}</code> 的 <code>toString</code> 方法得到的是 <code>&#39;[object Object]&#39;</code>，二者都是字符串，将二者进行拼接，得到的结果是 <code>&#39;[object Object]&#39;</code>。</p>
+<p>首先将两个东西转化为基本数据类型，因为它们都没有 <code>[Symbol.toPrimitive]</code> 方法，所以接着会调用它们的 <code>valueOf</code> 方法，但是它们的 <code>valueOf</code> 方法返回的都是它们本身，所以接着会调用它们的 <code>toString</code> 方法，<code>[]</code> 的 <code>toString</code> 方法得到的是 <code>&#39;&#39;</code> 空字符串，<code>{}</code> 的 <code>toString</code> 方法得到的是 <code>&#39;[object Object]&#39;</code>，二者都是字符串，将二者进行拼接，得到的结果是 <code>&#39;[object Object]&#39;</code>。</p>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">[] + [] <span class="comment">// ''</span></span><br></pre></td></tr></table></figure>
 
-<p>接着看 <code>[] + []</code>，有上题的经验，<code>[] =&gt; &#39;&#39;</code>，两个空字符串进行拼接得到的结果是 <code>&#39;&#39;</code>。</p>
+<p>有上题的经验，<code>[] =&gt; &#39;&#39;</code>，两个空字符串进行拼接得到的结果是 <code>&#39;&#39;</code>。</p>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&#123;&#125; + [] <span class="comment">// 0</span></span><br></pre></td></tr></table></figure>
 
 <p>接着看 <code>{} + []</code>，因为 <code>JavaScript</code> 会将以 <code>{</code> 开头的语句解析为代码块而不是一个空对象，所以 <code>{} + []</code> 相当于 <code>+[]</code>，这时的 <code>+</code> 相当于是一个一元运算符，根据一元运算符上面讲解的内容，首先将 <code>[]</code> 转化为基本数据类型，得到 <code>&quot;&quot;</code>，接着将 <code>&quot;&quot;</code> 转化为数字，得到的结果为 <code>0</code>。</p>
@@ -429,7 +429,14 @@
     </div>
 
     
-<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="https://lastknightcoder.gitee.io/%E4%BD%BF%E7%94%A8CSS%E5%92%8CJavaScript%E5%81%9A%E4%B8%80%E4%B8%AA%E6%97%B6%E9%92%9F/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">使用CSS和JavaScript做一个时钟</h4>
+      </a>
+    </div>
   
 
   
