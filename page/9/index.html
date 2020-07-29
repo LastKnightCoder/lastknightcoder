@@ -17,6 +17,8 @@
     <title>Coder</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
+    <meta name="theme-color" content="#3F51B5">
+    
     
     <meta name="keywords" content="">
     <meta name="description" content="人生天地间，忽如远行客">
@@ -31,8 +33,8 @@
     
         <link rel="alternate" type="application/atom+xml" title="Coder" href="https://lastknightcoder.gitee.io/atom.xml">
     
-    <link rel="shortcut icon" href="https://lastknightcoder.gitee.io/">
-    <link rel="stylesheet" href="https://lastknightcoder.gitee.io/css/style.css?v=1.7.2">
+    <link rel="shortcut icon" href="https://lastknightcoder.gitee.io/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
     <script>window.lazyScripts=[]</script>
 
     <!-- custom head -->
@@ -48,19 +50,54 @@
     <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
         <i class="icon icon-lg icon-close"></i>
     </a>
-    <div class="brand-wrap" style="background-image:url(https://lastknightcoder.gitee.io/)">
+    <div class="brand-wrap" style="background-image:url(https://lastknightcoder.gitee.io/img/brand.jpg)">
       <div class="brand">
         <a href="https://lastknightcoder.gitee.io/" class="avatar waves-effect waves-circle waves-light">
-          <img src="https://lastknightcoder.gitee.io/">
+          <img src="https://lastknightcoder.gitee.io/img/avatar.jpg">
         </a>
         <hgroup class="introduce">
           <h5 class="nickname">熊滔</h5>
-          <a href="mailto:undefined" class="mail">
+          <a href="mailto:2223106858@qq.com" title="2223106858@qq.com" class="mail">2223106858@qq.com</a>
         </hgroup>
       </div>
     </div>
     <div class="scroll-wrap flex-col">
       <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.gitee.io/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.gitee.io/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.gitee.io/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.gitee.io/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://gitee.com/LastKnightCoder" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
         
       </ul>
     </div>
@@ -85,6 +122,10 @@
             </a>
         </div>
         
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
         
     </div>
 </header>
@@ -195,6 +236,13 @@
         反侵略斗争鸦片战争
 中英–南京条约
 中英–虎门条约
+中美–望厦条约
+中法–黄埔条约
+
+丧失了很多的主权(领土，领海，司法，关税)，社会性质发生变化，逐步成为半殖民半封建社会。(辛丑条约，正式沦为两半社会)
+两半社会
+原因
+已经丧失了独立的地位(殖民地)，仍然维持着独立国家和政府的名义(半)
 中...
     
 
@@ -244,7 +292,16 @@
     
         人生的青春之问时代新人
 有崇高的理想信念
-有高强的本领...
+有高强的本领
+有天下兴亡、匹夫有责的担当精神
+有信念、有梦想
+
+思想道德和法律的关系在调节领域、调节方式、调节目标等方面不同，但二者都是上层建筑的重要组成部分，共同服务于一定的经济基础
+
+思想道德为法律提供思想指引和价值基础
+法律为思想提供制度保障
+
+...
     
 
         <a href="https://lastknightcoder.gitee.io/%E6%80%9D%E4%BF%AE/" class="post-more waves-effect waves-button">
@@ -291,7 +348,16 @@
     <div class="post-content" id="post-content" itemprop="postContent">
 
     
-        由于近期在学习排序算法，决定将自己的学习过程记录下来，...
+        由于近期在学习排序算法，决定将自己的学习过程记录下来，一是为了自己能够方便的复习，另一个是将这个知识分享给大家。我将使用 Java 语言实现下列排序算法
+
+选择排序
+插入排序
+希尔排序
+归并排序
+快速排序
+堆排序
+
+准备工作为了对实现的算法进行测试，我们准备一个工具类 Helper，里面包括我...
     
 
         <a href="https://lastknightcoder.gitee.io/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/" class="post-more waves-effect waves-button">
@@ -338,7 +404,22 @@
     <div class="post-content" id="post-content" itemprop="postContent">
 
     
-        本篇文章是为了记录自己在学习数据结构时的笔记，会对常见...
+        本篇文章是为了记录自己在学习数据结构时的笔记，会对常见的数据结构做基本的介绍以及使用Java语言进行实现。包括
+
+动态数组
+栈
+队列
+链表
+二分搜索树
+优先队列和堆
+线段树
+Trie
+并查集
+AVL 树
+红黑树
+哈希表
+
+动态数组API介绍数组是一种根据下标操作的数据结构，它的查询速度很快，但...
     
 
         <a href="https://lastknightcoder.gitee.io/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84--Java%E6%8F%8F%E8%BF%B0/" class="post-more waves-effect waves-button">
@@ -385,7 +466,8 @@
     <div class="post-content" id="post-content" itemprop="postContent">
 
     
-        这篇文章是记录我学习 MySQL 时的一些笔记，不成体...
+        这篇文章是记录我学习 MySQL 时的一些笔记，不成体系，仅为以后快速学习准备，由于记录的是从零学习 MySQL 的笔记，所以笔记的内容是十分的基础的，基本上是以用为主，不牵涉到具体的原理性问题。
+MySQL基本概念我们使用Java编写程序，一般数据都是存储在内存中的，一旦程序终止或断电，那么...
     
 
         <a href="https://lastknightcoder.gitee.io/MySQL%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="post-more waves-effect waves-button">
@@ -433,7 +515,11 @@
 
     
         TomcatWeb服务器软件
-服务器：安装了服务器软件...
+服务器：安装了服务器软件的计算机
+服务器软件：接收用户请求，处理请求，做出响应
+Web服务器软件：用户通过浏览器进行访问我们部署的项目
+webLogic：oracle公司，大型JavaEE服务器，收费，支持所有的JavaEE规范
+webSphere：IBM公司，大...
     
 
         <a href="https://lastknightcoder.gitee.io/JavaWeb/" class="post-more waves-effect waves-button">
@@ -480,7 +566,7 @@
     <div class="post-content" id="post-content" itemprop="postContent">
 
     
-        初识JDBC如果我们要使用Java来操作数据库，由于数...
+        初识JDBC如果我们要使用Java来操作数据库，由于数据库的种类繁多，并且sql语句并不完全相同，总而言之不同的数据库千差万别，这是不是意味着我们要对不同的数据库写不同的程序，这样的话对程序员的要求有点高，并且学习的成本也很大，所以我们要定义一套规范，要求对所有的数据库程序员只要写相同的程序就...
     
 
         <a href="https://lastknightcoder.gitee.io/JDBC/" class="post-more waves-effect waves-button">
@@ -527,7 +613,22 @@
     <div class="post-content" id="post-content" itemprop="postContent">
 
     
-        我们在之前就有接触过注解，比如@Override，它可...
+        我们在之前就有接触过注解，比如@Override，它可以帮我们检查是否重写了方法，如果没有，它在编译阶段就会报错。注解一般有下面三个功能
+
+编译检查
+比如@Override
+
+
+代码分析
+读取注解的属性，然后使用反射技术进行分析
+
+
+编写文档
+比如javadoc
+
+
+
+系统自定的注解下面介绍三...
     
 
         <a href="https://lastknightcoder.gitee.io/Java%E6%B3%A8%E8%A7%A3/" class="post-more waves-effect waves-button">
@@ -574,7 +675,8 @@
     <div class="post-content" id="post-content" itemprop="postContent">
 
     
-        所谓的异常就是不正常，我们在之前很多地方有碰到异常，比...
+        所谓的异常就是不正常，我们在之前很多地方有碰到异常，比如对象向下转型时有碰到ClassCastException。所有的异常都继承自Exception类。Exception下面有一个重要的的子类叫做RuntimeException。
+异常分为编译期异常和运行时异常，如Exception就是编译...
     
 
         <a href="https://lastknightcoder.gitee.io/Java%E5%BC%82%E5%B8%B8/" class="post-more waves-effect waves-button">
@@ -607,6 +709,15 @@
         <footer class="footer">
     <div class="top">
         
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
 
         <p>
             
@@ -616,7 +727,7 @@
         </p>
     </div>
     <div class="bottom">
-        <p><span>熊滔 &copy; 2020</span>
+        <p><span>熊滔 &copy; 2019 - 2020</span>
             <span>
                 
                 Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
@@ -630,14 +741,60 @@
 <a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
 
 
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://lastknightcoder.gitee.io/page/9/&title=Coder&pic=https://lastknightcoder.gitee.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://lastknightcoder.gitee.io/page/9/&title=Coder&source=人生天地间，忽如远行客" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://lastknightcoder.gitee.io/page/9/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=Coder&url=https://lastknightcoder.gitee.io/page/9/&via=https://lastknightcoder.gitee.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://lastknightcoder.gitee.io/page/9/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK4AAACuCAAAAACKZ2kyAAABw0lEQVR42u3ay26EMAwFUP7/p6nULR167QSXSier0QwTTlhYfnAc8Tq/1/3n6/XXK6/reGLh4uIuc8/b9Yl1f4B7Sn6YH/bBxcUd5ObBK//1np4HRFxc3Ddzkxv0HgEuLu7/5eYJTR7mcHFx38xNip9qaZSsB2s1XFzcBe6uhunK5z/o7+Li4ramEtUwlI9MmvfCxcUd4ebDj+ogpBoKCwEOFxd3hFttla60WZPj5ffCxcV9gpu/VtUbn/SaHR8PjIuLO8LNU5YkKclf18gfzS/9XVxc3Ae4+RYrxJVmCi4u7jy3V7rkZcz69RsaIri4uAudxuoQtBrIVsIlLi7uJLdanPQOUG2b4uLivpm7q1GS/Ks8uMXFxR3k9sYnSejpBbKPe+Li4o5wq2PUpNTJj1EtnHBxcWe4eZKRfNNLnvLD4OLiznDzBCVJQaqpUnWGgouL+xz3LK5qMMqDVFQa4eLijnB3vZaRD1p6pRQuLu48Nx975K3VPOlZGqLg4uI+zF1vj/YaH+XmLC4u7uu5e8e0SdGFi4v7Nm7+skUv5EV74uLiDnJ3vZRZ3Tl/ZLi4uJPc3lR2vTubHH5DfxcXF7fG/QIn7J9mCbB/jQAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
     <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
 <script>
-var BLOG = { ROOT: 'https://lastknightcoder.gitee.io/', SHARE: , REWARD: false };
+var BLOG = { ROOT: 'https://lastknightcoder.gitee.io/', SHARE: true, REWARD: false };
 
 
 </script>
 
-<script src="https://lastknightcoder.gitee.io/js/main.min.js?v=1.7.2"></script>
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
 
 
 <div class="search-panel" id="search-panel">
@@ -657,14 +814,54 @@ var BLOG = { ROOT: 'https://lastknightcoder.gitee.io/', SHARE: , REWARD: false }
 </li>
 </template>
 
-<script src="https://lastknightcoder.gitee.io/js/search.min.js?v=1.7.2" async></script>
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
 
 
 
 
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
 
 
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
 
 
 
