@@ -219,12 +219,12 @@
 <h2 id="入门"><a href="#入门" class="headerlink" title="入门"></a>入门</h2><p>我们在这个小节中快速的搭建一个 <code>Spring Boot</code> 项目，有两种方法</p>
 <ol>
 <li><p>在 <a href="https://start.spring.io/" target="_blank" rel="noopener">Spring 官网</a> 在线创建一个项目</p>
-<p><img src="https://gitee.com/lastknightcoder/blogimage/raw/master/20200901171038.png" alt="image-20200901171038362"></p>
+<p><img src="https://gitee.com/lastknightcoder/blogimage/raw/master/20200901171038.png" alt=""></p>
 <p>上面的选项还是很容易看懂的，我们使用 <code>Maven</code> 来管理项目依赖，使用的语言是 <code>Java</code>，使用的版本是 <code>2.3.3</code>，以及项目的一些信息。因为我们需要搭建一个 <code>Web</code> 服务，所以还需要 <code>web</code> 的依赖，我们点击右上角的 <code>ADD DEPENDENCIES</code></p>
 <img src="https://gitee.com/lastknightcoder/blogimage/raw/master/20200901171605.png" width="60%"/>
 
 <p>我们选择 <code>Spring Web</code> 这个依赖，选择好以后，我们点击 <code>GENERATE</code> 生成一个 <code>zip</code> 文件，我们下载下来</p>
-<p><img src="https://gitee.com/lastknightcoder/blogimage/raw/master/20200901171808.png" alt="image-20200901171808113"></p>
+<p><img src="https://gitee.com/lastknightcoder/blogimage/raw/master/20200901171808.png" alt=""></p>
 <p>我们将它解压，然后使用 <code>IDE</code>，比如我使用的是 <code>IDEA</code> 去打开该文件夹</p>
 <img src="https://gitee.com/lastknightcoder/blogimage/raw/master/20200901172257.png" width="50%">
 
@@ -235,16 +235,16 @@
 <img src="https://gitee.com/lastknightcoder/blogimage/raw/master/20200901172606.png" width="80%">
 
 <p>然后我们选择 <code>Spring Initializr</code></p>
-<p><img src="https://gitee.com/lastknightcoder/blogimage/raw/master/20200901172726.png" alt="image-20200901172726700"></p>
+<p><img src="https://gitee.com/lastknightcoder/blogimage/raw/master/20200901172726.png" alt=""></p>
 <p>观察右侧的 <code>Default</code> 所对应的 <code>URL</code>，其实 <code>IDEA</code> 也是在 <code>Spring</code> 官网来生成一个 <code>Spring Boot</code> 项目的，不过在 <code>IDEA</code> 中直接创建 <code>Spring Boot</code> 方便了很多。</p>
 <p>点击 <code>Next</code>，接着我们就要设置项目的一些信息，这些项目信息的选项同我们在官网看到的选项是一样的</p>
-<p><img src="https://gitee.com/lastknightcoder/blogimage/raw/master/20200901173123.png" alt="image-20200901173123380"></p>
+<p><img src="https://gitee.com/lastknightcoder/blogimage/raw/master/20200901173123.png" alt=""></p>
 <p>配置好项目信息以后，我们点击 <code>Next</code>，这个页面是来添加依赖的</p>
-<p><img src="https://gitee.com/lastknightcoder/blogimage/raw/master/20200901173243.png" alt="image-20200901173243376"></p>
+<p><img src="https://gitee.com/lastknightcoder/blogimage/raw/master/20200901173243.png" alt=""></p>
 <p>我们需要添加 <code>Web</code> 依赖，我们点击左侧的 <code>Web</code> 选项，接着勾选 <code>Spring Web</code>，如下</p>
-<p><img src="https://gitee.com/lastknightcoder/blogimage/raw/master/20200901173425.png" alt="image-20200901173425241"></p>
+<p><img src="https://gitee.com/lastknightcoder/blogimage/raw/master/20200901173425.png" alt=""></p>
 <p>点击 <code>Next</code>，来到最后一项，设置项目的名称</p>
-<p><img src="https://gitee.com/lastknightcoder/blogimage/raw/master/20200901173549.png" alt="image-20200901173549141"></p>
+<p><img src="https://gitee.com/lastknightcoder/blogimage/raw/master/20200901173549.png" alt=""></p>
 <p>点击 <code>FINISH</code>，完成项目的创建，可以愉快的写代码了。</p>
 </li>
 </ol>
@@ -254,7 +254,7 @@
 <p>我们不去看 <code>.gitignore</code> 等等配置文件，我们关注的是 <code>src</code> 文件夹的结构</p>
 <figure class="highlight scss"><table><tr><td class="code"><pre><span class="line"><span class="attribute">src</span></span><br><span class="line">	main</span><br><span class="line">		java</span><br><span class="line">		resources</span><br><span class="line">			static</span><br><span class="line">			templates</span><br><span class="line">			application<span class="selector-class">.properties</span></span><br><span class="line">	test</span><br><span class="line">		java</span><br></pre></td></tr></table></figure>
 
-<p>很明显这是一个典型的 <code>Maven</code> 项目的结构。我们的代码是放在 <code>src/java</code> 目录下的，<code>src/resources</code> 文件夹放的是资源文件，在该文件夹下有两个文件夹和一个文件</p>
+<p>很明显这是一个典型的 <code>Maven</code> 项目的结构。我们的代码是放在 <code>main/java</code> 目录下的，<code>main/resources</code> 文件夹放的是资源文件，在该文件夹下有两个文件夹和一个文件</p>
 <table>
 <thead>
 <tr>
@@ -275,25 +275,25 @@
 <td><code>SpringBoot</code> 的配置文件</td>
 </tr>
 </tbody></table>
-<p>接下来我们来到 <code>src/java</code> 目录下，首先里面有一个包，如 <code>com.xt.start</code>，这是你在生成一个 <code>Spring Boot</code> 项目时填写好的，在这个包下有一个 <code>Java</code> 类 <code>StartApplication</code>，内容如下</p>
+<p>接下来我们来到 <code>main/java</code> 目录下，首先里面有一个包，如 <code>com.xt.start</code>，这是你在生成一个 <code>Spring Boot</code> 项目时填写好的，在这个包下有一个 <code>Java</code> 类 <code>StartApplication</code>，内容如下</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> com.xt.start;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.SpringApplication;</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.autoconfigure.SpringBootApplication;</span><br><span class="line"></span><br><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StartApplication</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        SpringApplication.run(StartApplication<span class="class">.<span class="keyword">class</span>, <span class="title">args</span>)</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>这个类就是我们 <code>Spring Boot</code> 的启动类，我们运行这个类，就会将这个 <code>Spring Boot</code> 项目启动起来</p>
 <figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
-                    <img src="https://gitee.com/lastknightcoder/blogimage/raw/master/20200902124316.png" alt="image-20200902124316132" title="">
+                    <img src="https://gitee.com/lastknightcoder/blogimage/raw/master/20200902124316.png" alt="" title="">
                 </div>
-                <div class="image-caption">image-20200902124316132</div>
+                <div class="image-caption"></div>
             </figure>
 
 <p>这个项目启动在 <code>8080</code> 端口，我们可以通过 <code>localhost:8080</code> 访问该项目</p>
 <figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
-                    <img src="https://gitee.com/lastknightcoder/blogimage/raw/master/20200902124454.png" alt="image-20200902124454699" title="">
+                    <img src="https://gitee.com/lastknightcoder/blogimage/raw/master/20200902124454.png" alt="" title="">
                 </div>
-                <div class="image-caption">image-20200902124454699</div>
+                <div class="image-caption"></div>
             </figure>
 
 <p>因为我们没有对访问的路径做处理，所以只会得到上面的错误页面。</p>
@@ -308,9 +308,9 @@
 <figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
-                    <img src="https://gitee.com/lastknightcoder/blogimage/raw/master/20200902125820.png" alt="image-20200902125820807" title="">
+                    <img src="https://gitee.com/lastknightcoder/blogimage/raw/master/20200902125820.png" alt="" title="">
                 </div>
-                <div class="image-caption">image-20200902125820807</div>
+                <div class="image-caption"></div>
             </figure>
 
 <p>我们没有编写任何的配置文件，就创建一个 <code>Web</code> 项目，所以说 <code>Spring Boot</code> 大大的解放了我们的生产力。</p>
@@ -328,9 +328,9 @@
 <figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
-                    <img src="https://gitee.com/lastknightcoder/blogimage/raw/master/20200902163430.png" alt="image-20200902163429982" title="">
+                    <img src="https://gitee.com/lastknightcoder/blogimage/raw/master/20200902163430.png" alt="" title="">
                 </div>
-                <div class="image-caption">image-20200902163429982</div>
+                <div class="image-caption"></div>
             </figure>
 
 <p>端口号已经变为了 <code>8081</code>。</p>
@@ -384,9 +384,9 @@
 <figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
-                    <img src="https://gitee.com/lastknightcoder/blogimage/raw/master/20200903170925.png" alt="image-20200903170924917" title="">
+                    <img src="https://gitee.com/lastknightcoder/blogimage/raw/master/20200903170925.png" alt="" title="">
                 </div>
-                <div class="image-caption">image-20200903170924917</div>
+                <div class="image-caption"></div>
             </figure>
 
 <p>接着我们在配置文件中配置数据库的相关配置，如下</p>
@@ -398,18 +398,18 @@
 <figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
-                    <img src="https://gitee.com/lastknightcoder/blogimage/raw/master/20200903171946.png" alt="image-20200903171946016" title="">
+                    <img src="https://gitee.com/lastknightcoder/blogimage/raw/master/20200903171946.png" alt="" title="">
                 </div>
-                <div class="image-caption">image-20200903171946016</div>
+                <div class="image-caption"></div>
             </figure>
 
 <h3 id="MyBatis"><a href="#MyBatis" class="headerlink" title="MyBatis"></a>MyBatis</h3><p>新建一个工程，在添加依赖的部分，添加如下依赖</p>
 <figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
-                    <img src="https://gitee.com/lastknightcoder/blogimage/raw/master/20200903172158.png" alt="image-20200903172157874" title="">
+                    <img src="https://gitee.com/lastknightcoder/blogimage/raw/master/20200903172158.png" alt="" title="">
                 </div>
-                <div class="image-caption">image-20200903172157874</div>
+                <div class="image-caption"></div>
             </figure>
 
 <p>在 <code>application.yml</code> 配置数据源，同上 <code>JDBC</code>。接着我们新建一个包 <code>entity</code> 放置与表 <code>account</code> 对象的实体类，如下</p>
@@ -425,36 +425,36 @@
 <figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
-                    <img src="https://gitee.com/lastknightcoder/blogimage/raw/master/20200903173630.png" alt="image-20200903173630172" title="">
+                    <img src="https://gitee.com/lastknightcoder/blogimage/raw/master/20200903173630.png" alt="" title="">
                 </div>
-                <div class="image-caption">image-20200903173630172</div>
+                <div class="image-caption"></div>
             </figure>
 
 <p>接着我们发起请求修改 <code>id</code> 为 <code>2</code> 的账户的 <code>money</code></p>
 <figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
-                    <img src="https://gitee.com/lastknightcoder/blogimage/raw/master/20200903173822.png" alt="image-20200903173822057" title="">
+                    <img src="https://gitee.com/lastknightcoder/blogimage/raw/master/20200903173822.png" alt="" title="">
                 </div>
-                <div class="image-caption">image-20200903173822057</div>
+                <div class="image-caption"></div>
             </figure>
 
 <p>最后我们再次查询 <code>id</code> 为 <code>2</code> 的账户，观察数据是否已经修改</p>
 <figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
-                    <img src="https://gitee.com/lastknightcoder/blogimage/raw/master/20200903173945.png" alt="image-20200903173944981" title="">
+                    <img src="https://gitee.com/lastknightcoder/blogimage/raw/master/20200903173945.png" alt="" title="">
                 </div>
-                <div class="image-caption">image-20200903173944981</div>
+                <div class="image-caption"></div>
             </figure>
 
 <h3 id="JPA"><a href="#JPA" class="headerlink" title="JPA"></a>JPA</h3><p>新建一个项目，并且添加如下依赖</p>
 <figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
-                    <img src="https://gitee.com/lastknightcoder/blogimage/raw/master/20200903174146.png" alt="image-20200903174145876" title="">
+                    <img src="https://gitee.com/lastknightcoder/blogimage/raw/master/20200903174146.png" alt="" title="">
                 </div>
-                <div class="image-caption">image-20200903174145876</div>
+                <div class="image-caption"></div>
             </figure>
 
 <p>使用 <code>JPA</code> 操作数据库，它会根据我们创建的实体类来自动的生成对应的表，不需要我们写创建表的 <code>sql</code> 语句，另外它提供了简单的 <code>sql</code> 语句，对于简单的查询，更新我们不需要写任何的 <code>sql</code> 语句，所以使用 <code>JPA</code> 操作数据库我们只需要编写实体类即可。</p>
@@ -501,9 +501,9 @@
 <figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
-                    <img src="https://gitee.com/lastknightcoder/blogimage/raw/master/20200903190939.png" alt="image-20200903190939602" title="">
+                    <img src="https://gitee.com/lastknightcoder/blogimage/raw/master/20200903190939.png" alt="" title="">
                 </div>
-                <div class="image-caption">image-20200903190939602</div>
+                <div class="image-caption"></div>
             </figure>
 
 
