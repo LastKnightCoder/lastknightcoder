@@ -21,12 +21,12 @@
     
     
     <meta name="keywords" content="BOM">
-    <meta name="description" content="BOM 指的是浏览器对象模型，它定义了如何操作浏览器(不是网页)，但是事实上并没有有关于 BOM 的标准，很多浏览器厂商对其实现不一致，下面的例子都是基于 Chrome 浏览器的，但是大多数对于其他的浏览器也是成立的。 在本篇中会介绍与浏览器有关的几个对象，包括  window location history navigator  windowwindow 对象有两重角色：  它是 JavaSc">
+    <meta name="description" content="BOM 指的是浏览器对象模型，它定义了如何操作浏览器(不是网页)，但是事实上并没有有关于 BOM 的标准，很多浏览器厂商对其实现不一致，下面的例子都是基于 Chrome 浏览器的，但是大多数对于其他的浏览器也是成立的。 在本篇中会介绍与浏览器有关的几个对象，包括  window location history  windowwindow 对象有两重角色：  它是 JavaScript 访问浏览器">
 <meta property="og:type" content="article">
 <meta property="og:title" content="BOM">
 <meta property="og:url" content="https://lastknightcoder.gitee.io/BOM/">
 <meta property="og:site_name" content="Coder">
-<meta property="og:description" content="BOM 指的是浏览器对象模型，它定义了如何操作浏览器(不是网页)，但是事实上并没有有关于 BOM 的标准，很多浏览器厂商对其实现不一致，下面的例子都是基于 Chrome 浏览器的，但是大多数对于其他的浏览器也是成立的。 在本篇中会介绍与浏览器有关的几个对象，包括  window location history navigator  windowwindow 对象有两重角色：  它是 JavaSc">
+<meta property="og:description" content="BOM 指的是浏览器对象模型，它定义了如何操作浏览器(不是网页)，但是事实上并没有有关于 BOM 的标准，很多浏览器厂商对其实现不一致，下面的例子都是基于 Chrome 浏览器的，但是大多数对于其他的浏览器也是成立的。 在本篇中会介绍与浏览器有关的几个对象，包括  window location history  windowwindow 对象有两重角色：  它是 JavaScript 访问浏览器">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/20200922164943.png">
 <meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/20200922194656.svg">
@@ -196,7 +196,6 @@
 <li><code>window</code></li>
 <li><code>location</code></li>
 <li><code>history</code></li>
-<li><code>navigator</code></li>
 </ul>
 <h2 id="window"><a href="#window" class="headerlink" title="window"></a>window</h2><p><code>window</code> 对象有两重角色：</p>
 <ol>
@@ -304,7 +303,7 @@
 </thead>
 <tbody><tr>
 <td><code>fullscreen</code></td>
-<td>`yes/no</td>
+<td>yes/no</td>
 <td></td>
 </tr>
 <tr>
@@ -329,33 +328,33 @@
 </tr>
 <tr>
 <td><code>location</code></td>
-<td>`yes/no</td>
-<td></td>
+<td>yes/no 或者 1/0</td>
+<td>是否显示地址栏，Opera Only</td>
 </tr>
 <tr>
 <td><code>menubar</code></td>
-<td>`yes/no</td>
-<td></td>
+<td>yes/no 或者 1/0</td>
+<td>是否显示菜单栏</td>
 </tr>
 <tr>
 <td><code>resizable</code></td>
-<td>`yes/no</td>
-<td></td>
+<td>yes/no 或者 1/0</td>
+<td>是否可拖动窗口边框改变浏览器大小，only IE</td>
 </tr>
 <tr>
 <td><code>scrollbars</code></td>
-<td>`yes/no</td>
-<td></td>
+<td>yes/no 或者 1/0</td>
+<td>如果内容在视口显示不下，是否允许滚动，IE Firefox Opera</td>
 </tr>
 <tr>
 <td><code>toolbar</code></td>
-<td>`yes/no</td>
-<td></td>
+<td>yes/no 或者 1/0</td>
+<td>是否显示工具栏，IE Firefox</td>
 </tr>
 <tr>
 <td><code>status</code></td>
-<td>`yes/no</td>
-<td></td>
+<td>yes/no 或者 1/0</td>
+<td>是否显示状态栏</td>
 </tr>
 </tbody></table>
 <p>下面给出一个示例写法</p>
