@@ -4,7 +4,7 @@
   
     
     <entry>
-      <title>两数之和</title>
+      <title>记一次 React 中 CSS 处理事件</title>
       <link href="https://lastknightcoder.gitee.io//%E8%AE%B0%E4%B8%80%E6%AC%A1React%20CSS%20%E5%A4%84%E7%90%86%E4%BA%8B%E4%BB%B6/"/>
       <url>https://lastknightcoder.gitee.io//%E8%AE%B0%E4%B8%80%E6%AC%A1React%20CSS%20%E5%A4%84%E7%90%86%E4%BA%8B%E4%BB%B6/</url>
       
@@ -15,12 +15,14 @@
           
           <category> React </category>
           
+          <category> 踩坑 </category>
+          
       </categories>
       
       
         <tags>
             
-            <tag> React - 踩坑 </tag>
+            <tag> React 踩坑 </tag>
             
         </tags>
       
