@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>两数之和</title>
+      <link href="https://lastknightcoder.gitee.io//%E8%AE%B0%E4%B8%80%E6%AC%A1React%20CSS%20%E5%A4%84%E7%90%86%E4%BA%8B%E4%BB%B6/"/>
+      <url>https://lastknightcoder.gitee.io//%E8%AE%B0%E4%B8%80%E6%AC%A1React%20CSS%20%E5%A4%84%E7%90%86%E4%BA%8B%E4%BB%B6/</url>
+      
+        <content type="html"><![CDATA[<p>事件的起因是对一个使用传统网页开发的 <code>Web</code> 项目(即 <code>html, css, javascript</code> 分开写的项目)重构为 <code>React</code> 项目。</p><p>这个事情大部分都是复制粘贴，假设有以下的文件目录</p><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">Main</span></span><br><span class="line">    <span class="selector-tag">index</span><span class="selector-class">.jsx</span></span><br><span class="line">    <span class="selector-tag">index</span><span class="selector-class">.module</span><span class="selector-class">.css</span></span><br></pre></td></tr></table></figure><p><code>index.module.css</code> 的内容如下所示</p><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.box-left</span> &#123;</span><br><span class="line">    <span class="comment">/* 一些CSS样式 */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>在 <code>Main</code> 组件的 <code>index.jsx</code> 中引入了 <code>index.module.css</code></p><figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span></span><br><span class="line"><span class="keyword">import</span> styles <span class="keyword">from</span> <span class="string">'./index.module.css'</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Main</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">        &lt;div className=&#123;styles.boxLeft&#125;&gt;&lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">    )</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">export default Main</span></span><br></pre></td></tr></table></figure><p>当我绑定类名时，<code>WebStorm</code> 提示我写成 <code>boxLeft</code>，因为 <code>box-left</code> 中的 <code>-</code> 会被识别成减号，我以为 <code>React</code> 会根据 <code>boxLeft</code> 智能识别出 <code>box-left</code>，但是没想到样式失效了。</p><p>当时我还以为是 <code>React</code> 是不是不支持 <code>CSS Module</code>，为此我还上网搜了，并且使用 <code>npm run eject</code> 将配置文件弹出来改了，但是没有怀疑 <code>boxLeft</code> 并不能被对应为 <code>box-left</code>，这一切都是因为我很相信 <code>WebStorm</code>，以为这种写法是正确。</p><p>最后无计可施，就想着把 <code>index.module.css</code> 中的类名改为 <code>boxLeft</code></p><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.boxLeft</span> &#123;</span><br><span class="line">    <span class="comment">/* 一些CSS样式 */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>然后样式就出来了。</p><p>这件事告诉我，不要太相信 <code>IDE</code>，就是因为太相信 <code>WebStorm</code>，以至于我根本没有考虑过写法的问题，导致在这上面浪费了几个小时；也是因为浪费了几个小时，我觉得这是一个宝贵的经验，所以记录下来。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> React </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> React - 踩坑 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>SpringBoot入门</title>
       <link href="https://lastknightcoder.gitee.io//SpringBoot%E5%85%A5%E9%97%A8/"/>
       <url>https://lastknightcoder.gitee.io//SpringBoot%E5%85%A5%E9%97%A8/</url>
