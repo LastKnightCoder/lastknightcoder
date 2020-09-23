@@ -21,13 +21,14 @@
     
     
     <meta name="keywords" content="BOM">
-    <meta name="description" content="BOM 指的是浏览器对象模型，它定义了如何操作浏览器(不是网页)，但是事实上并没有有关于 BOM 的标准，很多浏览器厂商对其实现不一致，下面的例子都是基于 Chrome 浏览器的，但是大多数对于其他的浏览器也是成立的。 在本篇中会介绍与浏览器有关的几个对象，包括  window location history  windowwindow 对象有两重角色：  它是 JavaScript 访问浏览器">
+    <meta name="description" content="BOM 指的是浏览器对象模型，它定义了如何操作浏览器(不是网页)，但是事实上并没有有关于 BOM 的标准，很多浏览器厂商对其实现不一致，下面的例子都是基于 Chrome 浏览器的，但是大多数对于其他的浏览器也是成立的。 在本篇中会介绍与浏览器有关的几个对象，包括  window location history">
 <meta property="og:type" content="article">
 <meta property="og:title" content="BOM">
 <meta property="og:url" content="https://lastknightcoder.gitee.io/BOM/">
 <meta property="og:site_name" content="Coder">
-<meta property="og:description" content="BOM 指的是浏览器对象模型，它定义了如何操作浏览器(不是网页)，但是事实上并没有有关于 BOM 的标准，很多浏览器厂商对其实现不一致，下面的例子都是基于 Chrome 浏览器的，但是大多数对于其他的浏览器也是成立的。 在本篇中会介绍与浏览器有关的几个对象，包括  window location history  windowwindow 对象有两重角色：  它是 JavaScript 访问浏览器">
+<meta property="og:description" content="BOM 指的是浏览器对象模型，它定义了如何操作浏览器(不是网页)，但是事实上并没有有关于 BOM 的标准，很多浏览器厂商对其实现不一致，下面的例子都是基于 Chrome 浏览器的，但是大多数对于其他的浏览器也是成立的。 在本篇中会介绍与浏览器有关的几个对象，包括  window location history">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/20200923094611.svg">
 <meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/20200922164943.png">
 <meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/20200922194656.svg">
 <meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/20200922200528.svg">
@@ -36,7 +37,7 @@
 <meta property="article:author" content="熊滔">
 <meta property="article:tag" content="BOM">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/20200922164943.png">
+<meta name="twitter:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/20200923094611.svg">
     
         <link rel="alternate" type="application/atom+xml" title="Coder" href="https://lastknightcoder.gitee.io/atom.xml">
     
@@ -197,6 +198,14 @@
 <li><code>location</code></li>
 <li><code>history</code></li>
 </ul>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://gitee.com/lastknightcoder/blogimage/raw/master/20200923094611.svg" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+
 <h2 id="window"><a href="#window" class="headerlink" title="window"></a>window</h2><p><code>window</code> 对象有两重角色：</p>
 <ol>
 <li>它是 <code>JavaScript</code> 访问浏览器的接口</li>
@@ -303,8 +312,8 @@
 </thead>
 <tbody><tr>
 <td><code>fullscreen</code></td>
-<td>yes/no</td>
-<td></td>
+<td>yes/no 或者 1/0</td>
+<td>窗口是否最大化，IE Only</td>
 </tr>
 <tr>
 <td><code>width</code></td>
@@ -381,13 +390,13 @@
 <p><code>setTimeout</code> 函数会返回一个值，表示该定时器的 <code>id</code>，这个 <code>id</code> 的作用一般是用来停止定时器，只要将这个 <code>id</code> 作为参数传入到 <code>clearTimeout(id)</code> 中，就会停止这个计时器</p>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> timerId = setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"Hello World!"</span>);</span><br><span class="line">&#125;, <span class="number">1000</span>);</span><br><span class="line">clearTimeout(timerId);</span><br></pre></td></tr></table></figure>
 
-<p>在 <code>1s</code> 后，我们在控制台看到打印出了 <code>Hello World!</code>，因为在 <code>1s</code> 以内，这个定时器就被回收了。</p>
+<p>在 <code>1s</code> 后，我们在控制台没有看到打印出了 <code>Hello World!</code>，因为在 <code>1s</code> 以内，这个定时器就被回收了。</p>
 <p>另一个定时器是 <code>setInterval</code>，它也接收两个参数，第一个参数为一个回调函数，第二个参数为时间，单位为毫秒，它会每隔设定的时间就会调用一次回调函数，如下代码会每隔 <code>1s</code> 就在控制台打印一次 <code>Hello World!</code></p>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">setInterval(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"Hello World!"</span>);</span><br><span class="line">&#125;, <span class="number">1000</span>);</span><br></pre></td></tr></table></figure>
 
 <p>使用 <code>setInterval</code> 要十分的小心，因为如果我们没有清理该定时器的话，它会一直工作下去，直到页面卸载，如果我们忘记清理这个计时器的话，那么它会一直在后台运行，占用资源。</p>
 <p>同 <code>setTimeout</code> 的一样，该函数也返回一个 <code>id</code>，作用也是用来停止计时器的，将它作为参数传递给 <code>clearInterval(id)</code> 即可停止这个计时器。下面给出一个例子</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> max = <span class="number">100</span>;</span><br><span class="line"><span class="keyword">let</span> count = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">let</span> timerId = <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">increment</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    count++;</span><br><span class="line">    <span class="keyword">if</span> (count &gt; max) &#123;</span><br><span class="line">        clearInterval(timerId);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">timer = setInterval(increment, <span class="number">1000</span>);</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> max = <span class="number">100</span>;</span><br><span class="line"><span class="keyword">let</span> count = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">let</span> timerId = <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">increment</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    count++;</span><br><span class="line">    <span class="keyword">if</span> (count &gt; max) &#123;</span><br><span class="line">        clearInterval(timerId);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">timerId = setInterval(increment, <span class="number">1000</span>);</span><br></pre></td></tr></table></figure>
 
 <p>上面的代码每隔一秒对 <code>count</code> 进行加一，当 <code>count &gt; max</code> 时，我们停止了该计时器。</p>
 <p>其实上面的代码也可以使用 <code>setTimeout</code> 实现，如下</p>
@@ -400,7 +409,7 @@
 <li><code>confirm</code></li>
 <li><code>prompt</code></li>
 </ul>
-<h2 id="location"><a href="#location" class="headerlink" title="location"></a>location</h2><h3 id="属性"><a href="#属性" class="headerlink" title="属性"></a>属性</h3><p><code>location</code> 对象不仅保存当前文档的 <code>URL</code> 信息，并且还将 <code>URL</code> 解析为独立的片段，假设对于 <code>URL</code> 为 <code>https://app.diagrams.net:80/#G1FX9ydf3wgzNVe15n9jNgaGP_XaJyEYKz?login=true</code>，<code>location</code> 对象对于的属性如下</p>
+<h2 id="location"><a href="#location" class="headerlink" title="location"></a>location</h2><h3 id="属性"><a href="#属性" class="headerlink" title="属性"></a>属性</h3><p><code>location</code> 对象不仅保存当前文档的 <code>URL</code> 信息，并且还将 <code>URL</code> 解析为独立的片段，假设当前页面的 <code>URL</code> 为 <code>https://app.diagrams.net:80/#G1FX9ydf3wgzNVe15n9jNgaGP_XaJyEYKz?login=true</code>，<code>location</code> 对象对于的属性如下</p>
 <table>
 <thead>
 <tr>
