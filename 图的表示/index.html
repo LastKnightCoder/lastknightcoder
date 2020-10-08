@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>图的表示 | Coder</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="算法,数据结构">
+    <meta name="description" content="首先我们来看看图的数据结构长什么样子   一个图它由顶点 Vertex 和边 Edge 组成，上图蓝色的节点表示顶点，而节点与节点之间的有条线连着，这就是顶点之间的边。为了在计算机中表示图，我们给图的顶点编了号，从 $0$ 开始。在实际的模型中，顶点可能表示的是一个地铁站点，社交网络中的一个人，我们可以通过哈希表将编号与顶点实际的意义映射起来，进而把顶点的具体意义抽象为编号或者下标，当图的顶点以编">
+<meta property="og:type" content="article">
+<meta property="og:title" content="图的表示">
+<meta property="og:url" content="https://lastknightcoder.gitee.io/%E5%9B%BE%E7%9A%84%E8%A1%A8%E7%A4%BA/">
+<meta property="og:site_name" content="Coder">
+<meta property="og:description" content="首先我们来看看图的数据结构长什么样子   一个图它由顶点 Vertex 和边 Edge 组成，上图蓝色的节点表示顶点，而节点与节点之间的有条线连着，这就是顶点之间的边。为了在计算机中表示图，我们给图的顶点编了号，从 $0$ 开始。在实际的模型中，顶点可能表示的是一个地铁站点，社交网络中的一个人，我们可以通过哈希表将编号与顶点实际的意义映射起来，进而把顶点的具体意义抽象为编号或者下标，当图的顶点以编">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/20200926084046.png">
+<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/20200926091921.png">
+<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/20200927152508.png">
+<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/20200927153237.png">
+<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/20200926084046.png">
+<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/20200926084046.png">
+<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/20200926084744.png">
+<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/20200929191716.png">
+<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/20201001182601.jpg">
+<meta property="article:published_time" content="2020-10-07T16:00:00.000Z">
+<meta property="article:modified_time" content="2020-10-07T16:00:00.000Z">
+<meta property="article:author" content="熊滔">
+<meta property="article:tag" content="算法">
+<meta property="article:tag" content="数据结构">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/20200926084046.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="Coder" href="https://lastknightcoder.gitee.io/atom.xml">
+    
+    <link rel="shortcut icon" href="https://lastknightcoder.gitee.io/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(https://lastknightcoder.gitee.io/img/brand.jpg)">
+      <div class="brand">
+        <a href="https://lastknightcoder.gitee.io/" class="avatar waves-effect waves-circle waves-light">
+          <img src="https://lastknightcoder.gitee.io/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">熊滔</h5>
+          <a href="mailto:2223106858@qq.com" title="2223106858@qq.com" class="mail">2223106858@qq.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.gitee.io/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.gitee.io/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.gitee.io/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.gitee.io/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://gitee.com/LastKnightCoder" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">图的表示</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">图的表示</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2020-10-07T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2020-10-08
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="https://lastknightcoder.gitee.io/categories/Algorithms/">Algorithms</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#图的分类"><span class="post-toc-number">1.</span> <span class="post-toc-text">图的分类</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#图的基本概念"><span class="post-toc-number">2.</span> <span class="post-toc-text">图的基本概念</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#图的表示"><span class="post-toc-number">3.</span> <span class="post-toc-text">图的表示</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#邻接矩阵"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">邻接矩阵</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#邻接表"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">邻接表</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#总结"><span class="post-toc-number">4.</span> <span class="post-toc-text">总结</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-图的表示"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">图的表示</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2020-10-08 00:00:00" datetime="2020-10-07T16:00:00.000Z"  itemprop="datePublished">2020-10-08</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="https://lastknightcoder.gitee.io/categories/Algorithms/">Algorithms</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>首先我们来看看图的数据结构长什么样子</p>
+<img src="https://gitee.com/lastknightcoder/blogimage/raw/master/20200926084046.png" alt="image-20200926084046750" style="zoom:50%;" />
+
+<p>一个图它由顶点 Vertex 和边 Edge 组成，上图蓝色的节点表示顶点，而节点与节点之间的有条线连着，这就是顶点之间的边。为了在计算机中表示图，我们给图的顶点编了号，从 $0$ 开始。在实际的模型中，顶点可能表示的是一个地铁站点，社交网络中的一个人，我们可以通过哈希表将编号与顶点实际的意义映射起来，进而把顶点的具体意义抽象为编号或者下标，当图的顶点以编号表示时，它就不具有具体的意义，从而我们可以研究图的一般理论，而当我们需要结论的具体意义时，可以通过哈希表将编号映射为具体的意义。</p>
+<h2 id="图的分类"><a href="#图的分类" class="headerlink" title="图的分类"></a>图的分类</h2><p>根据边是否有方向可以分为有向图和无向图，根据边上有否有权值可以分为有权图和无权图</p>
+<table>
+<thead>
+<tr>
+<th align="center"></th>
+<th align="center">有向</th>
+<th align="center">无向</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">有权</td>
+<td align="center">有向有权图</td>
+<td align="center">无向有权图</td>
+</tr>
+<tr>
+<td align="center">无权</td>
+<td align="center">有向无权图</td>
+<td align="center">无向无权图</td>
+</tr>
+</tbody></table>
+<img src="https://gitee.com/lastknightcoder/blogimage/raw/master/20200926091921.png" alt="图的分类" style="zoom:67%;" />
+
+<h2 id="图的基本概念"><a href="#图的基本概念" class="headerlink" title="图的基本概念"></a>图的基本概念</h2><p>在进入正题之前，简单的介绍一下在后面会遇到的关于图的基本概念。</p>
+<ul>
+<li>自环边：图中有一个顶点有条边指向自己</li>
+<li>平行边：两个顶点之间有两条边</li>
+</ul>
+<p>如果一幅图既没有自环边，也没有平行边，我们就称该图为<strong>简单图</strong>。我们只处理简单图，如果图中有自环边或者平行边，我们会忽略这种边，或者抛出异常。</p>
+<p>在一个图中，并不是所有的顶点都是联通的，如下</p>
+<img src="https://gitee.com/lastknightcoder/blogimage/raw/master/20200927152508.png" alt="GarphBasis2" style="zoom:50%;" />
+
+<p>例如顶点 6-7 和顶点 0-5 之间是不联通的，像上面这样的图，我们认为它有两个联通分量，顶点 0-5 和顶点 6-7 分别代表一个联通分量。</p>
+<p>另外，根据图中是否有环，我们可以将图分为有环图和无环图</p>
+<img src="https://gitee.com/lastknightcoder/blogimage/raw/master/20200927153237.png" alt="GraphBasis3" style="zoom:50%;" />
+
+<p>最后介绍一个有关图的概念，那就是度(degree)，对于无向图和有向图，度的定义是不同的，这里我们介绍无向图关于度的定义，<strong>度指的是某个顶点有多少个邻边</strong>，度是顶点的属性。比如对于下图</p>
+<img src="https://gitee.com/lastknightcoder/blogimage/raw/master/20200926084046.png" alt="image-20200926084046750" style="zoom:50%;" />
+
+<p>顶点 $0$ 的度为 $2$，因为顶点 $0$ 有两个邻边，同理，顶点 $2$ 的度为 $3$，因为它有三个邻边。</p>
+<h2 id="图的表示"><a href="#图的表示" class="headerlink" title="图的表示"></a>图的表示</h2><p>所谓图的表示，就是指如何在计算机中保存一个图的数据结构</p>
+<img src="https://gitee.com/lastknightcoder/blogimage/raw/master/20200926084046.png" alt="image-20200926084046750" style="zoom:50%;" />
+
+<p>如上图，怎么将它保存在计算机中。如果学习过其他数据结构的话，如栈，队列，树，它们是怎么表示的呢?</p>
+<img src="https://gitee.com/lastknightcoder/blogimage/raw/master/20200926084744.png" alt="image-20200926084743962" style="zoom:50%;" />
+
+<p>对于栈和队列这种线性的数据结构，我们一般使用数组或者链表来进行存储，而对于树这种数据结构，我们一般使用链表进行表示，每个节点都有两个指针分别指向它的左孩子和右孩子，当然对于某些树结构，如堆、线段树，我们也可以使用数组来进行表示，因为这两种数据结构都是满二叉树，它们的孩子节点与父节点之间含有某种关系，可以十分方便的使用数组进行表示。</p>
+<h3 id="邻接矩阵"><a href="#邻接矩阵" class="headerlink" title="邻接矩阵"></a>邻接矩阵</h3><p>首先我们介绍使用一个矩阵来存储图，如果整个图有 $V$ 个节点，那么我们就用 $V \times V$ 大小的矩阵来存储图，假设这个矩阵记做 $A$，如果 $A[i][j] = 1$，则说明顶点 $i$ 与顶点 $j$ 之间存在一条边，反之如果 $A[i][j] = 0$，则说明顶点 $i$ 与顶点 $j$ 之间不存在一条边</p>
+<img src="https://gitee.com/lastknightcoder/blogimage/raw/master/20200929191716.png" alt="AdjMatrix-Page-2" style="zoom:50%;" />
+
+<p>因为不存在自环边，所以 $A[i][i]$ 的值一定为 $0$，即矩阵对角线上的值一定是 $0$。</p>
+<p>在构建一张图时，我们会读取一个 <code>txt</code> 的文件，根据这个文件我们使用矩阵来存储一张图，例如上图所对应的 <code>txt</code> 内容如下</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">6 7</span><br><span class="line">0 1</span><br><span class="line">0 2</span><br><span class="line">1 3</span><br><span class="line">2 3</span><br><span class="line">2 4</span><br><span class="line">3 5</span><br><span class="line">4 5</span><br></pre></td></tr></table></figure>
+
+<p>这个 <code>txt</code> 表示什么意思呢? 第一行的两个数字表示图中的顶点数和边数，如上图有 $6$ 个顶点和 $7$ 条边，后面每行的两个数字表示两个顶点，表示这两个顶点之间存在一条边，如第二行就表示顶点 $0$ 和顶点 $1$ 之间存在一条边，因为总共有 $7$ 条边，所以第一行后应该有 $7$ 行表示有 $7$ 条边。</p>
+<p>代码如下：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.io.File;</span><br><span class="line"><span class="keyword">import</span> java.io.FileNotFoundException;</span><br><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AdjMatrix</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 图的边数</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> E;</span><br><span class="line">    <span class="comment">// 图的顶点个数</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> V;</span><br><span class="line">    <span class="comment">// 表示图的矩阵</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span>[][] matrix;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">AdjMatrix</span><span class="params">(String filename)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 从文件中读取图的数据</span></span><br><span class="line">        File file = <span class="keyword">new</span> File(filename);</span><br><span class="line">        Scanner scanner = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">// 第一行是顶点数和边数</span></span><br><span class="line">            scanner = <span class="keyword">new</span> Scanner(file);</span><br><span class="line">            <span class="keyword">this</span>.V = scanner.nextInt();</span><br><span class="line">            matrix = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="keyword">this</span>.V][<span class="keyword">this</span>.V];</span><br><span class="line">            <span class="keyword">this</span>.E = scanner.nextInt();</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="keyword">this</span>.E; i++) &#123;</span><br><span class="line">                <span class="comment">// 读取两个相邻的顶点</span></span><br><span class="line">                <span class="keyword">int</span> a = scanner.nextInt();</span><br><span class="line">                <span class="keyword">int</span> b = scanner.nextInt();</span><br><span class="line"></span><br><span class="line">                <span class="comment">// 设置为 1 表示相邻</span></span><br><span class="line">                <span class="keyword">this</span>.matrix[a][b] = <span class="number">1</span>;</span><br><span class="line">                <span class="keyword">this</span>.matrix[b][a] = <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (FileNotFoundException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            <span class="keyword">assert</span> scanner != <span class="keyword">null</span>;</span><br><span class="line">            scanner.close();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 当打印对象时，将矩阵打印出来</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        StringBuilder stringBuilder = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">        stringBuilder.append(String.format(<span class="string">"V: %d, E: %d\n"</span>, <span class="keyword">this</span>.V, <span class="keyword">this</span>.E));</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="keyword">this</span>.V; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; <span class="keyword">this</span>.V; j++) &#123;</span><br><span class="line">                stringBuilder.append(String.format(<span class="string">"%d "</span>, <span class="keyword">this</span>.matrix[i][j]));</span><br><span class="line">            &#125;</span><br><span class="line">            stringBuilder.append(<span class="string">"\n"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> stringBuilder.toString();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        AdjMatrix adjMatrix = <span class="keyword">new</span> AdjMatrix(<span class="string">"g.txt"</span>);</span><br><span class="line">        System.out.println(adjMatrix);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>打印结果为</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">V: <span class="number">6</span>, E: <span class="number">7</span></span><br><span class="line"><span class="number">0</span> <span class="number">1</span> <span class="number">1</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> </span><br><span class="line"><span class="number">1</span> <span class="number">0</span> <span class="number">0</span> <span class="number">1</span> <span class="number">0</span> <span class="number">0</span> </span><br><span class="line"><span class="number">1</span> <span class="number">0</span> <span class="number">0</span> <span class="number">1</span> <span class="number">1</span> <span class="number">0</span> </span><br><span class="line"><span class="number">0</span> <span class="number">1</span> <span class="number">1</span> <span class="number">0</span> <span class="number">0</span> <span class="number">1</span> </span><br><span class="line"><span class="number">0</span> <span class="number">0</span> <span class="number">1</span> <span class="number">0</span> <span class="number">0</span> <span class="number">1</span> </span><br><span class="line"><span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">1</span> <span class="number">1</span> <span class="number">0</span></span><br></pre></td></tr></table></figure>
+
+<p><code>AdjMatrix</code> 类有三个属性</p>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>V</td>
+<td>表示顶点数</td>
+</tr>
+<tr>
+<td>E</td>
+<td>表示边数</td>
+</tr>
+<tr>
+<td>matrix</td>
+<td>表示图的矩阵</td>
+</tr>
+</tbody></table>
+<p>但是上面的程序还不够健壮，因为我们没有对 <code>g.txt</code> 中读到的数字进行校验，例如读到的顶点个数为负数，读到的顶点编号不合理，例如有 $5$ 个顶点，但是它的编号为 $10$。另外，我们只处理简单图，对于自环边以及平行边也没有进行处理，所以我们需要对上面的代码进行改进</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.io.File;</span><br><span class="line"><span class="keyword">import</span> java.io.FileNotFoundException;</span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AdjMatrix</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> E;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> V;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span>[][] matrix;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">AdjMatrix</span><span class="params">(String filename)</span> </span>&#123;</span><br><span class="line">        File file = <span class="keyword">new</span> File(filename);</span><br><span class="line">        Scanner scanner = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            scanner = <span class="keyword">new</span> Scanner(file);</span><br><span class="line">            </span><br><span class="line">            <span class="comment">// 如果读取到的 V 和 E 小于 0，那么抛出异常</span></span><br><span class="line">            <span class="keyword">this</span>.V = scanner.nextInt();</span><br><span class="line">            <span class="keyword">if</span> (<span class="keyword">this</span>.V &lt; <span class="number">0</span>) &#123;</span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"V Must Be Positive"</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            matrix = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="keyword">this</span>.V][<span class="keyword">this</span>.V];</span><br><span class="line">            <span class="keyword">this</span>.E = scanner.nextInt();</span><br><span class="line">            <span class="keyword">if</span> (<span class="keyword">this</span>.E &lt; <span class="number">0</span>) &#123;</span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"E Must Be Positive"</span>);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="keyword">this</span>.E; i++) &#123;</span><br><span class="line">                <span class="comment">// 对读取到的顶点编号进行验证，是否在 [0, V) 的范围中</span></span><br><span class="line">                <span class="keyword">int</span> a = scanner.nextInt();</span><br><span class="line">                validateVertex(a);</span><br><span class="line">                <span class="keyword">int</span> b = scanner.nextInt();</span><br><span class="line">                validateVertex(b);</span><br><span class="line"></span><br><span class="line">                <span class="comment">// 如果存在自环边，抛出异常</span></span><br><span class="line">                <span class="keyword">if</span> (a == b) &#123;</span><br><span class="line">                    <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"Self loop exists"</span>);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="comment">// 如果存在平行边，抛出异常</span></span><br><span class="line">                <span class="keyword">if</span> (<span class="keyword">this</span>.matrix[a][b] == <span class="number">1</span>) &#123;</span><br><span class="line">                    <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"Parallel edge exists"</span>);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">this</span>.matrix[a][b] = <span class="number">1</span>;</span><br><span class="line">                <span class="keyword">this</span>.matrix[b][a] = <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (FileNotFoundException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            <span class="keyword">assert</span> scanner != <span class="keyword">null</span>;</span><br><span class="line">            scanner.close();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 对顶点编号进行验证，是否合法</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">validateVertex</span><span class="params">(<span class="keyword">int</span> v)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (v &lt; <span class="number">0</span> || v &gt;= <span class="keyword">this</span>.V) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"Vertex "</span> + v + <span class="string">" is invalid"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 返回顶点数</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">V</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.V;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 返回边数</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">E</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.E;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 返回与顶点 v 相邻的所有顶点</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> ArrayList&lt;Integer&gt; <span class="title">adj</span><span class="params">(<span class="keyword">int</span> v)</span> </span>&#123;</span><br><span class="line">        validateVertex(v);</span><br><span class="line">        ArrayList&lt;Integer&gt; res = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="keyword">this</span>.V; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (<span class="keyword">this</span>.matrix[v][i] == <span class="number">1</span>) &#123;</span><br><span class="line">                res.add(i);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 判断顶点 v 和 w 是否相邻</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">hasEdge</span><span class="params">(<span class="keyword">int</span> v, <span class="keyword">int</span> w)</span> </span>&#123;</span><br><span class="line">        validateVertex(v);</span><br><span class="line">        validateVertex(w);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.matrix[v][w] == <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 返回顶点 v 的度，即与顶点 v 相邻的顶点的个数</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">degree</span><span class="params">(<span class="keyword">int</span> v)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> adj(v).size();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// toString 不变，节省篇幅，省略</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在上面我们对读取到的数字都进行了检查，保证了代码的健壮性。除了增强了代码的健壮性以外，我们还在类中添加了五个方法，具体作用见下表</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>int V()</td>
+<td>返回图的顶点数</td>
+</tr>
+<tr>
+<td>int E()</td>
+<td>返回图的边数</td>
+</tr>
+<tr>
+<td>ArrayList adj(int v)</td>
+<td>返回与顶点 v 相邻的顶点</td>
+</tr>
+<tr>
+<td>boolean hasEdge(int v, int w)</td>
+<td>判断两顶点是否相邻</td>
+</tr>
+<tr>
+<td>int degree(int v)</td>
+<td>返回顶点 v 的度</td>
+</tr>
+</tbody></table>
+<p>在最后我们分析一下使用邻接矩阵表示的空间复杂度和时间复杂度</p>
+<p>空间复杂度：$O(V^2)$</p>
+<p>时间复杂度：</p>
+<ul>
+<li>建图：$O(E)$</li>
+<li>获得与顶点 $v$ 相邻的顶点：$O(V)$</li>
+<li>查看两个顶点是否相邻：$O(1)$</li>
+</ul>
+<p>对于建图来说，因为我们必须扫描所有的边才能获得必要的信息，所以建图的时间复杂度最少也是 $O(E)$，无法再优化；而查看两个顶点是否相邻，时间复杂度为 $O(1)$，无需优化，那么我们看看空间复杂度和获得与顶点 $v$ 相邻的顶点的时间复杂度能否进行优化。</p>
+<p>因为我们平常遇到的图都是稀疏图，所谓稀疏图就是一幅图它的度平均值对于图的节点数目来说很小，这就会导致我们的邻接矩阵是一个稀疏矩阵，即大部分的元素是 $0$。例如对于一个社交网络，有一亿个节点，但是对于每个人来说，他认识的人最多几百个，也就是这幅图平均的度为几百，相对于一亿来说十分的小，所以社交网络是一个稀疏图。</p>
+<p>建立一个图，我们只需要知道一幅图的顶点信息以及边的信息即可，也就是说我们只需要 $O(V + E)$ 的空间复杂度就可以表示一幅图，对于稀疏图来说，由于图的每个顶点度的平均值远远小于节点数，而 $E$ 的大小等于平均度的值乘以节点数，即<br>$$<br>E = degree * V<br>$$<br>从而有<br>$$<br>degree \ll V \Rightarrow E \ll V^2<br>$$<br>得到<br>$$<br>O(V + E) \ll O(V^2)<br>$$<br>所以使用邻接矩阵表示图，对于稀疏矩阵来说，其实浪费了很多的空间，下面将介绍使用另一种方法表示图，无论是对于稀疏图还是稠密图，都可以有更好的性能。</p>
+<h3 id="邻接表"><a href="#邻接表" class="headerlink" title="邻接表"></a>邻接表</h3><p>在这个小节中将讲解使用邻接表来表示矩阵，所谓的邻接表，是指对于每个顶点来说，我们使用一个链表来记录与它相邻的节点，如下图</p>
+<img src="https://gitee.com/lastknightcoder/blogimage/raw/master/20201001182601.jpg" alt="2020-10-01_182536" style="zoom:50%;" />
+
+<p>图中表格第一列表示顶点编号，顶点编号后的一行表示与该顶点相邻的顶点，例如对于第一行，表示与顶点 $0$ 相邻的顶点有顶点 $1$ 和 $2$。</p>
+<p>现在我们就要编码实现，因为大部分的逻辑与邻接矩阵是相同的，所以很多的代码与邻接矩阵表示的方式是一样的，不过因为底层保存图使用的是链表，有一些写法的不同，在下面的代码中我也会标出</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.io.File;</span><br><span class="line"><span class="keyword">import</span> java.io.FileNotFoundException;</span><br><span class="line"><span class="keyword">import</span> java.util.LinkedList;</span><br><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AdjList</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> E;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> V;</span><br><span class="line">    <span class="comment">// 对每一个顶点，使用一个链表来存储与它相邻的顶点</span></span><br><span class="line">    <span class="keyword">private</span> LinkedList&lt;Integer&gt;[] lists;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">AdjList</span><span class="params">(String filename)</span> </span>&#123;</span><br><span class="line">        File file = <span class="keyword">new</span> File(filename);</span><br><span class="line">        Scanner scanner = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            scanner = <span class="keyword">new</span> Scanner(file);</span><br><span class="line">            <span class="keyword">this</span>.V = scanner.nextInt();</span><br><span class="line">            <span class="keyword">if</span> (<span class="keyword">this</span>.V &lt; <span class="number">0</span>) &#123;</span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"V Must Be Positive"</span>);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 初始化链表</span></span><br><span class="line">            <span class="keyword">this</span>.lists = <span class="keyword">new</span> LinkedList[<span class="keyword">this</span>.V];</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="keyword">this</span>.V; i++) &#123;</span><br><span class="line">                <span class="keyword">this</span>.lists[i] = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">this</span>.E = scanner.nextInt();</span><br><span class="line">            <span class="keyword">if</span> (<span class="keyword">this</span>.E &lt; <span class="number">0</span>) &#123;</span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"E Must Be Positive"</span>);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="keyword">this</span>.E; i++) &#123;</span><br><span class="line">                <span class="keyword">int</span> a = scanner.nextInt();</span><br><span class="line">                validateVertex(a);</span><br><span class="line">                <span class="keyword">int</span> b = scanner.nextInt();</span><br><span class="line">                validateVertex(b);</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> (a == b) &#123;</span><br><span class="line">                    <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"Self loop exists"</span>);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="comment">// 平行边的判断</span></span><br><span class="line">                <span class="keyword">if</span> (lists[a].contains(b)) &#123;</span><br><span class="line">                    <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"Parallel edge exists"</span>);</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="comment">// 将相邻顶点添加到自己的链表中</span></span><br><span class="line">                <span class="keyword">this</span>.lists[a].add(b);</span><br><span class="line">                <span class="keyword">this</span>.lists[b].add(a);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (FileNotFoundException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            <span class="keyword">assert</span> scanner != <span class="keyword">null</span>;</span><br><span class="line">            scanner.close();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">validateVertex</span><span class="params">(<span class="keyword">int</span> v)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (v &lt; <span class="number">0</span> || v &gt;= <span class="keyword">this</span>.V) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"Vertex "</span> + v + <span class="string">" is invalid"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">V</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.V;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">E</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.E;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> LinkedList&lt;Integer&gt; <span class="title">adj</span><span class="params">(<span class="keyword">int</span> v)</span> </span>&#123;</span><br><span class="line">        validateVertex(v);</span><br><span class="line">        <span class="comment">// 直接返回顶点自己的链表即可</span></span><br><span class="line">        <span class="keyword">return</span> lists[v];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">hasEdge</span><span class="params">(<span class="keyword">int</span> v, <span class="keyword">int</span> w)</span> </span>&#123;</span><br><span class="line">        validateVertex(v);</span><br><span class="line">        validateVertex(w);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.lists[v].contains(w);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">degree</span><span class="params">(<span class="keyword">int</span> v)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> adj(v).size();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        StringBuilder stringBuilder = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">        stringBuilder.append(String.format(<span class="string">"V: %d, E: %d\n"</span>, <span class="keyword">this</span>.V, <span class="keyword">this</span>.E));</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> v = <span class="number">0</span>; v &lt; <span class="keyword">this</span>.V; v++) &#123;</span><br><span class="line">            stringBuilder.append(String.format(<span class="string">"%d : "</span>, v));</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> w: adj(v)) &#123;</span><br><span class="line">                stringBuilder.append(String.format(<span class="string">"%d "</span>, w));</span><br><span class="line">            &#125;</span><br><span class="line">            stringBuilder.append(<span class="string">"\n"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> stringBuilder.toString();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        AdjList adjList = <span class="keyword">new</span> AdjList(<span class="string">"g.txt"</span>);</span><br><span class="line">        System.out.println(adjList);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>输出为</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">V: <span class="number">6</span>, E: <span class="number">7</span></span><br><span class="line"><span class="number">0</span> : <span class="number">1</span> <span class="number">2</span> </span><br><span class="line"><span class="number">1</span> : <span class="number">0</span> <span class="number">3</span> </span><br><span class="line"><span class="number">2</span> : <span class="number">0</span> <span class="number">3</span> <span class="number">4</span> </span><br><span class="line"><span class="number">3</span> : <span class="number">1</span> <span class="number">2</span> <span class="number">5</span> </span><br><span class="line"><span class="number">4</span> : <span class="number">2</span> <span class="number">5</span> </span><br><span class="line"><span class="number">5</span> : <span class="number">3</span> <span class="number">4</span></span><br></pre></td></tr></table></figure>
+
+<p>下面分析一下使用邻接表实现图的时间复杂度和空间复杂度：</p>
+<ul>
+<li>空间复杂度：$O(V + E)$</li>
+<li>时间复杂度：<ul>
+<li>建表：$O(VE)$</li>
+<li>获得与顶点 $V$ 相邻的顶点：$O(degree)$</li>
+<li>判断两个顶点是否相邻：$O(degree)$</li>
+</ul>
+</li>
+</ul>
+<p>建表的时间复杂度为 $O(VE)$，是因为每次我们都要扫描一遍表判断是否有平行边，判断两个顶点是否相邻的时间复杂度为 $O(degree)$，是因为需要遍历表来判断两个顶点是否相邻。上面两个操作都比使用邻接矩阵实现图的操作更加的费时，都是因为查找的能力比较慢(在建图时需要查重判断是否有平行边，判断两个顶点是否相邻时也需要在链表中进行查找)，所以我们是否有办法可以提高查找表的速度。</p>
+<p>说到查找速度，不得不说哈希表和红黑树，所以我们可以考虑使用 <code>HashSet</code> 或者 <code>TreeSet</code> 来替代上面的 <code>LinkedList</code>，以此来提高查找速度，二者查找的时间复杂度如下</p>
+<table>
+<thead>
+<tr>
+<th>数据结构</th>
+<th>查找时间复杂度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>HashSet</td>
+<td>$O(1)$</td>
+</tr>
+<tr>
+<td>TreeSet</td>
+<td>$O(\log v)$</td>
+</tr>
+</tbody></table>
+<p>从时间复杂度上看，使用 <code>HashSet</code> 是更好的选择，但是 <code>TreeSet</code> 有一个优点那就是有序性，这会带来两个优点</p>
+<ul>
+<li>复现我的代码时可以得到与我一致的结果(输出的顺序)</li>
+<li>当我使用图片解释算法过程时，输出的结果可以与我演示的结果一致，可以更好的理解算法</li>
+</ul>
+<p>所以这里我选择 <code>TreeSet</code>。我们新建一个 <code>AdjSet</code> 类，复制 <code>AdjList</code> 的代码，将其中所有的 <code>LinkedList</code> 改为 <code>TreeSet</code> 即可，如下</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.io.File;</span><br><span class="line"><span class="keyword">import</span> java.io.FileNotFoundException;</span><br><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"><span class="keyword">import</span> java.util.TreeSet;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AdjSet</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> E;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> V;</span><br><span class="line">    <span class="keyword">private</span> TreeSet&lt;Integer&gt;[] sets;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">AdjSet</span><span class="params">(String filename)</span> </span>&#123;</span><br><span class="line">        File file = <span class="keyword">new</span> File(filename);</span><br><span class="line">        Scanner scanner = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            scanner = <span class="keyword">new</span> Scanner(file);</span><br><span class="line">            <span class="keyword">this</span>.V = scanner.nextInt();</span><br><span class="line">            <span class="keyword">if</span> (<span class="keyword">this</span>.V &lt; <span class="number">0</span>) &#123;</span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"V Must Be Positive"</span>);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 初始化链表</span></span><br><span class="line">            <span class="keyword">this</span>.sets = <span class="keyword">new</span> TreeSet[<span class="keyword">this</span>.V];</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="keyword">this</span>.V; i++) &#123;</span><br><span class="line">                <span class="keyword">this</span>.sets[i] = <span class="keyword">new</span> TreeSet&lt;&gt;();</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">this</span>.E = scanner.nextInt();</span><br><span class="line">            <span class="keyword">if</span> (<span class="keyword">this</span>.E &lt; <span class="number">0</span>) &#123;</span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"E Must Be Positive"</span>);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="keyword">this</span>.E; i++) &#123;</span><br><span class="line">                <span class="keyword">int</span> a = scanner.nextInt();</span><br><span class="line">                validateVertex(a);</span><br><span class="line">                <span class="keyword">int</span> b = scanner.nextInt();</span><br><span class="line">                validateVertex(b);</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> (a == b) &#123;</span><br><span class="line">                    <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"Self loop exists"</span>);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="comment">// 平行边的判断</span></span><br><span class="line">                <span class="keyword">if</span> (sets[a].contains(b)) &#123;</span><br><span class="line">                    <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"Parallel edge exists"</span>);</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="comment">// 将相邻顶点添加到自己的链表中</span></span><br><span class="line">                <span class="keyword">this</span>.sets[a].add(b);</span><br><span class="line">                <span class="keyword">this</span>.sets[b].add(a);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (FileNotFoundException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            <span class="keyword">assert</span> scanner != <span class="keyword">null</span>;</span><br><span class="line">            scanner.close();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">validateVertex</span><span class="params">(<span class="keyword">int</span> v)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (v &lt; <span class="number">0</span> || v &gt;= <span class="keyword">this</span>.V) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"Vertex "</span> + v + <span class="string">" is invalid"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">V</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.V;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">E</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.E;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> TreeSet&lt;Integer&gt; <span class="title">adj</span><span class="params">(<span class="keyword">int</span> v)</span> </span>&#123;</span><br><span class="line">        validateVertex(v);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 直接返回自己的链表即可</span></span><br><span class="line">        <span class="keyword">return</span> sets[v];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">hasEdge</span><span class="params">(<span class="keyword">int</span> v, <span class="keyword">int</span> w)</span> </span>&#123;</span><br><span class="line">        validateVertex(v);</span><br><span class="line">        validateVertex(w);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.sets[v].contains(w);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">degree</span><span class="params">(<span class="keyword">int</span> v)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> adj(v).size();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        StringBuilder stringBuilder = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">        stringBuilder.append(String.format(<span class="string">"V: %d, E: %d\n"</span>, <span class="keyword">this</span>.V, <span class="keyword">this</span>.E));</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> v = <span class="number">0</span>; v &lt; <span class="keyword">this</span>.V; v++) &#123;</span><br><span class="line">            stringBuilder.append(String.format(<span class="string">"%d : "</span>, v));</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> w: adj(v)) &#123;</span><br><span class="line">                stringBuilder.append(String.format(<span class="string">"%d "</span>, w));</span><br><span class="line">            &#125;</span><br><span class="line">            stringBuilder.append(<span class="string">"\n"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> stringBuilder.toString();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        AdjSet adjSet = <span class="keyword">new</span> AdjSet(<span class="string">"g.txt"</span>);</span><br><span class="line">        System.out.println(adjSet);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在最后我们做一个改进，观察三个类的 <code>adj</code> 方法</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// AdjMatrix</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> ArrayList&lt;Integer&gt; <span class="title">adj</span><span class="params">(<span class="keyword">int</span> v)</span> </span>&#123;</span><br><span class="line">    validateVertex(v);</span><br><span class="line">    ArrayList&lt;Integer&gt; res = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="keyword">this</span>.V; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">this</span>.matrix[v][i] == <span class="number">1</span>) &#123;</span><br><span class="line">            res.add(i);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// AdjList</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> LinkedList&lt;Integer&gt; <span class="title">adj</span><span class="params">(<span class="keyword">int</span> v)</span> </span>&#123;</span><br><span class="line">    validateVertex(v);</span><br><span class="line">    <span class="keyword">return</span> lists[v];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// AdjSet</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> TreeSet&lt;Integer&gt; <span class="title">adj</span><span class="params">(<span class="keyword">int</span> v)</span> </span>&#123;</span><br><span class="line">    validateVertex(v);</span><br><span class="line">    <span class="keyword">return</span> sets[v];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这三个方法的返回值都不相同，这就会给使用者带来负担，它还需要记住每个类的返回值是什么，考虑到使用者拿到与顶点 $v$ 相邻的所有顶点，一般都是用来遍历，所以我们返回一个接口 <code>Iterable</code>，<code>ArrayList</code> <code>LinkedList</code> <code>TreeSet</code> 三个类都实现了该接口，如下</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// AdjSet 其它两个类做相同修改</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Iterable&lt;Integer&gt; <span class="title">adj</span><span class="params">(<span class="keyword">int</span> v)</span> </span>&#123;</span><br><span class="line">    validateVertex(v);</span><br><span class="line">    <span class="keyword">return</span> sets[v];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>注意：记得还有修改 <code>degree</code> 方法，因为这是 <code>adj</code> 方法返回的是 <code>Iterable</code> 接口，该接口没有 <code>size</code> 方法，修改如下</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">degree</span><span class="params">(<span class="keyword">int</span> v)</span> </span>&#123;</span><br><span class="line">    validateVertex(v);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.sets[v].size();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其它两个类做类似的修改。</p>
+</blockquote>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>在文章的最后，我们比较一下三种方法的空间复杂度和时间复杂度</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>空间</th>
+<th>建图时间</th>
+<th>两顶点是否相邻</th>
+<th>查找顶点的邻边</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>邻接矩阵</td>
+<td>$O(V^2)$</td>
+<td>$O(E)$</td>
+<td>$O(1)$</td>
+<td>$O(V)$</td>
+</tr>
+<tr>
+<td>邻接表(LinkedList)</td>
+<td>$O(V + E)$</td>
+<td>$O(EV)$</td>
+<td>$O(degree)$</td>
+<td>$O(degree)$</td>
+</tr>
+<tr>
+<td>邻接表(TreeSet)</td>
+<td>$O(V + E)$</td>
+<td>$O(E\log V)$</td>
+<td>$O(\log degree)$</td>
+<td>$O(degree)$</td>
+</tr>
+</tbody></table>
+<p>由上可见，底层使用 <code>TreeSet</code> 的邻接表来表示图，从空间和时间上都非常的优秀，在后面的文章，都将使用 <code>TreeSet</code> 版本的邻接表来表示图。</p>
+<blockquote>
+<p>后面为了屏蔽差异，我们定义一个 <code>Graph</code> 的接口，这三个类都实现 <code>Graph</code> 接口，<code>Graph</code> 接口如下</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Graph</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">V</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">E</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">degree</span><span class="params">(<span class="keyword">int</span> v)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">hasEdge</span><span class="params">(<span class="keyword">int</span> v, <span class="keyword">int</span> w)</span></span>;</span><br><span class="line">    <span class="function">Iterable&lt;Integer&gt; <span class="title">adj</span><span class="params">(<span class="keyword">int</span> v)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></blockquote>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-10-07T16:00:00.000Z" itemprop="dateUpdated">2020-10-08 00:00:00</time>
+</span><br>
+
+
+        
+    </div>
+    
+    <footer>
+        <a href="https://lastknightcoder.gitee.io">
+            <img src="https://lastknightcoder.gitee.io/img/avatar.jpg" alt="熊滔">
+            熊滔
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="https://lastknightcoder.gitee.io/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="https://lastknightcoder.gitee.io/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://lastknightcoder.gitee.io/%E5%9B%BE%E7%9A%84%E8%A1%A8%E7%A4%BA/&title=《图的表示》 — Coder&pic=https://lastknightcoder.gitee.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://lastknightcoder.gitee.io/%E5%9B%BE%E7%9A%84%E8%A1%A8%E7%A4%BA/&title=《图的表示》 — Coder&source=人生天地间，忽如远行客" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://lastknightcoder.gitee.io/%E5%9B%BE%E7%9A%84%E8%A1%A8%E7%A4%BA/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《图的表示》 — Coder&url=https://lastknightcoder.gitee.io/%E5%9B%BE%E7%9A%84%E8%A1%A8%E7%A4%BA/&via=https://lastknightcoder.gitee.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://lastknightcoder.gitee.io/%E5%9B%BE%E7%9A%84%E8%A1%A8%E7%A4%BA/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="https://lastknightcoder.gitee.io/DOM%E8%8A%82%E7%82%B9/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">DOM节点</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'lastknightcoder';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="https://lastknightcoder.gitee.io/img/wechatpay.png" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="https://lastknightcoder.gitee.io/img/wechatpay.png" data-alipay="https://lastknightcoder.gitee.io/img/alipay.png">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="https://lastknightcoder.gitee.io/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>熊滔 &copy; 2019 - 2020</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://lastknightcoder.gitee.io/%E5%9B%BE%E7%9A%84%E8%A1%A8%E7%A4%BA/&title=《图的表示》 — Coder&pic=https://lastknightcoder.gitee.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://lastknightcoder.gitee.io/%E5%9B%BE%E7%9A%84%E8%A1%A8%E7%A4%BA/&title=《图的表示》 — Coder&source=人生天地间，忽如远行客" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://lastknightcoder.gitee.io/%E5%9B%BE%E7%9A%84%E8%A1%A8%E7%A4%BA/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《图的表示》 — Coder&url=https://lastknightcoder.gitee.io/%E5%9B%BE%E7%9A%84%E8%A1%A8%E7%A4%BA/&via=https://lastknightcoder.gitee.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://lastknightcoder.gitee.io/%E5%9B%BE%E7%9A%84%E8%A1%A8%E7%A4%BA/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACrklEQVR42u3aS27DMAwFwNz/0u22QOH48aPUBcaroHFijQqIDMnXK76+Lq7f7yafuvrs1T0/73yduPDw8PCWlv4ekCw0+fv7Dbri5ZuCh4eHd46XfF3vKO/dma/nxoKHh4f3AN77wNDbjiQk4OHh4f1fXnJ89474fAvw8PDwnsCrfvWkpJsXLz5aa8HDw8OLeXkX6Tmvj/T38PDw8MZd9Wpq22v2z0cQLleLh4eHd4BXXUSevCZDBrtPvNwgPDw8vFXepMV1s2dxkyxvfZVDFx4eHt5HeL2hqLwlloeNvMF2uUF4eHh4B3j54V79VD5GMG+qRWEGDw8Pb4m3Oy5QHY3KyxO9AjEeHh7eCV415U0eMylq9MrBN9+Ph4eHd4BXLcj2EuUqftIwa5Yk8PDw8Iq8eUk3T8Grif7a/w0PDw9vzJsnqbtF3upgQTmBxsPDw1vlNQebWoEkT7IT/M3QFR4eHt4BXrUge6J4kd9TSNnx8PDwDvBOpLm9Q7xaxs03Gg8PD2+X1ysx5CXdagk4X0+S3OPh4eGd4O0e6/mm9J412SA8PDy8LV51oUlq2xvAmmzT5Urw8PDwDvCqP++rrax8mGC3/IGHh4d3mpcv9P2xPg8JW+EKDw8P7zQvP7KrifXWiFU+ZHAzJYGHh4e3xJuEgeqCqul7nvTfpNR4eHh4h3nVplR1sGB+ZyGo4OHh4X2QVy0fVIsa1RJwswGGh4eHt8r7Kl67mWp1hKv8Lh4eHt4BXvXYrQaDyafmr/Hw8PDO8ZJgMDm+J3dWnxvVOfDw8PCWeHkDLC8H5AluYbm9mTI8PDy8B/Oqw1Jb+JtpMjw8PLw/5U1GAfKWWF7OODJThoeHhxfwkqJArz2WL6UXWqLAgIeHh7fKq/7gry60N5qQhIfX1oWHh4eX8r4BobjaT8EJPc0AAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: 'https://lastknightcoder.gitee.io/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>
