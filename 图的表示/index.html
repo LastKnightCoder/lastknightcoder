@@ -314,13 +314,15 @@
 <td>返回顶点 v 的度</td>
 </tr>
 </tbody></table>
-<p>在最后我们分析一下使用邻接矩阵表示的空间复杂度和时间复杂度</p>
-<p>空间复杂度：$O(V^2)$</p>
-<p>时间复杂度：</p>
+<p>在最后我们分析一下使用邻接矩阵表示的空间复杂度和时间复杂度：</p>
 <ul>
+<li>空间复杂度：$O(V^2)$</li>
+<li>时间复杂度：<ul>
 <li>建图：$O(E)$</li>
 <li>获得与顶点 $v$ 相邻的顶点：$O(V)$</li>
 <li>查看两个顶点是否相邻：$O(1)$</li>
+</ul>
+</li>
 </ul>
 <p>对于建图来说，因为我们必须扫描所有的边才能获得必要的信息，所以建图的时间复杂度最少也是 $O(E)$，无法再优化；而查看两个顶点是否相邻，时间复杂度为 $O(1)$，无需优化，那么我们看看空间复杂度和获得与顶点 $v$ 相邻的顶点的时间复杂度能否进行优化。</p>
 <p>因为我们平常遇到的图都是稀疏图，所谓稀疏图就是一幅图它的度平均值对于图的节点数目来说很小，这就会导致我们的邻接矩阵是一个稀疏矩阵，即大部分的元素是 $0$。例如对于一个社交网络，有一亿个节点，但是对于每个人来说，他认识的人最多几百个，也就是这幅图平均的度为几百，相对于一亿来说十分的小，所以社交网络是一个稀疏图。</p>
@@ -507,7 +509,14 @@
     </div>
 
     
-<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="https://lastknightcoder.gitee.io/numpy%E5%85%A5%E9%97%A8/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">numpy 入门</h4>
+      </a>
+    </div>
   
 
   
