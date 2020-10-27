@@ -190,42 +190,42 @@
 <table>
 <thead>
 <tr>
-<th>x</th>
-<th>y</th>
+<th>$x$</th>
+<th>$y$</th>
 </tr>
 </thead>
 <tbody><tr>
-<td>0</td>
-<td>k + 1</td>
+<td>$0$</td>
+<td>$k + 1$</td>
 </tr>
 <tr>
-<td>1</td>
-<td>k+2</td>
+<td>$1$</td>
+<td>$k+2$</td>
 </tr>
 <tr>
-<td>…</td>
-<td>…</td>
+<td>$…$</td>
+<td>$…$</td>
 </tr>
 <tr>
-<td>n- k - 2</td>
-<td>n - 1</td>
+<td>$n- k - 2$</td>
+<td>$n - 1$</td>
 </tr>
 <tr>
-<td>n- k -1</td>
-<td>0</td>
+<td>$n- k -1$</td>
+<td>$0$</td>
 </tr>
 <tr>
-<td>…</td>
-<td>…</td>
+<td>$…$</td>
+<td>$…$</td>
 </tr>
 <tr>
-<td>n - 2</td>
-<td>k - 1</td>
+<td>$n - 2$</td>
+<td>$k - 1$</td>
 </tr>
 </tbody></table>
-<p>$y$ 序列是删除了元素 $k$ 剩下的元素排序，我们与一个 $0-(n-2)$ 的元素映射起来，$x$ 与 $y$ 之间的对应关系为 $y = (x + k + 1) % n$。因为 $k = (m - 1) % n$，所以 $(k + 1) % n = m % n$，所以上式的关系进一步更改为 $y = (x + m) % m$。</p>
+<p>$y$ 序列是删除了元素 $k$ 剩下的元素排序，我们与一个 $0-(n-2)$ 的元素映射起来，$x$ 与 $y$ 之间的对应关系为 $y = (x + k + 1) % n$。因为 $k = (m - 1) % n$，所以 $(k + 1) % n = m % n$，所以上式的关系进一步更改为 $y = (x + m) % n$。</p>
 <p>假设 $y$ 序列最后剩下的数字为 $f^{‘}(n-1, m)$，记为 $u$，设 $x$ 序列最后剩下的值为 $v$，那么有这样的一个关系 ​<br>$$<br>f^{‘}(n-1, m) = u = (v + m) % n = (f(n-1, m) + m) % n<br>$$<br>又因为<br>$$<br>f(n,m) = f^{‘}(n-1, m)<br>$$<br>所以们得到了 $f(n,m)$ 与 $f(n-1, m)$ 的递推公式<br>$$<br>f(n,m) = f^{‘}(n-1, m) = u = (f(n-1, m) + m) % n<br>$$<br>所以们得到了 $f(n,m)$ 与 $f(n-1, m)$ 的递推公式<br>$$<br>f(n,m) =<br>\begin{cases}<br>0, &amp; n = 1 \ \<br>\left[f(n-1,m) + m \right] % n, &amp; n &gt; 1<br>\end{cases}<br>$$<br>编程如下</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">lastRemaining</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">int</span> m)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (n &lt; <span class="number">1</span> || m &lt; <span class="number">1</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">int</span> last = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i&lt;= n; i++) &#123;</span><br><span class="line">        last = (last + m) % n;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> last;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">lastRemaining</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">int</span> m)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (n &lt; <span class="number">1</span> || m &lt; <span class="number">1</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">int</span> last = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i &lt;= n; i++) &#123;</span><br><span class="line">        last = (last + m) % n;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> last;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>虽然我们分析了这么多，但是实际上的代码却是非常的短。</p>
 
