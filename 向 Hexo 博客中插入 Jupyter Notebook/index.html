@@ -213,10 +213,10 @@
 <img src="https://gitee.com/lastknightcoder/blogimage/raw/master/20201027234011.png" alt="image-20201027234011702" style="zoom:50%;" />
 
 <p>然后在 Markdown 文件中使用 iframe 标签引用该链接，如</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">iframe</span> <span class="attr">src</span>=<span class="string">"https://nbviewer.jupyter.org/github/LastKnightCoder/numpy-note/blob/main/numpy%E5%85%A5%E9%97%A8.ipynb"</span> <span class="attr">width</span>=<span class="string">"800"</span> <span class="attr">height</span>=<span class="string">"600"</span>&gt;</span><span class="tag">&lt;/<span class="name">iframe</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">iframe</span> <span class="attr">src</span>=<span class="string">"https://nbviewer.jupyter.org/github/LastKnightCoder/numpy-note/blob/main/numpy%E5%85%A5%E9%97%A8.ipynb"</span> <span class="attr">width</span>=<span class="string">"100%"</span> <span class="attr">height</span>=<span class="string">"600"</span>&gt;</span><span class="tag">&lt;/<span class="name">iframe</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 <p>效果如下</p>
-<iframe src="https://nbviewer.jupyter.org/github/LastKnightCoder/numpy-note/blob/main/numpy%E5%85%A5%E9%97%A8.ipynb" width="800" height="600"></iframe>
+<iframe src="https://nbviewer.jupyter.org/github/LastKnightCoder/numpy-note/blob/main/numpy%E5%85%A5%E9%97%A8.ipynb" width="100%" height="600"></iframe>
 
 <p>效果还不错，除了文档的开头和结尾有 <code>nbviewer</code> 的标志。</p>
 <h2 id="转为HTML插入"><a href="#转为HTML插入" class="headerlink" title="转为HTML插入"></a>转为HTML插入</h2><p>上面的第二种方法我已经比较满意了，但是 Jupyter Notebook 的样式改变不了，例如字体，我对字体的要求还是比较高的。</p>
@@ -225,18 +225,18 @@
 
 <p>因为下载的 HTML 文件会默认的引用当前目录下的 <code>custom.css</code> 的样式，所以我们只要在 HTML 文件所在的目录下新建 <code>custom.css</code> 文件即可修改样式了。</p>
 <p>接下来就是如何将这个 HTML 文件插入到 Markdown 文件中了，当然还是使用 iframe 标签进行插入。首先我们将 HTML 文件及 <code>custom.css</code> 文件上传到 Gitee 的一个仓库中，然后启动 Gitee Page 服务，接着我们就可以访问该 HTML 文件了，例如可以通过 <a href="https://lastknightcoder.gitee.io/jupyter-for-iframe/numpy%E5%85%A5%E9%97%A8.html">https://lastknightcoder.gitee.io/jupyter-for-iframe/numpy%E5%85%A5%E9%97%A8.html</a> 访问我上传的 HTML 文件，接着我们就在 iframe 中引用即可</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">iframe</span> <span class="attr">src</span>=<span class="string">"https://lastknightcoder.gitee.io/jupyter-for-iframe/numpy%E5%85%A5%E9%97%A8.html"</span> <span class="attr">width</span>=<span class="string">"800"</span> <span class="attr">height</span>=<span class="string">"600"</span>&gt;</span><span class="tag">&lt;/<span class="name">iframe</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">iframe</span> <span class="attr">src</span>=<span class="string">"https://lastknightcoder.gitee.io/jupyter-for-iframe/numpy%E5%85%A5%E9%97%A8.html"</span> <span class="attr">width</span>=<span class="string">"100%"</span> <span class="attr">height</span>=<span class="string">"600"</span>&gt;</span><span class="tag">&lt;/<span class="name">iframe</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 <p>效果如下</p>
-<iframe src="https://lastknightcoder.gitee.io/jupyter-for-iframe/numpy%E5%85%A5%E9%97%A8.html" width="800" height="600"></iframe>
+<iframe src="https://lastknightcoder.gitee.io/jupyter-for-iframe/numpy%E5%85%A5%E9%97%A8.html" width="100%" height="600"></iframe>
 
 <p>可见我对样式进行了修改，不过还有一个地方令我不满意的就是嵌入的 iframe 有滚动条，对于一个有强迫症的人来说真的很难受，我想到使用 jQuery 来获得页面的高度，然后将 iframe 的 height 值设为该高度 +50 作用即可，通过在生成的 HTML 文件的最后加入下面的脚本就可以获得文档的高度</p>
 <figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">    <span class="keyword">let</span> script = <span class="built_in">document</span>.createElement(<span class="string">"script"</span>);</span></span><br><span class="line"><span class="actionscript">    script.src = <span class="string">"https://cdn.bootcdn.net/ajax/libs/jquery/2.1.0/jquery.min.js"</span>;</span></span><br><span class="line"><span class="actionscript">    script.text = <span class="string">"text/javascript"</span>;</span></span><br><span class="line"><span class="javascript">    <span class="built_in">document</span>.body.append(script);</span></span><br><span class="line"><span class="javascript">    <span class="built_in">console</span>.log($(<span class="string">"#notebook"</span>).height())</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
-<p>例如我获得的高度为 6323，我将高度设置 6400 就没有滚动条了，如下</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">iframe</span> <span class="attr">src</span>=<span class="string">"https://lastknightcoder.gitee.io/jupyter-for-iframe/numpy%E5%85%A5%E9%97%A8.html"</span> <span class="attr">width</span>=<span class="string">"800"</span> <span class="attr">height</span>=<span class="string">"6400"</span>&gt;</span><span class="tag">&lt;/<span class="name">iframe</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>例如我获得的高度为 7191，我将高度设置 7200 就没有滚动条了，如下</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">iframe</span> <span class="attr">src</span>=<span class="string">"https://lastknightcoder.gitee.io/jupyter-for-iframe/numpy%E5%85%A5%E9%97%A8.html"</span> <span class="attr">width</span>=<span class="string">"100%"</span> <span class="attr">height</span>=<span class="string">"7200"</span>&gt;</span><span class="tag">&lt;/<span class="name">iframe</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
-<iframe src="https://lastknightcoder.gitee.io/jupyter-for-iframe/numpy%E5%85%A5%E9%97%A8.html" width="800" height="6400"></iframe>
+<iframe src="https://lastknightcoder.gitee.io/jupyter-for-iframe/numpy%E5%85%A5%E9%97%A8.html" width="100%" height="7200"></iframe>
 
 <p>从此就可以安心的使用 Jupyter Notebook 写程序了。</p>
 
