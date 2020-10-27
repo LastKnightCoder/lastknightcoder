@@ -23,14 +23,14 @@
     <published>2020-10-19T16:00:00.000Z</published>
     <updated>2020-10-19T16:00:00.000Z</updated>
     
-    <content type="html"><![CDATA[<p>文章是使用 jupyter 写的，为了插入到博客中，使用 iframe 进行嵌入，所以阅读体验可能不是很好</p><iframe src="http://lastknightcoder.gitee.io/jupyter-for-iframe/numpy%E5%85%A5%E9%97%A8.html" width="900" height="6364"></iframe>]]></content>
+    <content type="html"><![CDATA[<p>文章是使用 jupyter 写的，为了插入到博客中，使用 iframe 进行嵌入，所以阅读体验可能不是很好</p><iframe src="https://lastknightcoder.gitee.io/jupyter-for-iframe/numpy%E5%85%A5%E9%97%A8.html" width="900" height="6364"></iframe>]]></content>
     
     <summary type="html">
     
       
       
         &lt;p&gt;文章是使用 jupyter 写的，为了插入到博客中，使用 iframe 进行嵌入，所以阅读体验可能不是很好&lt;/p&gt;
-&lt;iframe src=&quot;http://lastknightcoder.gitee.io/jupyter-for-iframe/numpy%E5%85%A5%
+&lt;iframe src=&quot;https://lastknightcoder.gitee.io/jupyter-for-iframe/numpy%E5%85%A5
       
     
     </summary>
