@@ -23,7 +23,7 @@
     <published>2020-10-31T11:41:00.000Z</published>
     <updated>2020-10-31T11:41:00.000Z</updated>
     
-    <content type="html"><![CDATA[<p>文章是使用 jupyter 写的，为了插入到博客中，使用 iframe 进行嵌入，所以阅读体验可能不是很好</p><iframe src="https://lastknightcoder.gitee.io/jupyter-for-iframe/%E7%9F%A9%E9%98%B5.html" width="800" height="5000"></iframe>]]></content>
+    <content type="html"><![CDATA[<p>文章是使用 jupyter 写的，为了插入到博客中，使用 iframe 进行嵌入，所以阅读体验可能不是很好</p><iframe src="https://lastknightcoder.gitee.io/jupyter-for-iframe/%E7%9F%A9%E9%98%B5.html" width="800" height="4700"></iframe>]]></content>
     
     <summary type="html">
     
@@ -44,13 +44,13 @@
   </entry>
   
   <entry>
-    <title>numpy 入门</title>
+    <title>numpy之数学方法</title>
     <link href="https://lastknightcoder.gitee.io/numpy%E4%B9%8B%E6%95%B0%E5%AD%A6%E6%96%B9%E6%B3%95/"/>
     <id>https://lastknightcoder.gitee.io/numpy%E4%B9%8B%E6%95%B0%E5%AD%A6%E6%96%B9%E6%B3%95/</id>
     <published>2020-10-31T10:20:00.000Z</published>
     <updated>2020-10-31T10:20:00.000Z</updated>
     
-    <content type="html"><![CDATA[<p>文章是使用 jupyter 写的，为了插入到博客中，使用 iframe 进行嵌入，所以阅读体验可能不是很好</p><iframe src="https://lastknightcoder.gitee.io/jupyter-for-iframe/%E6%95%B0%E5%AD%A6%E6%96%B9%E6%B3%95.html" width="800" height="14200"></iframe>]]></content>
+    <content type="html"><![CDATA[<p>文章是使用 jupyter 写的，为了插入到博客中，使用 iframe 进行嵌入，所以阅读体验可能不是很好</p><iframe src="https://lastknightcoder.gitee.io/jupyter-for-iframe/%E6%95%B0%E5%AD%A6%E6%96%B9%E6%B3%95.html" width="800" height="10600"></iframe>]]></content>
     
     <summary type="html">
     
