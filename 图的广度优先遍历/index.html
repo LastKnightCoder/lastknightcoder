@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>图的广度优先遍历 | Coder</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="算法,数据结构">
+    <meta name="description" content="树的层序遍历树的层序遍历是指一层一层的遍历树的节点，它的实现是借助于队列进行实现的：   每一次从队列的头部取出元素进行遍历，然后将该元素的左右孩子添加进队列，以此往复，直至队列为空，遍历结束。 import java.util.LinkedList;import java.util.Queue;public class BinaryTree &amp;#123;    private class Nod">
+<meta property="og:type" content="article">
+<meta property="og:title" content="图的广度优先遍历">
+<meta property="og:url" content="https://lastknightcoder.gitee.io/%E5%9B%BE%E7%9A%84%E5%B9%BF%E5%BA%A6%E4%BC%98%E5%85%88%E9%81%8D%E5%8E%86/">
+<meta property="og:site_name" content="Coder">
+<meta property="og:description" content="树的层序遍历树的层序遍历是指一层一层的遍历树的节点，它的实现是借助于队列进行实现的：   每一次从队列的头部取出元素进行遍历，然后将该元素的左右孩子添加进队列，以此往复，直至队列为空，遍历结束。 import java.util.LinkedList;import java.util.Queue;public class BinaryTree &amp;#123;    private class Nod">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/LastKnightCoder/ImgHosting/20201217105635.gif">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/LastKnightCoder/ImgHosting/20201217122524.gif">
+<meta property="article:published_time" content="2020-12-23T16:00:00.000Z">
+<meta property="article:modified_time" content="2020-12-23T16:00:00.000Z">
+<meta property="article:author" content="熊滔">
+<meta property="article:tag" content="算法">
+<meta property="article:tag" content="数据结构">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/LastKnightCoder/ImgHosting/20201217105635.gif">
+    
+        <link rel="alternate" type="application/atom+xml" title="Coder" href="https://lastknightcoder.gitee.io/atom.xml">
+    
+    <link rel="shortcut icon" href="https://lastknightcoder.gitee.io/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(https://lastknightcoder.gitee.io/img/brand.jpg)">
+      <div class="brand">
+        <a href="https://lastknightcoder.gitee.io/" class="avatar waves-effect waves-circle waves-light">
+          <img src="https://lastknightcoder.gitee.io/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">熊滔</h5>
+          <a href="mailto:2223106858@qq.com" title="2223106858@qq.com" class="mail">2223106858@qq.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.gitee.io/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.gitee.io/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.gitee.io/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.gitee.io/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://gitee.com/LastKnightCoder" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">图的广度优先遍历</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">图的广度优先遍历</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2020-12-23T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2020-12-24
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="https://lastknightcoder.gitee.io/categories/Algorithms/">Algorithms</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#树的层序遍历"><span class="post-toc-number">1.</span> <span class="post-toc-text">树的层序遍历</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#图的广度遍历"><span class="post-toc-number">2.</span> <span class="post-toc-text">图的广度遍历</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#单源路径问题"><span class="post-toc-number">3.</span> <span class="post-toc-text">单源路径问题</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-图的广度优先遍历"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">图的广度优先遍历</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2020-12-24 00:00:00" datetime="2020-12-23T16:00:00.000Z"  itemprop="datePublished">2020-12-24</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="https://lastknightcoder.gitee.io/categories/Algorithms/">Algorithms</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h2 id="树的层序遍历"><a href="#树的层序遍历" class="headerlink" title="树的层序遍历"></a>树的层序遍历</h2><p>树的层序遍历是指一层一层的遍历树的节点，它的实现是借助于队列进行实现的：</p>
+<img src="https://cdn.jsdelivr.net/gh/LastKnightCoder/ImgHosting/20201217105635.gif"/>
+
+<p>每一次从队列的头部取出元素进行遍历，然后将该元素的左右孩子添加进队列，以此往复，直至队列为空，遍历结束。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.LinkedList;</span><br><span class="line"><span class="keyword">import</span> java.util.Queue;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BinaryTree</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="class"><span class="keyword">class</span> <span class="title">Node</span> </span>&#123;</span><br><span class="line">        <span class="keyword">private</span> Node left;</span><br><span class="line">        <span class="keyword">private</span> Node right;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">int</span> value;</span><br><span class="line">        </span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">Node</span><span class="params">(<span class="keyword">int</span> value)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">this</span>.value = value;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> Node root;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">BinaryTree</span><span class="params">(<span class="keyword">int</span> value)</span> </span>&#123;</span><br><span class="line">        root = <span class="keyword">new</span> Node(value);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">levelOrder</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (root == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        Queue&lt;Node&gt; queue = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line">        queue.add(root);</span><br><span class="line">        <span class="keyword">while</span> (!queue.isEmpty()) &#123;</span><br><span class="line">            Node node = queue.remove();</span><br><span class="line">            <span class="keyword">if</span> (node.left != <span class="keyword">null</span>) &#123;</span><br><span class="line">                queue.add(node.left);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (node.right != <span class="keyword">null</span>) &#123;</span><br><span class="line">                queue.add(node.right);</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(node.value);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="图的广度遍历"><a href="#图的广度遍历" class="headerlink" title="图的广度遍历"></a>图的广度遍历</h2><p>图的广度优先遍历与树的层序遍历相似，所谓的广度是指尽可能的遍历<strong>所有</strong>的相邻元素</p>
+<img src="https://cdn.jsdelivr.net/gh/LastKnightCoder/ImgHosting/20201217122524.gif" width="70%"/>
+
+<p>广度优先遍历的实现同树的层序遍历类似，也是借助于队列这种数据结构，每次从队列的头部取出节点进行遍历，然后将该节点的所有相邻节点添加进队列，但是需要注意的是，因为图有可能发生重复遍历，所以需要使用visited 标记已遍历的节点；另外还需要考虑到有多个联通分量的情况，与深度优先遍历的写法类似</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.LinkedList;</span><br><span class="line"><span class="keyword">import</span> java.util.Queue;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BFSGraph</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Graph graph;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">boolean</span>[] visited;</span><br><span class="line">    <span class="keyword">private</span> ArrayList&lt;Integer&gt; order;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">BFSGraph</span><span class="params">(Graph graph)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.graph = graph;</span><br><span class="line">        visited = <span class="keyword">new</span> <span class="keyword">boolean</span>[graph.V()];</span><br><span class="line">        order = <span class="keyword">new</span> ArrayList&lt;&gt;(graph.V());</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; graph.V(); i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (!visited[i]) &#123;</span><br><span class="line">                bfs(i);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">bfs</span><span class="params">(<span class="keyword">int</span> s)</span> </span>&#123;</span><br><span class="line">        Queue&lt;Integer&gt; queue = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line">        queue.add(s);</span><br><span class="line">        visited[s] = <span class="keyword">true</span>;</span><br><span class="line">        <span class="keyword">while</span> (!queue.isEmpty()) &#123;</span><br><span class="line">            <span class="keyword">int</span> v = queue.remove();</span><br><span class="line">            order.add(v);</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> w: graph.adj(v)) &#123;</span><br><span class="line">                <span class="keyword">if</span> (!visited[w]) &#123;</span><br><span class="line">                    queue.add(w);</span><br><span class="line">                    visited[w] = <span class="keyword">true</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Graph graph = <span class="keyword">new</span> AdjSet(<span class="string">"g4.txt"</span>);</span><br><span class="line">        BFSGraph bfsGraph = <span class="keyword">new</span> BFSGraph(graph);</span><br><span class="line">        System.out.println(bfsGraph.order);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="单源路径问题"><a href="#单源路径问题" class="headerlink" title="单源路径问题"></a>单源路径问题</h2><p>对于路径问题的思路同<a href="https://lastknightcoder.gitee.io/%E5%9B%BE%E7%9A%84%E6%B7%B1%E5%BA%A6%E4%BC%98%E5%85%88%E9%81%8D%E5%8E%86/#%E8%B7%AF%E5%BE%84%E9%97%AE%E9%A2%98">DFS</a>，使用一个 pre 数组，保存当前节点的上一个节点，当查询源节点到某个目的节点的路径时，只要从目的节点根据 pre 数组一直查找它的前一个节点，直到前一个节点为源节点就找到了路径</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SingleSourcePath</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Graph graph;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> s;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">boolean</span>[] visited;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span>[] pre;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">SingleSourcePath</span><span class="params">(Graph graph, <span class="keyword">int</span> s)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.graph = graph;</span><br><span class="line">        <span class="keyword">this</span>.s = s;</span><br><span class="line"></span><br><span class="line">        visited = <span class="keyword">new</span> <span class="keyword">boolean</span>[graph.V()];</span><br><span class="line">        pre = <span class="keyword">new</span> <span class="keyword">int</span>[graph.V()];</span><br><span class="line"></span><br><span class="line">        Arrays.fill(visited, <span class="keyword">false</span>);</span><br><span class="line">        Arrays.fill(pre, -<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">        bfs(s);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">bfs</span><span class="params">(<span class="keyword">int</span> s)</span> </span>&#123;</span><br><span class="line">        Queue&lt;Integer&gt; queue = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line">        queue.add(s);</span><br><span class="line">        visited[s] = <span class="keyword">true</span>;</span><br><span class="line">        pre[s] = s;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> (!queue.isEmpty()) &#123;</span><br><span class="line">            <span class="keyword">int</span> v = queue.remove();</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> w: graph.adj(v)) &#123;</span><br><span class="line">                <span class="keyword">if</span> (!visited[w]) &#123;</span><br><span class="line">                    queue.add(w);</span><br><span class="line">                    visited[w] = <span class="keyword">true</span>;</span><br><span class="line">                    pre[w] = v;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">validate</span><span class="params">(<span class="keyword">int</span> v)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (v &lt; <span class="number">0</span> || v &gt;= graph.V()) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"v is out of index"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isConnected</span><span class="params">(<span class="keyword">int</span> t)</span> </span>&#123;</span><br><span class="line">        validate(t);</span><br><span class="line">        <span class="keyword">return</span> visited[t];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> ArrayList&lt;Integer&gt; <span class="title">path</span><span class="params">(<span class="keyword">int</span> t)</span> </span>&#123;</span><br><span class="line">        ArrayList&lt;Integer&gt; res = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        <span class="keyword">if</span> (!isConnected(t)) &#123;</span><br><span class="line">            <span class="keyword">return</span> res;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> cur = t;</span><br><span class="line">        <span class="keyword">while</span> (cur != s) &#123;</span><br><span class="line">            res.add(cur);</span><br><span class="line">            cur = pre[cur];</span><br><span class="line">        &#125;</span><br><span class="line">        res.add(s);</span><br><span class="line"></span><br><span class="line">        Collections.reverse(res);</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Graph graph = <span class="keyword">new</span> AdjSet(<span class="string">"g4.txt"</span>);</span><br><span class="line">        SingleSourcePath singleSourcePath = <span class="keyword">new</span> SingleSourcePath(graph, <span class="number">0</span>);</span><br><span class="line">        <span class="comment">// 0 -&gt; 6: [0, 2, 6]</span></span><br><span class="line">        System.out.println(<span class="string">"0 -&gt; 6: "</span> + singleSourcePath.path(<span class="number">6</span>));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>对于同样的图，使用深度优先遍历，结果是</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="number">0</span> -&gt; <span class="number">6</span>: [<span class="number">0</span>, <span class="number">1</span>, <span class="number">3</span>, <span class="number">2</span>, <span class="number">6</span>]</span><br></pre></td></tr></table></figure>
+
+<p>BFS 找到的路径比 DFS 找到的路径要短，这不是巧合，因为在无向无环图中，<strong>BFS 有一个重要的性质就是它寻找到的路径是最短路径</strong>，或者说经历的节点最少。为什么? 换种角度看，广度优先遍历是按照距离源的最小距离遍历的。</p>
+<p>下面一个问题是寻找源到各点之间的距离，这个最简单的实现就是获得源到各点之间的路径，然后获得路径的长度即可推算出距离。下面提供一种更快的方法，无须先获得路径。首先我们需要声明一个 dis 数组来保存源到各点的距离，假设  w 是 v 的相邻节点，且 v 先被遍历，那么 s -&gt; w 的距离为 s -&gt; v + 1，即 dis[w] = dis[v] + 1</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SingleSourcePath</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Graph graph;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> s;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">boolean</span>[] visited;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span>[] pre;</span><br><span class="line">    <span class="comment">// dis 数组保存源到各节点的距离</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span>[] dis;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">SingleSourcePath</span><span class="params">(Graph graph, <span class="keyword">int</span> s)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.graph = graph;</span><br><span class="line">        <span class="keyword">this</span>.s = s;</span><br><span class="line"></span><br><span class="line">        visited = <span class="keyword">new</span> <span class="keyword">boolean</span>[graph.V()];</span><br><span class="line">        pre = <span class="keyword">new</span> <span class="keyword">int</span>[graph.V()];</span><br><span class="line">        <span class="comment">// 初始化</span></span><br><span class="line">        dis = <span class="keyword">new</span> <span class="keyword">int</span>[graph.V()];</span><br><span class="line"></span><br><span class="line">        Arrays.fill(visited, <span class="keyword">false</span>);</span><br><span class="line">        Arrays.fill(pre, -<span class="number">1</span>);</span><br><span class="line">        <span class="comment">// 初始化</span></span><br><span class="line">        Arrays.fill(dis, -<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">        bfs(s);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">bfs</span><span class="params">(<span class="keyword">int</span> s)</span> </span>&#123;</span><br><span class="line">        Queue&lt;Integer&gt; queue = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line">        queue.add(s);</span><br><span class="line">        visited[s] = <span class="keyword">true</span>;</span><br><span class="line">        pre[s] = s;</span><br><span class="line">        <span class="comment">// 源到源的距离为 0</span></span><br><span class="line">        dis[s] = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> (!queue.isEmpty()) &#123;</span><br><span class="line">            <span class="keyword">int</span> v = queue.remove();</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> w: graph.adj(v)) &#123;</span><br><span class="line">                <span class="keyword">if</span> (!visited[w]) &#123;</span><br><span class="line">                    queue.add(w);</span><br><span class="line">                    visited[w] = <span class="keyword">true</span>;</span><br><span class="line">                    pre[w] = v;</span><br><span class="line">                    <span class="comment">// 更新 dis</span></span><br><span class="line">                    dis[w] = dis[v] + <span class="number">1</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 与 path 相关代码省略</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">dis</span><span class="params">(<span class="keyword">int</span> t)</span> </span>&#123;</span><br><span class="line">        validate(t);</span><br><span class="line">        <span class="keyword">return</span> dis[t];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-12-23T16:00:00.000Z" itemprop="dateUpdated">2020-12-24 00:00:00</time>
+</span><br>
+
+
+        
+    </div>
+    
+    <footer>
+        <a href="https://lastknightcoder.gitee.io">
+            <img src="https://lastknightcoder.gitee.io/img/avatar.jpg" alt="熊滔">
+            熊滔
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="https://lastknightcoder.gitee.io/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="https://lastknightcoder.gitee.io/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://lastknightcoder.gitee.io/%E5%9B%BE%E7%9A%84%E5%B9%BF%E5%BA%A6%E4%BC%98%E5%85%88%E9%81%8D%E5%8E%86/&title=《图的广度优先遍历》 — Coder&pic=https://lastknightcoder.gitee.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://lastknightcoder.gitee.io/%E5%9B%BE%E7%9A%84%E5%B9%BF%E5%BA%A6%E4%BC%98%E5%85%88%E9%81%8D%E5%8E%86/&title=《图的广度优先遍历》 — Coder&source=人生天地间，忽如远行客" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://lastknightcoder.gitee.io/%E5%9B%BE%E7%9A%84%E5%B9%BF%E5%BA%A6%E4%BC%98%E5%85%88%E9%81%8D%E5%8E%86/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《图的广度优先遍历》 — Coder&url=https://lastknightcoder.gitee.io/%E5%9B%BE%E7%9A%84%E5%B9%BF%E5%BA%A6%E4%BC%98%E5%85%88%E9%81%8D%E5%8E%86/&via=https://lastknightcoder.gitee.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://lastknightcoder.gitee.io/%E5%9B%BE%E7%9A%84%E5%B9%BF%E5%BA%A6%E4%BC%98%E5%85%88%E9%81%8D%E5%8E%86/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="https://lastknightcoder.gitee.io/%E6%9C%80%E9%95%BF%E5%9B%9E%E6%96%87%E5%AD%97%E7%AC%A6%E4%B8%B2/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">最长回文字符串</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'lastknightcoder';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="https://lastknightcoder.gitee.io/img/wechatpay.png" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="https://lastknightcoder.gitee.io/img/wechatpay.png" data-alipay="https://lastknightcoder.gitee.io/img/alipay.png">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="https://lastknightcoder.gitee.io/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>熊滔 &copy; 2019 - 2020</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://lastknightcoder.gitee.io/%E5%9B%BE%E7%9A%84%E5%B9%BF%E5%BA%A6%E4%BC%98%E5%85%88%E9%81%8D%E5%8E%86/&title=《图的广度优先遍历》 — Coder&pic=https://lastknightcoder.gitee.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://lastknightcoder.gitee.io/%E5%9B%BE%E7%9A%84%E5%B9%BF%E5%BA%A6%E4%BC%98%E5%85%88%E9%81%8D%E5%8E%86/&title=《图的广度优先遍历》 — Coder&source=人生天地间，忽如远行客" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://lastknightcoder.gitee.io/%E5%9B%BE%E7%9A%84%E5%B9%BF%E5%BA%A6%E4%BC%98%E5%85%88%E9%81%8D%E5%8E%86/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《图的广度优先遍历》 — Coder&url=https://lastknightcoder.gitee.io/%E5%9B%BE%E7%9A%84%E5%B9%BF%E5%BA%A6%E4%BC%98%E5%85%88%E9%81%8D%E5%8E%86/&via=https://lastknightcoder.gitee.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://lastknightcoder.gitee.io/%E5%9B%BE%E7%9A%84%E5%B9%BF%E5%BA%A6%E4%BC%98%E5%85%88%E9%81%8D%E5%8E%86/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2CAAAAADAeSUUAAADK0lEQVR42u3aQW7DMAwEwPz/0ynQa2BnSapFpIxPhqHaGuXAiqvHI76ev9fr/euY5Lp/f/L1ZD4LLmxsbOxN2MkUq2Pu/+oecz8muY+WGxsbG/s49qRoTUrLKmQ+T2xsbOxvZidlJn+SlK68TGJjY2Nj99iTrUi1EFa3K9jY2Njfxp6XqORjyWLNNyqLe2nY2NjYH8+eBL2fdv9P+TY2Njb2x7CfrSspPNUCuarNFM0fGxsb+yB2fnQm3zZMGv2rnkcBMDY2NvZB7KTwJH88iQ2wsbGxsXvsXuu8V4TyCPb+yYJfFRsbG/sg9qQNNJ/cZPw8wMDGxsY+g518Pt9yTMpbtThVN0VvtiLY2NjYB7EnTaLq/f1yJFFuc7OEjY2NfRC7OTT4WN5Iqjaeetuhx4IVwsbGxt6JnceoSRFK2lJJqZuHDW/OK2FjY2NvyK6WnN7BykmQkMytenwHGxsb+yR270DPvNRNytLiphI2Njb25uzJquTje5uQSVl982ZsbGzs49h5iFtouwcBbd5Iqpa6N8USGxsb+2h20mpPppW/J08wqst9+QQbGxv7aPaqmLZaFHslrfd1bGxs7PPYyavzFny+ZPly9ApVuZeGjY2NvSG7WjYm25V8WsnWJR9/OX9sbGzs49hJE2f++d7zyTwLcS82Njb2huzJliMvV38RHowiYWxsbOyD2Pnk5luXavNoEiEUOlLY2NjYm7OT0tVrDFVb9tVv5T/b5VYEGxsb+yB2teRMDu7cT7rXzEoW4rKLho2NjX0EexLc5rFBrxVVbTOVD+tgY2Njb87utZbyhn4eM0zihAUNJmxsbOxt2ckHkqsXu87fk8+/cGQHGxsbeyv2vJXfa/Tn26FesSyPx8bGxt6W/Sxea5cmbznNnzcrMzY2NvbHs/Mr/3d/HvpOguF5wcPGxsbekb2qYTSJAapBb6+AFTYk2NjY2Buyq9Hp5EhN9dhQ/rZCPICNjY39xexVcW+vSdRb9MutCDY2NvaXsavLMYkKqm2p5PgONjY29tnsSVHpxbF5oaoGDFELDBsbG/sgdjXonQDykLgaSOQ/ADY2NvZB7B9Xylo9ZuVxgAAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: 'https://lastknightcoder.gitee.io/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>
