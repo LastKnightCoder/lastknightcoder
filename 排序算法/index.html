@@ -24,7 +24,7 @@
     <meta name="description" content="讲解常见的排序算法，并用Java实现">
 <meta property="og:type" content="article">
 <meta property="og:title" content="常见排序算法">
-<meta property="og:url" content="https://lastknightcoder.gitee.io/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/">
+<meta property="og:url" content="https://lastknightcoder.github.io/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/">
 <meta property="og:site_name" content="Coder">
 <meta property="og:description" content="讲解常见的排序算法，并用Java实现">
 <meta property="og:locale" content="zh_CN">
@@ -48,9 +48,9 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/20200703125549.png">
     
-        <link rel="alternate" type="application/atom+xml" title="Coder" href="https://lastknightcoder.gitee.io/atom.xml">
+        <link rel="alternate" type="application/atom+xml" title="Coder" href="https://lastknightcoder.github.io/atom.xml">
     
-    <link rel="shortcut icon" href="https://lastknightcoder.gitee.io/favicon.ico">
+    <link rel="shortcut icon" href="https://lastknightcoder.github.io/favicon.ico">
     <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
     <script>window.lazyScripts=[]</script>
 
@@ -67,10 +67,10 @@
     <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
         <i class="icon icon-lg icon-close"></i>
     </a>
-    <div class="brand-wrap" style="background-image:url(https://lastknightcoder.gitee.io/img/brand.jpg)">
+    <div class="brand-wrap" style="background-image:url(https://lastknightcoder.github.io/img/brand.jpg)">
       <div class="brand">
-        <a href="https://lastknightcoder.gitee.io/" class="avatar waves-effect waves-circle waves-light">
-          <img src="https://lastknightcoder.gitee.io/img/avatar.jpg">
+        <a href="https://lastknightcoder.github.io/" class="avatar waves-effect waves-circle waves-light">
+          <img src="https://lastknightcoder.github.io/img/avatar.jpg">
         </a>
         <hgroup class="introduce">
           <h5 class="nickname">熊滔</h5>
@@ -82,28 +82,28 @@
       <ul class="nav">
         
             <li class="waves-block waves-effect">
-              <a href="https://lastknightcoder.gitee.io/"  >
+              <a href="https://lastknightcoder.github.io/"  >
                 <i class="icon icon-lg icon-home"></i>
                 主页
               </a>
             </li>
         
             <li class="waves-block waves-effect">
-              <a href="https://lastknightcoder.gitee.io/archives"  >
+              <a href="https://lastknightcoder.github.io/archives"  >
                 <i class="icon icon-lg icon-archives"></i>
                 归档
               </a>
             </li>
         
             <li class="waves-block waves-effect">
-              <a href="https://lastknightcoder.gitee.io/tags"  >
+              <a href="https://lastknightcoder.github.io/tags"  >
                 <i class="icon icon-lg icon-tags"></i>
                 标签
               </a>
             </li>
         
             <li class="waves-block waves-effect">
-              <a href="https://lastknightcoder.gitee.io/categories"  >
+              <a href="https://lastknightcoder.github.io/categories"  >
                 <i class="icon icon-lg icon-th-list"></i>
                 分类
               </a>
@@ -157,7 +157,7 @@
 </time>
 
 
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="https://lastknightcoder.gitee.io/categories/Algorithms/">Algorithms</a></li></ul>
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="https://lastknightcoder.github.io/categories/Algorithms/">Algorithms</a></li></ul>
 
             
         </h5>
@@ -188,7 +188,7 @@
             <time class="post-time" title="2019-10-02 00:00:00" datetime="2019-10-01T16:00:00.000Z"  itemprop="datePublished">2019-10-02</time>
 
             
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="https://lastknightcoder.gitee.io/categories/Algorithms/">Algorithms</a></li></ul>
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="https://lastknightcoder.github.io/categories/Algorithms/">Algorithms</a></li></ul>
 
 
 
@@ -364,7 +364,7 @@
 <p>所以我们修改上面的排序算法如下</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">quickSort</span><span class="params">(<span class="keyword">int</span>[] arr, <span class="keyword">int</span> l, <span class="keyword">int</span> r)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (r - l &lt; <span class="number">15</span>) &#123;</span><br><span class="line">        Helper.insertSort(arr, l, r);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (l &lt; r) &#123;</span><br><span class="line">        Helper.swap(arr, (<span class="keyword">int</span>)Math.random() * (r - l + <span class="number">1</span>) + l, r); <span class="comment">// 随机快排</span></span><br><span class="line">        <span class="comment">//p得到的是等于区的范围</span></span><br><span class="line">        <span class="keyword">int</span>[] p = partition(arr,l,r);</span><br><span class="line">        <span class="comment">//对等于区不用排序</span></span><br><span class="line">        quickSort(arr,l,p[<span class="number">0</span>] - <span class="number">1</span>);</span><br><span class="line">        quickSort(arr,p[<span class="number">1</span>] + <span class="number">1</span>, r);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span>[] partition(<span class="keyword">int</span>[] arr, <span class="keyword">int</span> L, <span class="keyword">int</span> R) &#123;</span><br><span class="line">    <span class="keyword">int</span> less = L - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">int</span> more = R;</span><br><span class="line">    <span class="keyword">int</span> cur = L;</span><br><span class="line">    <span class="keyword">while</span> (cur &lt; more) &#123;</span><br><span class="line">        <span class="keyword">if</span> (arr[cur] &lt; arr[R]) &#123;</span><br><span class="line">            <span class="comment">//与less的前一个元素进行交换 并且less和cur向前移动</span></span><br><span class="line">            Helper.swap(arr,++less,cur++);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (arr[cur] &gt; arr[R]) &#123;</span><br><span class="line">            <span class="comment">//与more的后一个元素进行交换 并且more向后移动，并且cur和less都不移动</span></span><br><span class="line">            Helper.swap(arr,--more,cur);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">//如果等于，将cur向前移动即可</span></span><br><span class="line">            cur++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//最后将最后一个元素与more位置的元素进行交换</span></span><br><span class="line">    Helper.swap(arr,R,more);</span><br><span class="line">    <span class="comment">//返回等于区的左右下标</span></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;less+<span class="number">1</span>,more&#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h2 id="堆排序"><a href="#堆排序" class="headerlink" title="堆排序"></a>堆排序</h2><p>堆的有关知识可以参考<a href="https://lastknightcoder.gitee.io//%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84--Java%E6%8F%8F%E8%BF%B0/">数据结构–Java描述</a>中优先队列与堆的内容，如果你已经仔细的阅读了话，相比你已经熟悉了堆的性质了，那么下面就直接上代码了</p>
+<h2 id="堆排序"><a href="#堆排序" class="headerlink" title="堆排序"></a>堆排序</h2><p>堆的有关知识可以参考<a href="https://lastknightcoder.gitee.io//%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84--Java%E6%8F%8F%E8%BF%B0/" target="_blank" rel="noopener">数据结构–Java描述</a>中优先队列与堆的内容，如果你已经仔细的阅读了话，相比你已经熟悉了堆的性质了，那么下面就直接上代码了</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Arrays;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HeapSort</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">sort</span><span class="params">(<span class="keyword">int</span>[] arr)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (arr == <span class="keyword">null</span> || arr.length &lt; <span class="number">2</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//将数组变成堆结构</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; arr.length; i++) &#123;</span><br><span class="line">            heapInsert(arr,i);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> heapSize = arr.length;</span><br><span class="line">        <span class="keyword">while</span> (heapSize &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            Helper.swap(arr,<span class="number">0</span>,--heapSize);</span><br><span class="line">            heapify(arr,<span class="number">0</span>,heapSize);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">heapInsert</span><span class="params">(<span class="keyword">int</span>[] arr, <span class="keyword">int</span> index)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">while</span> (arr[index] &gt; arr[(index-<span class="number">1</span>)/<span class="number">2</span>]) &#123;</span><br><span class="line">            Helper.swap(arr,index,(index-<span class="number">1</span>)/<span class="number">2</span>);</span><br><span class="line">            index = (index - <span class="number">1</span>)/<span class="number">2</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">heapify</span><span class="params">(<span class="keyword">int</span>[] arr, <span class="keyword">int</span> index, <span class="keyword">int</span> heapSize)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> left = <span class="number">2</span> * index + <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> (left &lt; heapSize) &#123;</span><br><span class="line">            <span class="keyword">int</span> right = left + <span class="number">1</span>;</span><br><span class="line">            <span class="comment">//假设左更大</span></span><br><span class="line">            <span class="keyword">int</span> larger = left;</span><br><span class="line">            <span class="comment">//如果右比左大 改变larger为右</span></span><br><span class="line">            <span class="keyword">if</span> (right &lt; heapSize &amp;&amp; arr[right] &gt; arr[left]) &#123;</span><br><span class="line">                larger = right;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">//如果父比左右子节点都大，说明还是堆，直接退出循环</span></span><br><span class="line">            <span class="keyword">if</span> (arr[larger] &lt; arr[index]) &#123;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">//如果不是，那么就和比较大的交换交换</span></span><br><span class="line">            Helper.swap(arr,larger,index);</span><br><span class="line">            index = larger;</span><br><span class="line">            left = index * <span class="number">2</span> + <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = <span class="number">100000</span>;</span><br><span class="line">        <span class="keyword">int</span> m = <span class="number">10</span>;</span><br><span class="line">        <span class="keyword">double</span> time = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m; i++) &#123;</span><br><span class="line">            <span class="keyword">int</span>[] arr = Helper.generateArray(n, <span class="number">0</span>, n);</span><br><span class="line">            time += Helper.testTime(arr, HeapSort::sort);</span><br><span class="line">            System.out.println(<span class="string">"isSorted: "</span> + Helper.isSorted(arr));</span><br><span class="line">        &#125;</span><br><span class="line">        time = time / m;</span><br><span class="line">        System.out.println(time + <span class="string">"s"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>测试 <code>10</code> 次平均所需时间为</p>
@@ -384,8 +384,8 @@
     </div>
     
     <footer>
-        <a href="https://lastknightcoder.gitee.io">
-            <img src="https://lastknightcoder.gitee.io/img/avatar.jpg" alt="熊滔">
+        <a href="https://lastknightcoder.github.io">
+            <img src="https://lastknightcoder.github.io/img/avatar.jpg" alt="熊滔">
             熊滔
         </a>
     </footer>
@@ -400,7 +400,7 @@
 
         <div class="post-footer">
             
-	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="https://lastknightcoder.gitee.io/tags/Java/" rel="tag">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="https://lastknightcoder.gitee.io/tags/%E6%8E%92%E5%BA%8F/" rel="tag">排序</a></li></ul>
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="https://lastknightcoder.github.io/tags/Java/" rel="tag">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="https://lastknightcoder.github.io/tags/%E6%8E%92%E5%BA%8F/" rel="tag">排序</a></li></ul>
 
 
             
@@ -410,7 +410,7 @@
 <div class="page-share" id="pageShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://lastknightcoder.gitee.io/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/&title=《常见排序算法》 — Coder&pic=https://lastknightcoder.gitee.io/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://lastknightcoder.github.io/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/&title=《常见排序算法》 — Coder&pic=https://lastknightcoder.github.io/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -420,22 +420,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://lastknightcoder.gitee.io/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/&title=《常见排序算法》 — Coder&source=人生天地间，忽如远行客" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://lastknightcoder.github.io/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/&title=《常见排序算法》 — Coder&source=人生天地间，忽如远行客" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://lastknightcoder.gitee.io/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://lastknightcoder.github.io/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《常见排序算法》 — Coder&url=https://lastknightcoder.gitee.io/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/&via=https://lastknightcoder.gitee.io" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《常见排序算法》 — Coder&url=https://lastknightcoder.github.io/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/&via=https://lastknightcoder.github.io" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://lastknightcoder.gitee.io/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://lastknightcoder.github.io/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -458,7 +458,7 @@
 <nav class="post-nav flex-row flex-justify-between">
   
     <div class="waves-block waves-effect prev">
-      <a href="https://lastknightcoder.gitee.io/%E6%80%9D%E4%BF%AE/" id="post-prev" class="post-nav-link">
+      <a href="https://lastknightcoder.github.io/%E6%80%9D%E4%BF%AE/" id="post-prev" class="post-nav-link">
         <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
         <h4 class="title">思修</h4>
       </a>
@@ -467,7 +467,7 @@
 
   
     <div class="waves-block waves-effect next">
-      <a href="https://lastknightcoder.gitee.io/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84--Java%E6%8F%8F%E8%BF%B0/" id="post-next" class="post-nav-link">
+      <a href="https://lastknightcoder.github.io/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84--Java%E6%8F%8F%E8%BF%B0/" id="post-next" class="post-nav-link">
         <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
         <h4 class="title">数据结构--Java描述</h4>
       </a>
@@ -519,12 +519,12 @@
     <div class="reward-content">
         
         <div class="reward-code">
-            <img id="rewardCode" src="https://lastknightcoder.gitee.io/img/wechatpay.png" alt="打赏二维码">
+            <img id="rewardCode" src="https://lastknightcoder.github.io/img/wechatpay.png" alt="打赏二维码">
         </div>
         
         <label class="reward-toggle">
             <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
-                data-wechat="https://lastknightcoder.gitee.io/img/wechatpay.png" data-alipay="https://lastknightcoder.gitee.io/img/alipay.png">
+                data-wechat="https://lastknightcoder.github.io/img/wechatpay.png" data-alipay="https://lastknightcoder.github.io/img/alipay.png">
             <div class="reward-toggle-ctrol">
                 <span class="reward-toggle-item wechat">微信</span>
                 <span class="reward-toggle-label"></span>
@@ -554,13 +554,13 @@
 
         <p>
             
-                <span><a href="https://lastknightcoder.gitee.io/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+                <span><a href="https://lastknightcoder.github.io/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
             
             <span>博客内容遵循 <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
         </p>
     </div>
     <div class="bottom">
-        <p><span>熊滔 &copy; 2019 - 2020</span>
+        <p><span>熊滔 &copy; 2019 - 2021</span>
             <span>
                 
                 Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
@@ -578,7 +578,7 @@
 <div class="global-share" id="globalShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://lastknightcoder.gitee.io/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/&title=《常见排序算法》 — Coder&pic=https://lastknightcoder.gitee.io/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://lastknightcoder.github.io/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/&title=《常见排序算法》 — Coder&pic=https://lastknightcoder.github.io/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -588,22 +588,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://lastknightcoder.gitee.io/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/&title=《常见排序算法》 — Coder&source=人生天地间，忽如远行客" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://lastknightcoder.github.io/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/&title=《常见排序算法》 — Coder&source=人生天地间，忽如远行客" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://lastknightcoder.gitee.io/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://lastknightcoder.github.io/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《常见排序算法》 — Coder&url=https://lastknightcoder.gitee.io/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/&via=https://lastknightcoder.gitee.io" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《常见排序算法》 — Coder&url=https://lastknightcoder.github.io/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/&via=https://lastknightcoder.github.io" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://lastknightcoder.gitee.io/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://lastknightcoder.github.io/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -614,7 +614,7 @@
 <div class="page-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACuUlEQVR42u3aQW7kMAwEQP//0wmwp1xsN0kxmQXKp8CYkVUOIHGauq74+vp33d3/eU1GeL7/PP7owsPDw2tN/e6av7lktOocks/j4eHhbfOel/K7oee8ZGvJXzceHh7ep/Gey9+8pp2X1Hh4eHj/Cy9nV5f75MXh4eHhfRovCQKe7yej5VOszudA1oKHh4cX86oNsE/4e7G/h4eHhzfoqudL/KTRlccf5bnh4eHhLfAmDa3ku9UX1It9X2aOh4eHd5TXC1LzkCIfIQlk89DhZd/Dw8PDG/CqkWiylEePXNtmmik1Hh4eXvF3+iQOSMapLvS94vvK9xY8PDy8Ma86ld6xqnwbqM7q9lt4eHh4C7zJ4adqiVxNl+fNMzw8PLwN3iSGmIcLzX5dHv7i4eHhLfCSR/baXb222bxJFl14eHh4y7xqcDA5VlWNel9+K+Dh4eGt8SaT6G0P+daSBx8vWTUeHh7eMm/vKEC+U/UC32hjwMPDwxvw8pi12qaq1rR5cX/gZAQeHh7emNeLVnv3J4cSygktHh4e3jIveXwviq02/pMDVVGBjoeHh7fA6zX7J5PuvbKkWL+dIR4eHt5RXtJ26hW++bGt/CWWtxw8PDy8ZV51Ce4dMsiDhkmcgYeHh7fHS8rT/P4kyOiV0fkT8fDw8PZ41aI2L5FPfSYJcws1Ph4eHl6LNwkO8gbVqeAjD0Hw8PDwtnmT1n6ybVRj2Ty2iPp7eHh4eId4G0tzb7q94vvl34OHh4e3wOtNrld2T1pc1SL+mrx7PDw8vIBX3Qx6G8mp5b46Ph4eHt4eL98MkmW6d2Brfjwrylrw8PDwfp33shAfOsuQF9wvY+Lh4eH9Ka9aEFdbYnmGkMwBDw8Pb5uXD5F8Nw8U5lHFy8vCw8PDW+BNGmB5uZw3+Ktl+oEuHx4eHl7K+waN4NB1n4xgXgAAAABJRU5ErkJggg==" alt="微信分享二维码">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACnUlEQVR42u3aQW7kMAwEwPz/09lrgIU33aTkTYDyKfDMyCodTIbkx0d8fX65vt55+jS5/+87T0/5uHHh4eHhLbb+93VqQ8lq/37K04E+7RkPDw/vNq99KbdbzF/rmyCBh4eH91t4m8Q3PxQ8PDy838hrE+tTiTIeHh7ez+QlS+clgLYkMfv7cK0FDw8PL+a1BYKf8PeV/h4eHh7euqs+CxJJcpwXgj8XFx4eHt4N3n50YAZrB7naphoeHh7eO7z28Xn7qg0P7THh4eHhvc9r211tcty+4vNwUuDx8PDwXuHlxdMc0Kba+RjBN0g8PDy8o7w2VW0Zm3R8Fn7w8PDw3uTNXsHHmv3x4eb/BuDh4eG9yWvHBdrN5cWIPK0vqix4eHh4a96pEkDe7pqB68CDh4eHd4GXtJ3uvfpnpY26mIKHh4d3iNemzvtG177MUayMh4eHd4GXt6baplSbQLfl4KJwjIeHh3eUl8PaIa19IElS/G++j4eHh3eNt284taMDeeBJAsPjynh4eHgXeLOWWBtI2gS9bZvlx4SHh4e3583S2fw1vRkXONB+w8PDw7vGa7cya3rlz2qP73EFPDw8vGu89sezAkTCmLXBHlfDw8PDu8DLCwH5gFQ+yLUpXuRPx8PDw7vBO1UCaDe0GecqAgMeHh7eZd6mlLBJxJPDakskeHh4eO/w8qJAQpoBNiGq+AAPDw9vxPssr+S37TBBu2aevuPh4eHd4G2KDrOmV95+a1tuq9CCh4eHV/JODU7ttz5L1vHw8PD+F2/WOZptPf+0LUMUowN4eHh4r/PaRxbN/lHZ4ptiLh4eHt4P4+UDAfl3Nsk3Hh4e3ju8WeK7SZTPBozH3+Lh4eFd4M1GmvZN/bYxNruDh4eHd5T3BwtvJwO5X9aBAAAAAElFTkSuQmCC" alt="微信分享二维码">
 </div>
 
 
@@ -622,7 +622,7 @@
 
     <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
 <script>
-var BLOG = { ROOT: 'https://lastknightcoder.gitee.io/', SHARE: true, REWARD: true };
+var BLOG = { ROOT: 'https://lastknightcoder.github.io/', SHARE: true, REWARD: true };
 
 
 </script>
