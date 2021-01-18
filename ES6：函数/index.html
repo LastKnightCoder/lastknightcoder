@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>ES6：函数 | Coder</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="默认参数,箭头函数">
+    <meta name="description" content="默认参数如果在调用函数时没有传入参数时，我们希望使用默认值，ES5 的写法如下 function getValue(url, timeout, callback) &amp;#123;  timeout &#x3D; timeout || 2000;  callback &#x3D; callback || function(data) &amp;#123;      console.log(data);  &amp;#125;  &#x2F;&#x2F; 其">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ES6：函数">
+<meta property="og:url" content="https://lastknightcoder.github.io/lastknightcoder/ES6%EF%BC%9A%E5%87%BD%E6%95%B0/">
+<meta property="og:site_name" content="Coder">
+<meta property="og:description" content="默认参数如果在调用函数时没有传入参数时，我们希望使用默认值，ES5 的写法如下 function getValue(url, timeout, callback) &amp;#123;  timeout &#x3D; timeout || 2000;  callback &#x3D; callback || function(data) &amp;#123;      console.log(data);  &amp;#125;  &#x2F;&#x2F; 其">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-01-18T09:20:00.000Z">
+<meta property="article:modified_time" content="2021-01-18T09:20:00.000Z">
+<meta property="article:author" content="熊滔">
+<meta property="article:tag" content="默认参数">
+<meta property="article:tag" content="箭头函数">
+<meta name="twitter:card" content="summary">
+    
+        <link rel="alternate" type="application/atom+xml" title="Coder" href="https://lastknightcoder.github.io/lastknightcoder/atom.xml">
+    
+    <link rel="shortcut icon" href="https://lastknightcoder.github.io/lastknightcoder/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(https://lastknightcoder.github.io/lastknightcoder/img/brand.jpg)">
+      <div class="brand">
+        <a href="https://lastknightcoder.github.io/lastknightcoder/" class="avatar waves-effect waves-circle waves-light">
+          <img src="https://lastknightcoder.github.io/lastknightcoder/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">熊滔</h5>
+          <a href="mailto:2223106858@qq.com" title="2223106858@qq.com" class="mail">2223106858@qq.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.github.io/lastknightcoder/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.github.io/lastknightcoder/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.github.io/lastknightcoder/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.github.io/lastknightcoder/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://gitee.com/LastKnightCoder" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">ES6：函数</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">ES6：函数</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2021-01-18T09:20:00.000Z" itemprop="datePublished" class="page-time">
+  2021-01-18
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="https://lastknightcoder.github.io/lastknightcoder/categories/ES6/">ES6</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#默认参数"><span class="post-toc-number">1.</span> <span class="post-toc-text">默认参数</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#arguments-对象"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">arguments 对象</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#表达式"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">表达式</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#TDZ-暂时性死区"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">TDZ(暂时性死区)</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#匿名参数"><span class="post-toc-number">2.</span> <span class="post-toc-text">匿名参数</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Function-增强"><span class="post-toc-number">3.</span> <span class="post-toc-text">Function 增强</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#展开运算符"><span class="post-toc-number">4.</span> <span class="post-toc-text">展开运算符</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#name-属性"><span class="post-toc-number">5.</span> <span class="post-toc-text">name 属性</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#函数的多重角色"><span class="post-toc-number">6.</span> <span class="post-toc-text">函数的多重角色</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Block-Level-Functions"><span class="post-toc-number">7.</span> <span class="post-toc-text">Block-Level Functions</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#箭头函数"><span class="post-toc-number">8.</span> <span class="post-toc-text">箭头函数</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#语法"><span class="post-toc-number">8.1.</span> <span class="post-toc-text">语法</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#无-this-绑定"><span class="post-toc-number">8.2.</span> <span class="post-toc-text">无 this 绑定</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#无-arguments-绑定"><span class="post-toc-number">8.3.</span> <span class="post-toc-text">无 arguments 绑定</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#尾调用优化"><span class="post-toc-number">9.</span> <span class="post-toc-text">尾调用优化</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-ES6：函数"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">ES6：函数</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2021-01-18 17:20:00" datetime="2021-01-18T09:20:00.000Z"  itemprop="datePublished">2021-01-18</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="https://lastknightcoder.github.io/lastknightcoder/categories/ES6/">ES6</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h2 id="默认参数"><a href="#默认参数" class="headerlink" title="默认参数"></a>默认参数</h2><p>如果在调用函数时没有传入参数时，我们希望使用默认值，ES5 的写法如下</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getValue</span>(<span class="params">url, timeout, callback</span>) </span>&#123;</span><br><span class="line">  timeout = timeout || <span class="number">2000</span>;</span><br><span class="line">  callback = callback || <span class="function"><span class="keyword">function</span>(<span class="params">data</span>) </span>&#123;</span><br><span class="line">      <span class="built_in">console</span>.log(data);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 其他处理逻辑</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>但是上面的代码有问题，如果 timeout 传入的是 0，那么 timeout 还是会使用默认值，因为 0 对应的 boolean 为 false，所以代码会修改如下</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getValue</span>(<span class="params">url, timeout, callback</span>) </span>&#123;</span><br><span class="line">    timeout = (<span class="keyword">typeof</span> timeout !== <span class="string">'undefined'</span>) ? timeout : <span class="number">2000</span>;</span><br><span class="line">    callback = (<span class="keyword">typeof</span> callback !== <span class="string">'undefined'</span>) ? callback : <span class="function"><span class="keyword">function</span>(<span class="params">data</span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(data);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 其他处理逻辑</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>现在我们可以在 ES6 通过简单的写法实现上面的效果</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getValue</span>(<span class="params">url, timeout = <span class="number">2000</span>, callback = function(data</span>) </span>&#123;<span class="built_in">console</span>.log(data)&#125;) &#123;</span><br><span class="line">    <span class="comment">// 其他处理逻辑</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上面的 timeout 和 callback 参数我们称之为默认参数，当调用函数没有传入参数，或者传入的参数为 undefiend 时，就是使用指定的默认参数。</p>
+<h3 id="arguments-对象"><a href="#arguments-对象" class="headerlink" title="arguments 对象"></a>arguments 对象</h3><p>每一个函数中都会有一个 arguments 对象，其中保存的是传入的参数值。arguments 对象在严格和非严格模式下的行为是不同的。</p>
+<p>在非严格模式下，arguments 会受到命名参数的影响，即在函数内对命名参数进行修改，也会相应的对 arguments 对象产生修改</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getName</span>(<span class="params">first, second</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(first === <span class="built_in">arguments</span>[<span class="number">0</span>]);  <span class="comment">// true</span></span><br><span class="line">    <span class="built_in">console</span>.log(second === <span class="built_in">arguments</span>[<span class="number">1</span>]); <span class="comment">// true</span></span><br><span class="line"></span><br><span class="line">    first = <span class="string">'a'</span>;</span><br><span class="line">    second = <span class="string">'b'</span>;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">console</span>.log(first === <span class="built_in">arguments</span>[<span class="number">0</span>]);  <span class="comment">// true</span></span><br><span class="line">    <span class="built_in">console</span>.log(second === <span class="built_in">arguments</span>[<span class="number">1</span>]); <span class="comment">// true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在严格模式下，对命名参数的修改不会影响 arguments 对象</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getName</span>(<span class="params">first, second = <span class="string">"hello"</span></span>) </span>&#123;</span><br><span class="line"><span class="meta">    "use strict"</span></span><br><span class="line">    <span class="built_in">console</span>.log(first === <span class="built_in">arguments</span>[<span class="number">0</span>]);  <span class="comment">// true</span></span><br><span class="line">    <span class="built_in">console</span>.log(second === <span class="built_in">arguments</span>[<span class="number">1</span>]); <span class="comment">// true</span></span><br><span class="line"></span><br><span class="line">    first = <span class="string">'a'</span>;</span><br><span class="line">    second = <span class="string">'b'</span>;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">console</span>.log(first === <span class="built_in">arguments</span>[<span class="number">0</span>]);  <span class="comment">// false</span></span><br><span class="line">    <span class="built_in">console</span>.log(second === <span class="built_in">arguments</span>[<span class="number">1</span>]); <span class="comment">// false</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>对于默认参数，无论是在严格模式还是在非严格模式下，对命名参数的修改都不会影响 arguments 对象</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getName</span>(<span class="params">first, second = <span class="string">"hello"</span></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(first === <span class="built_in">arguments</span>[<span class="number">0</span>]);  <span class="comment">// true</span></span><br><span class="line">    <span class="built_in">console</span>.log(second === <span class="built_in">arguments</span>[<span class="number">1</span>]); <span class="comment">// false</span></span><br><span class="line"></span><br><span class="line">    first = <span class="string">'a'</span>;</span><br><span class="line">    second = <span class="string">'b'</span>;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">console</span>.log(first === <span class="built_in">arguments</span>[<span class="number">0</span>]);  <span class="comment">// false</span></span><br><span class="line">    <span class="built_in">console</span>.log(second === <span class="built_in">arguments</span>[<span class="number">1</span>]); <span class="comment">// false</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">getName(<span class="string">"Hello"</span>)</span><br></pre></td></tr></table></figure>
+
+<p>因为只传入了一个参数值，所以 <code>arguments[0] === first</code>，而 <code>arguments[1] === undefiend</code> ，所以 second 的值与 arguments[1] 不相等。</p>
+<h3 id="表达式"><a href="#表达式" class="headerlink" title="表达式"></a>表达式</h3><p>默认参数的取值除了原始值以外，还可以是一个表达式，例如</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getValue</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">5</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">first, second = getValue(</span>)) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> first + second;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">add(<span class="number">1</span>, <span class="number">1</span>); <span class="comment">// 2</span></span><br><span class="line">add(<span class="number">1</span>);    <span class="comment">// 6</span></span><br></pre></td></tr></table></figure>
+
+<p>甚至你可以将前面的参数作为后面参数的默认值</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">first, second = first</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> first + second;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">add(<span class="number">1</span>, <span class="number">2</span>); <span class="comment">// 3</span></span><br><span class="line">add(<span class="number">2</span>);    <span class="comment">// 4</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="TDZ-暂时性死区"><a href="#TDZ-暂时性死区" class="headerlink" title="TDZ(暂时性死区)"></a>TDZ(暂时性死区)</h3><p>所谓的临时死区是指在变量声明之前，不能够访问该变量</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">first = second, second</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> first + second;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">add(<span class="literal">undefined</span>, <span class="number">2</span>); <span class="comment">// ReferenceError: Cannot access 'second' before initialization</span></span><br></pre></td></tr></table></figure>
+
+<p>上面我们设置 first 的默认值为 second，当我们为 first 传入 udefiend 时会使用默认值，但是此时 second 并未初始化，所以这时访问 second 会发生错误。</p>
+<h2 id="匿名参数"><a href="#匿名参数" class="headerlink" title="匿名参数"></a>匿名参数</h2><p>当我们调用 JavaScript 的函数时，传入的参数个数可以与定义函数时要求的函数个数不同，可多可少。所以传入的参数都会保存在 arguments 对象中，无论是在函数签名中已经定义了的参数(命名参数)还是未定义的参数(匿名参数)</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">print</span>(<span class="params">arg</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; <span class="built_in">arguments</span>.length; i++) &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="built_in">arguments</span>[i]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">print(<span class="string">"a"</span>, <span class="string">"b"</span>, <span class="string">"c"</span>); <span class="comment">// a</span></span><br><span class="line">                      <span class="comment">// b</span></span><br><span class="line">                      <span class="comment">// c</span></span><br></pre></td></tr></table></figure>
+
+<p>在 ES6 中引入了剩余参数(Rest Parameters)，剩余参数中只保留匿名参数的值</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">print</span>(<span class="params">arg, ...values</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; values.length; i++) &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(values[i]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">print(<span class="string">"a"</span>, <span class="string">"b"</span>, <span class="string">"c"</span>); <span class="comment">// b</span></span><br><span class="line">                      <span class="comment">// c,</span></span><br></pre></td></tr></table></figure>
+
+<p>在上面对函数进行了一点修改，在参数列表中添加了一项 <code>...values</code> ,values 表示的就是剩余参数，如果调用函数时多传入了参数，那么多余的参数就会放入 values 这个数组中。</p>
+<p>剩余参数与 arguments 参数的不同：</p>
+<ol>
+<li>剩余参数是一个真正的数组，而 arguments 是一个类数组</li>
+<li>剩余参数中只保存了匿名参数的值，而 arguments则保存了所有传入的值 </li>
+</ol>
+<p>使用剩余参数有两点限制：</p>
+<ol>
+<li><p>一个函数中只能有一个剩余参数，且剩余参数必须放置在参数列表的最后</p>
+</li>
+<li><p>剩余参数不能用于对象的 setter 方法中</p>
+ <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> obj = &#123;</span><br><span class="line">		<span class="comment">// SyntaxError: Setter function argument must not be a rest parameter</span></span><br><span class="line">		<span class="keyword">set</span> name(...values) &#123;</span><br><span class="line">			 <span class="comment">// do something</span></span><br><span class="line">		&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p> 这是因为 setter 方法被限制为只能有一个参数，但是剩余参数理论上表示的是可以接受无穷多的参数。</p>
+</li>
+</ol>
+<p><strong>无论在函数的参数列表中是否定义了剩余参数，都对 arguments 对象没有影响，它始终保存着传入函数的所有参数。</strong></p>
+<h2 id="Function-增强"><a href="#Function-增强" class="headerlink" title="Function 增强"></a>Function 增强</h2><p>Function 构造函数一般是用来生成函数实例的，但是我们很少用到它来声明一个函数</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> add = <span class="keyword">new</span> <span class="built_in">Function</span>(<span class="string">"first"</span>, <span class="string">"second"</span>, <span class="string">"return first + second"</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(add(<span class="number">1</span>, <span class="number">2</span>)); <span class="comment">// 3</span></span><br></pre></td></tr></table></figure>
+
+<p>在 ES6 中对 Function 构造函数进行了增强，使它能够使用默认参数和剩余参数</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> add= <span class="keyword">new</span> <span class="built_in">Function</span>(<span class="string">"first"</span>, <span class="string">"second = first"</span>, <span class="string">"return first + second"</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(add(<span class="number">2</span>)); <span class="comment">// 4</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> print = <span class="keyword">new</span> <span class="built_in">Function</span>(<span class="string">"...values"</span>, <span class="string">"console.log(values[0])"</span>);</span><br><span class="line"></span><br><span class="line">print(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>); <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="展开运算符"><a href="#展开运算符" class="headerlink" title="展开运算符"></a>展开运算符</h2><p>与剩余参数密切相关就是展开运算符，剩余参数是将多个独立的参数合并为一个数组，而展开运算符则相反，向一个数组展开为一个个独立的参数。考虑 Math.max 方法，它接收一个个独立的参数</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Math</span>.max(<span class="number">3</span>, <span class="number">5</span>);</span><br></pre></td></tr></table></figure>
+
+<p>当参数的个数比较少时可以还算容易使用，当需要比较的参数较多时，一般我们会将参数放置在一个数组中然后传入，但是Math.max 不接收数组，它只接收一个个独立的参数</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Math</span>.max([<span class="number">1</span>, <span class="number">3</span>, <span class="number">5</span>, <span class="number">4</span>]); <span class="comment">// ×</span></span><br><span class="line"><span class="built_in">Math</span>.max(<span class="number">1</span>, <span class="number">3</span>, <span class="number">5</span>, <span class="number">4</span>);   <span class="comment">// √</span></span><br></pre></td></tr></table></figure>
+
+<p>这个时候我们通过会借助于 apply 方法，因为 apply 方法是将方法的参数合并为数组传入的</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Math</span>,max.apply(<span class="built_in">Math</span>, [<span class="number">1</span>, <span class="number">3</span>, <span class="number">5</span>, <span class="number">4</span>]);</span><br></pre></td></tr></table></figure>
+
+<p>在 ES6 中提供了展开运算符，可以直接将数组展开为一个个的独立参数进行传入</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Math</span>.max(...[<span class="number">1</span>, <span class="number">3</span>, <span class="number">5</span>, <span class="number">4</span>])</span><br></pre></td></tr></table></figure>
+
+<h2 id="name-属性"><a href="#name-属性" class="headerlink" title="name 属性"></a>name 属性</h2><ol>
+<li>由于有多种方式创建函数，所以识别一个函数很难</li>
+<li>匿名函数的盛行，使得调试十分困难，无法跟踪堆栈信息</li>
+</ol>
+<p>出于如上原因，ES6 为所有的函数都添加了一个 name 属性。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">doSomething</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// empty</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> doOtherThing = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// empty</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> anotherThing = doOtherThing;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(doSomething.name);  <span class="comment">// doSomething</span></span><br><span class="line"><span class="built_in">console</span>.log(doOtherThing.name); <span class="comment">// doOtherThing</span></span><br><span class="line"><span class="built_in">console</span>.log(anotherThing.name); <span class="comment">// doOtherThing</span></span><br></pre></td></tr></table></figure>
+
+<p>函数 doSomething 的 name 属性为 doSomething，因为它的函数签名为 doSomething；匿名函数 doOtherThing 的 name 属性为 doOtherThing，因为它被赋予的变量名为 doOtherThing。anotherThing 的 name 属性还是为 doOtherThing，说明匿名函数的 name 属性并不会更改。</p>
+<p>下面看几个特例：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> doSomething= <span class="function"><span class="keyword">function</span> <span class="title">doSomethingElse</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// empty</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(doSomething.name); <span class="comment">// doSomethingElse</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> doSomething = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// empty</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(doSomething.bind().name); <span class="comment">// bound doSomething</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log((<span class="keyword">new</span> <span class="built_in">Function</span>()).name); <span class="comment">// anonymous</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="函数的多重角色"><a href="#函数的多重角色" class="headerlink" title="函数的多重角色"></a>函数的多重角色</h2><p>函数可以通过 new 调用，也可以不通过 new 调用。JavaScript 的函数含有两个内部可见的方法，[[Call]] 和 [[Construct]]。</p>
+<p>当一个函数通过 new 调用时，[[Construct]] 方法就会被调用，该方法是用来创建一个新对象的，称之为实例，通过函数体内部的 this 来设置实例。<strong>拥有 [[Construct]] 方法的函数叫做构造器，并不是所有的函数都有[[Construct]] 方法，例如后面提及的箭头函数就没有。</strong></p>
+<p>当函数不是通过 new 调用时，就是调用函数内部的 [[Call]] 方法，它会执行函数的方法体。</p>
+<p>那么如何分辨函数以何种方式调用呢? 在 ES5 中，常常通过 instance 来判别</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(<span class="keyword">this</span> <span class="keyword">instanceof</span> Person) &#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">"You must use new with Person"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> person = <span class="keyword">new</span> Person(<span class="string">"Alice"</span>);</span><br><span class="line"><span class="keyword">let</span> notAPerson = Person(<span class="string">"Bob"</span>);  <span class="comment">// Error: You must use new with Person</span></span><br></pre></td></tr></table></figure>
+
+<p>上面的方法能够有效是因为 [[Construct]] 方法会创建一个 Person 的实例，并将它赋值给 this。但是这个方法并不可靠，因为不使用 new 也可以得到 Person 的实例</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(<span class="keyword">this</span> <span class="keyword">instanceof</span> Person) &#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">"You must use new with Person"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> person = <span class="keyword">new</span> Person(<span class="string">"Alice"</span>);</span><br><span class="line"><span class="keyword">let</span> notAPerson = Person.call(person, <span class="string">"Bob"</span>); <span class="comment">// 没有报错</span></span><br></pre></td></tr></table></figure>
+
+<p>在 ES6 中提出了更好的解决办法，那就是 new.target，如果一个函数的 [[Construct]] 方法被调用，new.target 的值就会被赋值为新创建的对象，如果 [[Call]] 被调用，那么 new.target 的值就是 undefiend。所以通过 new.target 可以方便的知道是通过何种方式调用的函数</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">new</span>.target !== <span class="literal">undefined</span>)&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">"You must use new with Person"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> person = <span class="keyword">new</span> Person(<span class="string">"Alice"</span>);</span><br><span class="line"><span class="keyword">let</span> notAPerson = Person.call(person, <span class="string">"Bob"</span>); <span class="comment">// Error: You must use new with Person</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>在函数的外部不能使用 new.target， 否则会报语法错误。</strong></p>
+<h2 id="Block-Level-Functions"><a href="#Block-Level-Functions" class="headerlink" title="Block-Level Functions"></a>Block-Level Functions</h2><p>在 ES3 或者更早以前，是不能在块级作用域中定义函数的，但是所有的浏览器都支持这一行为，于是在 ES5 中，为了修复这不兼容的行为，规定在严格模式下载块级作用域中声明函数将会导致错误</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="meta">"use strict"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (condition) &#123;</span><br><span class="line">		<span class="comment">// 在 ES5 中会导致错误</span></span><br><span class="line">		<span class="function"><span class="keyword">function</span> <span class="title">doSomething</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">				<span class="comment">// empty</span></span><br><span class="line">		&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>但是上面的行为在 ES6 中却是可以的，在 ES6 的严格模式下，函数的作用域只在块级作用域中，在块级作用域以外不能访问该函数</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="meta">"use strict"</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> doSomething); <span class="comment">// undefined</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">typeof</span> doSomething); <span class="comment">// function</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">doSomething</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="comment">// empty</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">typeof</span> doSomething); <span class="comment">// function</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> doSomething); <span class="comment">// undefiend</span></span><br></pre></td></tr></table></figure>
+
+<p>因为对于函数的声明会被提升到作用域的最前方，所以第二个 typeof doSomething 的结果是function。</p>
+<p>上面的行为都是在严格模式下发生的，那么在非严格模式下，函数的声明没有块级作用域的概念，所以函数的声明是在全局作用域中，即在块级作用域之外也可以访问到函数。</p>
+<h2 id="箭头函数"><a href="#箭头函数" class="headerlink" title="箭头函数"></a>箭头函数</h2><h3 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h3><p>箭头函数是 ES6 中的新语法，正如名字所暗示的一样，是使用箭头来声明函数的，例如</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> add = <span class="function">(<span class="params">x, y</span>) =&gt;</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> x + y;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">add(<span class="number">1</span>, <span class="number">2</span>); <span class="comment">// 3</span></span><br></pre></td></tr></table></figure>
+
+<p>上面的函数等价于(当然不是完全等价，具体的区别后文详述)</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> add= <span class="function"><span class="keyword">function</span>(<span class="params">x, y</span>) </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> x + y;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>箭头函数由三部分组成</p>
+<ul>
+<li>参数列表：使用括号将参数括起，参数之间使用逗号分隔<ul>
+<li><code>(x, y)</code></li>
+<li><code>(x, y = x)</code></li>
+</ul>
+</li>
+<li>箭头：⇒</li>
+<li>函数体：使用花括号括起</li>
+</ul>
+<p>如果参数列表只有<strong>一个参数</strong>的话，那么可以参数列表不写括号</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">(x) =&gt; &#123;</span><br><span class="line">		<span class="keyword">return</span> x;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 等价于</span></span><br><span class="line">x =&gt; &#123;</span><br><span class="line">		<span class="keyword">return</span> x;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果函数体中只有一条语句的话，那么也可以省略花括号</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">x =&gt; <span class="keyword">return</span> x;</span><br></pre></td></tr></table></figure>
+
+<p>进一步，如果这一条语句直接返回一个值的话，return 也可以省略，它会计算这条语句，然后将值返回</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">x =&gt; x;</span><br></pre></td></tr></table></figure>
+
+<p>如果是直接返回一个字面量对象的话，需要使用括号括起</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">() =&gt; (&#123;<span class="attr">x</span>: <span class="number">1</span>, <span class="attr">y</span>: <span class="number">2</span>&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 等价于</span></span><br><span class="line"><span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> &#123;</span><br><span class="line">				x: <span class="number">1</span>,</span><br><span class="line">				y: <span class="number">2</span></span><br><span class="line">		&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="无-this-绑定"><a href="#无-this-绑定" class="headerlink" title="无 this 绑定"></a>无 this 绑定</h3><p>在 JavaScript 中，每一个函数都会默认的传入一个 this 参数，它的取值取决于调用方式，而不是所处的位置</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.name = name;</span><br><span class="line">    <span class="keyword">this</span>.getName = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> person = <span class="keyword">new</span> Person(<span class="string">"Alice"</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(person.getName());            <span class="comment">// Alice</span></span><br><span class="line"><span class="built_in">console</span>.log(person.getName.call(global)); <span class="comment">// undefiend</span></span><br></pre></td></tr></table></figure>
+
+<p>不同的调用方式，函数内部 this 的取值也不同，所以很容易就写出错误的代码。但是箭头函数内部没有 this 绑定，这意味着它会在它的作用域链中去寻找 this</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.name = name;</span><br><span class="line">    <span class="keyword">this</span>.getName = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> person = <span class="keyword">new</span> Person(<span class="string">"Alice"</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(person.getName());            <span class="comment">// Alice</span></span><br><span class="line"><span class="built_in">console</span>.log(person.getName.call(global)); <span class="comment">// Alice</span></span><br></pre></td></tr></table></figure>
+
+<p>上面修改 getName 为箭头函数，因为箭头函数的内部没有 this 绑定，所以它会向它的作用域链中寻找 this，即它使用的是它父级作用域的 this，这意味着箭头函数内部的 this 与调用方式无关，与它所在的位置有关，这样可以获得预期的结果，减少出 bug 的几率。</p>
+<h3 id="无-arguments-绑定"><a href="#无-arguments-绑定" class="headerlink" title="无 arguments 绑定"></a>无 arguments 绑定</h3><p>同 this 一样，每个函数内部都会自动传入一个 arguments 对象，但是箭头函数内部并没有 arguments 对象，所以想取得箭头函数传入的参数，就得使用剩余参数</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> add = <span class="function">(<span class="params">...values</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="built_in">arguments</span>); <span class="comment">// [Arguments] &#123;&#125;</span></span><br><span class="line">        <span class="built_in">console</span>.log(values);    <span class="comment">// [ 1, 2, 3 ]</span></span><br><span class="line">        <span class="keyword">let</span> sum = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; values.length; i++) &#123;</span><br><span class="line">            sum += values[i];</span><br><span class="line">        &#125;</span><br><span class="line">    </span><br><span class="line">        <span class="keyword">return</span> sum;</span><br><span class="line">     &#125;</span><br><span class="line">    </span><br><span class="line">     <span class="built_in">console</span>.log(add(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>)); <span class="comment">// 6</span></span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure>
+
+<p><strong>箭头函数与一般函数的不同：</strong></p>
+<ol>
+<li>函数内部没有 this，arguments，new.target 绑定</li>
+<li>不能通过 new 的方式被调用，上文提及过，箭头函数内部没有 [[Construct]] 方法</li>
+<li>没有 prototype</li>
+</ol>
+<p>尽管箭头函数与一般函数有所不同，但是通过 typeof 以及 instanceof 方法鉴别的行为与一般函数相同</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> add = <span class="function">(<span class="params">x, y</span>) =&gt;</span> x + y;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> add);              <span class="comment">// function</span></span><br><span class="line"><span class="built_in">console</span>.log(add <span class="keyword">instanceof</span> <span class="built_in">Function</span>); <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+
+<p>箭头函数也可以调用call，apply，bind 方法，但是箭头函数内部的 this 取值并不会受到影响。</p>
+<h2 id="尾调用优化"><a href="#尾调用优化" class="headerlink" title="尾调用优化"></a>尾调用优化</h2><p>什么叫尾调用? 尾调用指的是函数的最后一条语句是调用一个函数，例如</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">doSomething</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> doSomethingElse();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们知道每次调用函数时，都会创建一个栈帧放置到函数栈中，当函数调用较多时，特别是递归调用，可能会使得栈中的栈帧越来越多，当超过栈帧允许的最大数量时，就会报错</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">doSomething</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    doSomething();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">doSomething(); <span class="comment">// RangeError: Maximum call stack size exceeded</span></span><br></pre></td></tr></table></figure>
+
+<p>那么所谓的尾调用优化指的是，当函数的最后一条语句是<strong>返回另一个函数的调用</strong>时，那么调用的函数会复用当前栈帧，而不会创建一个新的栈帧，这样栈中的栈帧的数量就不会增加，也就不会出现超过栈帧允许的最大数量。</p>
+<p>要实现尾调用优化，被调用函数要满足以下特点：</p>
+<ol>
+<li>尾调用没有访问当前栈帧中的变量</li>
+<li>尾调用是最后一条语句</li>
+<li>尾调用的返回值作为函数的返回值</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">doSomething</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		<span class="comment">// 无法优化，没有 return</span></span><br><span class="line">    doSomething();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">doSomething</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">		<span class="comment">// 无法优化，尾调用不是最后一条语句，先进行函数调用，然后进行加法</span></span><br><span class="line">		<span class="keyword">return</span> <span class="number">1</span> + doSomething();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">doSomething</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> num = <span class="number">1</span>,</span><br><span class="line">        func = <span class="function"><span class="params">()</span> =&gt;</span> num;</span><br><span class="line">    <span class="comment">// 无法优化，访问了当前栈帧中的变量 </span></span><br><span class="line">    <span class="keyword">return</span> func();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>下面我们看一个求阶乘的例子</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">factorial</span>(<span class="params">n</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (n &lt; <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">"参数错误"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (n &lt;= <span class="number">1</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> n * factorial(n - <span class="number">1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上面的函数无法进行尾优化，因为最后一条语句不是尾调用。现在我们换一种思路，将上面的函数转化为可以进行尾调用优化的函数</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">factorial</span>(<span class="params">n, result = <span class="number">1</span></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (n &lt; <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">"参数错误"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (n &lt;= <span class="number">1</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    result = result * n;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> factorial(n - <span class="number">1</span>, result);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2021-01-18T09:20:00.000Z" itemprop="dateUpdated">2021-01-18 17:20:00</time>
+</span><br>
+
+
+        
+    </div>
+    
+    <footer>
+        <a href="https://lastknightcoder.github.io/lastknightcoder">
+            <img src="https://lastknightcoder.github.io/lastknightcoder/img/avatar.jpg" alt="熊滔">
+            熊滔
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="https://lastknightcoder.github.io/lastknightcoder/tags/%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0/" rel="tag">箭头函数</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="https://lastknightcoder.github.io/lastknightcoder/tags/%E9%BB%98%E8%AE%A4%E5%8F%82%E6%95%B0/" rel="tag">默认参数</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://lastknightcoder.github.io/lastknightcoder/ES6%EF%BC%9A%E5%87%BD%E6%95%B0/&title=《ES6：函数》 — Coder&pic=https://lastknightcoder.github.io/lastknightcoder/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://lastknightcoder.github.io/lastknightcoder/ES6%EF%BC%9A%E5%87%BD%E6%95%B0/&title=《ES6：函数》 — Coder&source=人生天地间，忽如远行客" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://lastknightcoder.github.io/lastknightcoder/ES6%EF%BC%9A%E5%87%BD%E6%95%B0/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《ES6：函数》 — Coder&url=https://lastknightcoder.github.io/lastknightcoder/ES6%EF%BC%9A%E5%87%BD%E6%95%B0/&via=https://lastknightcoder.github.io/lastknightcoder" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://lastknightcoder.github.io/lastknightcoder/ES6%EF%BC%9A%E5%87%BD%E6%95%B0/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="https://lastknightcoder.github.io/lastknightcoder/ES6%EF%BC%9A%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%92%8C%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">ES6：字符串和正则表达式</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'lastknightcoder';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="https://lastknightcoder.github.io/lastknightcoder/img/wechatpay.png" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="https://lastknightcoder.github.io/lastknightcoder/img/wechatpay.png" data-alipay="https://lastknightcoder.github.io/lastknightcoder/img/alipay.png">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="https://lastknightcoder.github.io/lastknightcoder/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>熊滔 &copy; 2019 - 2021</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://lastknightcoder.github.io/lastknightcoder/ES6%EF%BC%9A%E5%87%BD%E6%95%B0/&title=《ES6：函数》 — Coder&pic=https://lastknightcoder.github.io/lastknightcoder/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://lastknightcoder.github.io/lastknightcoder/ES6%EF%BC%9A%E5%87%BD%E6%95%B0/&title=《ES6：函数》 — Coder&source=人生天地间，忽如远行客" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://lastknightcoder.github.io/lastknightcoder/ES6%EF%BC%9A%E5%87%BD%E6%95%B0/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《ES6：函数》 — Coder&url=https://lastknightcoder.github.io/lastknightcoder/ES6%EF%BC%9A%E5%87%BD%E6%95%B0/&via=https://lastknightcoder.github.io/lastknightcoder" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://lastknightcoder.github.io/lastknightcoder/ES6%EF%BC%9A%E5%87%BD%E6%95%B0/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACtUlEQVR42u3ay47CMAwFUP7/pxlpVvOgcG3HgsXJCpUqzcmiSa9zu8Xt/t3+X/l5/ep3cn/y3OT+ZsPDw8NrDf2qXd3z/PrzwSV3VsdzNQY8PDy8PV7yUp4sA3k/yVOSMePh4eF9Ai9fJPLt+IvXenF7jYeHh/fJvOdf/fNlAA8PD+/zecnHf5KR9hjVbfRK1oKHh4fX2bWWC1Hv+r1Y38PDw8MbVNWT4lY13s034gdGi4eHh7fAywfaG+K8ADaZJjw8PLwN3qkifT6gvDx24FgDHh4e3jKvXFiKHzZ/xefb+gdfDHh4eHhHedWP/OrLfX4kKy+DXfaJh4eHd5RXDWF7Ee1kaUmWmcue8fDw8BZ4edf5kaZkUpLe8pLbi3/x8PDwFnjJq7Za4J+EtlX2aCXEw8PDG/AS0vPu5hFt8m+vqIaHh4d3ijcJZ3uk3mGF/FkH1ig8PDy8Qw+uHmmt9pxPfWHbjYeHh7fAq3Za2KHHAW7e24HlCg8PD+8or3okNB9QtVWLcIWsBQ8PD2/Mqx6i6g2oWriaHLr6dQUPDw9vgZdvUufHBfIpmGypH9yDh4eHd5TXixvmBbDJ675w6AoPDw9vgVeNTfNNc3VLnS8z+VKBh4eHt8HL49F73KrFqmQ6ev3j4eHhbfB6C8AkYpgcFMg34nh4eHh7vOR1fCrYzcOLfCRR1oKHh4e3zEs+9SeDmIQL+XTj4eHh7fHmhwDytHgSFh+LffHw8PDGvHuxJWFEnoL0JihZJC5Tajw8PLwxL289XjXOqB5NwMPDw3sXr1rEmhTMTgUcSXyMh4eHt82rPiaJbvMoIem/2fDw8PDeyst35RsHtpr5NB4eHt7H8OYlsY3t9WUYgYeHh7fA64UR+fGCyRSMCml4eHh4C7zJF30vzsgXobz/lcACDw8P72/7AhU/pktl8nJjAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: 'https://lastknightcoder.github.io/lastknightcoder/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>
