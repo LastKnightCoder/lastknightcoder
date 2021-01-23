@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>桥和割点 | Coder</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="算法,数据结构,图论">
+    <meta name="description" content="桥定义我们首先看一下桥的概念   上面这幅图中，我们称节点 3-5 之间的这条边为桥，它具有什么特点呢? 一旦将这条边去掉，图的联通分量就会发生变化，所以有如下定义：  如果去掉某条边，使得图的联通分量发生变化，那么称这条边为桥。  桥可以看做是图中最脆弱的那条边，如果将交通系统建模为一个图的话，桥就是交通系统中最脆弱的部分，在军事中如果我们知道对方交通系统中的桥，那么我们就可以军事打击这个桥，使">
+<meta property="og:type" content="article">
+<meta property="og:title" content="桥和割点">
+<meta property="og:url" content="https://lastknightcoder.github.io/lastknightcoder/%E6%A1%A5%E5%92%8C%E5%89%B2%E7%82%B9/">
+<meta property="og:site_name" content="Coder">
+<meta property="og:description" content="桥定义我们首先看一下桥的概念   上面这幅图中，我们称节点 3-5 之间的这条边为桥，它具有什么特点呢? 一旦将这条边去掉，图的联通分量就会发生变化，所以有如下定义：  如果去掉某条边，使得图的联通分量发生变化，那么称这条边为桥。  桥可以看做是图中最脆弱的那条边，如果将交通系统建模为一个图的话，桥就是交通系统中最脆弱的部分，在军事中如果我们知道对方交通系统中的桥，那么我们就可以军事打击这个桥，使">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://user-images.githubusercontent.com/29890094/105571174-f4dd2080-5d88-11eb-8de0-816fa0b3432f.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/29890094/105571390-7ed9b900-5d8a-11eb-92ef-3cb4066d2ed2.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/29890094/105571626-77b3aa80-5d8c-11eb-872d-d86fcebeff8b.gif">
+<meta property="og:image" content="https://user-images.githubusercontent.com/29890094/105573625-d92e4600-5d99-11eb-9bbc-35042a01baf4.gif">
+<meta property="og:image" content="https://user-images.githubusercontent.com/29890094/105573832-47bfd380-5d9b-11eb-848f-8221a6ea216c.gif">
+<meta property="og:image" content="https://user-images.githubusercontent.com/29890094/105574138-86568d80-5d9d-11eb-9b93-b55cb948d944.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/29890094/105574475-c585de00-5d9f-11eb-86a8-94e3ae8f118e.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/29890094/105574862-3af2ae00-5da2-11eb-8a29-af16660ab2a2.png">
+<meta property="article:published_time" content="2021-01-23T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-01-23T16:00:00.000Z">
+<meta property="article:author" content="熊滔">
+<meta property="article:tag" content="算法">
+<meta property="article:tag" content="数据结构">
+<meta property="article:tag" content="图论">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://user-images.githubusercontent.com/29890094/105571174-f4dd2080-5d88-11eb-8de0-816fa0b3432f.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="Coder" href="https://lastknightcoder.github.io/lastknightcoder/atom.xml">
+    
+    <link rel="shortcut icon" href="https://lastknightcoder.github.io/lastknightcoder/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(https://lastknightcoder.github.io/lastknightcoder/img/brand.jpg)">
+      <div class="brand">
+        <a href="https://lastknightcoder.github.io/lastknightcoder/" class="avatar waves-effect waves-circle waves-light">
+          <img src="https://lastknightcoder.github.io/lastknightcoder/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">熊滔</h5>
+          <a href="mailto:2223106858@qq.com" title="2223106858@qq.com" class="mail">2223106858@qq.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.github.io/lastknightcoder/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.github.io/lastknightcoder/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.github.io/lastknightcoder/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.github.io/lastknightcoder/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://gitee.com/LastKnightCoder" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">桥和割点</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">桥和割点</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2021-01-23T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2021-01-24
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="https://lastknightcoder.github.io/lastknightcoder/categories/Algorithms/">Algorithms</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#桥"><span class="post-toc-number">1.</span> <span class="post-toc-text">桥</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#定义"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">定义</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#寻找桥"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">寻找桥</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#割点"><span class="post-toc-number">2.</span> <span class="post-toc-text">割点</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#定义-1"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">定义</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#寻找割点"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">寻找割点</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-桥和割点"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">桥和割点</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2021-01-24 00:00:00" datetime="2021-01-23T16:00:00.000Z"  itemprop="datePublished">2021-01-24</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="https://lastknightcoder.github.io/lastknightcoder/categories/Algorithms/">Algorithms</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h2 id="桥"><a href="#桥" class="headerlink" title="桥"></a>桥</h2><h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>我们首先看一下桥的概念</p>
+<img src="https://user-images.githubusercontent.com/29890094/105571174-f4dd2080-5d88-11eb-8de0-816fa0b3432f.png" style="zoom: 50%;" >
+
+<p>上面这幅图中，我们称节点 3-5 之间的这条边为桥，它具有什么特点呢? 一旦将这条边去掉，图的联通分量就会发生变化，所以有如下定义：</p>
+<blockquote>
+<p>如果去掉某条边，使得图的联通分量发生变化，那么称这条边为桥。</p>
+</blockquote>
+<p>桥可以看做是图中最脆弱的那条边，如果将交通系统建模为一个图的话，桥就是交通系统中最脆弱的部分，在军事中如果我们知道对方交通系统中的桥，那么我们就可以军事打击这个桥，使得对方的交通系统瘫痪。</p>
+<h3 id="寻找桥"><a href="#寻找桥" class="headerlink" title="寻找桥"></a>寻找桥</h3><p>如何判断某条边是不是桥，对于下图来说， 0-1 这条边是桥吗?</p>
+<img src="https://user-images.githubusercontent.com/29890094/105571390-7ed9b900-5d8a-11eb-92ef-3cb4066d2ed2.png" style="zoom: 50%;" >
+
+<p>答案不是，因为去掉 0-1 这条边联通分量的个数没有增加，原因是节点 1 可以通过另一条路径 1-&gt;3-&gt;2-&gt;0 到达 0，所以我们判断某条边是不是桥，就是判断边的两个节点是否有另外一条路径。考虑边 v-w，如果存在另外一条路径，使得节点 v 可以到达节点 w 或者是节点 w 之前的节点，我们就认为 v-w 不是桥，否则没有另外的路径使得节点 v 到达节点 w，我们就认为 v-w 是桥。</p>
+<p>为了完成这个判断，我们需要定义两个变量来帮助我们保存信息，一个是 order[] 数组，它保存的是以 DFS 遍历图的顺序，例如 <code>order[0] = 0</code>，表示节点 0 是第 0 个遍历的，<code>order[3] = 2</code> 表示节点 3 是第 2 个遍历的</p>
+<img src="https://user-images.githubusercontent.com/29890094/105571626-77b3aa80-5d8c-11eb-872d-d86fcebeff8b.gif" style="zoom: 33%;" >
+
+<p>另一个需要记录的信息是当前节点通过另外一条路径(即不是父节点那条路径)能够达到的顺序最前的节点，使用数组 low 表示，假设节点 2 能够达到最前的节点 0，而 <code>order[0] = 0</code>，所以 <code>low[2] = order[0] = 0</code>，初始 <code>low[i] = order[i]</code>，更新 low 数组有两个时机</p>
+<ul>
+<li><p>节点 v 访问已被遍历过的邻接节点 w 时(该邻接节点不为父节点)，如果 low[w] &lt; low[v]，则更新 low[v] = low[w]</p>
+<img src="https://user-images.githubusercontent.com/29890094/105573625-d92e4600-5d99-11eb-9bbc-35042a01baf4.gif" style="zoom: 33%;" >
+
+<p>当我们访问到节点 2 时，接着访问节点 2 的邻接节点，访问到节点 0，节点 0 不是它的父亲节点(上一个节点)，而且节点 0 已经被访问过，并且 low[0] &lt; low[2]，所以这个时候更新 low[2] = low[0]，表示节点 2 能通过另一条路径访问第 low[0] 个遍历的节点，即节点 2 能够访问到第 0 个被遍历的节点，即节点 0</p>
+</li>
+<li><p>访问完邻接节点 w，回到当前节点 v 时，如果邻接节点的 low[w] &lt; low[v]，则更新 low[v] = low[w]</p>
+<img src="https://user-images.githubusercontent.com/29890094/105573832-47bfd380-5d9b-11eb-848f-8221a6ea216c.gif" style="zoom:33%;" />
+
+<p>当节点访问完节点 2 回到节点 3 时，此时 low[2] &lt; low[3]，更新 low[3] = low[2] = 0，表示 low[3] 可以从另外一条路径到达第 low[2] = 0 个被遍历的节点，即节点 0</p>
+</li>
+</ul>
+<p>引入了 order 与 low 数组，接着我们可以根据这两个数组判断某条边是不是桥了，当我们遍历完相邻节点 w，来到当前节点 v 时，除了要更新 low[v]，我们还需要对这条边是不是桥进行判断。</p>
+<p>我们需要判断 low[w] 与 order[v] 的大小，以此判断是否是桥。首先明确一下二者表示的意义：</p>
+<ul>
+<li>low[w] 表示节点 w 能够通过另一条路径能够到达的最前顺序，例如 low[w] = 3 就表示 w 节点能通过另一条路径到达第 3 个被遍历的节点，</li>
+<li>order [v] 表示节点 v 是第几个被遍历的</li>
+</ul>
+<p>如果 low[w] $\leq$ order[v]，说明 w 能通过另一条路径到达节点 v 或 v 之前被遍历的节点，说明就不是桥，否则就是桥。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.HashSet;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FindEdge</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span>[] order;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span>[] low;</span><br><span class="line">    <span class="keyword">private</span> Graph graph;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">boolean</span>[] visited;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 存储桥</span></span><br><span class="line">    <span class="keyword">private</span> ArrayList&lt;<span class="keyword">int</span>[]&gt; result;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">FindEdge</span><span class="params">(Graph graph)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.graph = graph;</span><br><span class="line">        order = <span class="keyword">new</span> <span class="keyword">int</span>[graph.V()];</span><br><span class="line">        low = <span class="keyword">new</span> <span class="keyword">int</span>[graph.V()];</span><br><span class="line">        result = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        visited = <span class="keyword">new</span> <span class="keyword">boolean</span>[graph.V()];</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; graph.V(); i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (!visited[i]) &#123;</span><br><span class="line">                dfs(i, i);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> v, <span class="keyword">int</span> parent)</span> </span>&#123;</span><br><span class="line">        visited[v] = <span class="keyword">true</span>;</span><br><span class="line">        low[v] = count;</span><br><span class="line">        order[v] = count;</span><br><span class="line">        count++;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> w: graph.adj(v)) &#123;</span><br><span class="line">            <span class="keyword">if</span> (!visited[w]) &#123;</span><br><span class="line">                dfs(w, v);</span><br><span class="line">                <span class="comment">// 更新 low[v] 时机 1</span></span><br><span class="line">                low[v] = Math.min(low[v], low[w]);</span><br><span class="line">                <span class="comment">// 判断是否是桥</span></span><br><span class="line">                <span class="keyword">if</span> (low[w] &gt; order[v]) &#123;</span><br><span class="line">                    result.add(<span class="keyword">new</span> <span class="keyword">int</span>[]&#123;v, w&#125;);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (w != parent)&#123;</span><br><span class="line">                <span class="comment">// 更细 low[v] 时机 2</span></span><br><span class="line">                low[v] = Math.min(low[w], low[v]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> ArrayList&lt;<span class="keyword">int</span>[]&gt; getResult() &#123;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="割点"><a href="#割点" class="headerlink" title="割点"></a>割点</h2><h3 id="定义-1"><a href="#定义-1" class="headerlink" title="定义"></a>定义</h3><p>割点的定义与桥的定义类似，割点指的是一个节点，如果一旦移除这个节点，会导致图中的联通分量发生变化，那么就称这个节点为割点。</p>
+<img src="https://user-images.githubusercontent.com/29890094/105574138-86568d80-5d9d-11eb-9b93-b55cb948d944.png" alt="image" style="zoom:50%;" />
+
+<p>上图中节点 3 与节点 5 为割点，一旦去掉这两个节点之一，图的联通分量的个数就会发生变化。</p>
+<h3 id="寻找割点"><a href="#寻找割点" class="headerlink" title="寻找割点"></a>寻找割点</h3><p>寻找割点的过程同寻找桥是一样的，也需要维护 order 与 low 两个数组，这两数组的含义也是同上一致的。low 数组的更新时机以及更新过程也是同上一致的。</p>
+<p>现在的问题是我们在什么时候判断某节点是不是割点，以及条件是什么。我们在遍历完相邻节点 w，返回到当前节点 v 时，如果 low[w] <strong>$\geq$</strong> order[v] 时，就说明它是一个割点。这里的判断条件与桥的判断不同，桥的判断条件是如果 low[w] <strong>&gt;</strong> order[v] 时，就说明 v-w 这条边是桥，注意多了一个等于号。</p>
+<p>low[w] $\geq$ order[v] 表示节点 w 与 节点 v 之前被遍历的节点产生连接只能通过节点 v</p>
+<img src="https://user-images.githubusercontent.com/29890094/105574475-c585de00-5d9f-11eb-86a8-94e3ae8f118e.png" style="zoom: 50%;" >
+
+<p>例如节点 4 通过另外一条路径它最多到达节点 5，无法与节点 5 之前被遍历的节点产生连接。一旦节点 5 被删除，4 就无法访问到节点 0, 1, 2, 3，所以 5 就是割点。</p>
+<p>但是添加了等于号之后，这个时候因为任何节点 low[v] $\geq$ order[0]，所以根节点 0 会被认为是割点，但根节点不一定是割点，这个时候我们就需要对根节点分别讨论，判断根节点是不是割点很简单，如果通过 DFS 遍历，根节点有两个相邻节点就说明它是割点</p>
+<img src="https://user-images.githubusercontent.com/29890094/105574862-3af2ae00-5da2-11eb-8a29-af16660ab2a2.png" style="zoom:50%;" />
+
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.HashSet;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FindCutPoints</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Graph graph;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">boolean</span>[] visited;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span>[] order;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span>[] low;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> HashSet&lt;Integer&gt; result = <span class="keyword">new</span> HashSet&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">FindCutPoints</span><span class="params">(Graph graph)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.graph = graph;</span><br><span class="line"></span><br><span class="line">        visited = <span class="keyword">new</span> <span class="keyword">boolean</span>[graph.V()];</span><br><span class="line">        order = <span class="keyword">new</span> <span class="keyword">int</span>[graph.V()];</span><br><span class="line">        low = <span class="keyword">new</span> <span class="keyword">int</span>[graph.V()];</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; graph.V(); i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (!visited[i]) &#123;</span><br><span class="line">                dfs(i, i);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> v, <span class="keyword">int</span> parent)</span> </span>&#123;</span><br><span class="line">        visited[v] = <span class="keyword">true</span>;</span><br><span class="line">        order[v] = count;</span><br><span class="line">        low[v] = count;</span><br><span class="line">        count++;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> child = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> w: graph.adj(v)) &#123;</span><br><span class="line">            child++;</span><br><span class="line">            <span class="keyword">if</span> (!visited[w]) &#123;</span><br><span class="line">                dfs(w, v);</span><br><span class="line">                low[v] = Math.min(low[v], low[w]);</span><br><span class="line">                <span class="keyword">if</span> (v != parent &amp;&amp; low[w] &gt;= order[v]) &#123;</span><br><span class="line">                    result.add(v);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span> (v == parent &amp;&amp; child &gt; <span class="number">1</span>) &#123;</span><br><span class="line">                    result.add(v);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (w != parent) &#123;</span><br><span class="line">                low[v] = Math.min(low[v], low[w]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> HashSet&lt;Integer&gt; <span class="title">getResult</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2021-01-23T16:00:00.000Z" itemprop="dateUpdated">2021-01-24 00:00:00</time>
+</span><br>
+
+
+        
+    </div>
+    
+    <footer>
+        <a href="https://lastknightcoder.github.io/lastknightcoder">
+            <img src="https://lastknightcoder.github.io/lastknightcoder/img/avatar.jpg" alt="熊滔">
+            熊滔
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="https://lastknightcoder.github.io/lastknightcoder/tags/%E5%9B%BE%E8%AE%BA/" rel="tag">图论</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="https://lastknightcoder.github.io/lastknightcoder/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="https://lastknightcoder.github.io/lastknightcoder/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://lastknightcoder.github.io/lastknightcoder/%E6%A1%A5%E5%92%8C%E5%89%B2%E7%82%B9/&title=《桥和割点》 — Coder&pic=https://lastknightcoder.github.io/lastknightcoder/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://lastknightcoder.github.io/lastknightcoder/%E6%A1%A5%E5%92%8C%E5%89%B2%E7%82%B9/&title=《桥和割点》 — Coder&source=人生天地间，忽如远行客" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://lastknightcoder.github.io/lastknightcoder/%E6%A1%A5%E5%92%8C%E5%89%B2%E7%82%B9/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《桥和割点》 — Coder&url=https://lastknightcoder.github.io/lastknightcoder/%E6%A1%A5%E5%92%8C%E5%89%B2%E7%82%B9/&via=https://lastknightcoder.github.io/lastknightcoder" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://lastknightcoder.github.io/lastknightcoder/%E6%A1%A5%E5%92%8C%E5%89%B2%E7%82%B9/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="https://lastknightcoder.github.io/lastknightcoder/%E5%9B%BE%E8%AE%BA%E5%BB%BA%E6%A8%A1/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">图论建模</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'lastknightcoder';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="https://lastknightcoder.github.io/lastknightcoder/img/wechatpay.png" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="https://lastknightcoder.github.io/lastknightcoder/img/wechatpay.png" data-alipay="https://lastknightcoder.github.io/lastknightcoder/img/alipay.png">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="https://lastknightcoder.github.io/lastknightcoder/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>熊滔 &copy; 2019 - 2021</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://lastknightcoder.github.io/lastknightcoder/%E6%A1%A5%E5%92%8C%E5%89%B2%E7%82%B9/&title=《桥和割点》 — Coder&pic=https://lastknightcoder.github.io/lastknightcoder/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://lastknightcoder.github.io/lastknightcoder/%E6%A1%A5%E5%92%8C%E5%89%B2%E7%82%B9/&title=《桥和割点》 — Coder&source=人生天地间，忽如远行客" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://lastknightcoder.github.io/lastknightcoder/%E6%A1%A5%E5%92%8C%E5%89%B2%E7%82%B9/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《桥和割点》 — Coder&url=https://lastknightcoder.github.io/lastknightcoder/%E6%A1%A5%E5%92%8C%E5%89%B2%E7%82%B9/&via=https://lastknightcoder.github.io/lastknightcoder" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://lastknightcoder.github.io/lastknightcoder/%E6%A1%A5%E5%92%8C%E5%89%B2%E7%82%B9/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2CAAAAADAeSUUAAADM0lEQVR42u3awXLiQAwE0P3/n2avu5UEuiVTFQ/Pp1SAsd9wEGrNnz/x9fhy/fv/n975fLXkjsl/ktWGFzY2NvZN2I+nV/KenJGs/PyzX7cgf05sbGzss9nPS8hw6bI4tXd8/pwvjNjY2Ngfz26biqSAJeC2NcLGxsbGTkrObCOSO+bREjY2NjZ2/nN/FtbnQVWb5L89S8PGxsb+9ew2BvrNf79lvo2NjY39i9mP8mpDolnxaMcAtQIbGxv7IPYs4s8jpzww2hzWmT0/NjY29hnsWXmI9jKOn3LSZQNpbGxs7EPZSTGbHb5pxw/JiHc2rvimgGFjY2PfnJ0PA9pBbHv7qyKqfGVsbGzss9mzn/v7opUz2q8HGxsb+2z2pjFIbrwfyubbl28ZNjY29hnsPHDZj1eTqGgTEtUnlbCxsbEPYs8C/XwLrhoM5Bv3oqxiY2NjH8RuI/irGo/ZQZ9Z7BWFStjY2Ni3ZbeBTnu4p9j7Swvei1exsbGxD2LnsdEs1m/LXl5EZ1HUj988NjY29nHsfKD7vrrQNh7Jc2JjY2N/GnsW+m8GAO8on1E3ho2NjX1zdt4e5I+4XzkJp/IiF31v2NjY2Ddkt8F92xK0r7ZFrj3o89+gFxsbG/sgdtsGbEa2bYifjx+KwQA2Njb2cexZB7MpJ9d+qj6+g42NjX0Quy1Rs2HqbCQ8HNy20RI2Njb2zdn5QnkYlIxmN8WyBX/zhNjY2NgHsdu3zh6ujYTa00bDM0rY2NjYR7A3AU0b9OevtgFWPcbAxsbGPoi9ifuTm7VD3P0d66YFGxsb+wh2HvS0bUkeRc22ZtVKYWNjYx/KzgP9pNRt1mlL6aqAYWNjYx/Bzg/HzI5RJuWtbUvywzo/DgmwsbGxb85+lNeszUjGtFdtTVQ+sbGxsQ9it8Vg1gzkB272UdFsfWxsbOy7s/MikcQ3m0M5SZnMYS8+i42NjX0cO4/sZyUtf+jn74nOH7VnlLCxsbE/jJ13M23H044K2mNAqwKGjY2NfRz7qkKYbND+U9jY2NifwL5qmPo8SNq0GfvRMjY2Nvap7LxJaNuMdxyjSTZ60z5hY2Nj34r9Fwvkz6suswshAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: 'https://lastknightcoder.github.io/lastknightcoder/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>
