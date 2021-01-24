@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>ES6：扩展对象的功能性 | Coder</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Object,对象">
+    <meta name="description" content="Object 语法扩展属性简写当我们使用字面量声明一个对象时，经常会有下面的写法 let person &#x3D; &amp;#123;    name: name, &#x2F;&#x2F; 第一个 name 是键名，第二个 name 是一个变量    age: age&amp;#125;  其中键的名字和值的名字都是相同的，name，age 写了两遍，在 ES6 中提供了简写语法，当键的名称与值对应变量名相同时，那么就可以简写，如上可以">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ES6：扩展对象的功能性">
+<meta property="og:url" content="https://lastknightcoder.github.io/lastknightcoder/ES6%EF%BC%9A%E6%89%A9%E5%B1%95%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%8A%9F%E8%83%BD%E6%80%A7/">
+<meta property="og:site_name" content="Coder">
+<meta property="og:description" content="Object 语法扩展属性简写当我们使用字面量声明一个对象时，经常会有下面的写法 let person &#x3D; &amp;#123;    name: name, &#x2F;&#x2F; 第一个 name 是键名，第二个 name 是一个变量    age: age&amp;#125;  其中键的名字和值的名字都是相同的，name，age 写了两遍，在 ES6 中提供了简写语法，当键的名称与值对应变量名相同时，那么就可以简写，如上可以">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-01-24T03:28:00.000Z">
+<meta property="article:modified_time" content="2021-01-24T03:28:00.000Z">
+<meta property="article:author" content="熊滔">
+<meta property="article:tag" content="Object">
+<meta property="article:tag" content="对象">
+<meta name="twitter:card" content="summary">
+    
+        <link rel="alternate" type="application/atom+xml" title="Coder" href="https://lastknightcoder.github.io/lastknightcoder/atom.xml">
+    
+    <link rel="shortcut icon" href="https://lastknightcoder.github.io/lastknightcoder/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(https://lastknightcoder.github.io/lastknightcoder/img/brand.jpg)">
+      <div class="brand">
+        <a href="https://lastknightcoder.github.io/lastknightcoder/" class="avatar waves-effect waves-circle waves-light">
+          <img src="https://lastknightcoder.github.io/lastknightcoder/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">熊滔</h5>
+          <a href="mailto:2223106858@qq.com" title="2223106858@qq.com" class="mail">2223106858@qq.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.github.io/lastknightcoder/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.github.io/lastknightcoder/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.github.io/lastknightcoder/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.github.io/lastknightcoder/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://gitee.com/LastKnightCoder" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">ES6：扩展对象的功能性</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">ES6：扩展对象的功能性</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2021-01-24T03:28:00.000Z" itemprop="datePublished" class="page-time">
+  2021-01-24
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="https://lastknightcoder.github.io/lastknightcoder/categories/ES6/">ES6</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Object-语法扩展"><span class="post-toc-number">1.</span> <span class="post-toc-text">Object 语法扩展</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#属性简写"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">属性简写</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#方法简写"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">方法简写</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#计算属性名"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">计算属性名</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#新方法"><span class="post-toc-number">2.</span> <span class="post-toc-text">新方法</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Object-is"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">Object.is</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Object-assign"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">Object.assign</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#重复字面属性"><span class="post-toc-number">3.</span> <span class="post-toc-text">重复字面属性</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#自有属性遍历顺序"><span class="post-toc-number">4.</span> <span class="post-toc-text">自有属性遍历顺序</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Prototypes-的增强"><span class="post-toc-number">5.</span> <span class="post-toc-text">Prototypes 的增强</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#改变对象的原型"><span class="post-toc-number">5.1.</span> <span class="post-toc-text">改变对象的原型</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#super"><span class="post-toc-number">5.2.</span> <span class="post-toc-text">super</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-ES6：扩展对象的功能性"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">ES6：扩展对象的功能性</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2021-01-24 11:28:00" datetime="2021-01-24T03:28:00.000Z"  itemprop="datePublished">2021-01-24</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="https://lastknightcoder.github.io/lastknightcoder/categories/ES6/">ES6</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h2 id="Object-语法扩展"><a href="#Object-语法扩展" class="headerlink" title="Object 语法扩展"></a>Object 语法扩展</h2><h3 id="属性简写"><a href="#属性简写" class="headerlink" title="属性简写"></a>属性简写</h3><p>当我们使用字面量声明一个对象时，经常会有下面的写法</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> person = &#123;</span><br><span class="line">    name: name, <span class="comment">// 第一个 name 是键名，第二个 name 是一个变量</span></span><br><span class="line">    age: age</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其中键的名字和值的名字都是相同的，name，age 写了两遍，在 ES6 中提供了简写语法，当键的名称与值对应变量名相同时，那么就可以简写，如上可以简写为</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> person = &#123;</span><br><span class="line">    name,</span><br><span class="line">    age</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="方法简写"><a href="#方法简写" class="headerlink" title="方法简写"></a>方法简写</h3><p>在 ES5 中如下定义方法</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> person = &#123;</span><br><span class="line">    name: <span class="string">"Alice"</span>,</span><br><span class="line">    sayHello: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"Hello"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在 ES6 中提供了更加简洁的写法</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> person = &#123;</span><br><span class="line">    name: <span class="string">"Alice"</span>,</span><br><span class="line">    sayHello() &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"Hello"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>简写的方法与一般方法的不同在于，在简写方法中可以使用 super，而非简写方法不行。简写方法的 name 属性就是括号前的名称，例如上面 <code>person.sayHello</code> 的 name 属性是 <code>sayHello</code>。</p>
+<h3 id="计算属性名"><a href="#计算属性名" class="headerlink" title="计算属性名"></a>计算属性名</h3><p>在 ES5 中是无法使用一个变量的值作为键名的，例如</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> lastName = <span class="string">"last name"</span></span><br><span class="line"><span class="keyword">let</span> person = &#123;</span><br><span class="line">    <span class="string">"first name"</span>: <span class="string">"Xiong"</span>,</span><br><span class="line">    lastName: <span class="string">"Tao"</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(person[<span class="string">"first name"</span>]); <span class="comment">// Xiong</span></span><br><span class="line"><span class="built_in">console</span>.log(person[<span class="string">"last name"</span>]);  <span class="comment">// undefiend</span></span><br><span class="line"><span class="built_in">console</span>.log(person[<span class="string">"lastName"</span>]);   <span class="comment">// Tao</span></span><br></pre></td></tr></table></figure>
+
+<p>我们希望的是 person 对象有两个属性，分别是</p>
+<ul>
+<li>first name</li>
+<li>last name</li>
+</ul>
+<p>但是实际上的两个属性为</p>
+<ul>
+<li>first name</li>
+<li>lastName</li>
+</ul>
+<p>在 ES6 中可以通过方括号 [] 将变量括起来，使得变量的值成为对象的键</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> lastName = <span class="string">"last name"</span></span><br><span class="line"><span class="keyword">let</span> person = &#123;</span><br><span class="line">    <span class="string">"first name"</span>: <span class="string">"Xiong"</span>,</span><br><span class="line">    [lastName]: <span class="string">"Tao"</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(person[<span class="string">"first name"</span>]); <span class="comment">// Xiong</span></span><br><span class="line"><span class="built_in">console</span>.log(person[<span class="string">"last name"</span>]);  <span class="comment">// Tao</span></span><br><span class="line"><span class="built_in">console</span>.log(person[<span class="string">"lastName"</span>]);   <span class="comment">// undefiend</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="新方法"><a href="#新方法" class="headerlink" title="新方法"></a>新方法</h2><h3 id="Object-is"><a href="#Object-is" class="headerlink" title="Object.is"></a>Object.is</h3><p>在比较两个值时，我们会使用 <code>==</code> 或者更加严格的 <code>===</code> ，更多的人乐意使用 <code>===</code>，但是即使是 <code>===</code> 也会不准确，例如</p>
+<ul>
+<li><code>+0 === -0 ：true</code></li>
+<li><code>NaN === Nan ：false</code></li>
+</ul>
+<p>Object.is 方法正是用来修补这一小的瑕疵的，它的作用与 <code>==</code> 和 <code>===</code> 一样也是用来比较两个值是否相同的</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> print = <span class="built_in">console</span>.log;</span><br><span class="line"></span><br><span class="line">print(<span class="number">5</span> == <span class="string">"5"</span>);            <span class="comment">// true</span></span><br><span class="line">print(<span class="number">5</span> === <span class="string">"5"</span>);           <span class="comment">// false</span></span><br><span class="line">print(<span class="built_in">Object</span>.is(<span class="number">5</span>, <span class="string">"5"</span>));   <span class="comment">// false</span></span><br><span class="line"> </span><br><span class="line">print(+<span class="number">0</span> == <span class="number">-0</span>);            <span class="comment">// true</span></span><br><span class="line">print(+<span class="number">0</span> === <span class="number">-0</span>);           <span class="comment">// true</span></span><br><span class="line">print(<span class="built_in">Object</span>.is(+<span class="number">0</span>, <span class="number">-0</span>));   <span class="comment">// false</span></span><br><span class="line"></span><br><span class="line">print(<span class="literal">NaN</span> === <span class="literal">NaN</span>);         <span class="comment">// false</span></span><br><span class="line">print(<span class="built_in">Object</span>.is(<span class="literal">NaN</span>, <span class="literal">NaN</span>)); <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+
+<p>Object.is 与 <code>===</code> 的不同仅在于 +0，-0 以及 NaN 的比较。</p>
+<h3 id="Object-assign"><a href="#Object-assign" class="headerlink" title="Object.assign"></a>Object.assign</h3><p>在实际的工作中，需要将其他对象的属性复制到另一个对象中，这个操作常称之为mixin</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">mixin</span>(<span class="params">receiver, supplier</span>) </span>&#123; </span><br><span class="line">    <span class="built_in">Object</span>.keys(supplier).forEach(<span class="function"><span class="keyword">function</span>(<span class="params">key</span>) </span>&#123; </span><br><span class="line">        receiver[key] = supplier[key];</span><br><span class="line">    &#125;); </span><br><span class="line">    <span class="keyword">return</span> receiver; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在其他的库有相似的方法实现相同的功能，如 mix，extend 等等。ES6 引入了 Object.assign 方法，实现的功能与上述的相同，Object.assign 不能复制原型链上的属性以及不可枚举的属性。Object.assign 的语法如下</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Object</span>.assign(target, ...sources)</span><br></pre></td></tr></table></figure>
+
+<p>接收一个 target 对象，以及任意多个 source，将多个 source 中的属性复制到 target 当中，如果 target 中的属性与 sources 中某对象的属性相同，那么 target 中的属性的值将会被覆盖，如果多个 source 有相同的属性名，那么后面的 source 属性值会覆盖签名的属性值。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> target = &#123;&#125;</span><br><span class="line"><span class="keyword">let</span> source1 = &#123;</span><br><span class="line">    name: <span class="string">'Alice'</span>,</span><br><span class="line">    age: <span class="number">2</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> source2 = &#123;</span><br><span class="line">    name: <span class="string">'Bob'</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">Object</span>.assign(target, source1, source2)</span><br><span class="line">print(target) <span class="comment">// &#123; name: 'Bob', age: 2 &#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>Object.assign 进行的是<strong>浅拷贝</strong>，如果需要进行深拷贝，需要另求他法。在使用 Object.assign 进行复制的过程中，会触发 getter 和 setter 方法。</p>
+<p>Object.assign 的更多细节，参考 MDN <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign" target="_blank" rel="noopener">Object.assign()</a></p>
+<h2 id="重复字面属性"><a href="#重复字面属性" class="headerlink" title="重复字面属性"></a>重复字面属性</h2><p>在 ES6 之前，如果在定义对象时，有重复的属性名，那么会报错</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> person = &#123;</span><br><span class="line">		<span class="comment">// 在 ES5 中会报错</span></span><br><span class="line">    name: <span class="string">'Alice'</span>,</span><br><span class="line">    name: <span class="string">'Bob'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>但是在 ES6 中不会，后面定义的属性值会覆盖之前定义的属性值</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> person = &#123;</span><br><span class="line">    name: <span class="string">'Alice'</span>,</span><br><span class="line">    name: <span class="string">'Bob'</span></span><br><span class="line">&#125;</span><br><span class="line">print(person) <span class="comment">// &#123; name: 'Bob' &#125;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="自有属性遍历顺序"><a href="#自有属性遍历顺序" class="headerlink" title="自有属性遍历顺序"></a>自有属性遍历顺序</h2><p>在 ES5 中没有规定当遍历一个对象时应该以何种顺序来访问对象的属性，但是在 ES6 中规定了访问的顺序，这个影响了 <code>Object.getOwnPropertyNames()</code> 和 <code>Reflect.ownKeys()</code>，同样也影响了调用 Object.assign 进行复制时赋值的顺序。键的顺序如下：</p>
+<ol>
+<li>按照升序排序的数字</li>
+<li>按照添加顺序排序的字符串</li>
+<li>按照添加顺序排序的 Symbol</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> obj = &#123;</span><br><span class="line">    a: <span class="number">1</span>,</span><br><span class="line">    <span class="number">0</span>: <span class="number">1</span>,</span><br><span class="line">    <span class="number">2</span>: <span class="number">1</span>,</span><br><span class="line">    c: <span class="number">3</span>,</span><br><span class="line">    <span class="number">1</span>: <span class="number">2</span>,</span><br><span class="line">    b: <span class="number">4</span></span><br><span class="line">&#125;;</span><br><span class="line">obj.d = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.getOwnPropertyNames(obj).join(<span class="string">" "</span>)); <span class="comment">// 0 1 2 a c b d</span></span><br></pre></td></tr></table></figure>
+
+<p>for-in 循环没有具体的遍历顺序，因为不同的 JavaScript 引擎有不同的实现。<code>Object.keys()</code> 和 <code>JSON.stringfy()</code> 规定使用和 for-in 循环一样的遍历顺序。</p>
+<h2 id="Prototypes-的增强"><a href="#Prototypes-的增强" class="headerlink" title="Prototypes 的增强"></a>Prototypes 的增强</h2><h3 id="改变对象的原型"><a href="#改变对象的原型" class="headerlink" title="改变对象的原型"></a>改变对象的原型</h3><p>在创建对象时，我们可以通过 Object.create 为对象指定一个原型</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> person = &#123;</span><br><span class="line">    sayHello() &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">"Hello"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> friend = <span class="built_in">Object</span>.create(person);</span><br><span class="line">friend.sayHello(); <span class="comment">// Hello</span></span><br></pre></td></tr></table></figure>
+
+<p>可以通过 Object.getPrototypeOf() 获得对象的原型</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.getPrototypeOf(friend) === person); <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+
+<p>在 ES6 中新增了 <code>Object.setPrototypeOf()</code> 方法，可以改变一个对象的原型</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> dog = &#123;</span><br><span class="line">    sayHello() &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">"Woff"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">Object</span>.setPrototypeOf(friend, dog);</span><br><span class="line">friend.sayHello(); <span class="comment">// Woff</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.getPrototypeOf(friend) === dog); <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="super"><a href="#super" class="headerlink" title="super"></a>super</h3><p>如果对象重写了原型的方法，如何在对象中调用原型的同名方法，一般通过如下方式调用</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> person = &#123;</span><br><span class="line">    sayHello() &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"Hello"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> dog = &#123;</span><br><span class="line">    sayHello() &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"Woff"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> friend = &#123;</span><br><span class="line">    sayHello() &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">Object</span>.getPrototypeOf(<span class="keyword">this</span>).sayHello.call(<span class="keyword">this</span>) + <span class="string">", Man!"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">Object</span>.setPrototypeOf(friend, person);</span><br><span class="line"><span class="built_in">console</span>.log(friend.sayHello()); <span class="comment">// Hello, Man!</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">Object</span>.setPrototypeOf(friend, dog);</span><br><span class="line"><span class="built_in">console</span>.log(friend.sayHello()); <span class="comment">// Woff, Man!</span></span><br></pre></td></tr></table></figure>
+
+<p>我们通过 <code>Object.getPrototypeOf(this).sayHello.call(this)</code> 来调用父类的某个方法，在 ES6 中引入了 super，super 指定原型对象，所以 friend 对象中的代码可以简化如下</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> friend = &#123;</span><br><span class="line">    sayHello() &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">super</span>.sayHello.call(<span class="keyword">this</span>) + <span class="string">", Man!"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>super 只能在简写方法中使用，如下会发生语法错误</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> friend = &#123;</span><br><span class="line">    sayHello: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">				<span class="comment">// SyntaxError: 'super' keyword unexpected here</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">super</span>.sayHello.call(<span class="keyword">this</span>) + <span class="string">", Man!"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2021-01-24T03:28:00.000Z" itemprop="dateUpdated">2021-01-24 11:28:00</time>
+</span><br>
+
+
+        
+    </div>
+    
+    <footer>
+        <a href="https://lastknightcoder.github.io/lastknightcoder">
+            <img src="https://lastknightcoder.github.io/lastknightcoder/img/avatar.jpg" alt="熊滔">
+            熊滔
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="https://lastknightcoder.github.io/lastknightcoder/tags/Object/" rel="tag">Object</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="https://lastknightcoder.github.io/lastknightcoder/tags/%E5%AF%B9%E8%B1%A1/" rel="tag">对象</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://lastknightcoder.github.io/lastknightcoder/ES6%EF%BC%9A%E6%89%A9%E5%B1%95%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%8A%9F%E8%83%BD%E6%80%A7/&title=《ES6：扩展对象的功能性》 — Coder&pic=https://lastknightcoder.github.io/lastknightcoder/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://lastknightcoder.github.io/lastknightcoder/ES6%EF%BC%9A%E6%89%A9%E5%B1%95%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%8A%9F%E8%83%BD%E6%80%A7/&title=《ES6：扩展对象的功能性》 — Coder&source=人生天地间，忽如远行客" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://lastknightcoder.github.io/lastknightcoder/ES6%EF%BC%9A%E6%89%A9%E5%B1%95%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%8A%9F%E8%83%BD%E6%80%A7/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《ES6：扩展对象的功能性》 — Coder&url=https://lastknightcoder.github.io/lastknightcoder/ES6%EF%BC%9A%E6%89%A9%E5%B1%95%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%8A%9F%E8%83%BD%E6%80%A7/&via=https://lastknightcoder.github.io/lastknightcoder" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://lastknightcoder.github.io/lastknightcoder/ES6%EF%BC%9A%E6%89%A9%E5%B1%95%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%8A%9F%E8%83%BD%E6%80%A7/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="https://lastknightcoder.github.io/lastknightcoder/%E6%A1%A5%E5%92%8C%E5%89%B2%E7%82%B9/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">桥和割点</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'lastknightcoder';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="https://lastknightcoder.github.io/lastknightcoder/img/wechatpay.png" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="https://lastknightcoder.github.io/lastknightcoder/img/wechatpay.png" data-alipay="https://lastknightcoder.github.io/lastknightcoder/img/alipay.png">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="https://lastknightcoder.github.io/lastknightcoder/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>熊滔 &copy; 2019 - 2021</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://lastknightcoder.github.io/lastknightcoder/ES6%EF%BC%9A%E6%89%A9%E5%B1%95%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%8A%9F%E8%83%BD%E6%80%A7/&title=《ES6：扩展对象的功能性》 — Coder&pic=https://lastknightcoder.github.io/lastknightcoder/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://lastknightcoder.github.io/lastknightcoder/ES6%EF%BC%9A%E6%89%A9%E5%B1%95%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%8A%9F%E8%83%BD%E6%80%A7/&title=《ES6：扩展对象的功能性》 — Coder&source=人生天地间，忽如远行客" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://lastknightcoder.github.io/lastknightcoder/ES6%EF%BC%9A%E6%89%A9%E5%B1%95%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%8A%9F%E8%83%BD%E6%80%A7/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《ES6：扩展对象的功能性》 — Coder&url=https://lastknightcoder.github.io/lastknightcoder/ES6%EF%BC%9A%E6%89%A9%E5%B1%95%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%8A%9F%E8%83%BD%E6%80%A7/&via=https://lastknightcoder.github.io/lastknightcoder" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://lastknightcoder.github.io/lastknightcoder/ES6%EF%BC%9A%E6%89%A9%E5%B1%95%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%8A%9F%E8%83%BD%E6%80%A7/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASYAAAEmCAAAAADqr2IGAAAEhUlEQVR42u3aS47jOBAFwL7/pT3AbLvL9V4mCzBVoZVhyxIZXJD5+fMnvl7/X+39f//r7+/f3/PVr1/dOXvjsQsTJkyYMH0k0+vt9f5ls2knz3+/VAnKV09LoP/xX0yYMGHCdDlT+7j3KO8/t8eIhKalzOeOCRMmTJh+D1Oy9eZbdTK9fPNOlicPgzFhwoQJE6YZWRKaJoPOv8lBMWHChAnTs5n2W+ysDLkJrU+F7odz4ZgwYcKE6cOY2i35SZ9/sL8JEyZMmDB9ANOrvGZlzvaIsEkQ52FzMWtMmDBhwnQtUxt2rhpf4l/zVp73dyZLVbwREyZMmDBdzpTA7dOseVw5a8HJDxZ5whoTJkyYMD2Dqd1Q32+xs6e1yeUEIvk1mh0mTJgwYbqWKf9DPqx9c8wmZdwG4fnTMGHChAnTXUynSoP5cNtSaPJNfgiYlWkxYcKECdO9THlRM9/4Z4HoqXs2Jc8oMY0JEyZMmK5lmhUyZ005eVJ1Fh4XEw4CdUyYMGHCdC9Tuw0nBJsyYdt8MwvF2wMEJkyYMGG6lykvBO7Lk7PEcV74TBag/YwJEyZMmJ7ElBf5WrjNkSIvhf5cWI4JEyZMmG5n2pQn2yLoK77aCZyFi3LhmDBhwoTp45k2KJvjQr4ltwvQPiEKuTFhwoQJ04OY8gaXTfmzTchupj1LQGPChAkTpmcz5QeFlmZWtsxH1bbsRAuGCRMmTJguZ9q03ezbaDYFyLMtRF8G8JgwYcKE6VqmWakyT+9uGnFmYe2p/x4YOiZMmDBh+jCmdvKzDTifXl56nN25WmxMmDBhwnQJU9v+kiR52wRre/jYH0qSd/2jnIkJEyZMmC5kmgWu7RGhLSLO3pIcDtp4FhMmTJgwPYNpNu3ZlGYHiFmrUDL5uuyKCRMmTJiuZcpDzVkidRbQnvomwVr1+GDChAkTpo9k2oSRm/AyL2e2KePZ84tcOCZMmDBhuoppk4SdBY2zTfpUoJuE1t/kwjFhwoQJ0yOY2qHvB9rSn03yRs/EhAkTJkwXMm1eNgt0ZxAb9DYN/U2lFxMmTJgwXc60KQq2FcBZCJ0Eq0nBslgqTJgwYcJ0LVM7pTZ8bYPMtiE1b2ydHXEwYcKECdPzmPLANX/NvunnRxpx2nQzJkyYMGG6kGl2CGhpkk16FtC2EG0YPFxVTJgwYcL0YUx5UnX2/dlGnHbkBw4ZmDBhwoTpEUxtiJiUP/NGmVmLT9ua0xZuv6n6YsKECROmq5hyjn2LzCzYbsfWtgdhwoQJE6bnMeXFv7yNZtZwswl088Wepa0xYcKECdO9TLMQdBO45sRtQrYNwoujDCZMmDBhupbpJ9p02p10U9psFy9/17ClCRMmTJgwfSRTewhot8z8nuRA0IayeRj/zZgxYcKECdPlTMl2O3tNO71TSd5N6RQTJkyYMP1OpmSqmzvbBPE+XVu07GDChAkTpl/DlGzJ+STbsuUmGK5pMGHChAnTg5j2Sd7X6NoEvfn9B1K9mDBhwoTpWqZh0nOx0eZks+Ll2QMEJkyYMGG6luk/WDS970hPkMcAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: 'https://lastknightcoder.github.io/lastknightcoder/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>
