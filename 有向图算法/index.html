@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>有向图算法 | Coder</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="算法,数据结构,图论">
+    <meta name="description" content="之前接触过的图都是无向图，在这个小节中讲解有向图   实际生活中的很多问题都可以建模为一个有向图的模型：  社交网络：图中的节点看做是一个个的人，如果一个节点指向一个节点，表示这个人关注了这个人，这种关注关系是有方向的 学习课程：将图中的节点看做是一门门的课程，一门课程被其他课程所指向，表示学习这门课程之前需要学习其他的课程，这种学习顺序也是有指向关系的 模块引用：将图中的节点看做是一个个的程序模">
+<meta property="og:type" content="article">
+<meta property="og:title" content="有向图算法">
+<meta property="og:url" content="https://lastknightcoder.github.io/lastknightcoder/%E6%9C%89%E5%90%91%E5%9B%BE%E7%AE%97%E6%B3%95/">
+<meta property="og:site_name" content="Coder">
+<meta property="og:description" content="之前接触过的图都是无向图，在这个小节中讲解有向图   实际生活中的很多问题都可以建模为一个有向图的模型：  社交网络：图中的节点看做是一个个的人，如果一个节点指向一个节点，表示这个人关注了这个人，这种关注关系是有方向的 学习课程：将图中的节点看做是一门门的课程，一门课程被其他课程所指向，表示学习这门课程之前需要学习其他的课程，这种学习顺序也是有指向关系的 模块引用：将图中的节点看做是一个个的程序模">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://user-images.githubusercontent.com/29890094/106105023-4406c500-617e-11eb-98d5-1f37daf426c0.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/29890094/106105023-4406c500-617e-11eb-98d5-1f37daf426c0.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/29890094/106105023-4406c500-617e-11eb-98d5-1f37daf426c0.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/29890094/106120074-e16af480-6190-11eb-8820-185600aa2852.gif">
+<meta property="og:image" content="https://user-images.githubusercontent.com/29890094/106120378-4888a900-6191-11eb-915a-1bcbd3df3339.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/29890094/106105023-4406c500-617e-11eb-98d5-1f37daf426c0.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/29890094/106123639-22fd9e80-6195-11eb-84e9-e970c294a8b4.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/29890094/106123835-6526e000-6195-11eb-9cb0-bd4550d1e264.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/29890094/106124153-bc2cb500-6195-11eb-82fb-113b86e5c623.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/29890094/106124358-fac26f80-6195-11eb-91b2-38f37d808597.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/29890094/106124528-25acc380-6196-11eb-9cdb-20dcc46f675a.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/29890094/106125147-c0a59d80-6196-11eb-8942-7aa3c9077e93.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/29890094/106129562-517e7800-619b-11eb-85ea-b99c9d75cd30.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/29890094/106132822-64934700-619f-11eb-900d-620b0c73ba07.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/29890094/106138841-9ad4c480-61a7-11eb-9c67-aaef3e022e94.png">
+<meta property="article:published_time" content="2021-01-28T13:07:00.000Z">
+<meta property="article:modified_time" content="2021-01-28T13:07:00.000Z">
+<meta property="article:author" content="熊滔">
+<meta property="article:tag" content="算法">
+<meta property="article:tag" content="数据结构">
+<meta property="article:tag" content="图论">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://user-images.githubusercontent.com/29890094/106105023-4406c500-617e-11eb-98d5-1f37daf426c0.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="Coder" href="https://lastknightcoder.github.io/lastknightcoder/atom.xml">
+    
+    <link rel="shortcut icon" href="https://lastknightcoder.github.io/lastknightcoder/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(https://lastknightcoder.github.io/lastknightcoder/img/brand.jpg)">
+      <div class="brand">
+        <a href="https://lastknightcoder.github.io/lastknightcoder/" class="avatar waves-effect waves-circle waves-light">
+          <img src="https://lastknightcoder.github.io/lastknightcoder/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">熊滔</h5>
+          <a href="mailto:2223106858@qq.com" title="2223106858@qq.com" class="mail">2223106858@qq.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.github.io/lastknightcoder/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.github.io/lastknightcoder/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.github.io/lastknightcoder/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.github.io/lastknightcoder/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://gitee.com/LastKnightCoder" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">有向图算法</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">有向图算法</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2021-01-28T13:07:00.000Z" itemprop="datePublished" class="page-time">
+  2021-01-28
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="https://lastknightcoder.github.io/lastknightcoder/categories/Algorithms/">Algorithms</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#有向图的表示"><span class="post-toc-number">1.</span> <span class="post-toc-text">有向图的表示</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#DFS"><span class="post-toc-number">2.</span> <span class="post-toc-text">DFS</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#有向图的环检测"><span class="post-toc-number">3.</span> <span class="post-toc-text">有向图的环检测</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#拓扑排序"><span class="post-toc-number">4.</span> <span class="post-toc-text">拓扑排序</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#强连通分量"><span class="post-toc-number">5.</span> <span class="post-toc-text">强连通分量</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-有向图算法"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">有向图算法</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2021-01-28 21:07:00" datetime="2021-01-28T13:07:00.000Z"  itemprop="datePublished">2021-01-28</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="https://lastknightcoder.github.io/lastknightcoder/categories/Algorithms/">Algorithms</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>之前接触过的图都是无向图，在这个小节中讲解有向图</p>
+<img src="https://user-images.githubusercontent.com/29890094/106105023-4406c500-617e-11eb-98d5-1f37daf426c0.png" style="zoom:50%;" />
+
+<p>实际生活中的很多问题都可以建模为一个有向图的模型：</p>
+<ul>
+<li>社交网络：图中的节点看做是一个个的人，如果一个节点指向一个节点，表示这个人关注了这个人，这种关注关系是有方向的</li>
+<li>学习课程：将图中的节点看做是一门门的课程，一门课程被其他课程所指向，表示学习这门课程之前需要学习其他的课程，这种学习顺序也是有指向关系的</li>
+<li>模块引用：将图中的节点看做是一个个的程序模块，一个模块被其他模块指向，表示该模块依赖于其他模块，这种模块之间的依赖也是有方向的</li>
+</ul>
+<h2 id="有向图的表示"><a href="#有向图的表示" class="headerlink" title="有向图的表示"></a>有向图的表示</h2><p>我们之前介绍的无向图可以看做是一种特殊的有向图，所谓的特殊在于每个节点都互相指向。我们之前在 <code>g.txt</code> 值规定规定了节点之间的连接关系，所以我们当我们读取到下面的形式的时候 </p>
+<figure class="highlight basic"><table><tr><td class="code"><pre><span class="line"><span class="symbol">0 </span><span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+<p>表示的是节点 0 指向节点 1 以及节点 1 指向节点 0，所以我们在无向图中实现如下</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">adj[<span class="number">0</span>].add(<span class="number">1</span>);</span><br><span class="line">adj[<span class="number">1</span>].add(<span class="number">0</span>);</span><br></pre></td></tr></table></figure>
+
+<p>如果我们只是想表示节点 0 指向节点 1，我们就不需要添加下面那一行语句就好了。所以有向图对比于无向图的实现只需要更改这一个部分</p>
+<figure class="highlight java"><figcaption><span>&#123;48&#125;</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.io.File;</span><br><span class="line"><span class="keyword">import</span> java.io.FileNotFoundException;</span><br><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"><span class="keyword">import</span> java.util.TreeSet;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DirectedGraph</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> E;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> V;</span><br><span class="line">    <span class="keyword">private</span> TreeSet&lt;Integer&gt;[] adj;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">DirectedGraph</span><span class="params">(String filename)</span> </span>&#123;</span><br><span class="line">        File file = <span class="keyword">new</span> File(filename);</span><br><span class="line">        Scanner scanner = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            scanner = <span class="keyword">new</span> Scanner(file);</span><br><span class="line">            <span class="keyword">this</span>.V = scanner.nextInt();</span><br><span class="line">            <span class="keyword">if</span> (<span class="keyword">this</span>.V &lt; <span class="number">0</span>) &#123;</span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"V Must Be Positive"</span>);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">this</span>.adj = <span class="keyword">new</span> TreeSet[<span class="keyword">this</span>.V];</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="keyword">this</span>.V; i++) &#123;</span><br><span class="line">                <span class="keyword">this</span>.adj[i] = <span class="keyword">new</span> TreeSet&lt;&gt;();</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">this</span>.E = scanner.nextInt();</span><br><span class="line">            <span class="keyword">if</span> (<span class="keyword">this</span>.E &lt; <span class="number">0</span>) &#123;</span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"E Must Be Positive"</span>);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">this</span>.inDegree = <span class="keyword">new</span> <span class="keyword">int</span>[V];</span><br><span class="line">            <span class="keyword">this</span>.outDegree = <span class="keyword">new</span> <span class="keyword">int</span>[V];</span><br><span class="line"></span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="keyword">this</span>.E; i++) &#123;</span><br><span class="line">                <span class="keyword">int</span> a = scanner.nextInt();</span><br><span class="line">                validateVertex(a);</span><br><span class="line">                <span class="keyword">int</span> b = scanner.nextInt();</span><br><span class="line">                validateVertex(b);</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> (a == b) &#123;</span><br><span class="line">                    <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"Self loop exists"</span>);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span> (adj[a].contains(b)) &#123;</span><br><span class="line">                    <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"Parallel edge exists"</span>);</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="comment">// 只是删掉了 adj[b].add(a)</span></span><br><span class="line">                adj[a].add(b);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (FileNotFoundException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            <span class="keyword">assert</span> scanner != <span class="keyword">null</span>;</span><br><span class="line">            scanner.close();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">validateVertex</span><span class="params">(<span class="keyword">int</span> v)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (v &lt; <span class="number">0</span> || v &gt;= <span class="keyword">this</span>.V) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"Vertex "</span> + v + <span class="string">" is invalid"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">V</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.V;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">E</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.E;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Iterable&lt;Integer&gt; <span class="title">adj</span><span class="params">(<span class="keyword">int</span> v)</span> </span>&#123;</span><br><span class="line">        validateVertex(v);</span><br><span class="line">        <span class="keyword">return</span> adj[v];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        StringBuilder stringBuilder = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">        stringBuilder.append(String.format(<span class="string">"V: %d, E: %d\n"</span>, <span class="keyword">this</span>.V, <span class="keyword">this</span>.E));</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> v = <span class="number">0</span>; v &lt; <span class="keyword">this</span>.V; v++) &#123;</span><br><span class="line">            stringBuilder.append(String.format(<span class="string">"%d : "</span>, v));</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> w: adj(v)) &#123;</span><br><span class="line">                stringBuilder.append(String.format(<span class="string">"%d "</span>, w));</span><br><span class="line">            &#125;</span><br><span class="line">            stringBuilder.append(<span class="string">"\n"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> stringBuilder.toString();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>需要注意的是有一个概念同无向图有所不同，那就是度的概念，在有向图中度分为两类：</p>
+<ul>
+<li>入度：有多少条边指向该节点</li>
+<li>出度：有多少条件从该节点指向别的节点</li>
+</ul>
+<p>例如对于下图，节点 2 的入度为 2，因为有两条边指向节点 2，出度为 1，因为有一条边从它指向节点 4。</p>
+<img src="https://user-images.githubusercontent.com/29890094/106105023-4406c500-617e-11eb-98d5-1f37daf426c0.png" style="zoom:50%;" />
+
+<p>所以我们再次修改一下类 <code>DirectedGraph</code> 如下</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.io.File;</span><br><span class="line"><span class="keyword">import</span> java.io.FileNotFoundException;</span><br><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"><span class="keyword">import</span> java.util.TreeSet;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DirectedGraph</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> E;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> V;</span><br><span class="line">    <span class="keyword">private</span> TreeSet&lt;Integer&gt;[] adj;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 增加入度和出度的成员变量</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span>[] inDegree;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span>[] outDegree;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">DirectedGraph</span><span class="params">(String filename)</span> </span>&#123;</span><br><span class="line">        File file = <span class="keyword">new</span> File(filename);</span><br><span class="line">        Scanner scanner = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">// 其他代码相同</span></span><br><span class="line"></span><br><span class="line">            <span class="keyword">this</span>.inDegree = <span class="keyword">new</span> <span class="keyword">int</span>[V];</span><br><span class="line">            <span class="keyword">this</span>.outDegree = <span class="keyword">new</span> <span class="keyword">int</span>[V];</span><br><span class="line"></span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="keyword">this</span>.E; i++) &#123;</span><br><span class="line">                <span class="comment">// 其他代码相同</span></span><br><span class="line"></span><br><span class="line">                adj[a].add(b);</span><br><span class="line">                <span class="comment">// 在这里初始化入度和出度，a → b，a的出度增加，b的入度增加</span></span><br><span class="line">                inDegree[b]++;</span><br><span class="line">                outDegree[a]++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (FileNotFoundException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            <span class="keyword">assert</span> scanner != <span class="keyword">null</span>;</span><br><span class="line">            scanner.close();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">inDegree</span><span class="params">(<span class="keyword">int</span> v)</span> </span>&#123;</span><br><span class="line">        validateVertex(v);</span><br><span class="line">        <span class="keyword">return</span> inDegree[v];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">outDegree</span><span class="params">(<span class="keyword">int</span> v)</span> </span>&#123;</span><br><span class="line">        validateVertex(v);</span><br><span class="line">        <span class="keyword">return</span> outDegree[v];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 其他方法</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="DFS"><a href="#DFS" class="headerlink" title="DFS"></a>DFS</h2><p>对于有向图来说，它的 DFS 代码和 BFS 代码同无向图的写法完全是一样的，因为在后文中需要用到 DFS 遍历，所以这里贴出有向图的 DFS 遍历代码</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DFSDirectedGraph</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> DirectedGraph graph;</span><br><span class="line">    <span class="comment">// 深度优先前序遍历结果</span></span><br><span class="line">    <span class="keyword">private</span> ArrayList&lt;Integer&gt; pre;</span><br><span class="line">    <span class="comment">// 深度优先后序遍历结果</span></span><br><span class="line">    <span class="keyword">private</span> ArrayList&lt;Integer&gt; post;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">boolean</span>[] visited;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">DFSDirectedGraph</span><span class="params">(DirectedGraph graph)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.graph = graph;</span><br><span class="line">        <span class="keyword">this</span>.pre = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        <span class="keyword">this</span>.post = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        <span class="keyword">this</span>.visited = <span class="keyword">new</span> <span class="keyword">boolean</span>[graph.V()];</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> v = <span class="number">0</span>; v &lt; graph.V(); v++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (!visited[v]) &#123;</span><br><span class="line">                dfs(v);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> v)</span> </span>&#123;</span><br><span class="line">        visited[v] = <span class="keyword">true</span>;</span><br><span class="line">        pre.add(v);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> w: graph.adj(v)) &#123;</span><br><span class="line">            <span class="keyword">if</span> (!visited[w]) &#123;</span><br><span class="line">                dfs(w);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        post.add(v);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> ArrayList&lt;Integer&gt; <span class="title">pre</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> pre;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> ArrayList&lt;Integer&gt; <span class="title">post</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> post;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>可见上面的代码与无向图的 DFS 并无不同。</p>
+<h2 id="有向图的环检测"><a href="#有向图的环检测" class="headerlink" title="有向图的环检测"></a>有向图的环检测</h2><p>检测有向图中是否存在环是一件很有必要的事情</p>
+<img src="https://user-images.githubusercontent.com/29890094/106105023-4406c500-617e-11eb-98d5-1f37daf426c0.png" style="zoom:50%;" />
+
+<p>如果将上面的图看做是一个课程之间的依赖关系，如果图中存在环，说明课程之间相互依赖，学习课程 A 之前需要先学习课程 B，而学习课程 B 之前又需要先学习课程 A，这样的学习顺序肯定是有问题的。</p>
+<p>我们想一想我们在无向图中是怎么做环检测的，我们使用 DFS 遍历，当遍历到一个节点时，如果某个邻接节点已经被访问了，并且不是它的父亲节点，我们就可以认为图中存在一个环。但是对于有向图就不一样了</p>
+<img src="https://user-images.githubusercontent.com/29890094/106120074-e16af480-6190-11eb-8820-185600aa2852.gif" style="zoom: 33%;" />
+
+<p>上面的动图是优先遍历的顺序，最后我们来到了节点 3</p>
+<img src="https://user-images.githubusercontent.com/29890094/106120378-4888a900-6191-11eb-915a-1bcbd3df3339.png" style="zoom: 50%;" />
+
+<p>此时我们发现节点 3 的相邻节点 2 已经被访问过了，并且节点 2 不是 3 的上一个节点，但是我们能说图中存在一个环吗? 不能，因为节点 2 无法到达节点 3，所以形成不了一个环。</p>
+<p>此时我们需要另外一个变量来表示节点是否在路径上，如果一个节点访问邻接节点时发现该节点已经被访问过且在路径上，我们就可以说构成了一个环。</p>
+<blockquote>
+<p>什么叫在路径上，如果这个节点还没有回溯到上一个节点，我们就说这个节点在路径上。</p>
+</blockquote>
+<p>如果我们在访问到节点 w 时，节点 v 还在路径上，说明节点 v 可以到达节点 w，如果此时节点 w 可以到达节点 v 不就说明存在一个环吗。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DirectedCycleDetect</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> DirectedGraph graph;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">boolean</span>[] visited;</span><br><span class="line">    <span class="comment">// onPath[w] 表示节点 w 是否在路径上</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">boolean</span>[] onPath;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">boolean</span> hasCycle;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">DirectedCycleDetect</span><span class="params">(DirectedGraph graph)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.graph = graph;</span><br><span class="line">        <span class="keyword">this</span>.visited = <span class="keyword">new</span> <span class="keyword">boolean</span>[graph.V()];</span><br><span class="line">        <span class="keyword">this</span>.onPath = <span class="keyword">new</span> <span class="keyword">boolean</span>[graph.V()];</span><br><span class="line">        <span class="keyword">this</span>.hasCycle = <span class="keyword">false</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> v = <span class="number">0</span>; v &lt; graph.V(); v++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (!visited[v]) &#123;</span><br><span class="line">                <span class="keyword">if</span> (dfs(v)) &#123;</span><br><span class="line">                    hasCycle = <span class="keyword">true</span>;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> v)</span> </span>&#123;</span><br><span class="line">        visited[v] = <span class="keyword">true</span>;</span><br><span class="line">        onPath[v] = <span class="keyword">true</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> w: graph.adj(v)) &#123;</span><br><span class="line">            <span class="keyword">if</span> (!visited[w]) &#123;</span><br><span class="line">                <span class="keyword">if</span> (dfs(w)) &#123;</span><br><span class="line">                    <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            <span class="comment">// 通无向图不同，2 -&gt; 1 -&gt; 2 也是一个环</span></span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (onPath[w]) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 回溯到上一个节点时就不在路径上了</span></span><br><span class="line">        onPath[v] = <span class="keyword">false</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isHasCycle</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> hasCycle;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="拓扑排序"><a href="#拓扑排序" class="headerlink" title="拓扑排序"></a>拓扑排序</h2><p>还是对于下面的这么一副图</p>
+<img src="https://user-images.githubusercontent.com/29890094/106105023-4406c500-617e-11eb-98d5-1f37daf426c0.png" style="zoom:50%;" />
+
+<p>假设上面的节点代表一门课程的话，我们想知道应该以什么样的顺序学习所有的课程，这其实就是在寻找图的拓扑排序。</p>
+<p>那么我们寻找图的拓扑排序呢? 还是以学习课程举例，要学习一门课，那么这门就不能依赖于任何一门其他的课，或者这门课已经被学过了，就比如上面我们应该先学习课程 0，因为没有任何课程指向它，它不依赖于任何课程，以图论的语言来说，因为节点 0 的入度为 0，所以先学习课程 0。</p>
+<img src="https://user-images.githubusercontent.com/29890094/106123639-22fd9e80-6195-11eb-84e9-e970c294a8b4.png" style="zoom:50%;" />
+
+<p>学习完课程 0 之后，为了表示这门课程已经学过，我们将依赖于节点 0 的节点的入度减一</p>
+<img src="https://user-images.githubusercontent.com/29890094/106123835-6526e000-6195-11eb-9cb0-bd4550d1e264.png" style="zoom:50%;" />
+
+<p>接下来我们应该学习哪门课呢? 当然是入度为 0 的课，表示不需要前置课程或者前置课程已经学过了，所以我们接下来学习课程 1，并且将依赖课程 1 的其他课程的入度减一</p>
+<img src="https://user-images.githubusercontent.com/29890094/106124153-bc2cb500-6195-11eb-82fb-113b86e5c623.png" style="zoom:50%;" />
+
+<p>接下来还是学习入度为 0 的课程，即课程 3，并且更新依赖课程 3 的其他课程的入度</p>
+<img src="https://user-images.githubusercontent.com/29890094/106124358-fac26f80-6195-11eb-91b2-38f37d808597.png" style="zoom:50%;" />
+
+<p>接着学习课程 2，因为它的入度为 0，然后更新依赖课程 2 的其他课程的入度</p>
+<img src="https://user-images.githubusercontent.com/29890094/106124528-25acc380-6196-11eb-9cdb-20dcc46f675a.png" style="zoom:50%;" />
+
+<p>最后学习课程 4</p>
+<img src="https://user-images.githubusercontent.com/29890094/106125147-c0a59d80-6196-11eb-8942-7aa3c9077e93.png" style="zoom:50%;" />
+
+<p>所以最终课程的学习顺序为 <code>0 → 1 → 3 → 2 → 4</code>，也就是拓扑排序的结果。</p>
+<p>所以我们对图做拓扑排序，就重复做两步：</p>
+<ul>
+<li>选择入度为 0 的节点</li>
+<li>更新相邻节点的入度</li>
+</ul>
+<p>另外一个需要注意的问题就是，拓扑排序只对有向无环图(DAG) 有效，如果图中有环，二者相互依赖，就不知道先学习哪一门课程了。</p>
+<p>在代码的实现方面，我们使用队列来存储入度为 0 的节点，在更新相邻节点入度的时候，如果入度为 0 则添加进队列中，每次从队列取出一个值时，我们添加到一个 List 中，表示拓扑排序的顺序。另外如果图中存在环的话，那么这个 List 中保存的节点数目肯定小于整个图的节点数目，此时可以使用拓扑排序来做环检测。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.LinkedList;</span><br><span class="line"><span class="keyword">import</span> java.util.Queue;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TopoSort</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> DirectedGraph graph;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span>[] inDegree;</span><br><span class="line">    <span class="keyword">private</span> ArrayList&lt;Integer&gt; result = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">boolean</span> hasCycle = <span class="keyword">false</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">TopoSort</span><span class="params">(DirectedGraph graph)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.graph = graph;</span><br><span class="line">        <span class="keyword">this</span>.inDegree = <span class="keyword">new</span> <span class="keyword">int</span>[graph.V()];</span><br><span class="line"></span><br><span class="line">        Queue&lt;Integer&gt; queue = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> v = <span class="number">0</span>; v &lt; graph.V(); v++) &#123;</span><br><span class="line">            inDegree[v] = graph.inDegree(v);</span><br><span class="line">            <span class="keyword">if</span> (inDegree[v] == <span class="number">0</span>) &#123;</span><br><span class="line">                queue.add(v);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> (!queue.isEmpty()) &#123;</span><br><span class="line">            <span class="keyword">int</span> v = queue.remove();</span><br><span class="line">            result.add(v);</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> w: graph.adj(v)) &#123;</span><br><span class="line">                inDegree[w]--;</span><br><span class="line">                <span class="keyword">if</span> (inDegree[w] == <span class="number">0</span>) &#123;</span><br><span class="line">                    queue.add(w);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (result.size() != graph.V()) &#123;</span><br><span class="line">            hasCycle = <span class="keyword">true</span>;</span><br><span class="line">            result.clear();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isHasCycle</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> hasCycle;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> ArrayList&lt;Integer&gt; <span class="title">result</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>此时我们在介绍一种拓扑排序的算法，它需要借助于深度优先后序遍历。回顾一个后序遍历的概念，后序遍历指的是先访问完相邻节点，然后访问自己。</p>
+<p>对于有向图意味着什么，意味着先访问依赖自己的节点，然后访问自己，说明自己是在依赖于自己的节点之后访问的，如果我们对深度优先后序遍历做一个逆序，这个顺序就表示自己在依赖于自己的节点之前被访问的，这不就是拓扑排序的结果吗。</p>
+<p>使用深度优先后序遍历有一个缺点就是它不能做环检测，虽然图中有环，但是还是能够深度优先后序遍历，只不过此时结果便没有意义了。所以在使用这个方法做拓扑排序之前，我们需要使用我们之前讲解的有向图的环检测算法进行环检测</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.Collections;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TopoSort2</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> DirectedGraph graph;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">boolean</span> hasCycle;</span><br><span class="line">    <span class="keyword">private</span> ArrayList&lt;Integer&gt; result = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">TopoSort2</span><span class="params">(DirectedGraph graph)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.graph = graph;</span><br><span class="line">        <span class="comment">// 使用之前的讲解的环检测类进行环检测</span></span><br><span class="line">        DirectedCycleDetect directedCycleDetect = <span class="keyword">new</span> DirectedCycleDetect(graph);</span><br><span class="line">        <span class="keyword">this</span>.hasCycle = directedCycleDetect.isHasCycle();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (hasCycle) &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 对图做深度优先后序遍历</span></span><br><span class="line">        DFSDirectedGraph dfsDirectedGraph = <span class="keyword">new</span> DFSDirectedGraph(graph);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> v: dfsDirectedGraph.post()) &#123;</span><br><span class="line">            result.add(v);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 对后序遍历取逆序</span></span><br><span class="line">        Collections.reverse(result);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isHasCycle</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> hasCycle;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> ArrayList&lt;Integer&gt; <span class="title">result</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="强连通分量"><a href="#强连通分量" class="headerlink" title="强连通分量"></a>强连通分量</h2><p>现在还有一个问题就是我们怎么检测图中有多少个强联通分量，以及每一个强联通分量中包含哪些节点。所谓的强联通分量指如果某些节点互相可达，那么这些节点就组成了一个强联通分量。</p>
+<img src="https://user-images.githubusercontent.com/29890094/106129562-517e7800-619b-11eb-85ea-b99c9d75cd30.png" style="zoom: 50%;" />
+
+<p>如上图就三个强联通分量，每个联通分量内部的节点都是互相可达的。</p>
+<p>在求解有向图的联通分量之前，我们回顾一下无向图的联通分量是如何求解的，我们从任意一个节点开始做 <code>DFS</code>，每次做一次 <code>DFS</code> 就表示有一个联通分量</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; visited.length; i++) &#123;</span><br><span class="line">    <span class="keyword">if</span> (!visited[i]) &#123;</span><br><span class="line">        cccount++; <span class="comment">// 联通分量个数增加</span></span><br><span class="line">        dfs(i);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>但是对于有向图我们能从任意一个节点开始吗? 答案是不行，而是要以特定的顺序遍历。如果我们将一个个的联通分量看做是一个图中的节点</p>
+<img src="https://user-images.githubusercontent.com/29890094/106132822-64934700-619f-11eb-900d-620b0c73ba07.png" style="zoom:50%;" />
+
+<p>如果我们分别遍历联通分量 $E \rightarrow C \rightarrow A \rightarrow D \rightarrow B$ 中的节点，那么每做一次 DFS 就就可以统计联通分量数目，那么为什么会是上面的顺序呢?</p>
+<p>为什么从 $E$ 开始遍历，因为 $E$ 只依赖其他联通分量的节点，没有其他联通分量依赖于它，所以从 $E$ 中的某个节点做 <code>DFS</code>，只能遍历到联通分量 $E$ 中的节点。同理遍历完了 $E$，此时 $C$ 也只依赖于其他联通分量，虽然 $E$ 依赖于 $C$，但是 $E$ 已经遍历完毕了，所以此时从 $C$ 中的节点开始做 <code>DFS</code> 只能遍历到 $C$ 中所有的节点，剩余的也是同理。</p>
+<p>也就是说依赖于自己的联通分量要被先遍历到，也就是相邻节点要在自己之前被访问到，其实就是深度优先后序遍历的顺序，所以 $E \rightarrow C \rightarrow A \rightarrow D \rightarrow B$ 这个顺序其实是深度优先后序遍历的顺序。</p>
+<p>但是这个深度优先后序遍历指的是以联通分量作为节点进行的遍历，如果我们从任意一个节点做深度优先后序遍历是得不到这个顺序的。例如我们从联通分量中的节点 $D$ 开始遍历，接着来到了联通分量 $C$，虽然遍历完联通分量 $C$ 中所有节点之前肯定需要遍历完联通分量 $E$，但是不能保证所有 $E$ 中的节点都在 $C$ 之前被遍历，即可能有这样的顺序 $C_1 \rightarrow E \rightarrow C_2 \rightarrow \cdots$，这样的顺序是我们不想要的，因为我们必须从联通分量 $E$ 中的节点开始遍历。</p>
+<p>虽然上面的深度优先遍历不能严格按照 $E \rightarrow C \rightarrow A \rightarrow D \rightarrow B$ 的顺序遍历，但是我们发现一定有分量 $C$ 中的节点在分量 $E$ 遍历完之后遍历的 $C_1 \rightarrow E \rightarrow C_2 \rightarrow \cdots$，例如 $C_2$ 在遍历完 $E$ 之后被遍历了，这给了我们灵感，如果我们取个逆，就可以得到一定有 $C$ 中的节点在 $E$ 分量节点被遍历之前遍历。</p>
+<p>而我们想要的是一定要 $E$ 中的节点在 $C$ 中的节点被遍历之前遍历，怎么办，我们将整个图的方向改变一下，原来是 $a \rightarrow b$，现在变为 $b \rightarrow a$</p>
+<img src="https://user-images.githubusercontent.com/29890094/106138841-9ad4c480-61a7-11eb-9c67-aaef3e022e94.png" style="zoom:50%;" />
+
+<p>然后进行深度优先后序遍历，然后取个逆就可以保证一定有在 $E$ 中的节点在 $C$ 中的节点遍历之前被遍历到，同理可以得到一定有 $C$ 中的节点在 $D$ 中的节点被遍历之前被遍历到，这就达到我们的目的，我们再根据这个顺序做 <code>DFS</code> 就可以统计出联通分量的个数了。</p>
+<p>上面这个算法就是 Kosaraju 算法，总结上面的步骤如下：</p>
+<ul>
+<li>图翻转得到反图</li>
+<li>对反图做深度优先后序遍历，然后对遍历结果取逆</li>
+<li>根据取逆后的结果依次做 DFS，统计联通分量个数</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.Arrays;</span><br><span class="line"><span class="keyword">import</span> java.util.Collections;</span><br><span class="line"><span class="keyword">import</span> java.util.TreeSet;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StrongCC</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> DirectedGraph graph;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span>[] visited;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> scccount;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">StrongCC</span><span class="params">(DirectedGraph graph)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.graph = graph;</span><br><span class="line">        <span class="keyword">this</span>.visited = <span class="keyword">new</span> <span class="keyword">int</span>[graph.V()];</span><br><span class="line">        Arrays.fill(visited, -<span class="number">1</span>);</span><br><span class="line">        <span class="keyword">this</span>.scccount = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 翻转图</span></span><br><span class="line">        TreeSet&lt;Integer&gt;[] reverse = <span class="keyword">new</span> TreeSet[graph.V()];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; graph.V(); i++) &#123;</span><br><span class="line">            reverse[i] = <span class="keyword">new</span> TreeSet&lt;&gt;();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> v = <span class="number">0</span>; v &lt; graph.V(); v++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> w: graph.adj(v)) &#123;</span><br><span class="line">                reverse[w].add(v);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 对翻转图做 DFS</span></span><br><span class="line">        DFSDirectedGraph dfsDirectedGraph = <span class="keyword">new</span> DFSDirectedGraph(<span class="keyword">new</span> DirectedGraph(reverse));</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 对深度优先后序遍历取逆</span></span><br><span class="line">        ArrayList&lt;Integer&gt; res = dfsDirectedGraph.post();</span><br><span class="line">        Collections.reverse(res);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 依次做 DFS，每做一次 DFS，联通分量个数增加</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> v: res) &#123;</span><br><span class="line">            <span class="keyword">if</span> (visited[v] == -<span class="number">1</span>) &#123;</span><br><span class="line">                dfs(v, scccount);</span><br><span class="line">                scccount++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> v, <span class="keyword">int</span> id)</span> </span>&#123;</span><br><span class="line">        visited[v] = id;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> w: graph.adj(v)) &#123;</span><br><span class="line">            <span class="keyword">if</span> (visited[w] == -<span class="number">1</span>) &#123;</span><br><span class="line">                dfs(w, id);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> ArrayList&lt;Integer&gt;[] components() &#123;</span><br><span class="line">        ArrayList&lt;Integer&gt;[] results = <span class="keyword">new</span> ArrayList[scccount];</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i&lt; scccount; i++) &#123;</span><br><span class="line">            results[i] = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> v = <span class="number">0</span>; v &lt; graph.V(); v++) &#123;</span><br><span class="line">            results[visited[v]].add(v);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> results;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2021-01-28T13:07:00.000Z" itemprop="dateUpdated">2021-01-28 21:07:00</time>
+</span><br>
+
+
+        
+    </div>
+    
+    <footer>
+        <a href="https://lastknightcoder.github.io/lastknightcoder">
+            <img src="https://lastknightcoder.github.io/lastknightcoder/img/avatar.jpg" alt="熊滔">
+            熊滔
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="https://lastknightcoder.github.io/lastknightcoder/tags/%E5%9B%BE%E8%AE%BA/" rel="tag">图论</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="https://lastknightcoder.github.io/lastknightcoder/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="https://lastknightcoder.github.io/lastknightcoder/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://lastknightcoder.github.io/lastknightcoder/%E6%9C%89%E5%90%91%E5%9B%BE%E7%AE%97%E6%B3%95/&title=《有向图算法》 — Coder&pic=https://lastknightcoder.github.io/lastknightcoder/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://lastknightcoder.github.io/lastknightcoder/%E6%9C%89%E5%90%91%E5%9B%BE%E7%AE%97%E6%B3%95/&title=《有向图算法》 — Coder&source=人生天地间，忽如远行客" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://lastknightcoder.github.io/lastknightcoder/%E6%9C%89%E5%90%91%E5%9B%BE%E7%AE%97%E6%B3%95/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《有向图算法》 — Coder&url=https://lastknightcoder.github.io/lastknightcoder/%E6%9C%89%E5%90%91%E5%9B%BE%E7%AE%97%E6%B3%95/&via=https://lastknightcoder.github.io/lastknightcoder" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://lastknightcoder.github.io/lastknightcoder/%E6%9C%89%E5%90%91%E5%9B%BE%E7%AE%97%E6%B3%95/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="https://lastknightcoder.github.io/lastknightcoder/%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84%E7%AE%97%E6%B3%95/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">最短路径算法</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'lastknightcoder';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="https://lastknightcoder.github.io/lastknightcoder/img/wechatpay.png" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="https://lastknightcoder.github.io/lastknightcoder/img/wechatpay.png" data-alipay="https://lastknightcoder.github.io/lastknightcoder/img/alipay.png">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="https://lastknightcoder.github.io/lastknightcoder/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>熊滔 &copy; 2019 - 2021</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://lastknightcoder.github.io/lastknightcoder/%E6%9C%89%E5%90%91%E5%9B%BE%E7%AE%97%E6%B3%95/&title=《有向图算法》 — Coder&pic=https://lastknightcoder.github.io/lastknightcoder/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://lastknightcoder.github.io/lastknightcoder/%E6%9C%89%E5%90%91%E5%9B%BE%E7%AE%97%E6%B3%95/&title=《有向图算法》 — Coder&source=人生天地间，忽如远行客" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://lastknightcoder.github.io/lastknightcoder/%E6%9C%89%E5%90%91%E5%9B%BE%E7%AE%97%E6%B3%95/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《有向图算法》 — Coder&url=https://lastknightcoder.github.io/lastknightcoder/%E6%9C%89%E5%90%91%E5%9B%BE%E7%AE%97%E6%B3%95/&via=https://lastknightcoder.github.io/lastknightcoder" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://lastknightcoder.github.io/lastknightcoder/%E6%9C%89%E5%90%91%E5%9B%BE%E7%AE%97%E6%B3%95/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2CAAAAADAeSUUAAADJklEQVR42u3azW7qQAwG0L7/S+duK90mfLaDRMyZFSphmDNdGP/8/MTr+LXO3j17/f+nrnc7e3KyT3NhY2NjP4R9XK7k66sXcX1ByRVX9/ljN2xsbOx17PnRq0EoP2JCzS3Y2NjY2NdHyQPM9Rnyi8DGxsbG7rGT0DIPh5O0BxsbG/vb2ElRqRqEqgEvudxq8euGWho2Njb2x7Pzrujnv35LfxsbGxv7g9lHceWjPJPgkQfRpgIbGxt7EXvSrM3ThiSZmQ/o5OfHxsbG3spOgtB1IWnexJ1cTbnZgI2Njb2CXS3NHG9YvevLr+A0A8PGxsZeyq5+2RyZhLQkiOY7YGNjY+9j98r389GcSRqTF7P+2B8bGxt7EbvXrK0GkrxBOxm1zItN2NjY2N/A7hV0kgBWHbjphagoBcLGxsZewc4bt5PifpLw5KX/3j/ptJaGjY2NvYh9HR6iccZiSOsVj3ohFhsbG3s3uxp+qgWmKu8dRaVmtoSNjY398ezk53seHiaJRBI+82cKn8LGxsZex540BuaJRI+dtA2aXW5sbGzsR7GbP+WL7YHqAFCenPSax9jY2Ng72L30oPpML1hWw0+hwYyNjY29iF1dvfLQZOhnnhTdcAXY2NjYD2FPRmHyd6tP9sJk4bKwsbGxH86+N3jkxaPe6E/++sV1Y2NjYy9iVz+WN3Enz1cvLv8LNjY29m72JIBNOsy9EZ9J8MPGxsbewT5aKw9F1cJTcq3VEPViWAcbGxv74ezJKEy16DNv1t57udjY2Nib2HfB8gPlSUu1sHVDLQ0bGxv7gezqFtXkpAqYzBwVAio2Njb2Uvb7YMkYTW+HGwIYNjY29gr2pDzUK9ZPQlqvEPaiN4KNjY39QHavxVsNJJPy0OQ8p+fExsbGXsTOV+8rey2EaoIxGffBxsbG3sGuln561zQpGFVDXVQgw8bGxl7H7g3x5IfOA0xy6dWiUnNkBxsbG/sL2NVPTdrM84QHGxsbG7vXfO2N2sybylFvBBsbG3sRe1IAyg+dFIx6xaMk0GJjY2NvZefl/uvtkuL+fIwm3ydPn7CxsbEfy/4HbZEXcrTS+lwAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: 'https://lastknightcoder.github.io/lastknightcoder/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>
