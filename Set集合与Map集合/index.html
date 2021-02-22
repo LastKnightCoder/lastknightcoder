@@ -21,12 +21,12 @@
     
     
     <meta name="keywords" content="Set,Map">
-    <meta name="description" content="Set集合与Map集合在 ES6 以前，JavaScript 只有数组这一种集合来存储数据(当然有的人会使用对象来存储数据)，在 ES6 中引入了两种新的集合来存储数据，它们是 Set 和 Map：  Set：Set 集合中的数据都不相同 Map：数据格式为键值对，与对象类似  ES5 中的 Set 和 Map模拟 Set 和 Map在 ES5 中，开发者使用对象来模拟 Set 和 Map let">
+    <meta name="description" content="在 ES6 以前，JavaScript 只有数组这一种集合来存储数据(当然有的人会使用对象来存储数据)，在 ES6 中引入了两种新的集合来存储数据，它们是 Set 和 Map：  Set：Set 集合中的数据都不相同 Map：数据格式为键值对，与对象类似  ES5 中的 Set 和 Map模拟 Set 和 Map在 ES5 中，开发者使用对象来模拟 Set 和 Map let set &#x3D; Obje">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ES6：Set集合与Map集合">
 <meta property="og:url" content="https://lastknightcoder.github.io/lastknightcoder/Set%E9%9B%86%E5%90%88%E4%B8%8EMap%E9%9B%86%E5%90%88/">
 <meta property="og:site_name" content="Coder">
-<meta property="og:description" content="Set集合与Map集合在 ES6 以前，JavaScript 只有数组这一种集合来存储数据(当然有的人会使用对象来存储数据)，在 ES6 中引入了两种新的集合来存储数据，它们是 Set 和 Map：  Set：Set 集合中的数据都不相同 Map：数据格式为键值对，与对象类似  ES5 中的 Set 和 Map模拟 Set 和 Map在 ES5 中，开发者使用对象来模拟 Set 和 Map let">
+<meta property="og:description" content="在 ES6 以前，JavaScript 只有数组这一种集合来存储数据(当然有的人会使用对象来存储数据)，在 ES6 中引入了两种新的集合来存储数据，它们是 Set 和 Map：  Set：Set 集合中的数据都不相同 Map：数据格式为键值对，与对象类似  ES5 中的 Set 和 Map模拟 Set 和 Map在 ES5 中，开发者使用对象来模拟 Set 和 Map let set &#x3D; Obje">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-02-15T10:49:00.000Z">
 <meta property="article:modified_time" content="2021-02-15T10:49:00.000Z">
@@ -161,7 +161,7 @@
     <aside class="post-widget">
         <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Set集合与Map集合"><span class="post-toc-number">1.</span> <span class="post-toc-text">Set集合与Map集合</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#ES5-中的-Set-和-Map"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">ES5 中的 Set 和 Map</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#模拟-Set-和-Map"><span class="post-toc-number">1.1.1.</span> <span class="post-toc-text">模拟 Set 和 Map</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#存在的问题"><span class="post-toc-number">1.1.2.</span> <span class="post-toc-text">存在的问题</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Set"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">Set</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#使用-Set"><span class="post-toc-number">1.2.1.</span> <span class="post-toc-text">使用 Set</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#遍历-Set"><span class="post-toc-number">1.2.2.</span> <span class="post-toc-text">遍历 Set</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Set-与数组"><span class="post-toc-number">1.2.3.</span> <span class="post-toc-text">Set 与数组</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#WeakSet"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">WeakSet</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Map"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">Map</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#使用-Map"><span class="post-toc-number">1.4.1.</span> <span class="post-toc-text">使用 Map</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#遍历-Map"><span class="post-toc-number">1.4.2.</span> <span class="post-toc-text">遍历 Map</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#WeakMap"><span class="post-toc-number">1.5.</span> <span class="post-toc-text">WeakMap</span></a></li></ol></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#ES5-中的-Set-和-Map"><span class="post-toc-number">1.</span> <span class="post-toc-text">ES5 中的 Set 和 Map</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#模拟-Set-和-Map"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">模拟 Set 和 Map</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#存在的问题"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">存在的问题</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Set"><span class="post-toc-number">2.</span> <span class="post-toc-text">Set</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#使用-Set"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">使用 Set</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#遍历-Set"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">遍历 Set</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Set-与数组"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">Set 与数组</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#WeakSet"><span class="post-toc-number">3.</span> <span class="post-toc-text">WeakSet</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Map"><span class="post-toc-number">4.</span> <span class="post-toc-text">Map</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#使用-Map"><span class="post-toc-number">4.1.</span> <span class="post-toc-text">使用 Map</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#遍历-Map"><span class="post-toc-number">4.2.</span> <span class="post-toc-text">遍历 Map</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#WeakMap"><span class="post-toc-number">5.</span> <span class="post-toc-text">WeakMap</span></a></li></ol>
         </nav>
     </aside>
 
@@ -187,7 +187,7 @@
 
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
-            <h1 id="Set集合与Map集合"><a href="#Set集合与Map集合" class="headerlink" title="Set集合与Map集合"></a>Set集合与Map集合</h1><p>在 ES6 以前，JavaScript 只有数组这一种集合来存储数据(当然有的人会使用对象来存储数据)，在 ES6 中引入了两种新的集合来存储数据，它们是 Set 和 Map：</p>
+            <p>在 ES6 以前，JavaScript 只有数组这一种集合来存储数据(当然有的人会使用对象来存储数据)，在 ES6 中引入了两种新的集合来存储数据，它们是 Set 和 Map：</p>
 <ul>
 <li>Set：Set 集合中的数据都不相同</li>
 <li>Map：数据格式为键值对，与对象类似</li>
@@ -403,7 +403,14 @@
     </div>
 
     
-<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="https://lastknightcoder.github.io/lastknightcoder/Node.js%E4%B9%8B%E6%A0%B8%E5%BF%83%E6%A8%A1%E5%9D%97/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">Node.js之核心模块</h4>
+      </a>
+    </div>
   
 
   
