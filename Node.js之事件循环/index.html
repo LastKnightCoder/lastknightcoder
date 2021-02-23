@@ -199,7 +199,7 @@
 
 <p>因为是同步读取文件，所以会程序会阻塞在这里，直到读取完文件才会继续执行代码，所以先输出读取的文件内容，然后输出 <code>同步读取</code>。</p>
 <p>接着看异步的写法</p>
-<figure class="highlight javascript"><figcaption><span>&#123;cmd</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">"fs"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 程序不会被阻塞在这里</span></span><br><span class="line">fs.readFile(<span class="string">"./hello.txt"</span>, <span class="string">"utf-8"</span>, (err, data) =&gt; &#123;</span><br><span class="line">  <span class="keyword">if</span> (!err) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(data);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"异步读取"</span>);</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">"fs"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 程序不会被阻塞在这里</span></span><br><span class="line">fs.readFile(<span class="string">"./hello.txt"</span>, <span class="string">"utf-8"</span>, (err, data) =&gt; &#123;</span><br><span class="line">  <span class="keyword">if</span> (!err) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(data);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"异步读取"</span>);</span><br></pre></td></tr></table></figure>
 
 <p>输出结果为</p>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">异步读取</span><br><span class="line">Hello World!</span><br></pre></td></tr></table></figure>
@@ -218,14 +218,13 @@
 <ol>
 <li><code>0ms</code> 时，事件队列为空</li>
 <li><code>5ms</code> 时，第一个定时器时间到达，将回调函数添加进事件队列</li>
-<li>执行引擎检查事件队列，发现队列中有事件为执行，取出执行</li>
+<li>执行引擎检查事件队列，发现队列中有事件未执行，取出执行</li>
 <li><code>10ms</code> 时，第二个定时器时间到达，将回调函数添加进事件队列，但是因为前面一个回调函数还在执行中，该回调函数不会执行</li>
 <li><code>100ms</code> 时，第一个回调函数执行完毕</li>
 <li>执行引擎接着检查事件队列，发现队列不为空，取出第二个回调函数执行函数执行</li>
 </ol>
 <p>所以经过了 <code>100ms</code>，第二个定时器的回调函数才会被执行。</p>
-<h2 id="事件循环"><a href="#事件循环" class="headerlink" title="事件循环"></a>事件循环</h2><p>解决实际的问题，上面的模型想必已经够用了，但是如果要应对面试题，却还是需要更加深入的了解。</p>
-<p>首先看一个例子</p>
+<h2 id="事件循环"><a href="#事件循环" class="headerlink" title="事件循环"></a>事件循环</h2><p>解决实际的问题，上面的模型想必已经够用了，但是如果要应对面试题，却还是需要更加深入的了解。首先看一个例子</p>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">"start"</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> start = <span class="built_in">Date</span>.now();</span><br><span class="line"></span><br><span class="line">setImmediate(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"setImmediate"</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"setTimeout"</span>);</span><br><span class="line">&#125;, <span class="number">5</span>);</span><br><span class="line"></span><br><span class="line">process.nextTick(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"nexTick"</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"resolve"</span>);</span><br><span class="line">  resolve();</span><br><span class="line">&#125;).then(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"then"</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> end = <span class="built_in">Date</span>.now();</span><br><span class="line"><span class="keyword">while</span> (end - start &lt; <span class="number">5</span>) &#123;</span><br><span class="line">  end = <span class="built_in">Date</span>.now();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"end"</span>);</span><br></pre></td></tr></table></figure>
 
 <p>请问上面程序的输出结果是什么? 我先卖个关子，希望你看完下面的内容之后能够回答出来。</p>
@@ -241,7 +240,7 @@
 <li><code>check</code>：<code>setImmediate</code> 中的回调函数会放在这个队列</li>
 <li><code>close</code>：与 <code>close</code> 相关方法会放在这个队列，例如 <code>socket.on(&#39;close&#39;, callback)</code></li>
 </ul>
-<p>Node 会依次经历这 6 个阶段，只有将某个阶段中队列的所有函数都执行完毕，才会进入到下一个阶段。但是关于 <code>poll</code> 阶段，当进入 <code>poll</code> 阶段以后，它会计算 <code>timers</code> 定时器中下一个定时器到达的时间，然后检查 <code>poll</code> 队列是否有任务，如果有就执行，直到队列为空。当队列为空时</p>
+<p>Node 会依次经历这 6 个阶段，只有将某个阶段中队列的所有函数都执行完毕，才会进入到下一个阶段。但是关于 <code>poll</code> 阶段有一点不同之处，当进入 <code>poll</code> 阶段以后，它会计算 <code>timers</code> 定时器中下一个定时器到达的时间，然后检查 <code>poll</code> 队列是否有任务，如果有就执行，直到队列为空。当队列为空时</p>
 <ol>
 <li>是否已经到达了下一个定时器到达的时间，即 <code>timers</code> 队列中是否有任务，如果有则继续事件循环，来到下一个阶段</li>
 <li>如果 <code>timers</code> 队列中没有任务，那么检查 <code>check</code> 队列是否有任务，如果有继续进行事件循环</li>
@@ -251,8 +250,8 @@
 <blockquote>
 <p>我们把一次循环称为一个 <code>tick</code>。</p>
 </blockquote>
-<p>不知道你有没有发现，我们并没有提及 <code>process.nextTick</code> 与 Promise 中传入 <code>then</code> 的回调函数放在哪个队列。其实还有两个队列，<code>nextTickQueue</code> 和 <code>microTaskQueue</code>，<code>process.nextTick</code> 中的回调函数会被放置在 <code>nextTickQueue</code> 中，而 <code>promise.then</code> 中的回调函数被被放置在 <code>microTaskQueue</code> 中。</p>
-<p>那么这两个队列在图中处于何种位置，其实在进入每个阶段之前，都会检查一遍这两个队列，如果有任务的话就会执行，并且 <code>nextTickQueue</code> 队列中的函数比 <code>microTaskQueue</code> 队列中的函数先被执行。</p>
+<p>不知道你有没有发现，我们并没有提及 <code>process.nextTick</code> 与  <code>promise.then</code> 中的回调函数放在哪个队列。其实还有两个队列，<code>nextTickQueue</code> 和 <code>microTaskQueue</code>，<code>process.nextTick</code> 中的回调函数会被放置在 <code>nextTickQueue</code> 中，而 <code>promise.then</code> 中的回调函数被被放置在 <code>microTaskQueue</code> 中。</p>
+<p>那么这两个队列在图中处于何种位置，其实在进入每个阶段之前，都会检查一遍这两个队列，如果有任务的话就会执行，直至将队列中的任务执行完毕。并且 <code>nextTickQueue</code> 队列中的函数比 <code>microTaskQueue</code> 队列中的函数先被执行。</p>
 <p>明白上面的内容之后我们来看那道题目</p>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">"start"</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> start = <span class="built_in">Date</span>.now();</span><br><span class="line"></span><br><span class="line">setImmediate(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"setImmediate"</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"setTimeout"</span>);</span><br><span class="line">&#125;, <span class="number">5</span>);</span><br><span class="line"></span><br><span class="line">process.nextTick(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"nexTick"</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"resolve"</span>);</span><br><span class="line">  resolve();</span><br><span class="line">&#125;).then(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"then"</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> end = <span class="built_in">Date</span>.now();</span><br><span class="line"><span class="keyword">while</span> (end - start &lt; <span class="number">5</span>) &#123;</span><br><span class="line">  end = <span class="built_in">Date</span>.now();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"end"</span>);</span><br></pre></td></tr></table></figure>
 
@@ -262,16 +261,16 @@
 <p>接着在进入事件循环，因为在进入每个阶段之前都会先检查 <code>nextTickQueue</code> 和 <code>microTaskQueue</code> 这两个队列，并且 <code>nextTickQueue</code> 在 <code>microTaskQueue</code> 之前执行，所以接着打印出</p>
 <figure class="highlight ebnf"><table><tr><td class="code"><pre><span class="line"><span class="attribute">nextTick</span></span><br><span class="line"><span class="attribute">then</span></span><br></pre></td></tr></table></figure>
 
-<p>接着进入 timers 阶段，因为我们在主程序中有这么一段代码</p>
+<p>接着进入 <code>timers</code> 阶段，因为我们在主程序中有这么一段代码</p>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> end = <span class="built_in">Date</span>.now();</span><br><span class="line"><span class="keyword">while</span> (end - start &lt; <span class="number">5</span>) &#123;</span><br><span class="line">  end = <span class="built_in">Date</span>.now();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>目的就是确保 setTimeout 中的回调函数已进入 <code>timers</code> 队列，所以此时 <code>timers</code> 队列是有函数的，所以此时会打印出</p>
+<p>目的就是确保 <code>setTimeout</code> 中的回调函数已进入 <code>timers</code> 队列，所以此时 <code>timers</code> 队列是有函数的，所以此时会打印出</p>
 <figure class="highlight arduino"><table><tr><td class="code"><pre><span class="line"><span class="built_in">setTimeout</span></span><br></pre></td></tr></table></figure>
 
-<p>接着进入 pending 阶段，该队列中没有函数;进入 poll 阶段(忽略 idle, prepare 阶段)，也没有函数，此时因为 check 队列中有函数，所以会从 poll 阶段进入到 check 阶段，所以接着会打印</p>
+<p>接着进入<code>pending</code> 阶段，该队列中没有函数；进入<code>poll</code> 阶段(忽略 <code>idle, prepare</code> 阶段)，也没有函数，此时因为 <code>check</code> 队列中有函数，所以会从 <code>poll</code> 阶段进入到 <code>check</code> 阶段，所以接着会打印</p>
 <figure class="highlight ebnf"><table><tr><td class="code"><pre><span class="line"><span class="attribute">setImmediate</span></span><br></pre></td></tr></table></figure>
 
-<p>然后进入 close 阶段，没有函数，回到 <code>timers</code> 阶段，以此往复。</p>
+<p>然后进入 <code>close</code> 阶段，没有函数，回到 <code>timers</code> 阶段，以此往复。</p>
 <p>所以上面程序最终的打印结果为</p>
 <figure class="highlight livecodeserver"><table><tr><td class="code"><pre><span class="line"><span class="built_in">start</span></span><br><span class="line"><span class="built_in">resolve</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line">nexTick</span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">setTimeout</span><br><span class="line">setImmediate</span><br></pre></td></tr></table></figure>
 
@@ -284,14 +283,14 @@
 <p>但是有时会打印出</p>
 <figure class="highlight jboss-cli"><table><tr><td class="code"><pre><span class="line"><span class="keyword">set</span>Immediate</span><br><span class="line"><span class="keyword">set</span>Timeout</span><br></pre></td></tr></table></figure>
 
-<p>这是因为 <code>setTimeout</code> 不传入时间时，默认是 <code>0</code>，而 Node.js 做不到 <code>0ms</code> 的定时，最少也是 <code>1ms</code>。如果执行主程序需要花费 <code>1ms</code>，那么 <code>timers</code> 队列中就会有函数就会先打印 <code>setTimeout</code>，如果执行主程序不需要 <code>1ms</code>，那么来到 <code>timers</code> 阶段时，其中还没有函数，但是 <code>check</code> 队列中已经有函数了，就会先打印 <code>setImmediate</code>。</p>
+<p>这是因为 <code>setTimeout</code> 不传入时间时，默认是 <code>0</code>，而 Node.js 做不到 <code>0ms</code> 的定时，最少也是 <code>1ms</code>。如果执行主程序需要花费 <code>1ms</code>，那么 <code>timers</code> 队列中就会有函数，就会先打印 <code>setTimeout</code>，如果执行主程序不需要 <code>1ms</code>，那么来到 <code>timers</code> 阶段时，其中还没有函数，但是 <code>check</code> 队列中已经有函数了，就会先打印 <code>setImmediate</code>。</p>
 <p>但是如果在 <code>I/O</code> 回调函数中同时调用 <code>setImmediate</code> 和 <code>setTimeout</code>，那么会先执行 <code>setImmediate</code>，因为执行 <code>I/O</code> 回调函数时已经处于 <code>poll</code> 阶段，下一个阶段就是 <code>check</code> 阶段，所以会先执行 <code>setImmediate</code></p>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">"fs"</span>);</span><br><span class="line"></span><br><span class="line">fs.readFile(<span class="string">"./hello.txt"</span>, (err, data) =&gt; &#123;</span><br><span class="line">  setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"setTimeout"</span>);</span><br><span class="line">  &#125;);</span><br><span class="line">  setImmediate(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"setImmediate"</span>);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 
 <p>输出始终为</p>
 <figure class="highlight jboss-cli"><table><tr><td class="code"><pre><span class="line"><span class="keyword">set</span>Immediate</span><br><span class="line"><span class="keyword">set</span>Timeout</span><br></pre></td></tr></table></figure>
 
-<h2 id="process-nextTick"><a href="#process-nextTick" class="headerlink" title="process.nextTick"></a>process.nextTick</h2><p>这两个函数的名字很有误导性，我们知道 <code>process.nextTick</code> 中的函数是在进入每个阶段之前执行的，所以它应该是 <code>currentTick</code> 而不是 <code>nextTick</code>。而 <code>setImmediate</code> 只有在 <code>check</code> 阶段才会执行，并没有那么的 Immediate。</p>
+<h2 id="process-nextTick"><a href="#process-nextTick" class="headerlink" title="process.nextTick"></a>process.nextTick</h2><p>这个函数的名字很有误导性，我们知道 <code>process.nextTick</code> 中的函数是在进入每个阶段之前执行的，所以它应该是 <code>currentTick</code> 而不是 <code>nextTick</code>。而 <code>setImmediate</code> 只有在 <code>check</code> 阶段才会执行，并没有那么的 Immediate。</p>
 <p>所以有人提议将二者的名称调换。但是由于有太多的库依赖于这两个 API，如果改动 API 的话，会引起很多的改动。</p>
 <p>另外需要注意的一点是，如果我们递归调用 <code>process.nextTick</code>，那么 <code>nextTickQueue</code> 就永远不会空，即此时就会阻塞事件循环的运行</p>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"setTimeout"</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> recursive = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  process.nextTick(recursive);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">process.nextTick(recursive);</span><br></pre></td></tr></table></figure>
