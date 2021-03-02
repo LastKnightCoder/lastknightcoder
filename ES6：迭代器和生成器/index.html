@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>ES6：迭代器与生成器 | Coder</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="迭代器,生成器">
+    <meta name="description" content="迭代器我们经常使用 for 循环来遍历数组 let arr &#x3D; [&quot;red&quot;, &quot;green&quot;, &quot;blue&quot;]for (let i &#x3D; 0; i &lt; arr.length; i++) &amp;#123;    console.log(arr[i]);&amp;#125;  上述代码是使用变量 i 作为下标来访问数组，但是对于一些无序的集合，例如 Map 我们便不能通过下标的形式进行访问，所以有必要提供统">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ES6：迭代器与生成器">
+<meta property="og:url" content="https://lastknightcoder.github.io/lastknightcoder/ES6%EF%BC%9A%E8%BF%AD%E4%BB%A3%E5%99%A8%E5%92%8C%E7%94%9F%E6%88%90%E5%99%A8/">
+<meta property="og:site_name" content="Coder">
+<meta property="og:description" content="迭代器我们经常使用 for 循环来遍历数组 let arr &#x3D; [&quot;red&quot;, &quot;green&quot;, &quot;blue&quot;]for (let i &#x3D; 0; i &lt; arr.length; i++) &amp;#123;    console.log(arr[i]);&amp;#125;  上述代码是使用变量 i 作为下标来访问数组，但是对于一些无序的集合，例如 Map 我们便不能通过下标的形式进行访问，所以有必要提供统">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://user-images.githubusercontent.com/29890094/106603651-8a528e80-6599-11eb-8361-5f83c0d00d0d.gif">
+<meta property="article:published_time" content="2021-01-11T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-01-11T16:00:00.000Z">
+<meta property="article:author" content="熊滔">
+<meta property="article:tag" content="迭代器">
+<meta property="article:tag" content="生成器">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://user-images.githubusercontent.com/29890094/106603651-8a528e80-6599-11eb-8361-5f83c0d00d0d.gif">
+    
+        <link rel="alternate" type="application/atom+xml" title="Coder" href="https://lastknightcoder.github.io/lastknightcoder/atom.xml">
+    
+    <link rel="shortcut icon" href="https://lastknightcoder.github.io/lastknightcoder/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(https://lastknightcoder.github.io/lastknightcoder/img/brand.jpg)">
+      <div class="brand">
+        <a href="https://lastknightcoder.github.io/lastknightcoder/" class="avatar waves-effect waves-circle waves-light">
+          <img src="https://lastknightcoder.github.io/lastknightcoder/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">熊滔</h5>
+          <a href="mailto:2223106858@qq.com" title="2223106858@qq.com" class="mail">2223106858@qq.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.github.io/lastknightcoder/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.github.io/lastknightcoder/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.github.io/lastknightcoder/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.github.io/lastknightcoder/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://gitee.com/LastKnightCoder" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">ES6：迭代器与生成器</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">ES6：迭代器与生成器</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2021-01-11T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2021-01-12
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="https://lastknightcoder.github.io/lastknightcoder/categories/ES6/">ES6</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#迭代器"><span class="post-toc-number">1.</span> <span class="post-toc-text">迭代器</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#生成器"><span class="post-toc-number">2.</span> <span class="post-toc-text">生成器</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#可迭代与-for…of-循环"><span class="post-toc-number">3.</span> <span class="post-toc-text">可迭代与 for…of 循环</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#内置的迭代器"><span class="post-toc-number">4.</span> <span class="post-toc-text">内置的迭代器</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#集合迭代器"><span class="post-toc-number">4.1.</span> <span class="post-toc-text">集合迭代器</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#字符串迭代器"><span class="post-toc-number">4.2.</span> <span class="post-toc-text">字符串迭代器</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#展开运算符"><span class="post-toc-number">5.</span> <span class="post-toc-text">展开运算符</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#迭代器高级用法"><span class="post-toc-number">6.</span> <span class="post-toc-text">迭代器高级用法</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#为迭代器传入参数"><span class="post-toc-number">6.1.</span> <span class="post-toc-text">为迭代器传入参数</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#抛出错误"><span class="post-toc-number">6.2.</span> <span class="post-toc-text">抛出错误</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#委托生成器"><span class="post-toc-number">6.3.</span> <span class="post-toc-text">委托生成器</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-ES6：迭代器和生成器"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">ES6：迭代器与生成器</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2021-01-12 00:00:00" datetime="2021-01-11T16:00:00.000Z"  itemprop="datePublished">2021-01-12</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="https://lastknightcoder.github.io/lastknightcoder/categories/ES6/">ES6</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h2 id="迭代器"><a href="#迭代器" class="headerlink" title="迭代器"></a>迭代器</h2><p>我们经常使用 for 循环来遍历数组</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> arr = [<span class="string">"red"</span>, <span class="string">"green"</span>, <span class="string">"blue"</span>]</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; arr.length; i++) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(arr[i]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上述代码是使用变量 <code>i</code> 作为下标来访问数组，但是对于一些无序的集合，例如 Map 我们便不能通过下标的形式进行访问，所以有必要提供统一的方式来访问集合，这就是迭代器。</p>
+<p>所谓的迭代器那当然是用来迭代用的，迭代的对象可以是数组，集合以及对象。迭代器含有一个方法 next()，该方法的作用就是从数组 (集合、对象)  取出一个值，它返回一个对象，对象中有两个属性：</p>
+<ul>
+<li>done：为布尔值，false 表示集合中还有元素可遍历，true 表示集合中没有元素可遍历</li>
+<li>value： 如果 done 为 false，value 的值为集合中的一个元素值，如果 done 为 true，value 的值为 undefined</li>
+</ul>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getIterator</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> i = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        next() &#123;</span><br><span class="line">            <span class="keyword">return</span> &#123;</span><br><span class="line">                done: i &gt; <span class="number">3</span>,</span><br><span class="line">                value: i &gt; <span class="number">3</span> ? <span class="literal">undefined</span> : i++</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> iterator = getIterator();</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(iterator.next()); <span class="comment">// &#123; done: false, value: 0 &#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(iterator.next()); <span class="comment">// &#123; done: false, value: 1 &#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(iterator.next()); <span class="comment">// &#123; done: false, value: 2 &#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(iterator.next()); <span class="comment">// &#123; done: false, value: 3 &#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(iterator.next()); <span class="comment">// &#123; done: true, value: undefined &#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>getIterator 返回一个具有 next 方法的对象，next 方法返回一个具有 done 和 value 属性的对象，每次调用 next 方法，都会对 <code>i</code> 进行 <code>++</code> ，当 <code>i &gt; 3</code> 时，done 的值就为 true，且返回的 value 值为 undefined。</p>
+<h2 id="生成器"><a href="#生成器" class="headerlink" title="生成器"></a>生成器</h2><p>生成器的作用是来生成一个迭代器的，上面我们自定义的迭代器需要自己维护 done 和 value 属性，使用起来还是比较麻烦的。生成器的语法就是在 function 关键字后加一个 <code>*</code> 号，通过 yield 返回被迭代的元素</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> *<span class="title">getIterator</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> i = <span class="number">0</span></span><br><span class="line">    <span class="keyword">while</span> (i &lt;=<span class="number">3</span>) &#123;</span><br><span class="line">        <span class="keyword">yield</span> i++</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> iterator = getIterator()</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(iterator.next()); <span class="comment">// &#123; done: false, value: 0 &#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(iterator.next()); <span class="comment">// &#123; done: false, value: 1 &#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(iterator.next()); <span class="comment">// &#123; done: false, value: 2 &#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(iterator.next()); <span class="comment">// &#123; done: false, value: 3 &#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(iterator.next()); <span class="comment">// &#123; done: true, value: undefined &#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>当我们调用 getIterator 方法时，并不会执行该方法，而是会返回一个迭代器。每当该迭代器调用 next 方法时，就会开始执行函数，直至遇到 yield 语句，它会把 yield 后的表达式作为 value 属性的值返回，例如遇到<code>yield 1</code> 时，返回对象 <code>{done: false, value: 1}</code> 。</p>
+<p>当返回对象后，不会继续执行函数，而是会挂起该函数，直到迭代器再次调用 next 方法时，就会从上次挂起的地方开始执行，直到遇到 yield 语句或者执行完函数。</p>
+<p>当执行完函数时会返回 <code>{done: true, value: undefined}</code> ，如果是通过 return 语句结束函数的，例如 <code>return 10</code> ，那么这时会返回 <code>{done: true, value: 10}</code> 。</p>
+<p>因为生成器只是一个函数，所以可以有函数表达式的形式，它的函数表达式形式如下</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> getIterator = <span class="function"><span class="keyword">function</span> *(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// do something</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>同样生成器也可以是对象的方法</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> o = &#123;</span><br><span class="line">    *getIterator() &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> iterator = o.getIterator()</span><br></pre></td></tr></table></figure>
+
+<p>当生成器作为对象的方法时，<code>*</code> 要放在方法名前，如 <code>*getIterator</code> 。</p>
+<h2 id="可迭代与-for…of-循环"><a href="#可迭代与-for…of-循环" class="headerlink" title="可迭代与 for…of 循环"></a>可迭代与 for…of 循环</h2><p>可迭代的概念是针对对象提出，如果对象含有 Symbol.iterator 属性，那么就说它是可迭代的。Symbol.iterator 是一个函数，它返回一个迭代器，因此我们可以通过下面的方式去迭代一个对象</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> obj = &#123;</span><br><span class="line">    [<span class="built_in">Symbol</span>.iterator]() &#123;</span><br><span class="line">        <span class="keyword">let</span> i = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">return</span> &#123;</span><br><span class="line">            next() &#123;</span><br><span class="line">                <span class="keyword">return</span> &#123;</span><br><span class="line">                    done: i &gt; <span class="number">3</span>,</span><br><span class="line">                    value: i &gt; <span class="number">3</span> ? <span class="literal">undefined</span> : i++</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> iterator = obj[<span class="built_in">Symbol</span>.iterator]()</span><br><span class="line"><span class="keyword">let</span> result = iterator.next();</span><br><span class="line"><span class="keyword">while</span>(!result.done) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(result.value); <span class="comment">// 1</span></span><br><span class="line">							<span class="comment">// 2</span></span><br><span class="line">                               <span class="comment">// 3</span></span><br><span class="line">    result = iterator.next();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上面遍历对象还是比较麻烦，对于任意一个对象都需要写一些模板代码，如</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> iterator = obj[<span class="built_in">Symbol</span>.iterator]()</span><br><span class="line"><span class="keyword">let</span> result = iterator.next();</span><br><span class="line"><span class="keyword">while</span>(!result.done) &#123;</span><br><span class="line">		<span class="comment">// 拿到 result.value，然后做一些事情</span></span><br><span class="line">    result = iterator.next();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>所以为了简化代码的编写，ES6 提出一个新的 for … of 语法糖来帮我们遍历可迭代的对象，上面遍历对象的代码可以写为如下</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span>(value <span class="keyword">of</span> obj) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(value); <span class="comment">// 1</span></span><br><span class="line">                        <span class="comment">// 2</span></span><br><span class="line">                        <span class="comment">// 3</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>代码简洁了很多，<strong>但是我们要明白 for … of 不是黑魔法，for … of 所做的事情同上面写的模板代码做的事情是一样的。</strong></p>
+<p>所有由生成器生成的迭代器都是可迭代的，因为生成器会默认为迭代器的 Symbol.iterator 属性赋值。</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> getIterator = <span class="function"><span class="keyword">function</span> *(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">yield</span> <span class="number">1</span></span><br><span class="line">    <span class="keyword">yield</span> <span class="number">2</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> iterator = getIterator()</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> value <span class="keyword">of</span> iterator) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(value); <span class="comment">// 1</span></span><br><span class="line">                        <span class="comment">// 2</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们可以通过判断对象的 Symbol.iteraor 是否为 function 来判断该对象是否可迭代</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">isIterable</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">typeof</span> obj[<span class="built_in">Symbol</span>.iterator] === <span class="string">'function'</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> array = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]</span><br><span class="line"><span class="keyword">let</span> map = <span class="keyword">new</span> <span class="built_in">Map</span>()</span><br><span class="line"><span class="keyword">let</span> <span class="keyword">set</span> = new Set()</span><br><span class="line">let weakMap = new WeakMap()</span><br><span class="line">let weakSet = new WeakSet()</span><br><span class="line"></span><br><span class="line">console.log(isIterable(array));   // true</span><br><span class="line">console.log(isIterable(map));     // true</span><br><span class="line">console.log(isIterable(<span class="keyword">set</span>));     // true</span><br><span class="line">console.log(isIterable(weakMap)); // false</span><br><span class="line">console.log(isIterable(weakSet)); // false</span><br></pre></td></tr></table></figure>
+
+<h2 id="内置的迭代器"><a href="#内置的迭代器" class="headerlink" title="内置的迭代器"></a>内置的迭代器</h2><h3 id="集合迭代器"><a href="#集合迭代器" class="headerlink" title="集合迭代器"></a>集合迭代器</h3><p>通过上面的代码我们知道数组、Map 以及 Set 这三个几个都是可迭代的，下面我们就将学习它们内置的迭代器。每一个集合都有如下三个方法：</p>
+<ul>
+<li>entries</li>
+<li>keys</li>
+<li>values</li>
+</ul>
+<p>这三个方法都会返回一个迭代器，entries 迭代器中的元素为键值对组成数组，keys 中的元素为集合中的键，values 中的元素为集合的值。</p>
+<p><strong>其实对于数组和 Set 来说没有键的概念，但是为了接口的统一，我们在这里定义一下数组与 Set 的键：数组的键就是下标 (0, 1, …)，Set 的键与它的值相同。</strong></p>
+<p>定义如下集合</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> arr = [<span class="string">"red"</span>, <span class="string">"green"</span>, <span class="string">"blue"</span>]</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> <span class="keyword">set</span> = new Set(["Alice", "Bob"]);</span><br><span class="line"></span><br><span class="line">let map = new Map();</span><br><span class="line">map.<span class="keyword">set</span>("Chinese", 88);</span><br><span class="line">map.<span class="keyword">set</span>("Math", 98);</span><br><span class="line">map.<span class="keyword">set</span>("English",59);</span><br></pre></td></tr></table></figure>
+
+<p>entries</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> entry <span class="keyword">of</span> arr.entries()) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(entry); <span class="comment">// [ 0, 'red' ]</span></span><br><span class="line">                        <span class="comment">// [ 1, 'green' ]</span></span><br><span class="line">                        <span class="comment">// [ 2, 'blue' ]</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> entry <span class="keyword">of</span> <span class="keyword">set</span>.entries()) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(entry); <span class="comment">// [ 'Alice', 'Alice' ]</span></span><br><span class="line">                        <span class="comment">// [ 'Bob', 'Bob' ]</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> entry <span class="keyword">of</span> map.entries()) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(entry); <span class="comment">// [ 'Chinese', 88 ]</span></span><br><span class="line">                        <span class="comment">// [ 'Math', 98 ]</span></span><br><span class="line">                        <span class="comment">// [ 'English', 59 ]</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>keys</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> key <span class="keyword">of</span> arr.keys()) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(key); <span class="comment">// 0</span></span><br><span class="line">                      <span class="comment">// 1</span></span><br><span class="line">                      <span class="comment">// 2</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> key <span class="keyword">of</span> <span class="keyword">set</span>.keys()) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(key); <span class="comment">// Alice</span></span><br><span class="line">                      <span class="comment">// Bob</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> key <span class="keyword">of</span> map.keys()) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(key); <span class="comment">// Chinese</span></span><br><span class="line">                      <span class="comment">// Math</span></span><br><span class="line">                      <span class="comment">// English</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>values</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> value <span class="keyword">of</span> arr.values()) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(value); <span class="comment">// red</span></span><br><span class="line">                        <span class="comment">// green</span></span><br><span class="line">                        <span class="comment">// blue</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> value <span class="keyword">of</span> <span class="keyword">set</span>.values()) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(value); <span class="comment">// Alice</span></span><br><span class="line">                        <span class="comment">// Bob</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> value <span class="keyword">of</span> map.values()) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(value); <span class="comment">// 88</span></span><br><span class="line">                        <span class="comment">// 98</span></span><br><span class="line">                        <span class="comment">// 59</span></span><br></pre></td></tr></table></figure>
+
+<p>现在还有一个问题就是集合它们的 Symbol.iterator 是什么，对于数组和 Set 来说，它们的 Symbol.iterator 与 values 相同，对于 Map 来讲，它们的 Symbol.iterator 与 entries 相同</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> item <span class="keyword">of</span> arr)&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(item); <span class="comment">// red</span></span><br><span class="line">                       <span class="comment">// green</span></span><br><span class="line">                       <span class="comment">// blue</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> item <span class="keyword">of</span> <span class="keyword">set</span>)&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(item); <span class="comment">// Alice</span></span><br><span class="line">                       <span class="comment">// Bob</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> item <span class="keyword">of</span> map)&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(item); <span class="comment">// [ 'Chinese', 88 ]</span></span><br><span class="line">                       <span class="comment">// [ 'Math', 98 ]</span></span><br><span class="line">                       <span class="comment">// [ 'English', 59 ]</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="字符串迭代器"><a href="#字符串迭代器" class="headerlink" title="字符串迭代器"></a>字符串迭代器</h3><p>字符串越来越像数组了，例如我们可以通过下标去访问字符串中的字符，所以我们可以通过下面的方式遍历字符串</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> str = <span class="string">"Hi 𠮷"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; str.length; i++) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(str[i]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>但是因为 JavaScript 不识别 4 个字节表示的字符，所以打印如下</p>
+<figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line">H</span><br><span class="line"><span class="built_in">i</span></span><br><span class="line"></span><br><span class="line">�</span><br><span class="line">�</span><br></pre></td></tr></table></figure>
+
+<p>所幸 ES6 对 Unicode 提供全套支持，所以 ES6 提供的字符串迭代器解决了这个问题</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> c <span class="keyword">of</span> str) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(c);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line">H</span><br><span class="line"><span class="built_in">i</span></span><br><span class="line"> </span><br><span class="line">𠮷</span><br></pre></td></tr></table></figure>
+
+<h2 id="展开运算符"><a href="#展开运算符" class="headerlink" title="展开运算符"></a>展开运算符</h2><p>看下面一个例子</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">removeDuplicate</span>(<span class="params">array</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="keyword">set</span> = new Set(array)</span><br><span class="line">    return [...<span class="keyword">set</span>]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上面这个函数是对去除数组中的重复元素，在其中我们使用了 […set] 展开运算符，将 Set 集合展开为一个数组返回，那么 JavaScript 内部是怎么做的，其实内部默认调用了 Set 集合迭代器，然后将 Set 集合中的元素添加到数组中的</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> arr = [...set]</span><br><span class="line"></span><br><span class="line"><span class="comment">// 等价于</span></span><br><span class="line"><span class="keyword">let</span> arr = []</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> value <span class="keyword">of</span> <span class="keyword">set</span>) &#123;</span><br><span class="line">    arr.push(value)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="迭代器高级用法"><a href="#迭代器高级用法" class="headerlink" title="迭代器高级用法"></a>迭代器高级用法</h2><h3 id="为迭代器传入参数"><a href="#为迭代器传入参数" class="headerlink" title="为迭代器传入参数"></a>为迭代器传入参数</h3><p>我们在调用迭代器的 next 方法时，还可以向其中传入一个参数</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> *<span class="title">getIterator</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> first = <span class="keyword">yield</span> <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">yield</span> first + <span class="number">2</span>;</span><br><span class="line">&#125;</span><br><span class="line">                                     </span><br><span class="line"><span class="keyword">let</span> iterator = getIterator();</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(iterator.next());      <span class="comment">// &#123; value: 1, done: false &#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(iterator.next(<span class="number">2</span>));     <span class="comment">// &#123; value: 4, done: false &#125;</span></span><br></pre></td></tr></table></figure>
+
+<img src="https://user-images.githubusercontent.com/29890094/106603651-8a528e80-6599-11eb-8361-5f83c0d00d0d.gif" style="zoom:50%;" />
+
+<p>上面的动图说明了代码的执行过程：当我们调用第一个 next 时，方法开始执行，当执行到 <code>yield 1</code> 后停止执行，挂起函数并将值返回，当我们第二次调用 next 时，这时我们传递一个参数，这个参数会被传递给 first，接着继续执行，当执行到 <code>yield first + 2</code> 挂起函数，并返回值。</p>
+<h3 id="抛出错误"><a href="#抛出错误" class="headerlink" title="抛出错误"></a>抛出错误</h3><p>迭代器还有一个 throw 方法，它可以抛出一个错误，具体的应用场景我还不清楚</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> *<span class="title">getIterator</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> first = <span class="keyword">yield</span> <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> second = <span class="keyword">yield</span> first + <span class="number">2</span></span><br><span class="line">    &#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">        second = <span class="number">6</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">yield</span> second</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> iterator = getIterator();</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(iterator.next());                        <span class="comment">// &#123; value: 1, done: false &#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(iterator.next(<span class="number">2</span>));                       <span class="comment">// &#123; value: 4, done: false &#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(iterator.throw(<span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">"error..."</span>)));  <span class="comment">// &#123; value: 6, done: false &#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(iterator.next());                        <span class="comment">// &#123; value: undefined, done: true &#125;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="委托生成器"><a href="#委托生成器" class="headerlink" title="委托生成器"></a>委托生成器</h3><p>有的时候希望能够组合两个迭代器，我们可以通过 yield* 的语句来组合两个迭代器</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> *<span class="title">generator01</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">yield</span> <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">yield</span> <span class="number">2</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> *<span class="title">generator02</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">yield</span> <span class="number">3</span>;</span><br><span class="line">    <span class="keyword">yield</span> <span class="number">4</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> *<span class="title">generatorCombine</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">yield</span> *generator01();</span><br><span class="line">    <span class="keyword">yield</span> *generator02();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (value <span class="keyword">of</span> generatorCombine()) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(value); <span class="comment">// 1</span></span><br><span class="line">                        <span class="comment">// 2</span></span><br><span class="line">                        <span class="comment">// 3</span></span><br><span class="line">                        <span class="comment">// 4</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>yield *gengerator01()</code> 表示委托 <code>generator01</code> 这个生成器来做事情，当执行到这条语句时，接下来会进入 <code>generator01</code> 内部去执行，直到遇到 yield 语句，则会将函数挂起，然后将值返回，当下次调用 next 方法时则从上次挂起的地方重新开始执行。</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2021-01-11T16:00:00.000Z" itemprop="dateUpdated">2021-01-12 00:00:00</time>
+</span><br>
+
+
+        
+    </div>
+    
+    <footer>
+        <a href="https://lastknightcoder.github.io/lastknightcoder">
+            <img src="https://lastknightcoder.github.io/lastknightcoder/img/avatar.jpg" alt="熊滔">
+            熊滔
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="https://lastknightcoder.github.io/lastknightcoder/tags/%E7%94%9F%E6%88%90%E5%99%A8/" rel="tag">生成器</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="https://lastknightcoder.github.io/lastknightcoder/tags/%E8%BF%AD%E4%BB%A3%E5%99%A8/" rel="tag">迭代器</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://lastknightcoder.github.io/lastknightcoder/ES6%EF%BC%9A%E8%BF%AD%E4%BB%A3%E5%99%A8%E5%92%8C%E7%94%9F%E6%88%90%E5%99%A8/&title=《ES6：迭代器与生成器》 — Coder&pic=https://lastknightcoder.github.io/lastknightcoder/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://lastknightcoder.github.io/lastknightcoder/ES6%EF%BC%9A%E8%BF%AD%E4%BB%A3%E5%99%A8%E5%92%8C%E7%94%9F%E6%88%90%E5%99%A8/&title=《ES6：迭代器与生成器》 — Coder&source=人生天地间，忽如远行客" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://lastknightcoder.github.io/lastknightcoder/ES6%EF%BC%9A%E8%BF%AD%E4%BB%A3%E5%99%A8%E5%92%8C%E7%94%9F%E6%88%90%E5%99%A8/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《ES6：迭代器与生成器》 — Coder&url=https://lastknightcoder.github.io/lastknightcoder/ES6%EF%BC%9A%E8%BF%AD%E4%BB%A3%E5%99%A8%E5%92%8C%E7%94%9F%E6%88%90%E5%99%A8/&via=https://lastknightcoder.github.io/lastknightcoder" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://lastknightcoder.github.io/lastknightcoder/ES6%EF%BC%9A%E8%BF%AD%E4%BB%A3%E5%99%A8%E5%92%8C%E7%94%9F%E6%88%90%E5%99%A8/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="https://lastknightcoder.github.io/lastknightcoder/ES6%EF%BC%9Alet%20%E5%92%8C%20const/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">ES6：let 和 const</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="https://lastknightcoder.github.io/lastknightcoder/%E5%9B%BE%E7%9A%84%E5%B9%BF%E5%BA%A6%E4%BC%98%E5%85%88%E9%81%8D%E5%8E%86/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">图的广度优先遍历</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'lastknightcoder';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="https://lastknightcoder.github.io/lastknightcoder/img/wechatpay.png" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="https://lastknightcoder.github.io/lastknightcoder/img/wechatpay.png" data-alipay="https://lastknightcoder.github.io/lastknightcoder/img/alipay.png">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="https://lastknightcoder.github.io/lastknightcoder/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>熊滔 &copy; 2019 - 2021</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://lastknightcoder.github.io/lastknightcoder/ES6%EF%BC%9A%E8%BF%AD%E4%BB%A3%E5%99%A8%E5%92%8C%E7%94%9F%E6%88%90%E5%99%A8/&title=《ES6：迭代器与生成器》 — Coder&pic=https://lastknightcoder.github.io/lastknightcoder/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://lastknightcoder.github.io/lastknightcoder/ES6%EF%BC%9A%E8%BF%AD%E4%BB%A3%E5%99%A8%E5%92%8C%E7%94%9F%E6%88%90%E5%99%A8/&title=《ES6：迭代器与生成器》 — Coder&source=人生天地间，忽如远行客" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://lastknightcoder.github.io/lastknightcoder/ES6%EF%BC%9A%E8%BF%AD%E4%BB%A3%E5%99%A8%E5%92%8C%E7%94%9F%E6%88%90%E5%99%A8/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《ES6：迭代器与生成器》 — Coder&url=https://lastknightcoder.github.io/lastknightcoder/ES6%EF%BC%9A%E8%BF%AD%E4%BB%A3%E5%99%A8%E5%92%8C%E7%94%9F%E6%88%90%E5%99%A8/&via=https://lastknightcoder.github.io/lastknightcoder" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://lastknightcoder.github.io/lastknightcoder/ES6%EF%BC%9A%E8%BF%AD%E4%BB%A3%E5%99%A8%E5%92%8C%E7%94%9F%E6%88%90%E5%99%A8/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASYAAAEmCAAAAADqr2IGAAAEhElEQVR42u3ay07jQBAF0Pz/TzPSrEaCkHurDJNOjlcIjNM+WdTzdouvj7/X55///c3n39/768en6979yZ3Jqb6/87ILEyZMmDA9JVNyrPxlkr/mx72K7Ps7k+djwoQJE6bTmdrH5YG/DeF5OpJDt6CYMGHChOk9mdqAPUsX8mJ19sVgwoQJEyZMsxLx+3RhFs7bQnr2lWDChAkTpndgakN4C/o95Z4+Cfw5IiZMmDBheiWmzeLO6T//0n4TJkyYMGH6T0yzFm1bUv7cPe2yzuzChAkTJkznMs0WaPJSuW6krtduZoPSiBsTJkyYMB3LlHxkfucq6MYLN/vUJG9SY8KECROmc5nydmc+gGzHhPkr7Uvi4ReDCRMmTJiOZbpq/aV9zmYdNn/OrGAuRpuYMGHChOlwpmv/2iJuhqCzrz96I0yYMGHCdBTTZnUmL1DrkeE6TdnT3F3ZwYQJEyZMxzJtRpizZaC8jduWx3nDOmpAY8KECROml2CaLdkkLddN43U/vLyVV503YcKECROmQ5jytGBTDO8HlrOUIk9Q6hkpJkyYMGE6hKlNCPJ7Nj+3BW3+8kXqgAkTJkyYDmealbj50szmv/KXmS0DRc1rTJgwYcJ0LNNVITZ57bbQzRHboexs2QgTJkyYMJ3OdG3ozddiZkPNq5rR7RthwoQJE6azmNpmbl5Ato3jNoS3hfSm5MaECRMmTOcyza5ZU3hzlP0qTz4QHbZ6MWHChAnTEzNtgnFbsuZrQJulnByuaDFjwoQJE6YXZdrMRTfBOE8v8iFlnpRgwoQJE6ZXYpoFzv0EdZYQtM3o2ZD1svwCEyZMmDD9V6Z81DdbpsmL2KsauJsi+e6bYsKECROmw5lm4bk9Vl6gzpZskufnScYXg0xMmDBhwnQgUxuq28Fn8rRZM/equr/GwoQJEyZMRzFdG27z0eCmPG7HlrOT382bMGHChAnTgUyzcJ6UwfvxZB7UN8lBkSthwoQJE6YDmdrytU0j9us+7QB1tkj0YHEHEyZMmDAdy5Rj7RdxWpocenb+aLkHEyZMmDC9BFNeWG5Gj+1x2xWiWbP4QTKBCRMmTJgOZ8qXbHKCzf3ty8zSi6Lsx4QJEyZMxzK1ZW1eTLbPrEeMPzBefZD0YMKECROmA5lm4fba4nMWsPOQPxup3vZZCSZMmDBhegKmfATYJgdFCzUZKI7O044tH5wHEyZMmDAdyLQZHCYvuS9986fNiuQIFBMmTJgwvQRTu3zzSwVnmXDsm79fPAcTJkyYMB3LtAHKW7FtGP6dr62lxIQJEyZMJzJ9lNe1r9GG5Hb42v51OPXFhAkTJkxPzNSG5Has2G6/PM9nYcKECROmV2Jql2za8jK5v/3cPIFo+R50xDFhwoQJ07FMv5ME7IvMWZF8wfMxYcKECdMbMCWjzfZweXN5tpozO8kXn4gJEyZMmN6GaV9Sbp7cphSzgvmChAATJkyYMD0ZU/IyySpMEqQ3z5wV55umMyZMmDBhOp1ptriTJxMJZfL7/OhtyL9gswkTJkyYMD0j0x8BkIytzMUPAQAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: 'https://lastknightcoder.github.io/lastknightcoder/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>
