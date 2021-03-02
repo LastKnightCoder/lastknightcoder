@@ -29,7 +29,7 @@
 <meta property="og:description" content="DOM 的全称为 Document Object Model，翻译为对象文本模型，它是一个针对于 HTML 的 API，它将 HTML 文档描绘为一棵层次化的树，DOM 规范了操作这个文档树的规范，例如添加、删除、移动等等操作。所有的浏览器都实现了(除了早版本的 IE) DOM 规范，这意味着开发人员在所有的浏览器中写的代码都是一样，不同为每一个浏览器写着不同的代码(这就是标准带来的好处)。 下面">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/20200928102721.png">
-<meta property="og:image" content="https://lastknightcoder.github.io/img/DOM%E8%8A%82%E7%82%B9.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/LastKnightCoder/ImgHosting/20210228212040.svg">
 <meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/20200928131258.png">
 <meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/20200928141557.png">
 <meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/20200928191330.png">
@@ -202,7 +202,7 @@
 <img src="https://gitee.com/lastknightcoder/blogimage/raw/master/20200928102721.png" alt="DOM" style="zoom:50%;" />
 
 <p><code>document</code> 节点是每一个文档的根节点，HTML 文档中的元素都会被转化为 DOM 树中的节点。</p>
-<img src="/img/DOM节点.png" width="50%">
+<img src="https://cdn.jsdelivr.net/gh/LastKnightCoder/ImgHosting/20210228212040.svg"/>
 
 <h2 id="Node"><a href="#Node" class="headerlink" title="Node"></a>Node</h2><p>DOM 规定了一个 Node 类型的接口，DOM 树上的节点都实现了该类型，因此所有的节点都有着 Node 接口中规定的属性和方法，下面我们就具体介绍一下 Node 类型。</p>
 <h3 id="节点信息"><a href="#节点信息" class="headerlink" title="节点信息"></a>节点信息</h3><p>虽然 HTML 元素以及文本内容都会被转化为节点，但是明显 document 节点，HTML 元素节点，以及文本节点等等它们之间的地位是不一样的，这意味着虽然大家都是 Node 类型的对象，但是却有着不同，每个节点都有着自己的类型，而 <code>nodeType</code> 属性正是用来表明节点类型的。</p>
@@ -227,7 +227,7 @@
 
 <p>除了 <code>nodeType</code> 属性以外，我们还可以通过 <code>nodeName</code> 和 <code>nodeValue</code> 来了解节点的信息，这两个属性具体的取值，与具体的节点类型有关，不同类型的 Node 节点，取值有所不同，在后面介绍具体的节点类型时，将会提到它们。</p>
 <h3 id="节点关系"><a href="#节点关系" class="headerlink" title="节点关系"></a>节点关系</h3><p>DOM 树借鉴了家庭族谱的概念，使用父亲、孩子、兄弟等亲属关系来描述节点之间的关系，我们将对如下 DOM 树来描述节点之间的关系</p>
-<img src="https://gitee.com/lastknightcoder/blogimage/raw/master/20200928131258.png" width="50%"/>
+<img src="https://gitee.com/lastknightcoder/blogimage/raw/master/20200928131258.png" style="zoom:50%;" />
 
 <p>每一个节点都有一个 <code>childNodes</code> 属性，它保存着它的所有子节点，该属性是一个 <code>NodeList</code> 对象，它是一个类数组，我们可以通过数字下标来访问父节点中的某个子节点，但它不是真正的数组。</p>
 <p>对于上图来说，<code>div</code> 节点的 <code>childNodes</code> 就是由它的三个子节点 <code>span</code> <code>h1</code> <code>img</code> 组成的 <code>NodeList</code>，我们可以通过下标是获取它的子节点，例如</p>
@@ -244,7 +244,7 @@
 
 <p>每个节点都有一个 <code>ownerDocument</code> 属性，该属性指向该节点所在文档的 <code>document</code> 节点。</p>
 <p>下图形象的展示了节点之间的关系</p>
-<img src="https://gitee.com/lastknightcoder/blogimage/raw/master/20200928141557.png" alt="Untitled Diagram" style="zoom:50%;" />
+<img src="https://gitee.com/lastknightcoder/blogimage/raw/master/20200928141557.png" style="zoom:50%;" />
 
 <h3 id="操作节点"><a href="#操作节点" class="headerlink" title="操作节点"></a>操作节点</h3><p>Node 接口提供了几个方法用以操作节点，包括添加节点，删除节点，移动节点等等。</p>
 <h4 id="appendChild"><a href="#appendChild" class="headerlink" title="appendChild"></a>appendChild</h4><p>该方法接收一个参数，为 Node 类型的节点，而该方法的作用就是将接收的节点添加为最后一个节点</p>
@@ -285,7 +285,7 @@
 <figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 <h4 id="normalize"><a href="#normalize" class="headerlink" title="normalize"></a>normalize</h4><p>该方法是用来处理节点中的文本节点，它会将空白节点删除，以及将连续的两个文本节点合并为一个文本节点</p>
-<img src="https://gitee.com/lastknightcoder/blogimage/raw/master/20200928195506.png" alt="DOM4-Page-6" style="zoom:50%;" />
+<img src="https://gitee.com/lastknightcoder/blogimage/raw/master/20200928195506.png" style="zoom:50%;" />
 
 <h2 id="Document"><a href="#Document" class="headerlink" title="Document"></a>Document</h2><p>现在介绍文档的根节点 <code>document</code>，它的相关属性如下</p>
 <table>
@@ -330,7 +330,7 @@
 </tr>
 <tr>
 <td>referrer</td>
-<td>链接当当前网页的那个页面的 URL，如果没有来源页面，值为空字符串</td>
+<td>链接当前网页的那个页面的 URL，如果没有来源页面，值为空字符串</td>
 </tr>
 </tbody></table>
 <h3 id="查找元素"><a href="#查找元素" class="headerlink" title="查找元素"></a>查找元素</h3><p><code>document</code> 对象有三个方法可以获得文档树中的节点，它们分别是</p>
@@ -439,7 +439,7 @@
 <p>removeAttribute 是用来删除节点的 attribute</p>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line">box.removeAttribute(<span class="string">"class"</span>);</span><br></pre></td></tr></table></figure>
 
-<p>这个方法不仅会清楚 attribute，而且会将 attribute 从元素中彻底删除，所以这个方法不太常用。</p>
+<p>这个方法不仅会清除 attribute，而且会将 attribute 从元素中彻底删除，所以这个方法不太常用。</p>
 <p>除了通过上面的三个方法操作元素的 attribute，还可以通过元素的 <code>attributes</code> 属性来访问元素的 attribute，元素的 attributes 属性是一个 NamedNodeMap，它同 HTMLCollection 和 NodeList 一样，也是一个伪数组，其中存储的是一个个 Attr 节点(没错，元素的 attribute 也是一种节点)；NamedNodeMap 提供以下方法来操作 attribute</p>
 <ul>
 <li>getNamedItem</li>
