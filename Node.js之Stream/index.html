@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>Node.js之Stream | Coder</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Stream,zlib">
+    <meta name="description" content="引入 Stream假设我们有这么一个需求，我们需要复制一个文件中的内容到另一个文件中，我们会写出以下代码 const fs &#x3D; require(&#39;fs&#39;);const path &#x3D; require(&#39;path&#39;);const copy &#x3D; (source, target) &#x3D;&gt; &amp;#123;    fs.readFile(path.resolve(source), (err, data) &#x3D;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Node.js之Stream">
+<meta property="og:url" content="https://lastknightcoder.github.io/lastknightcoder/Node.js%E4%B9%8BStream/">
+<meta property="og:site_name" content="Coder">
+<meta property="og:description" content="引入 Stream假设我们有这么一个需求，我们需要复制一个文件中的内容到另一个文件中，我们会写出以下代码 const fs &#x3D; require(&#39;fs&#39;);const path &#x3D; require(&#39;path&#39;);const copy &#x3D; (source, target) &#x3D;&gt; &amp;#123;    fs.readFile(path.resolve(source), (err, data) &#x3D;">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/LastKnightCoder/ImgHosting/20210305123350.gif">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/LastKnightCoder/ImgHosting/20210305123407.gif">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/LastKnightCoder/ImgHosting/20210305204222.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/LastKnightCoder/ImgHosting/20210306094436.png">
+<meta property="article:published_time" content="2021-03-05T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-03-05T16:00:00.000Z">
+<meta property="article:author" content="熊滔">
+<meta property="article:tag" content="Stream">
+<meta property="article:tag" content="zlib">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/LastKnightCoder/ImgHosting/20210305123350.gif">
+    
+        <link rel="alternate" type="application/atom+xml" title="Coder" href="https://lastknightcoder.github.io/lastknightcoder/atom.xml">
+    
+    <link rel="shortcut icon" href="https://lastknightcoder.github.io/lastknightcoder/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(https://lastknightcoder.github.io/lastknightcoder/img/brand.jpg)">
+      <div class="brand">
+        <a href="https://lastknightcoder.github.io/lastknightcoder/" class="avatar waves-effect waves-circle waves-light">
+          <img src="https://lastknightcoder.github.io/lastknightcoder/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">熊滔</h5>
+          <a href="mailto:2223106858@qq.com" title="2223106858@qq.com" class="mail">2223106858@qq.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.github.io/lastknightcoder/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.github.io/lastknightcoder/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.github.io/lastknightcoder/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.github.io/lastknightcoder/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://gitee.com/LastKnightCoder" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Node.js之Stream</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Node.js之Stream</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2021-03-05T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2021-03-06
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="https://lastknightcoder.github.io/lastknightcoder/categories/Node/">Node</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#引入-Stream"><span class="post-toc-number">1.</span> <span class="post-toc-text">引入 Stream</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Stream-的分类"><span class="post-toc-number">2.</span> <span class="post-toc-text">Stream 的分类</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Readable-Stream"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">Readable Stream</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Writable-Stream"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">Writable Stream</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Duplex-Stream-与-Transform-Stream"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">Duplex Stream 与 Transform Stream</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#pipe"><span class="post-toc-number">3.</span> <span class="post-toc-text">pipe</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#实现流"><span class="post-toc-number">4.</span> <span class="post-toc-text">实现流</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#实现可读流"><span class="post-toc-number">4.1.</span> <span class="post-toc-text">实现可读流</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#实现可写流"><span class="post-toc-number">4.2.</span> <span class="post-toc-text">实现可写流</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#实现双工流"><span class="post-toc-number">4.3.</span> <span class="post-toc-text">实现双工流</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#实现转换流"><span class="post-toc-number">4.4.</span> <span class="post-toc-text">实现转换流</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#参考文献"><span class="post-toc-number">5.</span> <span class="post-toc-text">参考文献</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-Node.js之Stream"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Node.js之Stream</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2021-03-06 00:00:00" datetime="2021-03-05T16:00:00.000Z"  itemprop="datePublished">2021-03-06</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="https://lastknightcoder.github.io/lastknightcoder/categories/Node/">Node</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h2 id="引入-Stream"><a href="#引入-Stream" class="headerlink" title="引入 Stream"></a>引入 Stream</h2><p>假设我们有这么一个需求，我们需要复制一个文件中的内容到另一个文件中，我们会写出以下代码</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>);</span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> copy = <span class="function">(<span class="params">source, target</span>) =&gt;</span> &#123;</span><br><span class="line">    fs.readFile(path.resolve(source), (err, data) =&gt; &#123;</span><br><span class="line">        <span class="keyword">if</span>(err) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(err.toString());</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        fs.writeFile(path.resolve(target), data, (err) =&gt; &#123;</span><br><span class="line">            <span class="keyword">if</span>(!err) &#123;</span><br><span class="line">                <span class="built_in">console</span>.log(<span class="string">"复制成功！"</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上面的代码很简单，就是先读取 <code>source</code> 文件里面的内容，然后将内容写入到 <code>target</code> 文件中。它的特点是需要读取完 <code>source</code> 里面的<strong>所有内容</strong>，然后将内容写入到 <code>target</code> 中。</p>
+<p>这样做就有一个缺点，当我们读取大文件时，可能会发生内存不够用的情况，因为它会先将文件的所有内容都读取到内存；另外还就是时间，一次性读取一个大文件到内存，是需要比较长的时间的，用户可能会有卡顿的感觉。</p>
+<p>另一种解决办法就是边读边写，读取部分文件内容，然后将内容写入到新文件中，这样在内存中的数据只是部分内容，不会占有太多的内存，由于是边读编写，用户可以很快的得到响应，提高用户体验。</p>
+<p>在<a href="https://www.cnblogs.com/vajoy/p/6349817.html" target="_blank" rel="noopener">网上</a>找到一幅动图来形象的展示使用流前后数据的流动情况</p>
+<img src="https://cdn.jsdelivr.net/gh/LastKnightCoder/ImgHosting/20210305123350.gif"/>
+
+<img src="https://cdn.jsdelivr.net/gh/LastKnightCoder/ImgHosting/20210305123407.gif"/>
+
+<p>Node.js 给我们提供 Stream 的 API，它是专门用来处理大文件的。因为数据是一部分一部分的处理，就像是水流一样，所以这个模块的名称就称为 Stream。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">copy</span>(<span class="params">source, target</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> rs = fs.createReadStream(source);</span><br><span class="line">    <span class="keyword">const</span> ws = fs.createWriteStream(target);</span><br><span class="line"></span><br><span class="line">    rs.on(<span class="string">'data'</span>, data =&gt; &#123;</span><br><span class="line">        ws.write(data);</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    rs.on(<span class="string">'end'</span>, () =&gt; &#123;</span><br><span class="line">        ws.end();</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上面代码的细节将在后文揭晓。</p>
+<h2 id="Stream-的分类"><a href="#Stream-的分类" class="headerlink" title="Stream 的分类"></a>Stream 的分类</h2><p>Stream 可以分为四类</p>
+<ul>
+<li>Readable：可读流，数据的提供者</li>
+<li>Writeable：可写流，数据的消费者</li>
+<li>Duplex：可写可读流(双工流)</li>
+<li>Transform：是 Duplex 的特殊情况，转换流，对输入的数据进行处理，然后输出</li>
+</ul>
+<p>可读流与可写流是基础，常见的可读流与可写流如下</p>
+<table>
+<thead>
+<tr>
+<th>可读流</th>
+<th>可写流</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>HTTP Request</td>
+<td>HTTP Reponse</td>
+</tr>
+<tr>
+<td>fs read streams</td>
+<td>fs write streams</td>
+</tr>
+<tr>
+<td>process.stdin</td>
+<td>process.stdout</td>
+</tr>
+<tr>
+<td>TCP sockets</td>
+<td>TCP sockets</td>
+</tr>
+<tr>
+<td>zlib streams</td>
+<td>zlib streams</td>
+</tr>
+<tr>
+<td>crypto streams</td>
+<td>crypto streams</td>
+</tr>
+</tbody></table>
+<p>Stream 是 EventEmitter 的实例，有自定义的事件。</p>
+<h3 id="Readable-Stream"><a href="#Readable-Stream" class="headerlink" title="Readable Stream"></a>Readable Stream</h3><p>可读流有两个模式，暂停模式与流动模式。当我们创建一个流时，如果我们监听了 <code>readable</code> 事件，它就会来到暂停模式，在暂停模式下，它会不断的读取数据到缓冲区，当读取到的数据超过预设的大小时，它由属性 <code>highWaterMark</code> 指定(默认为 64kB)，便会触发 <code>readable</code> 事件，<code>readable</code> 事件的触发有两种情况：</p>
+<ul>
+<li>缓存区中的数据达到 <code>highWaterMark</code> 预设的大小</li>
+<li>数据源的数据已经被读取完毕</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> rs = fs.createReadStream(<span class="string">'a.txt'</span>, &#123;</span><br><span class="line">    highWaterMark: <span class="number">1</span> <span class="comment">// 缓存区最多存储 1 字节</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">rs.on(<span class="string">'readable'</span>, () =&gt; &#123;</span><br><span class="line">    <span class="keyword">let</span> data;</span><br><span class="line">    <span class="keyword">while</span>(data=rs.read()) &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(data.toString());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>上面的程序设置 <code>highWaterMark</code> 为 1，即每次读取到一个字节便会触发 <code>readable</code> 命令，每次当触发 <code>readable</code> 命令时，我们调用可读流的 <code>read([size])</code> 方法从缓冲区中读取数据(读取到的数据为 Buffer)，然后打印到控制台。</p>
+<p>当我们为可读流绑定 <code>data</code> 事件时，可读流便会切换到流动状态，当位于流动状态时，可读流会自动的从文件中读取内容到缓冲区，当缓冲区中的内容大于设定的 <code>highWaterMark</code> 的大小时，便会触发 <code>data</code> 事件，将缓冲区中的数据传递给 <code>data</code> 事件绑定的函数。以上过程会自动不断进行。当文件中的所有内容都被读取完成时，那么就会触发 <code>end</code> 事件。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> rs = fs.createReadStream(<span class="string">'a.txt'</span>, &#123;</span><br><span class="line">    highWaterMark: <span class="number">2</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">rs.on(<span class="string">'data'</span>, data =&gt; &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(data.toString());</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">rs.on(<span class="string">'end'</span>, () =&gt; &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"文件读取完毕！"</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>暂停模式像是手动步枪，而流动模式则像是自动步枪。暂停模式与流动模式也可以相互切换，通过 <code>pause()</code> 可以从暂停状态切换到流动状态，通过 <code>resume()</code> 则可以从暂停模式切换到流动模式。</p>
+<p>可读流的一个经典实例就是 <code>http</code> 中的请求对象 <code>req</code>，下面的程序展示了通过监听 <code>req</code> 的 <code>data</code> 事件来读取 HTTP 请求体中的内容</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> http = <span class="built_in">require</span>(<span class="string">'http'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> app = http.createServer();</span><br><span class="line"></span><br><span class="line">app.on(<span class="string">'request'</span>, (req, res) =&gt; &#123;</span><br><span class="line">    <span class="keyword">let</span> datas = [];</span><br><span class="line">    req.on(<span class="string">'data'</span>, data =&gt; &#123;</span><br><span class="line">        datas.push(data);</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    req.on(<span class="string">'end'</span>, () =&gt; &#123;</span><br><span class="line">        req.body = Buffer.concat(datas);</span><br><span class="line">        <span class="comment">// 当读取完 body 中的内容之后，将内容返回给客户端</span></span><br><span class="line">        res.end(req.body);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">app.listen(<span class="number">3000</span>, () =&gt; &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"服务启动在 3000 端口... ..."</span>);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<img src="https://cdn.jsdelivr.net/gh/LastKnightCoder/ImgHosting/20210305204222.png" style="zoom: 50%"/>
+
+<h3 id="Writable-Stream"><a href="#Writable-Stream" class="headerlink" title="Writable Stream"></a>Writable Stream</h3><p>可写流与可读流相似，当我们向可写流写入数据时(通过可写流的 <code>write()</code> 方法写数据)，会直接将数据写入到文件中，如果写入的数据比较慢的话，那就就会将数据写入到缓冲区，当缓冲区中的内容达到 <code>highWaterMark</code> 设定的大小时，<code>write</code> 方法就会返回一个 <code>false</code>，表明不能接受更多的数据了。</p>
+<p>当缓冲区中的数据全部被消费完了(写入了文件中或者被别的流消费了)，那么就会触发 <code>drain</code> 事件。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> ws = fs.createWriteStream(<span class="string">'b.txt'</span>, &#123;</span><br><span class="line">    highWaterMark: <span class="number">16</span> * <span class="number">1024</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">writeMillionTimes</span>(<span class="params">writer, data, encoding, callback</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> i = <span class="number">10000</span>;</span><br><span class="line">    </span><br><span class="line">    write();</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">write</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="comment">// 表示是否可以向可写流中写入数据</span></span><br><span class="line">        <span class="keyword">let</span> ok = <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">while</span>(i-- &gt; <span class="number">0</span> &amp;&amp; ok) &#123;</span><br><span class="line">            <span class="comment">// 当 writer.write() 方法返回  false 表示不可写入数据</span></span><br><span class="line">            ok = writer.write(data, encoding, i === <span class="number">0</span> ? callback : <span class="literal">null</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(i &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="comment">// 说明 ok 为 false，即不能向缓冲区中写入内容了</span></span><br><span class="line">            <span class="built_in">console</span>.log(<span class="string">"drain"</span>, i);</span><br><span class="line">            <span class="comment">// 监听 drain 事件，当队列消费完毕时继续调用 write() 方法写入</span></span><br><span class="line">            writer.once(<span class="string">'drain'</span>, write);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">writeMillionTimes(ws, <span class="string">'simple'</span>, <span class="string">'utf-8'</span>, () =&gt; &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"end"</span>);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>输出为</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">drain <span class="number">7268</span></span><br><span class="line">drain <span class="number">4536</span></span><br><span class="line">drain <span class="number">1804</span></span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+
+<p>说明有三次缓冲区中的内容达到了 16KB，可以验算上面的数字之间的差值，在乘以 <code>6</code>(simple 的字节数)，大小大约为 <code>16 * 1024</code> 左右，如</p>
+<p>$$<br>(7268 - 4536) * 6 = 16392 \approx 16384 = 16 * 1024<br>$$</p>
+<p>我们还可以调用可写流的 <code>end()</code> 方法，表示将缓存中的内容清空写入文件，并关闭文件，此时会触发 <code>close</code> 事件</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> ws = fs.createWriteStream(<span class="string">'b.txt'</span>);</span><br><span class="line"></span><br><span class="line">ws.write(<span class="string">'Hello'</span>);</span><br><span class="line">ws.write(<span class="string">'World'</span>);</span><br><span class="line">ws.end(<span class="string">'!'</span>);</span><br><span class="line"></span><br><span class="line">ws.on(<span class="string">'close'</span>, () =&gt; &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"close"</span>); <span class="comment">// close</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>当调用 <code>end()</code> 方法之后就不能调用 <code>write()</code> 方法了，否则会报错</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> ws = fs.createWriteStream(<span class="string">'b.txt'</span>);</span><br><span class="line"></span><br><span class="line">ws.write(<span class="string">'Hello'</span>);</span><br><span class="line">ws.write(<span class="string">'World'</span>);</span><br><span class="line">ws.end(<span class="string">'!'</span>);</span><br><span class="line"></span><br><span class="line">ws.write(<span class="string">'write again'</span>); <span class="comment">// Error [ERR_STREAM_WRITE_AFTER_END]: write after end</span></span><br></pre></td></tr></table></figure>
+
+<p>当调用 <code>end()</code> 方法之后，并且数据缓冲区中的数据已经写入之后会触发可写流的 <code>finish</code> 事件</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> ws = fs.createWriteStream(<span class="string">'b.txt'</span>);</span><br><span class="line"></span><br><span class="line">ws.write(<span class="string">'Hello'</span>);</span><br><span class="line">ws.write(<span class="string">'World'</span>);</span><br><span class="line">ws.end(<span class="string">'!'</span>);</span><br><span class="line"></span><br><span class="line">ws.on(<span class="string">'close'</span>, () =&gt; &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"close"</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">ws.on(<span class="string">'finish'</span>, () =&gt; &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"finish"</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>打印结果是</p>
+<figure class="highlight vim"><table><tr><td class="code"><pre><span class="line"><span class="keyword">finish</span></span><br><span class="line"><span class="keyword">close</span></span><br></pre></td></tr></table></figure>
+
+<p>说明 <code>finish</code> 事件会在 <code>close</code> 事件之前被触发。</p>
+<p>可写流的经典例子就是 <code>http</code> 模块的响应对象 <code>res</code>，下面的程序演示了当请求到来时，我们读取一个 <code>html</code> 页面返回给客户端</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> http = <span class="built_in">require</span>(<span class="string">'http'</span>);</span><br><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> app = http.createServer();</span><br><span class="line"></span><br><span class="line">app.on(<span class="string">'request'</span>, (req, res) =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> rs = fs.createReadStream(<span class="string">'index.html'</span>);</span><br><span class="line">    </span><br><span class="line">    rs.on(<span class="string">'data'</span>, data =&gt; &#123;</span><br><span class="line">        res.write(data);</span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">    rs.on(<span class="string">'end'</span>, () =&gt; &#123;</span><br><span class="line">        res.end()</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">app.listen(<span class="number">3000</span>, () =&gt; &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"服务启动在 3000 端口 ... ..."</span>);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="Duplex-Stream-与-Transform-Stream"><a href="#Duplex-Stream-与-Transform-Stream" class="headerlink" title="Duplex Stream 与 Transform Stream"></a>Duplex Stream 与 Transform Stream</h3><p>Duplex，即双工的意思，它既可以接收数据，也可以输出数据，它的输入和输出之间可以没有任何的关系，就像是一个部件内部有两个独立的系统。Duplex 继承了 可读流(Readable)，并且拥有可写流(Writable)的所有方法。 </p>
+<p>Transform Stream 继承了 Duplex Stream，它同样具有可读流与可写流的能力，并且它的输出与输入之间是有关系的，中间做了一次转换。常见的转换流有 <code>zlib</code>，<code>crypto</code>。</p>
+<p>出于文章结构的考虑，在这里不详细讲解这两个流，在后文中会实现这两个流，以加深对这两个流的理解。</p>
+<h2 id="pipe"><a href="#pipe" class="headerlink" title="pipe"></a>pipe</h2><p>我们可以混合使用可读流与可写流来进行文件的复制</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">copy</span>(<span class="params">source, target</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> rs = fs.createReadStream(source);</span><br><span class="line">    <span class="keyword">const</span> ws = fs.createWriteStream(target);</span><br><span class="line"></span><br><span class="line">    rs.on(<span class="string">'data'</span>, data =&gt; &#123;</span><br><span class="line">        ws.write(data);</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    rs.on(<span class="string">'end'</span>, () =&gt; &#123;</span><br><span class="line">        ws.end();</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">copy(<span class="string">'a.txt'</span>, <span class="string">'b.txt'</span>);</span><br></pre></td></tr></table></figure>
+
+<p>但是上面的写法却不被建议使用，因为没有考虑到可读流与可写流速度之间的差异，如果可读流输出数据的速度大于可写流写入数据的速度，这个时候就会有数据一直堆压在缓存区，导致占用过高的内存，专业术语叫做积压。</p>
+<p>我们需要改善上面的程序，具体做大就是当 <code>write()</code> 方法返回  <code>false</code>，我们切换可读流的模式为暂停模式，当可写流触发了 <code>drain</code> 事件时，我们便将可读流的状态切换为流动模式</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">copy</span>(<span class="params">source, target</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> rs = fs.createReadStream(source);</span><br><span class="line">    <span class="keyword">const</span> ws = fs.createWriteStream(target);</span><br><span class="line"></span><br><span class="line">    rs.on(<span class="string">'data'</span>, data =&gt; &#123;</span><br><span class="line">        <span class="keyword">if</span> (!ws.write(data)) &#123;</span><br><span class="line">            rs.pause();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    rs.on(<span class="string">'end'</span>, () =&gt; &#123;</span><br><span class="line">        ws.end();</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    ws.on(<span class="string">'drain'</span>, () =&gt; &#123;</span><br><span class="line">        rs.resume();</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>那是不是每次我们使用流都需要写这么多的代码，当然不是。官方为可读流提供了一个 <code>pipe(ws)</code> 方法，<code>pipe</code> 方法接收一个可写流，它的作用就是将可读流中数据写入到可写流中去，并且它内部有做速度差异的处理。所以上面的写法可以改为下面的版本</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">copy</span>(<span class="params">source, target</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> rs = fs.createReadStream(source);</span><br><span class="line">    <span class="keyword">const</span> ws = fs.createWriteStream(target);</span><br><span class="line"></span><br><span class="line">    rs.pipe(ws);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>当我们调用 <code>pipe</code> 方法时，会触发可写流的 <code>pipe</code> 事件。<code>pipe</code> 的实现参考如下</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">Readable.prototype.pipe = <span class="function"><span class="keyword">function</span>(<span class="params">ws</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.on(<span class="string">'data'</span>, data =&gt; &#123;</span><br><span class="line">        <span class="keyword">if</span> (!ws.write(data)) &#123;</span><br><span class="line">            <span class="keyword">this</span>.pause();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    ws.on(<span class="string">'drain'</span>, () =&gt; &#123;</span><br><span class="line">        <span class="keyword">this</span>.resume();</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 触发 pipe 事件</span></span><br><span class="line">    ws.emit(<span class="string">'pipe'</span>, <span class="keyword">this</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 返回可写流，以支持链式调用</span></span><br><span class="line">    <span class="keyword">return</span> ws;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里给出官网画的一个有关 <code>pipe</code> 的流程图</p>
+<figure class="highlight gherkin"><table><tr><td class="code"><pre><span class="line">                                                     +===================+</span><br><span class="line">                         x--&gt;  Piping functions   +--&gt;   src.pipe(dest)  |</span><br><span class="line"><span class="string">                         x     are set up during     </span>|<span class="string">===================</span>|</span><br><span class="line">                         x     the .pipe method.     |<span class="string">  Event callbacks  </span>|</span><br><span class="line">  +===============+      x                           |<span class="string">-------------------</span>|</span><br><span class="line">  |<span class="string">   Your Data   </span>|<span class="string">      x     They exist outside    </span>|<span class="string"> .on('close', cb)  </span>|</span><br><span class="line">  +=======+=======+      x     the data flow, but    |<span class="string"> .on('data', cb)   </span>|</span><br><span class="line">          |<span class="string">              x     importantly attach    </span>|<span class="string"> .on('drain', cb)  </span>|</span><br><span class="line">          |<span class="string">              x     events, and their     </span>|<span class="string"> .on('unpipe', cb) </span>|</span><br><span class="line">+---------v---------+    x     respective callbacks. |<span class="string"> .on('error', cb)  </span>|</span><br><span class="line">|<span class="string">  Readable Stream  +----+                           </span>|<span class="string"> .on('finish', cb) </span>|</span><br><span class="line">+-^-------^-------^-+    |<span class="string">                           </span>|<span class="string"> .on('end', cb)    </span>|</span><br><span class="line">  ^       |<span class="string">       ^      </span>|<span class="string">                           +-------------------+</span></span><br><span class="line"><span class="string">  </span>|<span class="string">       </span>|<span class="string">       </span>|<span class="string">      </span>|</span><br><span class="line">  |<span class="string">       ^       </span>|<span class="string">      </span>|</span><br><span class="line">  ^       ^       ^      |<span class="string">    +-------------------+         +=================+</span></span><br><span class="line"><span class="string">  ^       </span>|<span class="string">       ^      +----&gt;  Writable Stream  +---------&gt;  .write(chunk)  </span>|</span><br><span class="line">  |<span class="string">       </span>|<span class="string">       </span>|<span class="string">           +-------------------+         +=======+=========+</span></span><br><span class="line"><span class="string">  </span>|<span class="string">       </span>|<span class="string">       </span>|<span class="string">                                                 </span>|</span><br><span class="line">  |<span class="string">       ^       </span>|<span class="string">                              +------------------v---------+</span></span><br><span class="line"><span class="string">  ^       </span>|<span class="string">       +-&gt; if (!chunk)                </span>|<span class="string">    Is this chunk too big?  </span>|</span><br><span class="line">  ^       |<span class="string">       </span>|<span class="string">     emit .end();             </span>|<span class="string">    Is the queue busy?      </span>|</span><br><span class="line">  |<span class="string">       </span>|<span class="string">       +-&gt; else                       +-------+----------------+---+</span></span><br><span class="line"><span class="string">  </span>|<span class="string">       ^       </span>|<span class="string">     emit .write();                   </span>|<span class="string">                </span>|</span><br><span class="line">  |<span class="string">       ^       ^                                   +--v---+        +---v---+</span></span><br><span class="line"><span class="string">  </span>|<span class="string">       </span>|<span class="string">       ^-----------------------------------&lt;  No  </span>|<span class="string">        </span>|<span class="string">  Yes  </span>|</span><br><span class="line">  ^       |<span class="string">                                           +------+        +---v---+</span></span><br><span class="line"><span class="string">  ^       </span>|<span class="string">                                                               </span>|</span><br><span class="line">  |<span class="string">       ^               emit .pause();          +=================+     </span>|</span><br><span class="line">  |<span class="string">       ^---------------^-----------------------+  return false;  &lt;-----+---+</span></span><br><span class="line"><span class="string">  </span>|<span class="string">                                               +=================+         </span>|</span><br><span class="line">  |<span class="string">                                                                           </span>|</span><br><span class="line">  ^            when queue is empty     +============+                         |</span><br><span class="line"><span class="string">  ^------------^-----------------------&lt;  Buffering </span>|<span class="string">                         </span>|</span><br><span class="line">               |<span class="string">                       </span>|<span class="string">============</span>|<span class="string">                         </span>|</span><br><span class="line">               +&gt; emit .drain();       |<span class="string">  ^Buffer^  </span>|<span class="string">                         </span>|</span><br><span class="line">               +&gt; emit .resume();      +------------+                         |</span><br><span class="line"><span class="string">                                       </span>|<span class="string">  ^Buffer^  </span>|<span class="string">                         </span>|</span><br><span class="line">                                       +------------+   add chunk to queue    |</span><br><span class="line"><span class="string">                                       </span>|<span class="string">            &lt;---^---------------------&lt;</span></span><br><span class="line"><span class="string">                                       +============+</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="实现流"><a href="#实现流" class="headerlink" title="实现流"></a>实现流</h2><p>在本节中我们实现具体来流，通过实现流可以进一步加深对 Stream 内部工作细节的理解。</p>
+<h3 id="实现可读流"><a href="#实现可读流" class="headerlink" title="实现可读流"></a>实现可读流</h3><p>上面我们都是通过 <code>fs.createReadableStream()</code> 方法来得到一个可读流的，在这里我们自己实现一个可读流。实现可读流只需要继承 <code>Readable</code> 类，然后实现 <code>_read()</code> 方法即可</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123;Readable&#125; = <span class="built_in">require</span>(<span class="string">'stream'</span>);</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">IeteratorReadableStream</span> <span class="keyword">extends</span> <span class="title">Readable</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>(iterator) &#123;</span><br><span class="line">        <span class="keyword">super</span>();</span><br><span class="line">        <span class="keyword">this</span>.iterator = iterator;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    _read() &#123;</span><br><span class="line">        <span class="keyword">let</span> data = <span class="keyword">this</span>.iterator.next();</span><br><span class="line">        <span class="comment">// console.log(data);</span></span><br><span class="line">        <span class="keyword">if</span>(data.done) &#123;</span><br><span class="line">            <span class="keyword">this</span>.push(<span class="literal">null</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">// 必须 push 字符串或者 Buffer</span></span><br><span class="line">            <span class="keyword">this</span>.push(data.value+<span class="string">''</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = IeteratorReadableStream;</span><br></pre></td></tr></table></figure>
+
+<p>上述我们实现了一个可读流，可读流接收一个迭代器作为参数，这个迭代器作为这个可读流的数据源。可读流会自动的调用 <code>_read</code> 获取数据，在 <code>_read</code> 方法中我们从迭代器中获取数据，并且调用了 <code>push</code> 方法，该方法的作用就是将数据放入到缓存区中，只能向其中 <code>push</code> 字符串或者 Buffer，当我们向其中 <code>push</code> null 时就表示数据已经被全部读取完毕。</p>
+<p>所以可读流的执行逻辑为，每次调用 <code>_read</code> 方法从数据源读取数据，并将数据存入缓存区，然后触发 <code>data</code> 事件，将缓存区中的数据作为参数传递给 <code>data</code> 事件绑定的回调函数，循环上述过程直到向缓存区 <code>push</code> null 时，就表示数据源中的数据已经被读取完毕，此时会触发 <code>end</code> 事件。</p>
+<p>我们创建一个迭代器作为数据源传入</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> IeteratorReadableStream = <span class="built_in">require</span>(<span class="string">'./IteratorReadableStream'</span>);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> *<span class="title">getData</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++) &#123;</span><br><span class="line">        <span class="keyword">yield</span> i;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> rs = <span class="keyword">new</span> IeteratorReadableStream(getData());</span><br><span class="line"></span><br><span class="line">rs.on(<span class="string">'data'</span>, data =&gt; &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(data.toString());</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">rs.on(<span class="string">'end'</span>, () =&gt; &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"迭代结束"</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>输出为</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="number">0</span></span><br><span class="line"><span class="number">1</span></span><br><span class="line"><span class="number">2</span></span><br><span class="line"><span class="number">3</span></span><br><span class="line"><span class="number">4</span></span><br><span class="line">迭代结束</span><br></pre></td></tr></table></figure>
+
+<h3 id="实现可写流"><a href="#实现可写流" class="headerlink" title="实现可写流"></a>实现可写流</h3><p>实现可写流的过程同实现可读流的过程类似，首先需要继承 <code>Writable</code> 类，接着实现 <code>_write</code> 方法即可</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>);</span><br><span class="line"><span class="keyword">const</span> &#123;Writable&#125; = <span class="built_in">require</span>(<span class="string">'stream'</span>);</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FileWritableStream</span> <span class="keyword">extends</span> <span class="title">Writable</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>(filepath) &#123;</span><br><span class="line">        <span class="keyword">super</span>();</span><br><span class="line">        <span class="keyword">this</span>.filepath = filepath;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    _write(chunk, encoding, callback) &#123;</span><br><span class="line">        fs.appendFile(<span class="keyword">this</span>.filepath, chunk, &#123;</span><br><span class="line">            encoding</span><br><span class="line">        &#125;, callback)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上面我们实现了一个可写流，这个可写流接收一个文件路径作为参数，它的作用就是向这个文件中追加数据，每次当我们调用可写流的 <code>write()</code> 方法时，它会向缓冲区写入数据，当达到阈值时，便会调用 <code>_write()</code> 方法将数据新增到文件中。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">process.stdin.pipe(<span class="keyword">new</span> FileWritableStream(<span class="string">'c.txt'</span>));</span><br></pre></td></tr></table></figure>
+
+<p>上面这行代码的作用就是将从标准输入的字符输出到 <code>c.txt</code> 中。</p>
+<h3 id="实现双工流"><a href="#实现双工流" class="headerlink" title="实现双工流"></a>实现双工流</h3><p>Duplex Stream 既可以作为可读流，也可以作为可写流，并且它的输入与输出之间可以没有关系。Duplex Stream 继承了 Readable，并且拥有 Writable 的所有，我们只要分别实现 <code>_read()</code> 和 <code>_write()</code> 方法即可</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123; Duplex &#125; = <span class="built_in">require</span>(<span class="string">'stream'</span>);</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CustomDuplexStream</span> <span class="keyword">extends</span> <span class="title">Duplex</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>() &#123;</span><br><span class="line">        <span class="keyword">super</span>();</span><br><span class="line">        <span class="keyword">this</span>.currentCharCode = <span class="number">65</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    _read() &#123;</span><br><span class="line">        <span class="keyword">if</span>(<span class="keyword">this</span>.currentCharCode &lt;= <span class="number">90</span>) &#123;</span><br><span class="line">            <span class="keyword">this</span>.push(<span class="built_in">String</span>.fromCharCode(<span class="keyword">this</span>.currentCharCode++))</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">this</span>.push(<span class="literal">null</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    _write(chunk, encoding, callback) &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(chunk.toString());</span><br><span class="line">        callback();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上面双工流的可读流部分就是将大写的 26 个字母添加进了缓存区，而可写流部分就是直接将数据输出到控制台。可见双工流可读流与可写流之间并没有任何的关系</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> dp = <span class="keyword">new</span> CustomDuplexStream();</span><br><span class="line"></span><br><span class="line">dp.write(<span class="string">"1"</span>);</span><br><span class="line">dp.write(<span class="string">"2"</span>);</span><br><span class="line">dp.end();</span><br><span class="line"></span><br><span class="line">dp.pipe(process.stdout);</span><br></pre></td></tr></table></figure>
+
+<p>输出为</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="number">1</span></span><br><span class="line"><span class="number">2</span></span><br><span class="line">ABCDEFGHIJKLMNOPQRSTUVWXYZ</span><br></pre></td></tr></table></figure>
+
+<h3 id="实现转换流"><a href="#实现转换流" class="headerlink" title="实现转换流"></a>实现转换流</h3><p>Tranform Stream 是 Duplex 的特例，它也是一个双工流，不过它的输入和输出之间有关联，它的内部通过 <code>_transform()</code> 方法将可写流接收到的数据经过转换后传入到可读流中，所以我们要实现转换流，只需要实现 <code>_transform()</code> 方法即可</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123; Transform &#125; = <span class="built_in">require</span>(<span class="string">'stream'</span>);</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">UpperTransformStream</span> <span class="keyword">extends</span> <span class="title">Transform</span> </span>&#123;</span><br><span class="line">    _transform(chunk, encoding, callback) &#123;</span><br><span class="line">        <span class="keyword">this</span>.push(chunk.toString().toUpperCase());</span><br><span class="line">        callback();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上面我们实现了一个转换流，它可以将输入的小写字符转化为大写字符然后输出</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> ts = <span class="keyword">new</span> UpperTransformStream();</span><br><span class="line"><span class="keyword">const</span> rs = fs.createReadStream(<span class="string">'a.txt'</span>);</span><br><span class="line">rs.pipe(ts).pipe(process.stdout);</span><br></pre></td></tr></table></figure>
+
+<p>上面程序会读取 <code>a.txt</code> 中的所有字符，将字符转换为大写然后输出在控制台。</p>
+<p>转换流在实际应用中还是比较多的，这里介绍一个 Node.js 内置的转换流 <code>zlib</code>，它的作用对文件进行解压缩，将文件压缩为压缩文件，或者将压缩文件解压为正常文件，这不就是一个典型的转换流嘛！</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> zlib = <span class="built_in">require</span>(<span class="string">'zlib'</span>);</span><br><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> args = process.argv.slice(<span class="number">2</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> source = fs.createReadStream(args[<span class="number">0</span>]);</span><br><span class="line"><span class="keyword">const</span> target = fs.createWriteStream(args[<span class="number">1</span>]);</span><br><span class="line"><span class="keyword">const</span> gzip = zlib.createGzip();</span><br><span class="line"></span><br><span class="line">source.pipe(gzip).pipe(target);</span><br></pre></td></tr></table></figure>
+
+<p>我们可以通过</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">node gzip.js Graph.md Graph.md.gz</span><br></pre></td></tr></table></figure>
+
+<p>来运行上面的程序，它可以将 Graph.md 使用 gzip 压缩为 Graph.md.gz。</p>
+<img src="https://cdn.jsdelivr.net/gh/LastKnightCoder/ImgHosting/20210306094436.png" style="zoom: 50%"/>
+
+<p>文件大小从 <code>201KB</code> 压缩到了 <code>51KB</code>。</p>
+<p>同样的我们也可以通过 <code>zlib.createGunzip()</code> 来创建一个解压缩的转换流，具体细节同压缩文件相同，不做介绍。</p>
+<p>本篇文章到此结束，想必到这里已经对 Stream 的使用已经有所了解了，但是本篇文章并没有列举所有有关 Stream 的 API，如果想更加详细的了解 Stream 的 API，那么接下去就可以阅读<a href="http://nodejs.cn/api/stream.html" target="_blank" rel="noopener">官方文档</a>了。</p>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><ul>
+<li><a href="https://jscomplete.com/learn/node-beyond-basics/node-streams" target="_blank" rel="noopener">Node’s Stream</a></li>
+<li><a href="https://nodejs.org/zh-cn/docs/guides/backpressuring-in-streams/" target="_blank" rel="noopener">数据流中的积压问题</a></li>
+<li><a href="https://mp.weixin.qq.com/s/D54-txCSPjKdK-QewPG9Kw" target="_blank" rel="noopener">深入理解 Node.js Stream 内部机制</a></li>
+<li><a href="https://tech.meituan.com/2016/07/08/stream-basics.html" target="_blank" rel="noopener">Node.js Stream - 基础篇</a></li>
+</ul>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2021-03-05T16:00:00.000Z" itemprop="dateUpdated">2021-03-06 00:00:00</time>
+</span><br>
+
+
+        
+    </div>
+    
+    <footer>
+        <a href="https://lastknightcoder.github.io/lastknightcoder">
+            <img src="https://lastknightcoder.github.io/lastknightcoder/img/avatar.jpg" alt="熊滔">
+            熊滔
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="https://lastknightcoder.github.io/lastknightcoder/tags/Stream/" rel="tag">Stream</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="https://lastknightcoder.github.io/lastknightcoder/tags/zlib/" rel="tag">zlib</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://lastknightcoder.github.io/lastknightcoder/Node.js%E4%B9%8BStream/&title=《Node.js之Stream》 — Coder&pic=https://lastknightcoder.github.io/lastknightcoder/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://lastknightcoder.github.io/lastknightcoder/Node.js%E4%B9%8BStream/&title=《Node.js之Stream》 — Coder&source=人生天地间，忽如远行客" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://lastknightcoder.github.io/lastknightcoder/Node.js%E4%B9%8BStream/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Node.js之Stream》 — Coder&url=https://lastknightcoder.github.io/lastknightcoder/Node.js%E4%B9%8BStream/&via=https://lastknightcoder.github.io/lastknightcoder" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://lastknightcoder.github.io/lastknightcoder/Node.js%E4%B9%8BStream/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="https://lastknightcoder.github.io/lastknightcoder/ES6%EF%BC%9AJavaScript%E4%B8%AD%E7%9A%84%E7%B1%BB/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">JavaScript中的类</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'lastknightcoder';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="https://lastknightcoder.github.io/lastknightcoder/img/wechatpay.png" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="https://lastknightcoder.github.io/lastknightcoder/img/wechatpay.png" data-alipay="https://lastknightcoder.github.io/lastknightcoder/img/alipay.png">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="https://lastknightcoder.github.io/lastknightcoder/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>熊滔 &copy; 2019 - 2021</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://lastknightcoder.github.io/lastknightcoder/Node.js%E4%B9%8BStream/&title=《Node.js之Stream》 — Coder&pic=https://lastknightcoder.github.io/lastknightcoder/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://lastknightcoder.github.io/lastknightcoder/Node.js%E4%B9%8BStream/&title=《Node.js之Stream》 — Coder&source=人生天地间，忽如远行客" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://lastknightcoder.github.io/lastknightcoder/Node.js%E4%B9%8BStream/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Node.js之Stream》 — Coder&url=https://lastknightcoder.github.io/lastknightcoder/Node.js%E4%B9%8BStream/&via=https://lastknightcoder.github.io/lastknightcoder" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://lastknightcoder.github.io/lastknightcoder/Node.js%E4%B9%8BStream/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACtUlEQVR42u3aQXLjMAwEwPz/07sfiOQZgNzyVrVPqliR2DwQMICfn/jz5/XzdH/+96e35P+7+uDh4eFdWHryyqfrp2+T5ydP+LDdeHh4eNd4yeOS6zaEzIJKEXjw8PDwvoaXwNrAkGTFeHh4eP8jrz3W20T8Pa3Hw8PD+x5e++g2VJxNl6/UWvDw8PC2NYEDhYl711f6e3h4eHjrrno+IvBegMiHDPLnRKvFw8PDu8DLD9xkpOB9WW3ZYpYu4+Hh4d3mtQMBSbEgDyGbkBAl33h4eHgXeLNWfQLOU/OcOhs7wMPDwzvL2xQLZsd0khwfK4jg4eHhXeBtAkOeCrdbMxvkOhz38PDw8Nbd9nYjNrs7G/aK1oyHh4e35rXHenJYt0WE9l15Ow0PDw/vBq9dblsb3mzc+9bXxQg8PDy8a7y8hb8ZC2iRh0u3eHh4eGte+4M/ScdPDRm02/TLW/Dw8PCO8vLGUj5YMGtf7YPEqm+Gh4eHN6pw5iFhlkxvyrvtkBYeHh7ebd6+td+GjVmJNg9UBybO8PDw8F7vTxaxT7XbO9uC8mNSjoeHh3eZl48FtI2x5KDfRK0DFRc8PDy8gDcrJbTlg01BYVYQwcPDw7vHy5PUvM3fpsWnBhQ+FCPw8PDwjvLyLLRNuPNNmQWJ/Jl4eHh4Z3mbJDh5cd7iyo/7YtPx8PDwrvH2B/qmAXYqrcfDw8P7l7x20XmQmB30+/QdDw8P7wbvQPUiDgM5ZjZe8Mu3eHh4eBd4m1JsvuhNiyt5V43Bw8PDW/OSYJAUbdsxqdka6sCDh4eHd42XJMptWXa2fW00iwIDHh4e3tfw8jS6LUwkgSRaDx4eHt7X8DYjCO1GzAa88PDw8G7z8kJAUpLYjAi0oSIKDHh4eHhHee0P/raJ1ZYzZin1gf4eHh4e3mfeX611c6iMu9/9AAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: 'https://lastknightcoder.github.io/lastknightcoder/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>
