@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>ES6：用模块封装代码 | Coder</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="模块">
+    <meta name="description" content="在早期，JavaScript 一般是用来当做独立执行的脚本，它们的程序比较小，随着 JavaScript 的发展，JavaScript 的程序也更加的复杂，所以就需要将程序按模块划分，并且模块之间可以互相导入，由此催生了很多的规范，如 CMD 与 AMD，现如今 ES6 也提供原生的模块机制支持。 模块真正的魔力所在是仅导出和导入你需要的绑定，而不是将所用东西都放到一个文件。只有很好地理解了导出和">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ES6：用模块封装代码">
+<meta property="og:url" content="https://lastknightcoder.github.io/lastknightcoder/ES6%EF%BC%9A%E7%94%A8%E6%A8%A1%E5%9D%97%E5%B0%81%E8%A3%85%E4%BB%A3%E7%A0%81/">
+<meta property="og:site_name" content="Coder">
+<meta property="og:description" content="在早期，JavaScript 一般是用来当做独立执行的脚本，它们的程序比较小，随着 JavaScript 的发展，JavaScript 的程序也更加的复杂，所以就需要将程序按模块划分，并且模块之间可以互相导入，由此催生了很多的规范，如 CMD 与 AMD，现如今 ES6 也提供原生的模块机制支持。 模块真正的魔力所在是仅导出和导入你需要的绑定，而不是将所用东西都放到一个文件。只有很好地理解了导出和">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-03-10T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-03-10T16:00:00.000Z">
+<meta property="article:author" content="熊滔">
+<meta property="article:tag" content="模块">
+<meta name="twitter:card" content="summary">
+    
+        <link rel="alternate" type="application/atom+xml" title="Coder" href="https://lastknightcoder.github.io/lastknightcoder/atom.xml">
+    
+    <link rel="shortcut icon" href="https://lastknightcoder.github.io/lastknightcoder/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(https://lastknightcoder.github.io/lastknightcoder/img/brand.jpg)">
+      <div class="brand">
+        <a href="https://lastknightcoder.github.io/lastknightcoder/" class="avatar waves-effect waves-circle waves-light">
+          <img src="https://lastknightcoder.github.io/lastknightcoder/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">熊滔</h5>
+          <a href="mailto:2223106858@qq.com" title="2223106858@qq.com" class="mail">2223106858@qq.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.github.io/lastknightcoder/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.github.io/lastknightcoder/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.github.io/lastknightcoder/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.github.io/lastknightcoder/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://gitee.com/LastKnightCoder" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">ES6：用模块封装代码</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">ES6：用模块封装代码</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2021-03-10T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2021-03-11
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="https://lastknightcoder.github.io/lastknightcoder/categories/ES6/">ES6</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#模块的导出"><span class="post-toc-number">1.</span> <span class="post-toc-text">模块的导出</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#模块的导入"><span class="post-toc-number">2.</span> <span class="post-toc-text">模块的导入</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#模块的默认值"><span class="post-toc-number">3.</span> <span class="post-toc-text">模块的默认值</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#浏览器中使用模块"><span class="post-toc-number">4.</span> <span class="post-toc-text">浏览器中使用模块</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#在-script-中使用模块"><span class="post-toc-number">4.1.</span> <span class="post-toc-text">在 script 中使用模块</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#模块加载顺序"><span class="post-toc-number">4.2.</span> <span class="post-toc-text">模块加载顺序</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#浏览器中的模块说明符"><span class="post-toc-number">4.3.</span> <span class="post-toc-text">浏览器中的模块说明符</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-ES6：用模块封装代码"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">ES6：用模块封装代码</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2021-03-11 00:00:00" datetime="2021-03-10T16:00:00.000Z"  itemprop="datePublished">2021-03-11</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="https://lastknightcoder.github.io/lastknightcoder/categories/ES6/">ES6</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>在早期，JavaScript 一般是用来当做独立执行的脚本，它们的程序比较小，随着 JavaScript 的发展，JavaScript 的程序也更加的复杂，所以就需要将程序按模块划分，并且模块之间可以互相导入，由此催生了很多的规范，如 CMD 与 AMD，现如今 ES6 也提供原生的模块机制支持。</p>
+<p>模块真正的魔力所在是仅导出和导入你需要的绑定，而不是将所用东西都放到一个文件。只有很好地理解了导出和导入才能理解模块与脚本的区别。</p>
+<h2 id="模块的导出"><a href="#模块的导出" class="headerlink" title="模块的导出"></a>模块的导出</h2><p>通过 <strong>export</strong> 关键字可以将一个值、函数、对象导出，如</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> a = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">x, y</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> x + y;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> obj = &#123;</span><br><span class="line">    name: <span class="string">"Alice"</span>,</span><br><span class="line">    age: <span class="number">18</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>(name) &#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>模块不支持动态的导出，不能在函数或者 if 语句块内导出</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (condition) &#123;</span><br><span class="line">		<span class="comment">// 这样的语法是不允许的</span></span><br><span class="line">		<span class="keyword">export</span> ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们导出变量时，可以通过 <strong>as</strong> 为变量重命名，例如</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line"><span class="comment">// 将 add 重命名为 sum，后续导入时直接导入 sum</span></span><br><span class="line"><span class="keyword">export</span> add <span class="keyword">as</span> sum</span><br></pre></td></tr></table></figure>
+
+<h2 id="模块的导入"><a href="#模块的导入" class="headerlink" title="模块的导入"></a>模块的导入</h2><p>通过 <strong>import</strong> 语法可以在其他模块导出的内容进行导入，例如 a.js 导出如下</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// a.js</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">let</span> name = <span class="string">"Alice"</span>;</span><br></pre></td></tr></table></figure>
+
+<p>我们在 b.js 中使用 import 语句进行导入</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// b.js</span></span><br><span class="line"><span class="keyword">import</span> &#123;name&#125; <span class="keyword">from</span> <span class="string">"./a.js"</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(name); <span class="comment">// Alice</span></span><br></pre></td></tr></table></figure>
+
+<p>需要注意的是，import 导入为只读导入，即不能修改导入的值</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;name&#125; <span class="keyword">from</span> <span class="string">"./a.js"</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 下面的行为将报错，Uncaught TypeError: Assignment to constant variable.</span></span><br><span class="line">name = <span class="string">"Bob"</span>;</span><br></pre></td></tr></table></figure>
+
+<p>但是考虑下面的情况</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// a.js</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">let</span> name = <span class="string">"Alice"</span>;</span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">setName</span>(<span class="params">value</span>) </span>&#123;</span><br><span class="line">    name = value;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// b.js</span></span><br><span class="line"><span class="keyword">import</span> &#123;name, setName&#125; <span class="keyword">from</span> <span class="string">"./a.js"</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 可以通过 setName 修改 name</span></span><br><span class="line">setName(<span class="string">"Bob"</span>);</span><br><span class="line"><span class="built_in">console</span>.log(name); <span class="comment">// Bob</span></span><br></pre></td></tr></table></figure>
+
+<p>可以通过 setName 来修改 name 的值。 同样，我们也可以通过 <strong>as</strong> 语法为导入的变量重命名</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// b.js</span></span><br><span class="line"><span class="keyword">import</span> &#123;name <span class="keyword">as</span> alice&#125; <span class="keyword">from</span> <span class="string">"./a.js"</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(alice); <span class="comment">// Alice</span></span><br></pre></td></tr></table></figure>
+
+<p>通过 <strong>import *</strong> 可以导入模块中的所有内容</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> a <span class="keyword">from</span> <span class="string">'./a.js'</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(a.name); <span class="comment">// Alice</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="模块的默认值"><a href="#模块的默认值" class="headerlink" title="模块的默认值"></a>模块的默认值</h2><p>我们可以通过 <strong>export default</strong> 导出模块的默认值</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// a.js</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">x, y</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> x + y;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> add</span><br></pre></td></tr></table></figure>
+
+<p>通过 export default 导出的变量可以直接通过 import 引用</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// b.js</span></span><br><span class="line"><span class="keyword">import</span> add <span class="keyword">from</span> <span class="string">'./a.js'</span></span><br></pre></td></tr></table></figure>
+
+<p>默认导出还可以写为</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> add <span class="keyword">as</span> <span class="keyword">default</span></span><br></pre></td></tr></table></figure>
+
+<p>这种写法同 export default 的效果一致，另外可以通下面的这种方式为默认导入重命名</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 为默认导入重命名</span></span><br><span class="line"><span class="keyword">import</span> &#123;<span class="keyword">default</span> <span class="keyword">as</span> add&#125; <span class="keyword">from</span> <span class="string">'./a.js'</span></span><br></pre></td></tr></table></figure>
+
+<p>当同时导入默认导出与其他导出时，可以这么写</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// a.js</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 一般导出</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">let</span> name = <span class="string">"Alice"</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 默认导出</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> x + y;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// b.js</span></span><br><span class="line"><span class="keyword">import</span> add, &#123;name&#125; <span class="keyword">from</span> <span class="string">'./a.js'</span>;</span><br></pre></td></tr></table></figure>
+
+<h2 id="浏览器中使用模块"><a href="#浏览器中使用模块" class="headerlink" title="浏览器中使用模块"></a>浏览器中使用模块</h2><h3 id="在-script-中使用模块"><a href="#在-script-中使用模块" class="headerlink" title="在 script 中使用模块"></a>在 script 中使用模块</h3><p>要在 script 标签中使用模块，需要设置 script 标签的 type=”module”</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;script type=<span class="string">"module"</span>&gt;</span><br><span class="line">		<span class="keyword">import</span> add <span class="keyword">from</span> <span class="string">'./a.js'</span>;</span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">&lt;script type="module" src="./</span>b.js<span class="string">"&gt;&lt;/script&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="模块加载顺序"><a href="#模块加载顺序" class="headerlink" title="模块加载顺序"></a>模块加载顺序</h3><p>如果 script 的 type 属性被设置为了 module，那么会自动为每一个 script 标签添加一个 defer 属性，当解析到此 script 标签时，它会立即下载该模块文件，但是下载完成后不会执行，只有等到文档解析完毕才会执行。</p>
+<p>并且执行的顺序与 script 定义的顺序有关，定义在前的 script 标签先执行</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;script type=<span class="string">"module"</span> src=<span class="string">"./module1.js"</span>&gt;&lt;<span class="regexp">/script&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">&lt;script type="module" src="./m</span>odule2.js<span class="string">"&gt;&lt;/script&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>虽然可能 module2.js 先下载完毕，但是 module1.js 定义在签名，所以 module1.js 会先于 module2.js 执行。</p>
+<p>一个模块会被多个模块所引用，但是所有的模块只会被执行一次，如果有多个模块导入同一模块，第一次导入时，执行该模块，然后放入缓存，第二个及以后导入该模块时直接从缓存中获得导入的模块，而不会再次执行此模块。</p>
+<h3 id="浏览器中的模块说明符"><a href="#浏览器中的模块说明符" class="headerlink" title="浏览器中的模块说明符"></a>浏览器中的模块说明符</h3><p>当我们使用 import 导入模块时，浏览器要求路径是以下几种格式：</p>
+<ul>
+<li>. /：从当前目录开始解析</li>
+<li>../：从父目录开始解析</li>
+<li>/：从根目录开始解析</li>
+</ul>
+<p>所以下面的导入语句在浏览器中是无效的</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> add <span class="keyword">from</span> <span class="string">'example.js'</span></span><br><span class="line"><span class="keyword">import</span> sum <span class="keyword">from</span> <span class="string">'example/index.js'</span></span><br></pre></td></tr></table></figure>
+
+<p>因为上述的导入路径不是以 <code>./</code> <code>../</code> 或者 <code>/</code> 开头，所以无法被浏览器加载。</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2021-03-10T16:00:00.000Z" itemprop="dateUpdated">2021-03-11 00:00:00</time>
+</span><br>
+
+
+        
+    </div>
+    
+    <footer>
+        <a href="https://lastknightcoder.github.io/lastknightcoder">
+            <img src="https://lastknightcoder.github.io/lastknightcoder/img/avatar.jpg" alt="熊滔">
+            熊滔
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="https://lastknightcoder.github.io/lastknightcoder/tags/%E6%A8%A1%E5%9D%97/" rel="tag">模块</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://lastknightcoder.github.io/lastknightcoder/ES6%EF%BC%9A%E7%94%A8%E6%A8%A1%E5%9D%97%E5%B0%81%E8%A3%85%E4%BB%A3%E7%A0%81/&title=《ES6：用模块封装代码》 — Coder&pic=https://lastknightcoder.github.io/lastknightcoder/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://lastknightcoder.github.io/lastknightcoder/ES6%EF%BC%9A%E7%94%A8%E6%A8%A1%E5%9D%97%E5%B0%81%E8%A3%85%E4%BB%A3%E7%A0%81/&title=《ES6：用模块封装代码》 — Coder&source=人生天地间，忽如远行客" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://lastknightcoder.github.io/lastknightcoder/ES6%EF%BC%9A%E7%94%A8%E6%A8%A1%E5%9D%97%E5%B0%81%E8%A3%85%E4%BB%A3%E7%A0%81/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《ES6：用模块封装代码》 — Coder&url=https://lastknightcoder.github.io/lastknightcoder/ES6%EF%BC%9A%E7%94%A8%E6%A8%A1%E5%9D%97%E5%B0%81%E8%A3%85%E4%BB%A3%E7%A0%81/&via=https://lastknightcoder.github.io/lastknightcoder" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://lastknightcoder.github.io/lastknightcoder/ES6%EF%BC%9A%E7%94%A8%E6%A8%A1%E5%9D%97%E5%B0%81%E8%A3%85%E4%BB%A3%E7%A0%81/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="https://lastknightcoder.github.io/lastknightcoder/Node.js%E4%B9%8BEventEmitter/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">Node.js之EventEmitter</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="https://lastknightcoder.github.io/lastknightcoder/ES6%EF%BC%9AProxy%E5%92%8CReflect/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">ES6：Proxy和Reflect</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'lastknightcoder';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="https://lastknightcoder.github.io/lastknightcoder/img/wechatpay.png" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="https://lastknightcoder.github.io/lastknightcoder/img/wechatpay.png" data-alipay="https://lastknightcoder.github.io/lastknightcoder/img/alipay.png">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="https://lastknightcoder.github.io/lastknightcoder/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>熊滔 &copy; 2019 - 2021</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://lastknightcoder.github.io/lastknightcoder/ES6%EF%BC%9A%E7%94%A8%E6%A8%A1%E5%9D%97%E5%B0%81%E8%A3%85%E4%BB%A3%E7%A0%81/&title=《ES6：用模块封装代码》 — Coder&pic=https://lastknightcoder.github.io/lastknightcoder/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://lastknightcoder.github.io/lastknightcoder/ES6%EF%BC%9A%E7%94%A8%E6%A8%A1%E5%9D%97%E5%B0%81%E8%A3%85%E4%BB%A3%E7%A0%81/&title=《ES6：用模块封装代码》 — Coder&source=人生天地间，忽如远行客" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://lastknightcoder.github.io/lastknightcoder/ES6%EF%BC%9A%E7%94%A8%E6%A8%A1%E5%9D%97%E5%B0%81%E8%A3%85%E4%BB%A3%E7%A0%81/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《ES6：用模块封装代码》 — Coder&url=https://lastknightcoder.github.io/lastknightcoder/ES6%EF%BC%9A%E7%94%A8%E6%A8%A1%E5%9D%97%E5%B0%81%E8%A3%85%E4%BB%A3%E7%A0%81/&via=https://lastknightcoder.github.io/lastknightcoder" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://lastknightcoder.github.io/lastknightcoder/ES6%EF%BC%9A%E7%94%A8%E6%A8%A1%E5%9D%97%E5%B0%81%E8%A3%85%E4%BB%A3%E7%A0%81/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASYAAAEmCAAAAADqr2IGAAAEjElEQVR42u3aSXLjMBAEwPn/pz0PsCVVddMRBJ08KWwKBFMH9PbvX3x9fbte/ff9d9vVkju/f37/lFf7vODChAkTJky3ZEq29X677zea3/nqZTaU759erIMJEyZMmA5nSpZrz8o8XJg9dxNwtD8kJkyYMGH6a0xJSpmHF+9ZN2ltuzImTJgwYcLUFnbz4CA57BPoNljBhAkTJkx/gSlfrv28aT0mh/qmHfsrtXBMmDBhwnQzpvwxz/t88YUJEyZMmG7G9FVeyeBL0qqcDQa1wzftmM7LdTBhwoQJ07FMs+GYTXtydjDnRd5Z2zUqLmPChAkTpmOZ2q3kx3PLPXu9WXk6f3dMmDBhwvQkpvzgnI3CtOnuteFF3i4tlsCECRMmTDdmaku3+7GeWSl5tvIs0PnhMyZMmDBhOpYpSvbie9rNJYd0m0hfFUwUqS8mTJgwYTqEadMsvOq7yevlifpsJ8NqASZMmDBhuiXTVWM0m8bhfmCoDTvyoKQvlWPChAkTpvsyJSh5ijgb90kO+7ZEu/lhMGHChAnTM5guK3qWR3s+HtTuIW+LRu+LCRMmTJgOZ2pTzT1o3qTMS8BJYXc4xIMJEyZMmA5nmjUpr01T9z3Y2TBQ9DNjwoQJE6bDmZLXm22lDTJmIUKCtQpTMGHChAnT4UzJAZwDbQ71TSo7K0BHq2HChAkTpmOZ2oN8NsozTDiDcKENJvJBopdYmDBhwoTpKKbZgTpLIGejP2179aorKvJiwoQJE6YDmdrya7vOrF06S4PbMKKohWPChAkTpkOY9kXbHG5z/yyt3RSdo9oAJkyYMGG6PVOexObF37ykuzmk21Bms39MmDBhwvQMpk2pNA8m2uJszte2XfPcFhMmTJgwPY8pf8As1WzLuHlZ+arwJer6YsKECROm2zNtXvvaSnOeDM/u2ReUMWHChAnTiUybcZmkCNuOAW3GhmZHe/RdTJgwYcJ0LNPsvNsM0OSNzzaimaXrRekZEyZMmDAdzrQ5kvPDNedO9tDStEFPURHHhAkTJky3ZJo9eBZAbMKOWUgxG9P5YW+YMGHChOkRTG1C+HstxnyIJ0+wLyjvYsKECROmRzC1aXD+GknbMtlJWyZuA44f9owJEyZMmI5lahuTdQswPqpnpeTZaNFm0AcTJkyYMJ3I1B6TV732Jhz5jeP/w4+ECRMmTJgOZ9oUajccSdm3LQHv090PdQJMmDBhwnQIU16ubVuYybZmL9am5W2AUtTCMWHChAnTUUyzZuEs9W3bh21hd9NAxYQJEyZMT2JKgPKwoF1zBrTZyWUXJkyYMGE6hOmrvNqV953BNp2eBRMf1sSECRMmTMcyzc7ETZE3T6Tbb80CkbYQjAkTJkyYTmTalHTzx+9T7jakaPf/YeeYMGHChOlwprzpODu8NxybIu+Mvu79YsKECROmBzFde8znxeXZaE6e8X94IiZMmDBh+mNM+5R1FjoklG0AEb0FJkyYMGE6nKl9fN5KbIOGtkS72VUBjQkTJkyYjmXK08I2UEjg8r/vS8N5mj28MGHChAnTvZj+AyWaoGG/AIzaAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: 'https://lastknightcoder.github.io/lastknightcoder/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>
