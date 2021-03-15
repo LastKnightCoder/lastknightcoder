@@ -210,9 +210,9 @@
 <ol>
 <li>首先计算它们能够容纳多少水量，如果大于目前的最大值，则更新最大值，否则不更新最大值</li>
 <li>如果 $a_i \leq a_j$，那么不必计算柱 $(i, a_i)$ 与其他柱的配对，执行 <code>i++</code></li>
-<li>如果 $a_i &gt; a_j$，那么必须计算 $(j, a_j)$ 与其他柱的配对，执行 <code>j--</code></li>
+<li>如果 $a_i &gt; a_j$，那么不必计算 $(j, a_j)$ 与其他柱的配对，执行 <code>j--</code></li>
 </ol>
-<p>当 $i \geq j$ 时，程序执行结束，此时的最大值即为能够容纳的最大水量</p>
+<p>当 $i \geq j$ 时，算法执行结束，此时的最大值即为能够容纳的最大水量。</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">maxArea</span><span class="params">(<span class="keyword">int</span>[] height)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> start = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> end = height.length - <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> max= <span class="number">0</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">while</span> (start &lt; end) &#123;</span><br><span class="line">        <span class="comment">// 计算两个柱之间能够容纳的水量，如果大于最大值，则更新最大值</span></span><br><span class="line">        <span class="keyword">int</span> s = (end - start) * Math.min(height[start], height[end]);</span><br><span class="line">        <span class="keyword">if</span> (max &lt; s) &#123;</span><br><span class="line">            max = s;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 如果 a_i &lt;= a_j，则 i++，否则 j--</span></span><br><span class="line">        <span class="keyword">if</span> (height[start] &lt;= height[end]) &#123;</span><br><span class="line">            start++;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            end--;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> max;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><ul>
@@ -305,7 +305,14 @@
     </div>
 
     
-<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="https://lastknightcoder.github.io/lastknightcoder/Node.js%E4%B9%8BKoa/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">Node.js之Koa</h4>
+      </a>
+    </div>
   
 
   
