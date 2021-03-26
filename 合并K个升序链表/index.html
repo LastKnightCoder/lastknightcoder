@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>合并K个升序链表 | Coder</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="leetcode,罗马数字">
+    <meta name="description" content="题目描述给你一个链表数组，每个链表都已经按升序排列。请你将所有链表合并到一个升序链表中，返回合并后的链表。   解题思路我一开始的解题思路就是将两个链表一一合并，思路如下：  list1 + list2 -&gt; list list3 + list -&gt; list list4 + list -&gt; list …  所以第一版的代码如下 public ListNode mergeKLis">
+<meta property="og:type" content="article">
+<meta property="og:title" content="合并K个升序链表">
+<meta property="og:url" content="https://lastknightcoder.github.io/lastknightcoder/%E5%90%88%E5%B9%B6K%E4%B8%AA%E5%8D%87%E5%BA%8F%E9%93%BE%E8%A1%A8/">
+<meta property="og:site_name" content="Coder">
+<meta property="og:description" content="题目描述给你一个链表数组，每个链表都已经按升序排列。请你将所有链表合并到一个升序链表中，返回合并后的链表。   解题思路我一开始的解题思路就是将两个链表一一合并，思路如下：  list1 + list2 -&gt; list list3 + list -&gt; list list4 + list -&gt; list …  所以第一版的代码如下 public ListNode mergeKLis">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/LastKnightCoder/ImgHosting2/20210326112231.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/LastKnightCoder/ImgHosting2/20210326112949.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/LastKnightCoder/ImgHosting2/20210326113204.png">
+<meta property="article:published_time" content="2021-03-25T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-03-25T16:00:00.000Z">
+<meta property="article:author" content="熊滔">
+<meta property="article:tag" content="leetcode">
+<meta property="article:tag" content="罗马数字">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/LastKnightCoder/ImgHosting2/20210326112231.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="Coder" href="https://lastknightcoder.github.io/lastknightcoder/atom.xml">
+    
+    <link rel="shortcut icon" href="https://lastknightcoder.github.io/lastknightcoder/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(https://lastknightcoder.github.io/lastknightcoder/img/brand.jpg)">
+      <div class="brand">
+        <a href="https://lastknightcoder.github.io/lastknightcoder/" class="avatar waves-effect waves-circle waves-light">
+          <img src="https://lastknightcoder.github.io/lastknightcoder/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">熊滔</h5>
+          <a href="mailto:2223106858@qq.com" title="2223106858@qq.com" class="mail">2223106858@qq.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.github.io/lastknightcoder/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.github.io/lastknightcoder/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.github.io/lastknightcoder/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.github.io/lastknightcoder/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://gitee.com/LastKnightCoder" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">合并K个升序链表</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">合并K个升序链表</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2021-03-25T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2021-03-26
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="https://lastknightcoder.github.io/lastknightcoder/categories/LeetCode/">LeetCode</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#题目描述"><span class="post-toc-number">1.</span> <span class="post-toc-text">题目描述</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#解题思路"><span class="post-toc-number">2.</span> <span class="post-toc-text">解题思路</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#参考链接"><span class="post-toc-number">3.</span> <span class="post-toc-text">参考链接</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-合并K个升序链表"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">合并K个升序链表</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2021-03-26 00:00:00" datetime="2021-03-25T16:00:00.000Z"  itemprop="datePublished">2021-03-26</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="https://lastknightcoder.github.io/lastknightcoder/categories/LeetCode/">LeetCode</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p>给你一个链表数组，每个链表都已经按升序排列。请你将所有链表合并到一个升序链表中，返回合并后的链表。</p>
+<img src="https://cdn.jsdelivr.net/gh/LastKnightCoder/ImgHosting2/20210326112231.png" style="zoom:50%;" />
+
+<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>我一开始的解题思路就是将两个链表一一合并，思路如下：</p>
+<ul>
+<li>list1 + list2 -&gt; list</li>
+<li>list3 + list -&gt; list</li>
+<li>list4 + list -&gt; list</li>
+<li>…</li>
+</ul>
+<p>所以第一版的代码如下</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> ListNode <span class="title">mergeKLists</span><span class="params">(ListNode[] lists)</span> </span>&#123;</span><br><span class="line">    ListNode root = <span class="keyword">null</span>;</span><br><span class="line">    <span class="keyword">if</span> (lists.length == <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> root;</span><br><span class="line">    &#125;</span><br><span class="line">    root = Arrays.stream(lists).reduce(<span class="keyword">null</span>, <span class="keyword">this</span>::mergeTwoList);</span><br><span class="line">    <span class="keyword">return</span> root;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 合并两个链表</span></span><br><span class="line"><span class="function"><span class="keyword">private</span> ListNode <span class="title">mergeTwoList</span><span class="params">(ListNode l1, ListNode l2)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (l1 == <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> l2;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (l2 == <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> l1;</span><br><span class="line">    &#125;</span><br><span class="line">    ListNode p1 = l1;</span><br><span class="line">    ListNode p2 = l2;</span><br><span class="line">    ListNode dummyNode = <span class="keyword">new</span> ListNode(<span class="number">0</span>);</span><br><span class="line">    ListNode cuerNode = dummyNode;</span><br><span class="line">    <span class="keyword">while</span> (p1 != <span class="keyword">null</span> &amp;&amp; p2 != <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (p1.val &lt;= p2.val) &#123;</span><br><span class="line">            cuerNode.next = p1;</span><br><span class="line">            cuerNode = cuerNode.next;</span><br><span class="line">            p1 = p1.next;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            cuerNode.next = p2;</span><br><span class="line">            cuerNode = cuerNode.next;</span><br><span class="line">            p2 = p2.next;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (p1 == <span class="keyword">null</span>) &#123;</span><br><span class="line">        cuerNode.next = p2;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        cuerNode.next = p1;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> dummyNode.next;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后一提交，发现只超过了 24% 的人</p>
+<img src="https://cdn.jsdelivr.net/gh/LastKnightCoder/ImgHosting2/20210326112949.png" style="zoom:50%;" />
+
+<p>说明肯定有更快的算法，我便去找题解，在题解中发现发现使用分治的思路可以更快的得到排序好的数组。由于老弟我归并排序已经写得炉火纯青了，很快得到了第二版的代码</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> ListNode <span class="title">mergeKLists</span><span class="params">(ListNode[] lists)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (lists.length == <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> mergeKLists(lists, <span class="number">0</span> , lists.length - <span class="number">1</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">private</span> ListNode <span class="title">mergeKLists</span><span class="params">(ListNode[] lists, <span class="keyword">int</span> left, <span class="keyword">int</span> right)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (left == right) &#123;</span><br><span class="line">        <span class="keyword">return</span> lists[left];</span><br><span class="line">    &#125;</span><br><span class="line">    ListNode leftList = <span class="keyword">null</span>;</span><br><span class="line">    ListNode rightList = <span class="keyword">null</span>;</span><br><span class="line">    <span class="keyword">int</span> mid = left + (right - left) / <span class="number">2</span>;</span><br><span class="line">    leftList = mergeKLists(lists, left, mid);</span><br><span class="line">    rightList = mergeKLists(lists, mid + <span class="number">1</span>, right);</span><br><span class="line">    <span class="keyword">return</span> mergeTwoList(leftList, rightList);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 合并两个链表的代码同上，这里便不列出</span></span><br></pre></td></tr></table></figure>
+
+<p>再次提交</p>
+<img src="https://cdn.jsdelivr.net/gh/LastKnightCoder/ImgHosting2/20210326113204.png" style="zoom:50%;" />
+
+<p>已经打败 87% 的人了，时间从 120ms 降到了 2ms，再次感受到了算法的魅力。</p>
+<p>在最后我稍微分析归并的方法为什么比一个个合并较快，从合并的次数看，一个个合并需要合并 $n - 1$ 次，而归并排序需要合并<br>$$<br>\frac{n}{2} + \frac{n}{4} + \frac{n}{8} + \dots + 1<br>$$<br>为了方便计算，不妨假设 $n = 2^i$，即 $n$ 为 $2$ 的整数次幂，则上次可以改为<br>$$<br>\sum_{i = 1}^{\log_2 n} \frac{n}{2^i} \approx n - 1<br>$$<br>所以从合并的次数上看，几乎是相当的。但是注意到一一合并得到的链表越来越长</p>
+<ul>
+<li>list + listi -&gt; list</li>
+<li>list + list(i + 1) -&gt; list</li>
+<li>…</li>
+</ul>
+<p>链表 list 越来越长，合并需要的时间就越多。但是对于归并合并，它先将链表数组划分为两个一组然后合并，这两个一组的链表都是较短的，所需合并的速度较快。所以虽然他们合并的次数相差不大，但是归并合并的链表较一一合并短很多，所以便会较快。</p>
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><ul>
+<li><a href="https://leetcode-cn.com/problems/merge-k-sorted-lists/" target="_blank" rel="noopener">合并K个升序链表</a></li>
+</ul>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2021-03-25T16:00:00.000Z" itemprop="dateUpdated">2021-03-26 00:00:00</time>
+</span><br>
+
+
+        
+    </div>
+    
+    <footer>
+        <a href="https://lastknightcoder.github.io/lastknightcoder">
+            <img src="https://lastknightcoder.github.io/lastknightcoder/img/avatar.jpg" alt="熊滔">
+            熊滔
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="https://lastknightcoder.github.io/lastknightcoder/tags/leetcode/" rel="tag">leetcode</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="https://lastknightcoder.github.io/lastknightcoder/tags/%E7%BD%97%E9%A9%AC%E6%95%B0%E5%AD%97/" rel="tag">罗马数字</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://lastknightcoder.github.io/lastknightcoder/%E5%90%88%E5%B9%B6K%E4%B8%AA%E5%8D%87%E5%BA%8F%E9%93%BE%E8%A1%A8/&title=《合并K个升序链表》 — Coder&pic=https://lastknightcoder.github.io/lastknightcoder/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://lastknightcoder.github.io/lastknightcoder/%E5%90%88%E5%B9%B6K%E4%B8%AA%E5%8D%87%E5%BA%8F%E9%93%BE%E8%A1%A8/&title=《合并K个升序链表》 — Coder&source=人生天地间，忽如远行客" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://lastknightcoder.github.io/lastknightcoder/%E5%90%88%E5%B9%B6K%E4%B8%AA%E5%8D%87%E5%BA%8F%E9%93%BE%E8%A1%A8/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《合并K个升序链表》 — Coder&url=https://lastknightcoder.github.io/lastknightcoder/%E5%90%88%E5%B9%B6K%E4%B8%AA%E5%8D%87%E5%BA%8F%E9%93%BE%E8%A1%A8/&via=https://lastknightcoder.github.io/lastknightcoder" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://lastknightcoder.github.io/lastknightcoder/%E5%90%88%E5%B9%B6K%E4%B8%AA%E5%8D%87%E5%BA%8F%E9%93%BE%E8%A1%A8/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="https://lastknightcoder.github.io/lastknightcoder/%E4%B8%89%E6%95%B0%E4%B9%8B%E5%92%8C/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">三数之和</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'lastknightcoder';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="https://lastknightcoder.github.io/lastknightcoder/img/wechatpay.png" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="https://lastknightcoder.github.io/lastknightcoder/img/wechatpay.png" data-alipay="https://lastknightcoder.github.io/lastknightcoder/img/alipay.png">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="https://lastknightcoder.github.io/lastknightcoder/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>熊滔 &copy; 2019 - 2021</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://lastknightcoder.github.io/lastknightcoder/%E5%90%88%E5%B9%B6K%E4%B8%AA%E5%8D%87%E5%BA%8F%E9%93%BE%E8%A1%A8/&title=《合并K个升序链表》 — Coder&pic=https://lastknightcoder.github.io/lastknightcoder/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://lastknightcoder.github.io/lastknightcoder/%E5%90%88%E5%B9%B6K%E4%B8%AA%E5%8D%87%E5%BA%8F%E9%93%BE%E8%A1%A8/&title=《合并K个升序链表》 — Coder&source=人生天地间，忽如远行客" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://lastknightcoder.github.io/lastknightcoder/%E5%90%88%E5%B9%B6K%E4%B8%AA%E5%8D%87%E5%BA%8F%E9%93%BE%E8%A1%A8/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《合并K个升序链表》 — Coder&url=https://lastknightcoder.github.io/lastknightcoder/%E5%90%88%E5%B9%B6K%E4%B8%AA%E5%8D%87%E5%BA%8F%E9%93%BE%E8%A1%A8/&via=https://lastknightcoder.github.io/lastknightcoder" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://lastknightcoder.github.io/lastknightcoder/%E5%90%88%E5%B9%B6K%E4%B8%AA%E5%8D%87%E5%BA%8F%E9%93%BE%E8%A1%A8/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQ4AAAEOCAAAAABd2qZ5AAAD30lEQVR42u3aSXLcQAwEQP3/0/YDNOJUAdBySJ4UNJfupCMwWD4+4uPfp+P5ytn5z9e0//p8/dmBAwcOHDjKrSaPntHkT24/RkLzvEccOHDgwHHL0YbAdpPtVjdhdbMeHDhw4MDxuxxJmpQnZnnQTUI+Dhw4cOD4+xx5ShYlS3GNbnYNDhw4cOD4XY6kONgmdcnfybvatO2HaqU4cODAgWMS7+rt/c2/v2W+AwcOHDhwPKZAyZEXB9u08Pb5swMHDhw4cOw52hQuKQjOBh3a8l++hraMiAMHDhw4NhyzUl3L1xYi25GI9q4vV4sDBw4cOE45ZsXBdpNtCL8K2FFCiAMHDhw41hxtUjQblWu7PHUOOnr+m7fgwIEDB44RxyZt2wwW7Ftcz0ld/iFf/O7AgQMHDhxrjiREJUH06vpZo2uPiAMHDhw4rjjyPC85v0nhZkxtwylK4XDgwIEDx5qjTcDaTeab2YxBtAMWH+3NOHDgwIFj3ezPF9oGwk0psC0y1s0tHDhw4MCx4EgelCRI+3A7C5Oz4mM0JIcDBw4cOMq9bNK2JEwmAW9PmR9vcHHgwIEDx5rjqlA4azVtgnTbpjr49YEDBw4cOAKOdjPDEbRRCTJP8zZlTRw4cODA8R0cbcBrR9w2pcA8eG+aWzhw4MCB45YjSdhmobSl2VTq8vVHKRwOHDhw4FjsZdY6ahOkqyLgpsUVBWkcOHDgwLHmaIt3+VBCnobNSpBtwK7Lizhw4MCBY7T+TXluE8xmaduslFnsCwcOHDhwLDjykl9LkAfd57A3O9+WI1904XDgwIEDx4JjFrTagLcpOF6V/96EbRw4cODAseaY3XA1ErcJmc9Bul0PDhw4cOC44mg3OauhbZY7+wDJj4AXZ3DgwIEDx5pjNiiQv2Y24tCmZLOxiTddOBw4cODAMeLYBNo2McsHFPbBftamwoEDBw4ce46r8lzbHGrLdvlQwiycv/g/ggMHDhw4bual64izH0Fon7xHGb4XBw4cOHAEHJvFtSnZJsTmK1wlezhw4MCB44gjb8zMUqm2ldUG8vauL8/jwIEDB441x6y1892jBpthi4Pn48CBAweOxfNniVNesJs1fm5TtfwT4sCBAweOPUcbkPIRtFkBcVY0zIuAZz8CcODAgQPHI0f+svb8Phi3ZcpZoMWBAwcOHN/BcbX05wVt7o02s/7pgAMHDhw4fp4j2XAbGvMntx8sb6rhwIEDB47f4ki2OmtB5QnbbDgvWg8OHDhw4DjiyIuDVyW8DWIeOJM1rGqlOHDgwIFjMdCQbLsNlrNhiByxXRsOHDhw4Fhw/Aejx9i7oS2IvwAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: 'https://lastknightcoder.github.io/lastknightcoder/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>
