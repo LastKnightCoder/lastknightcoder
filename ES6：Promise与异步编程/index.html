@@ -24,7 +24,7 @@
     <meta name="description" content="异步编程背景JavaScript 是单线程的，意味着同一时刻只有一处代码在执行，所以它的线程不能被阻塞住，为了达到这一个目的，JavaScript 使用任务队列的机制来实现异步编程。异步编程一般有两种模式  事件模型 回调模型  事件模型是指为某事件绑定一个函数，当事件触发时执行此函数，一般在 DOM 编程中比较常见，例如为按钮绑定点击事件 document.getElementById(&quot;btn">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ES6：Promise与异步编程">
-<meta property="og:url" content="https://lastknightcoder.github.io/lastknightcoder/ES6%EF%BC%9APromise%E4%B8%8E%E5%BC%82%E6%AD%A5%E7%BC%96%E7%A8%8B/">
+<meta property="og:url" content="https://lastknightcoder.gitee.io/ES6%EF%BC%9APromise%E4%B8%8E%E5%BC%82%E6%AD%A5%E7%BC%96%E7%A8%8B/">
 <meta property="og:site_name" content="Coder">
 <meta property="og:description" content="异步编程背景JavaScript 是单线程的，意味着同一时刻只有一处代码在执行，所以它的线程不能被阻塞住，为了达到这一个目的，JavaScript 使用任务队列的机制来实现异步编程。异步编程一般有两种模式  事件模型 回调模型  事件模型是指为某事件绑定一个函数，当事件触发时执行此函数，一般在 DOM 编程中比较常见，例如为按钮绑定点击事件 document.getElementById(&quot;btn">
 <meta property="og:locale" content="zh_CN">
@@ -34,9 +34,9 @@
 <meta property="article:tag" content="Promise">
 <meta name="twitter:card" content="summary">
     
-        <link rel="alternate" type="application/atom+xml" title="Coder" href="https://lastknightcoder.github.io/lastknightcoder/atom.xml">
+        <link rel="alternate" type="application/atom+xml" title="Coder" href="https://lastknightcoder.gitee.io/atom.xml">
     
-    <link rel="shortcut icon" href="https://lastknightcoder.github.io/lastknightcoder/favicon.ico">
+    <link rel="shortcut icon" href="https://lastknightcoder.gitee.io/favicon.ico">
     <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
     <script>window.lazyScripts=[]</script>
 
@@ -53,10 +53,10 @@
     <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
         <i class="icon icon-lg icon-close"></i>
     </a>
-    <div class="brand-wrap" style="background-image:url(https://lastknightcoder.github.io/lastknightcoder/img/brand.jpg)">
+    <div class="brand-wrap" style="background-image:url(https://lastknightcoder.gitee.io/img/brand.jpg)">
       <div class="brand">
-        <a href="https://lastknightcoder.github.io/lastknightcoder/" class="avatar waves-effect waves-circle waves-light">
-          <img src="https://lastknightcoder.github.io/lastknightcoder/img/avatar.jpg">
+        <a href="https://lastknightcoder.gitee.io/" class="avatar waves-effect waves-circle waves-light">
+          <img src="https://lastknightcoder.gitee.io/img/avatar.jpg">
         </a>
         <hgroup class="introduce">
           <h5 class="nickname">熊滔</h5>
@@ -68,28 +68,28 @@
       <ul class="nav">
         
             <li class="waves-block waves-effect">
-              <a href="https://lastknightcoder.github.io/lastknightcoder/"  >
+              <a href="https://lastknightcoder.gitee.io/"  >
                 <i class="icon icon-lg icon-home"></i>
                 主页
               </a>
             </li>
         
             <li class="waves-block waves-effect">
-              <a href="https://lastknightcoder.github.io/lastknightcoder/archives"  >
+              <a href="https://lastknightcoder.gitee.io/archives"  >
                 <i class="icon icon-lg icon-archives"></i>
                 归档
               </a>
             </li>
         
             <li class="waves-block waves-effect">
-              <a href="https://lastknightcoder.github.io/lastknightcoder/tags"  >
+              <a href="https://lastknightcoder.gitee.io/tags"  >
                 <i class="icon icon-lg icon-tags"></i>
                 标签
               </a>
             </li>
         
             <li class="waves-block waves-effect">
-              <a href="https://lastknightcoder.github.io/lastknightcoder/categories"  >
+              <a href="https://lastknightcoder.gitee.io/categories"  >
                 <i class="icon icon-lg icon-th-list"></i>
                 分类
               </a>
@@ -143,7 +143,7 @@
 </time>
 
 
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="https://lastknightcoder.github.io/lastknightcoder/categories/ES6/">ES6</a></li></ul>
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="https://lastknightcoder.gitee.io/categories/ES6/">ES6</a></li></ul>
 
             
         </h5>
@@ -174,7 +174,7 @@
             <time class="post-time" title="2021-03-09 00:00:00" datetime="2021-03-08T16:00:00.000Z"  itemprop="datePublished">2021-03-09</time>
 
             
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="https://lastknightcoder.github.io/lastknightcoder/categories/ES6/">ES6</a></li></ul>
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="https://lastknightcoder.gitee.io/categories/ES6/">ES6</a></li></ul>
 
 
 
@@ -328,8 +328,8 @@
     </div>
     
     <footer>
-        <a href="https://lastknightcoder.github.io/lastknightcoder">
-            <img src="https://lastknightcoder.github.io/lastknightcoder/img/avatar.jpg" alt="熊滔">
+        <a href="https://lastknightcoder.gitee.io">
+            <img src="https://lastknightcoder.gitee.io/img/avatar.jpg" alt="熊滔">
             熊滔
         </a>
     </footer>
@@ -344,7 +344,7 @@
 
         <div class="post-footer">
             
-	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="https://lastknightcoder.github.io/lastknightcoder/tags/Promise/" rel="tag">Promise</a></li></ul>
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="https://lastknightcoder.gitee.io/tags/Promise/" rel="tag">Promise</a></li></ul>
 
 
             
@@ -354,7 +354,7 @@
 <div class="page-share" id="pageShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://lastknightcoder.github.io/lastknightcoder/ES6%EF%BC%9APromise%E4%B8%8E%E5%BC%82%E6%AD%A5%E7%BC%96%E7%A8%8B/&title=《ES6：Promise与异步编程》 — Coder&pic=https://lastknightcoder.github.io/lastknightcoder/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://lastknightcoder.gitee.io/ES6%EF%BC%9APromise%E4%B8%8E%E5%BC%82%E6%AD%A5%E7%BC%96%E7%A8%8B/&title=《ES6：Promise与异步编程》 — Coder&pic=https://lastknightcoder.gitee.io/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -364,22 +364,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://lastknightcoder.github.io/lastknightcoder/ES6%EF%BC%9APromise%E4%B8%8E%E5%BC%82%E6%AD%A5%E7%BC%96%E7%A8%8B/&title=《ES6：Promise与异步编程》 — Coder&source=人生天地间，忽如远行客" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://lastknightcoder.gitee.io/ES6%EF%BC%9APromise%E4%B8%8E%E5%BC%82%E6%AD%A5%E7%BC%96%E7%A8%8B/&title=《ES6：Promise与异步编程》 — Coder&source=人生天地间，忽如远行客" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://lastknightcoder.github.io/lastknightcoder/ES6%EF%BC%9APromise%E4%B8%8E%E5%BC%82%E6%AD%A5%E7%BC%96%E7%A8%8B/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://lastknightcoder.gitee.io/ES6%EF%BC%9APromise%E4%B8%8E%E5%BC%82%E6%AD%A5%E7%BC%96%E7%A8%8B/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《ES6：Promise与异步编程》 — Coder&url=https://lastknightcoder.github.io/lastknightcoder/ES6%EF%BC%9APromise%E4%B8%8E%E5%BC%82%E6%AD%A5%E7%BC%96%E7%A8%8B/&via=https://lastknightcoder.github.io/lastknightcoder" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《ES6：Promise与异步编程》 — Coder&url=https://lastknightcoder.gitee.io/ES6%EF%BC%9APromise%E4%B8%8E%E5%BC%82%E6%AD%A5%E7%BC%96%E7%A8%8B/&via=https://lastknightcoder.gitee.io" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://lastknightcoder.github.io/lastknightcoder/ES6%EF%BC%9APromise%E4%B8%8E%E5%BC%82%E6%AD%A5%E7%BC%96%E7%A8%8B/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://lastknightcoder.gitee.io/ES6%EF%BC%9APromise%E4%B8%8E%E5%BC%82%E6%AD%A5%E7%BC%96%E7%A8%8B/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -402,7 +402,7 @@
 <nav class="post-nav flex-row flex-justify-between">
   
     <div class="waves-block waves-effect prev">
-      <a href="https://lastknightcoder.github.io/lastknightcoder/ES6%EF%BC%9AProxy%E5%92%8CReflect/" id="post-prev" class="post-nav-link">
+      <a href="https://lastknightcoder.gitee.io/ES6%EF%BC%9AProxy%E5%92%8CReflect/" id="post-prev" class="post-nav-link">
         <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
         <h4 class="title">ES6：Proxy和Reflect</h4>
       </a>
@@ -411,7 +411,7 @@
 
   
     <div class="waves-block waves-effect next">
-      <a href="https://lastknightcoder.github.io/lastknightcoder/ES6%EF%BC%9A%E6%94%B9%E8%BF%9B%E7%9A%84%E6%95%B0%E7%BB%84%E5%8A%9F%E8%83%BD/" id="post-next" class="post-nav-link">
+      <a href="https://lastknightcoder.gitee.io/ES6%EF%BC%9A%E6%94%B9%E8%BF%9B%E7%9A%84%E6%95%B0%E7%BB%84%E5%8A%9F%E8%83%BD/" id="post-next" class="post-nav-link">
         <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
         <h4 class="title">ES6：改进的数组功能</h4>
       </a>
@@ -463,12 +463,12 @@
     <div class="reward-content">
         
         <div class="reward-code">
-            <img id="rewardCode" src="https://lastknightcoder.github.io/lastknightcoder/img/wechatpay.png" alt="打赏二维码">
+            <img id="rewardCode" src="https://lastknightcoder.gitee.io/img/wechatpay.png" alt="打赏二维码">
         </div>
         
         <label class="reward-toggle">
             <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
-                data-wechat="https://lastknightcoder.github.io/lastknightcoder/img/wechatpay.png" data-alipay="https://lastknightcoder.github.io/lastknightcoder/img/alipay.png">
+                data-wechat="https://lastknightcoder.gitee.io/img/wechatpay.png" data-alipay="https://lastknightcoder.gitee.io/img/alipay.png">
             <div class="reward-toggle-ctrol">
                 <span class="reward-toggle-item wechat">微信</span>
                 <span class="reward-toggle-label"></span>
@@ -498,7 +498,7 @@
 
         <p>
             
-                <span><a href="https://lastknightcoder.github.io/lastknightcoder/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+                <span><a href="https://lastknightcoder.gitee.io/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
             
             <span>博客内容遵循 <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
         </p>
@@ -522,7 +522,7 @@
 <div class="global-share" id="globalShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://lastknightcoder.github.io/lastknightcoder/ES6%EF%BC%9APromise%E4%B8%8E%E5%BC%82%E6%AD%A5%E7%BC%96%E7%A8%8B/&title=《ES6：Promise与异步编程》 — Coder&pic=https://lastknightcoder.github.io/lastknightcoder/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://lastknightcoder.gitee.io/ES6%EF%BC%9APromise%E4%B8%8E%E5%BC%82%E6%AD%A5%E7%BC%96%E7%A8%8B/&title=《ES6：Promise与异步编程》 — Coder&pic=https://lastknightcoder.gitee.io/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -532,22 +532,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://lastknightcoder.github.io/lastknightcoder/ES6%EF%BC%9APromise%E4%B8%8E%E5%BC%82%E6%AD%A5%E7%BC%96%E7%A8%8B/&title=《ES6：Promise与异步编程》 — Coder&source=人生天地间，忽如远行客" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://lastknightcoder.gitee.io/ES6%EF%BC%9APromise%E4%B8%8E%E5%BC%82%E6%AD%A5%E7%BC%96%E7%A8%8B/&title=《ES6：Promise与异步编程》 — Coder&source=人生天地间，忽如远行客" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://lastknightcoder.github.io/lastknightcoder/ES6%EF%BC%9APromise%E4%B8%8E%E5%BC%82%E6%AD%A5%E7%BC%96%E7%A8%8B/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://lastknightcoder.gitee.io/ES6%EF%BC%9APromise%E4%B8%8E%E5%BC%82%E6%AD%A5%E7%BC%96%E7%A8%8B/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《ES6：Promise与异步编程》 — Coder&url=https://lastknightcoder.github.io/lastknightcoder/ES6%EF%BC%9APromise%E4%B8%8E%E5%BC%82%E6%AD%A5%E7%BC%96%E7%A8%8B/&via=https://lastknightcoder.github.io/lastknightcoder" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《ES6：Promise与异步编程》 — Coder&url=https://lastknightcoder.gitee.io/ES6%EF%BC%9APromise%E4%B8%8E%E5%BC%82%E6%AD%A5%E7%BC%96%E7%A8%8B/&via=https://lastknightcoder.gitee.io" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://lastknightcoder.github.io/lastknightcoder/ES6%EF%BC%9APromise%E4%B8%8E%E5%BC%82%E6%AD%A5%E7%BC%96%E7%A8%8B/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://lastknightcoder.gitee.io/ES6%EF%BC%9APromise%E4%B8%8E%E5%BC%82%E6%AD%A5%E7%BC%96%E7%A8%8B/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -558,7 +558,7 @@
 <div class="page-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQ4AAAEOCAAAAABd2qZ5AAAD8UlEQVR42u3ay44TQQwF0Pn/nwaJDUjQ4V7bmUHi9CrKo7rq9MLx4+Mjvr79uH5/59fr6dPXK+TvJHt4/f2zCwcOHDhwBEdNln66weyoTwdOcBP6p3deP0gcOHDgwHHFkWw0OUDyOgmcm78CedDFgQMHDhxfy7FJ1Wbhc/bAZivgwIEDB46v4shR8iQwr9TlhT8cOHDgwPG1HG0LZ9YQyolnra/8Xge1Uhw4cODAMa+8FYXCf/P1G+c7cODAgQNHGajya9agmo1KJMMN9f5x4MCBA8ea4x1FwKvRhFlBcFayfGNNFAcOHDj+M4590MoPsPn09X5mDzXyw4EDBw4cJUc79DYLhHlLKedoU8R20AEHDhw4cMw48pZ/vnTeBGrTxTw5HP45wIEDBw4cR5NpeZBr49F+xK0dztufCAcOHDhwbE60CZ95GE5Swc1oQjs8V4RYHDhw4MCx4JilW/sNteNxCX0evIdVTxw4cODAETd7ksRpk2LNgmW7/rA0iQMHDhw4jjjygDorGubfzwcjrkYfHgcacODAgQPHiOMdA3BJspRs7vbw9QPAgQMHDhyj13mjqG0p5XCzQmHbmooeNg4cOHDgeANH3uzZNJPyxC9frR2biAItDhw4cOA45UiuNrBd3WsW8j9m/whw4MCBA8fRtQmxeQuqPeTrllge/mtEHDhw4MARrL8ZOGiZ2tG3fbitm2c4cODAgeOIYxYI25DZlhTbQuFZoMWBAwcOHOsUbh/w2lG22/Jlu/+//AnAgQMHDhxrjmRQIBlu2KRwbaI4G/JL9oADBw4cOK44NoW8qyCaD8BtAnkRYnHgwIEDR8nRNo3y0ltyvDYw5w8jL2VGuSAOHDhw4Cg58k1sWlCbBtKsHNn+CgcOHDhwXHG0Rbc8fM5Kfvmns508roMDBw4cOE45EoKrAuIwxQrSzrY0+VgcxIEDBw4ca459QbAdhrganpg1sf7wGgcOHDhwHHHkt2xTo00raNboykcoolopDhw4cOA44pgNqw3D22LNTdvssTiIAwcOHDhOOZKtt+2i2dBDEtTbFO4vjwQHDhw4cBxxbNo/V82nNmTW6VnyGHDgwIEDx1FEm4WudkMHAwfBfWcr48CBAweOK45v5ZWPC8yCa1tSzIubUSqIAwcOHDjWHLNRgOTAbeFvVgScFTcPLhw4cODAEac0bfCbNXvyQDjb7SrQ4sCBAweOI448fM7GC2ZBfZ/I1WVHHDhw4MDx6RxtarT/VZ6kbZhw4MCBA8fnc8xuvA+Em2SyZsKBAwcOHEccbXGwBc2523GH2R4eUXDgwIEDx5pjU7C7HXFow+0mzJ+NyuHAgQMHjp/vfAchkrTfgVqc0gAAAABJRU5ErkJggg==" alt="微信分享二维码">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2CAAAAADAeSUUAAADNklEQVR42u3aQW4jMQwEwPz/015gr44n3aQT2HLpZDiJRjU5NEjq6ytet/8r+eb++0e73a/7na93y584XNjY2Nhvwr5drtnjH+3TvrJHe+bPffhqsLGxsY9jX4dW/jvJ4fakzTmxsbGxP5n9QyRchmISMPmraYMWGxsbG/t66xzZ7vwbQYuNjY19KjsJhll7qI29fLdZyGFjY2Ofx24Hva/8+Rfn29jY2Ngvyb6N1mz/Z40f2tD65vzY2NjYB7GTw21gbWq0raW8RFkdHRsbG/uF2ZsAa0e5sxZS/n3RfsLGxsY+iN2WBMl4YDYk3vSC8p2xsbGxz2PnkbC5iJOUDe1IePOisbGxsU9iz0Io/+k1IylUNo2n6KYSNjY29qHstnmUB9tsgtGGZTEVwcbGxj6CnRcDbRGSDw/aMJu9LGxsbOzz2Hmjp2W04bcf3BYNKWxsbOyj2b9RkLSx1JYieTR+M+jFxsbGPog9u6bTHiUPsLadVJRP2NjY2AexN5dg2sIgeWTb9G8j8Al3f7CxsbFfkt3GzGy0sA+qvCCJwhgbGxv7CHZSbORDgn1LaPa6c3ZRY2FjY2O/FbsNpLwltB88tAOA6NVjY2NjH8RuHzy7+pMftH1xs/YWNjY29iewZ03/HP/cQigPYGxsbOxT2bMQyoNns5KntA0sbGxs7JPY+bWYthG/j8DZIDkKVGxsbOyj2ZsIKW4J5Ucc7fPDbtjY2NgHsdumzCzkkmIjHyckw+CvzcLGxsZ+K/bsEsz1cfPrPm0Rsvn8TSmCjY2NfQT7uWGTFCdtFLX/gHqogI2NjX0Qe9bin01Oi/nzOrSGJQo2Njb227Jnzfe8/GgbQLN92gEGNjY29hnsOuXiYqbFJMVDe8Lo/4yNjY39huxbufJmzawJlb/EYgBwfypsbGzsg9izAMj/eN/0b0cLyd9iY2Njn8feX3NsS468dbUfCQ8n29jY2NhvyJ6VE7OWUDvE3bS6fmgtYWNjY38wuy1R8nbVLCbrKzvY2NjYH8neXKDcjIfbyz1RAwsbGxv7OHZbYCTFSbvb3wyesbGxsc9jP3dkOxswtE+clUyr+TY2Njb2K7L/AXA0v4PZAieRAAAAAElFTkSuQmCC" alt="微信分享二维码">
 </div>
 
 
@@ -566,7 +566,7 @@
 
     <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
 <script>
-var BLOG = { ROOT: 'https://lastknightcoder.github.io/lastknightcoder/', SHARE: true, REWARD: true };
+var BLOG = { ROOT: 'https://lastknightcoder.gitee.io/', SHARE: true, REWARD: true };
 
 
 </script>
