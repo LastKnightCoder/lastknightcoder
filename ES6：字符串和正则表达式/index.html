@@ -24,7 +24,7 @@
     <meta name="description" content="首先推荐两篇文章了解字符编码相关细节 Unicode与JavaScript详解 Javascript中的string类型使用UTF-16编码 Unicode、UTF-8 与 UTF-16在开发的过程中，经常会碰到 Unicode，UTF-8，UTF-16 等等术语，在很多的时候我一直是将它们混为一谈的，不过今天详细的了解了它们之间的不同，作为本章的前言，方便本章内容的理解。 首先 Unicode">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ES6：字符串和正则表达式">
-<meta property="og:url" content="https://lastknightcoder.gitee.io/ES6%EF%BC%9A%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%92%8C%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/">
+<meta property="og:url" content="https://lastknightcoder.github.io/lastknightcoder/ES6%EF%BC%9A%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%92%8C%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/">
 <meta property="og:site_name" content="Coder">
 <meta property="og:description" content="首先推荐两篇文章了解字符编码相关细节 Unicode与JavaScript详解 Javascript中的string类型使用UTF-16编码 Unicode、UTF-8 与 UTF-16在开发的过程中，经常会碰到 Unicode，UTF-8，UTF-16 等等术语，在很多的时候我一直是将它们混为一谈的，不过今天详细的了解了它们之间的不同，作为本章的前言，方便本章内容的理解。 首先 Unicode">
 <meta property="og:locale" content="zh_CN">
@@ -35,9 +35,9 @@
 <meta property="article:tag" content="正则表达式">
 <meta name="twitter:card" content="summary">
     
-        <link rel="alternate" type="application/atom+xml" title="Coder" href="https://lastknightcoder.gitee.io/atom.xml">
+        <link rel="alternate" type="application/atom+xml" title="Coder" href="https://lastknightcoder.github.io/lastknightcoder/atom.xml">
     
-    <link rel="shortcut icon" href="https://lastknightcoder.gitee.io/favicon.ico">
+    <link rel="shortcut icon" href="https://lastknightcoder.github.io/lastknightcoder/favicon.ico">
     <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
     <script>window.lazyScripts=[]</script>
 
@@ -54,10 +54,10 @@
     <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
         <i class="icon icon-lg icon-close"></i>
     </a>
-    <div class="brand-wrap" style="background-image:url(https://lastknightcoder.gitee.io/img/brand.jpg)">
+    <div class="brand-wrap" style="background-image:url(https://lastknightcoder.github.io/lastknightcoder/img/brand.jpg)">
       <div class="brand">
-        <a href="https://lastknightcoder.gitee.io/" class="avatar waves-effect waves-circle waves-light">
-          <img src="https://lastknightcoder.gitee.io/img/avatar.jpg">
+        <a href="https://lastknightcoder.github.io/lastknightcoder/" class="avatar waves-effect waves-circle waves-light">
+          <img src="https://lastknightcoder.github.io/lastknightcoder/img/avatar.jpg">
         </a>
         <hgroup class="introduce">
           <h5 class="nickname">熊滔</h5>
@@ -69,28 +69,28 @@
       <ul class="nav">
         
             <li class="waves-block waves-effect">
-              <a href="https://lastknightcoder.gitee.io/"  >
+              <a href="https://lastknightcoder.github.io/lastknightcoder/"  >
                 <i class="icon icon-lg icon-home"></i>
                 主页
               </a>
             </li>
         
             <li class="waves-block waves-effect">
-              <a href="https://lastknightcoder.gitee.io/archives"  >
+              <a href="https://lastknightcoder.github.io/lastknightcoder/archives"  >
                 <i class="icon icon-lg icon-archives"></i>
                 归档
               </a>
             </li>
         
             <li class="waves-block waves-effect">
-              <a href="https://lastknightcoder.gitee.io/tags"  >
+              <a href="https://lastknightcoder.github.io/lastknightcoder/tags"  >
                 <i class="icon icon-lg icon-tags"></i>
                 标签
               </a>
             </li>
         
             <li class="waves-block waves-effect">
-              <a href="https://lastknightcoder.gitee.io/categories"  >
+              <a href="https://lastknightcoder.github.io/lastknightcoder/categories"  >
                 <i class="icon icon-lg icon-th-list"></i>
                 分类
               </a>
@@ -144,7 +144,7 @@
 </time>
 
 
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="https://lastknightcoder.gitee.io/categories/ES6/">ES6</a></li></ul>
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="https://lastknightcoder.github.io/lastknightcoder/categories/ES6/">ES6</a></li></ul>
 
             
         </h5>
@@ -175,7 +175,7 @@
             <time class="post-time" title="2021-01-15 17:39:00" datetime="2021-01-15T09:39:00.000Z"  itemprop="datePublished">2021-01-15</time>
 
             
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="https://lastknightcoder.gitee.io/categories/ES6/">ES6</a></li></ul>
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="https://lastknightcoder.github.io/lastknightcoder/categories/ES6/">ES6</a></li></ul>
 
 
 
@@ -347,8 +347,8 @@
     </div>
     
     <footer>
-        <a href="https://lastknightcoder.gitee.io">
-            <img src="https://lastknightcoder.gitee.io/img/avatar.jpg" alt="熊滔">
+        <a href="https://lastknightcoder.github.io/lastknightcoder">
+            <img src="https://lastknightcoder.github.io/lastknightcoder/img/avatar.jpg" alt="熊滔">
             熊滔
         </a>
     </footer>
@@ -363,7 +363,7 @@
 
         <div class="post-footer">
             
-	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="https://lastknightcoder.gitee.io/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/" rel="tag">字符串</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="https://lastknightcoder.gitee.io/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" rel="tag">正则表达式</a></li></ul>
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="https://lastknightcoder.github.io/lastknightcoder/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/" rel="tag">字符串</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="https://lastknightcoder.github.io/lastknightcoder/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" rel="tag">正则表达式</a></li></ul>
 
 
             
@@ -373,7 +373,7 @@
 <div class="page-share" id="pageShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://lastknightcoder.gitee.io/ES6%EF%BC%9A%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%92%8C%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/&title=《ES6：字符串和正则表达式》 — Coder&pic=https://lastknightcoder.gitee.io/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://lastknightcoder.github.io/lastknightcoder/ES6%EF%BC%9A%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%92%8C%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/&title=《ES6：字符串和正则表达式》 — Coder&pic=https://lastknightcoder.github.io/lastknightcoder/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -383,22 +383,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://lastknightcoder.gitee.io/ES6%EF%BC%9A%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%92%8C%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/&title=《ES6：字符串和正则表达式》 — Coder&source=人生天地间，忽如远行客" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://lastknightcoder.github.io/lastknightcoder/ES6%EF%BC%9A%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%92%8C%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/&title=《ES6：字符串和正则表达式》 — Coder&source=人生天地间，忽如远行客" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://lastknightcoder.gitee.io/ES6%EF%BC%9A%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%92%8C%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://lastknightcoder.github.io/lastknightcoder/ES6%EF%BC%9A%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%92%8C%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《ES6：字符串和正则表达式》 — Coder&url=https://lastknightcoder.gitee.io/ES6%EF%BC%9A%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%92%8C%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/&via=https://lastknightcoder.gitee.io" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《ES6：字符串和正则表达式》 — Coder&url=https://lastknightcoder.github.io/lastknightcoder/ES6%EF%BC%9A%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%92%8C%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/&via=https://lastknightcoder.github.io/lastknightcoder" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://lastknightcoder.gitee.io/ES6%EF%BC%9A%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%92%8C%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://lastknightcoder.github.io/lastknightcoder/ES6%EF%BC%9A%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%92%8C%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -421,7 +421,7 @@
 <nav class="post-nav flex-row flex-justify-between">
   
     <div class="waves-block waves-effect prev">
-      <a href="https://lastknightcoder.gitee.io/ES6%EF%BC%9A%E5%87%BD%E6%95%B0/" id="post-prev" class="post-nav-link">
+      <a href="https://lastknightcoder.github.io/lastknightcoder/ES6%EF%BC%9A%E5%87%BD%E6%95%B0/" id="post-prev" class="post-nav-link">
         <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
         <h4 class="title">ES6：函数</h4>
       </a>
@@ -430,7 +430,7 @@
 
   
     <div class="waves-block waves-effect next">
-      <a href="https://lastknightcoder.gitee.io/ES6%EF%BC%9Alet%20%E5%92%8C%20const/" id="post-next" class="post-nav-link">
+      <a href="https://lastknightcoder.github.io/lastknightcoder/ES6%EF%BC%9Alet%20%E5%92%8C%20const/" id="post-next" class="post-nav-link">
         <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
         <h4 class="title">ES6：let 和 const</h4>
       </a>
@@ -482,12 +482,12 @@
     <div class="reward-content">
         
         <div class="reward-code">
-            <img id="rewardCode" src="https://lastknightcoder.gitee.io/img/wechatpay.png" alt="打赏二维码">
+            <img id="rewardCode" src="https://lastknightcoder.github.io/lastknightcoder/img/wechatpay.png" alt="打赏二维码">
         </div>
         
         <label class="reward-toggle">
             <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
-                data-wechat="https://lastknightcoder.gitee.io/img/wechatpay.png" data-alipay="https://lastknightcoder.gitee.io/img/alipay.png">
+                data-wechat="https://lastknightcoder.github.io/lastknightcoder/img/wechatpay.png" data-alipay="https://lastknightcoder.github.io/lastknightcoder/img/alipay.png">
             <div class="reward-toggle-ctrol">
                 <span class="reward-toggle-item wechat">微信</span>
                 <span class="reward-toggle-label"></span>
@@ -517,7 +517,7 @@
 
         <p>
             
-                <span><a href="https://lastknightcoder.gitee.io/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+                <span><a href="https://lastknightcoder.github.io/lastknightcoder/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
             
             <span>博客内容遵循 <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
         </p>
@@ -541,7 +541,7 @@
 <div class="global-share" id="globalShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://lastknightcoder.gitee.io/ES6%EF%BC%9A%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%92%8C%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/&title=《ES6：字符串和正则表达式》 — Coder&pic=https://lastknightcoder.gitee.io/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://lastknightcoder.github.io/lastknightcoder/ES6%EF%BC%9A%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%92%8C%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/&title=《ES6：字符串和正则表达式》 — Coder&pic=https://lastknightcoder.github.io/lastknightcoder/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -551,22 +551,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://lastknightcoder.gitee.io/ES6%EF%BC%9A%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%92%8C%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/&title=《ES6：字符串和正则表达式》 — Coder&source=人生天地间，忽如远行客" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://lastknightcoder.github.io/lastknightcoder/ES6%EF%BC%9A%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%92%8C%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/&title=《ES6：字符串和正则表达式》 — Coder&source=人生天地间，忽如远行客" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://lastknightcoder.gitee.io/ES6%EF%BC%9A%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%92%8C%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://lastknightcoder.github.io/lastknightcoder/ES6%EF%BC%9A%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%92%8C%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《ES6：字符串和正则表达式》 — Coder&url=https://lastknightcoder.gitee.io/ES6%EF%BC%9A%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%92%8C%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/&via=https://lastknightcoder.gitee.io" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《ES6：字符串和正则表达式》 — Coder&url=https://lastknightcoder.github.io/lastknightcoder/ES6%EF%BC%9A%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%92%8C%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/&via=https://lastknightcoder.github.io/lastknightcoder" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://lastknightcoder.gitee.io/ES6%EF%BC%9A%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%92%8C%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://lastknightcoder.github.io/lastknightcoder/ES6%EF%BC%9A%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%92%8C%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -577,7 +577,7 @@
 <div class="page-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASYAAAEmCAAAAADqr2IGAAAEjklEQVR42u3ay47aQBAF0Pz/T0+krCJlgHurjEJ7jlcIgd19vOh6/foVX19/rvybr7+u5/d89K9Hd/j39/k9H/3rsgsTJkyYMH0k09fTq338c6Bkk8mralfb3ueb/2LChAkTpsOZNrfLga497JNftk95+D0mTJgwYfoBTM8X0Sai+//moUybBmPChAkTJkzt4/PQYV9iblN6TJgwYcL0E5j2x+pmEW2y2j4lKQdfVgvHhAkTJkwfxtQeyXf6/Mb5JkyYMGHC9AFM+7LpfhwnP7DzkZ1NSvzNnTFhwoQJ07FMm8Q1T1av4ns+vnNVfFRUCDBhwoQJ08cztQ3Id6fNz9HzonMbcLy4JyZMmDBhugVTNLwyKp4m3Jt7zhLyJFbChAkTJkz3YMqX0m4vH4vZFI6vej190QATJkyYMJ3KlCefmwO+PbA336yGUDFhwoQJ07FMm1LsvjS8Kc6+42VHDV1MmDBhwnQ7pvxAzQ/dTdsyR5yt5MW/MGHChAnTUUxJEXbTFMyLvO3mW7h8HPZFOxMTJkyYMB3FNEtZ2/S1vUM7fvqOlbyImzBhwoQJ07FMeSOwLQpvBmhmlO1vIm5MmDBhwnQ40/sS3aLeXB7Ym5J0jYUJEyZMmI5iaht+yRDP5ni+6vhvV/7iKZgwYcKE6RZMs1GYNvqYHdWzAZ1Z2DGMfTBhwoQJ08cz5Ud+XpzdNyDbcZ99Sfebz5gwYcKE6Vim2eBLWzDdjOPkT8zL07OnYMKECROmezDlKWUO1LYP83LzLGTJ94UJEyZMmH4C07XNyFnCuU9i9/vChAkTJkwnMuVF3ryEugkR2uJsnbjO2p+YMGHChOlYpiQs2PyyTVP3BeVk0KddMyZMmDBhOpdpWOgsW5ib9ufmDnn48iK4wYQJEyZMhzPNjt79ZpIXsE90N+uvt4EJEyZMmD6SKSl35leeALftzHaFV6XrmDBhwoTpHkzvKLZuyrKzcvAsIX/xDSZMmDBhuh1TUvbNj/Y2xc3Lyps1FGk5JkyYMGE6lmk2EJNUPvMlbgrKOUESLkRYmDBhwoTpWKarirN5yfXapDoJKfYDPZgwYcKE6SympJ3Zlm7z1mM7FdMO6CS/jJJtTJgwYcJ0LFO74RYlH53ZDwa9o+2KCRMmTJjuxBRlw6NCatvOTPg2R/sFxVxMmDBhwnQI01XHc7KBNnlu3/asRRq9EkyYMGHCdAum2bE622rekpwFE7M26sO1YcKECROmWzDNAoJrC6+bsnJxwAev5OK4CRMmTJgw/SemfJyl3XYyuNOmo+0vN6lvURfHhAkTJkwfzLQ5+JODOW+Rtq8nLz3nz4pGdjBhwoQJ01FMszGdTasyHwOalYNbvjYJx4QJEyZMJzJtRnNmIULbwpwd/HkqHqXBmDBhwoTpcKarWpJtY3ITjrTfrC5MmDBhwvQDmGZHctsEbYOPJHyZlaqHAQEmTJgwYTqcKS/+zraxKezmLdKaFRMmTJgwHc6UbyxhbQd0NmHEO7LUhwEBJkyYMGE6kKmtcLbNztlITd5GzYOMq56FCRMmTJgOYfoNCfeLTNjMXswAAAAASUVORK5CYII=" alt="微信分享二维码">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASYAAAEmCAAAAADqr2IGAAAElElEQVR42u3azc7aMBAF0O/9X5pKXVVqA/fOpBKGkxUCYscnC3t+fn7i6/H7uvr+z1///vz3f56PnIxwddfVP5/fe9uFCRMmTJjekunx9LqaLFnY1a/JXQlHS5m8hsuVYsKECROmw5lmi3++uc428uTwkdAk9PkxBRMmTJgwfQPTc4I2cG3JZkeBWRiMCRMmTJi+mSnZvJN0ap5sTf6Zo2PChAkTpu9kaodri4KzwucsuJ2Nf1suHBMmTJgwvRlTuyV/0uf/2N+ECRMmTJjegOlRXpsyYT7m7N67QuJ/zIIJEyZMmI5lyouCs6ac9p/JvfvnGc6ICRMmTJiOZUpivTzV26ZK2zGTbzaHmOL5MWHChAnT2zPdFUbOlpcD5YXMzciYMGHChOlTmdoNO2+auSs5m7fytK1FESsmTJgwYTqWKZ+4bfGcFTjbzbtFyed9Uc7EhAkTJkyHM83StflG2xY+27s2NC9OT5gwYcKE6SimoWv8TTtyW3fdP3NULsWECRMmTIcz3VUanDXN5L8miePZsePFa8CECRMmTIczzdpi7qKZLalN8iZHn+G5CRMmTJgwvTHTJnBNaGYJ4jw0HW7w8X8wYcKECdPpTMki2yRpDpcfLPIltSXYaHxMmDBhwnQsU77dzgLa6CRSLiA/uMzC8sv/YMKECROmA5lmQHniNQ9l22XnieBZ+I0JEyZMmD6DKW9zabfwGVle1JwVOGeHA0yYMGHC9BlM7fLyJG+bMm6TsLP0bv3aMGHChAnTsUx56XG2Ved3bVpdNynp/F5MmDBhwnQW011lyLYR564Cap7qTWLYy/ViwoQJE6bDmZKJ922jbbk0CYDveqkvfsWECRMmTB/KNEuJ5k05syTvLCCflWMxYcKECdNnMOVT5tt2u7y2NfbeA8qLp8KECRMmTB/BdFeqNHmgNnDdf7N5hZgwYcKE6XSmfLNsC5Z5inZTvNwfGuokLyZMmDBhOoopLxbmhcAZx73b+Sykf5HkxYQJEyZMhzPNmmaGZcL4APG/k7wv1o4JEyZMmI5lSjb+vC0mGaddcNviMyOIGo8wYcKECdOBTJtCZg6xLzfOEsT7g06UC8eECRMmTMcybUqAs0actgiaBL3tseYyQ4AJEyZMmA5kSo4CeVp2E2rOZmyxcrLLABgTJkyYMB3FtH+UNkW7eSXtve1zruqxmDBhwoTpjZlmEzz/vCHeN+XkYW00LyZMmDBhOpwpJ2vLge0Omxwd8kW2I9ehLyZMmDBhOoopj/XaADVPAbcJ2VlovUryYsKECROmo5g2W3UL1x4akkaf5GiyP+JgwoQJE6ZzmR7l1ZYGZ+Fo/hryUHbTkIQJEyZMmM5lmm3J+6A0p9+XM2dz5ccITJgwYcL0/kz50PlDtxtqfiDIt//8hUVhMCZMmDBhOpwpPwRsCpY/oytHWWW4MWHChAnT1zNtGmUeo6sNdGeIUbCNCRMmTJi+jGkWGLeLycufm2agaARMmDBhwnQ4U1uMbNHb19O23SSp3nycf4yGCRMmTJiOZdosaZ8Ubg8T+0acYe8SJkyYMGE6j+kXp+G0FTKtmUYAAAAASUVORK5CYII=" alt="微信分享二维码">
 </div>
 
 
@@ -585,7 +585,7 @@
 
     <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
 <script>
-var BLOG = { ROOT: 'https://lastknightcoder.gitee.io/', SHARE: true, REWARD: true };
+var BLOG = { ROOT: 'https://lastknightcoder.github.io/lastknightcoder/', SHARE: true, REWARD: true };
 
 
 </script>

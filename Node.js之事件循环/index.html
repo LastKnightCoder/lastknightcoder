@@ -24,7 +24,7 @@
     <meta name="description" content="Node.js 是单线程的，但是它却可以应用在高并发场景，原因就是它的事件循环机制。所以本篇文章来介绍 Node.js 的事件循环机制。 同步与异步因为 Node.js 是单线程的，代码的执行不能使用同步机制，因为同步执行会阻塞代码，在单线程中阻塞代码意味着整个程序都被阻塞到了，从而无法处理其他任务。其他后端语言会使用多个线程去执行代码，即使一个线程被阻塞到了，其他的线程也不会有影响。 所以 No">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Node.js之事件循环">
-<meta property="og:url" content="https://lastknightcoder.gitee.io/Node.js%E4%B9%8B%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF/">
+<meta property="og:url" content="https://lastknightcoder.github.io/lastknightcoder/Node.js%E4%B9%8B%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF/">
 <meta property="og:site_name" content="Coder">
 <meta property="og:description" content="Node.js 是单线程的，但是它却可以应用在高并发场景，原因就是它的事件循环机制。所以本篇文章来介绍 Node.js 的事件循环机制。 同步与异步因为 Node.js 是单线程的，代码的执行不能使用同步机制，因为同步执行会阻塞代码，在单线程中阻塞代码意味着整个程序都被阻塞到了，从而无法处理其他任务。其他后端语言会使用多个线程去执行代码，即使一个线程被阻塞到了，其他的线程也不会有影响。 所以 No">
 <meta property="og:locale" content="zh_CN">
@@ -36,9 +36,9 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/LastKnightCoder/ImgHosting/20210222165625.gif">
     
-        <link rel="alternate" type="application/atom+xml" title="Coder" href="https://lastknightcoder.gitee.io/atom.xml">
+        <link rel="alternate" type="application/atom+xml" title="Coder" href="https://lastknightcoder.github.io/lastknightcoder/atom.xml">
     
-    <link rel="shortcut icon" href="https://lastknightcoder.gitee.io/favicon.ico">
+    <link rel="shortcut icon" href="https://lastknightcoder.github.io/lastknightcoder/favicon.ico">
     <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
     <script>window.lazyScripts=[]</script>
 
@@ -55,10 +55,10 @@
     <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
         <i class="icon icon-lg icon-close"></i>
     </a>
-    <div class="brand-wrap" style="background-image:url(https://lastknightcoder.gitee.io/img/brand.jpg)">
+    <div class="brand-wrap" style="background-image:url(https://lastknightcoder.github.io/lastknightcoder/img/brand.jpg)">
       <div class="brand">
-        <a href="https://lastknightcoder.gitee.io/" class="avatar waves-effect waves-circle waves-light">
-          <img src="https://lastknightcoder.gitee.io/img/avatar.jpg">
+        <a href="https://lastknightcoder.github.io/lastknightcoder/" class="avatar waves-effect waves-circle waves-light">
+          <img src="https://lastknightcoder.github.io/lastknightcoder/img/avatar.jpg">
         </a>
         <hgroup class="introduce">
           <h5 class="nickname">熊滔</h5>
@@ -70,28 +70,28 @@
       <ul class="nav">
         
             <li class="waves-block waves-effect">
-              <a href="https://lastknightcoder.gitee.io/"  >
+              <a href="https://lastknightcoder.github.io/lastknightcoder/"  >
                 <i class="icon icon-lg icon-home"></i>
                 主页
               </a>
             </li>
         
             <li class="waves-block waves-effect">
-              <a href="https://lastknightcoder.gitee.io/archives"  >
+              <a href="https://lastknightcoder.github.io/lastknightcoder/archives"  >
                 <i class="icon icon-lg icon-archives"></i>
                 归档
               </a>
             </li>
         
             <li class="waves-block waves-effect">
-              <a href="https://lastknightcoder.gitee.io/tags"  >
+              <a href="https://lastknightcoder.github.io/lastknightcoder/tags"  >
                 <i class="icon icon-lg icon-tags"></i>
                 标签
               </a>
             </li>
         
             <li class="waves-block waves-effect">
-              <a href="https://lastknightcoder.gitee.io/categories"  >
+              <a href="https://lastknightcoder.github.io/lastknightcoder/categories"  >
                 <i class="icon icon-lg icon-th-list"></i>
                 分类
               </a>
@@ -145,7 +145,7 @@
 </time>
 
 
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="https://lastknightcoder.gitee.io/categories/Node/">Node</a></li></ul>
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="https://lastknightcoder.github.io/lastknightcoder/categories/Node/">Node</a></li></ul>
 
             
         </h5>
@@ -176,7 +176,7 @@
             <time class="post-time" title="2021-02-23 11:46:00" datetime="2021-02-23T03:46:00.000Z"  itemprop="datePublished">2021-02-23</time>
 
             
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="https://lastknightcoder.gitee.io/categories/Node/">Node</a></li></ul>
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="https://lastknightcoder.github.io/lastknightcoder/categories/Node/">Node</a></li></ul>
 
 
 
@@ -316,8 +316,8 @@
     </div>
     
     <footer>
-        <a href="https://lastknightcoder.gitee.io">
-            <img src="https://lastknightcoder.gitee.io/img/avatar.jpg" alt="熊滔">
+        <a href="https://lastknightcoder.github.io/lastknightcoder">
+            <img src="https://lastknightcoder.github.io/lastknightcoder/img/avatar.jpg" alt="熊滔">
             熊滔
         </a>
     </footer>
@@ -332,7 +332,7 @@
 
         <div class="post-footer">
             
-	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="https://lastknightcoder.gitee.io/tags/Event-Loop/" rel="tag">Event Loop</a></li></ul>
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="https://lastknightcoder.github.io/lastknightcoder/tags/Event-Loop/" rel="tag">Event Loop</a></li></ul>
 
 
             
@@ -342,7 +342,7 @@
 <div class="page-share" id="pageShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://lastknightcoder.gitee.io/Node.js%E4%B9%8B%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF/&title=《Node.js之事件循环》 — Coder&pic=https://lastknightcoder.gitee.io/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://lastknightcoder.github.io/lastknightcoder/Node.js%E4%B9%8B%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF/&title=《Node.js之事件循环》 — Coder&pic=https://lastknightcoder.github.io/lastknightcoder/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -352,22 +352,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://lastknightcoder.gitee.io/Node.js%E4%B9%8B%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF/&title=《Node.js之事件循环》 — Coder&source=人生天地间，忽如远行客" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://lastknightcoder.github.io/lastknightcoder/Node.js%E4%B9%8B%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF/&title=《Node.js之事件循环》 — Coder&source=人生天地间，忽如远行客" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://lastknightcoder.gitee.io/Node.js%E4%B9%8B%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://lastknightcoder.github.io/lastknightcoder/Node.js%E4%B9%8B%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Node.js之事件循环》 — Coder&url=https://lastknightcoder.gitee.io/Node.js%E4%B9%8B%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF/&via=https://lastknightcoder.gitee.io" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Node.js之事件循环》 — Coder&url=https://lastknightcoder.github.io/lastknightcoder/Node.js%E4%B9%8B%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF/&via=https://lastknightcoder.github.io/lastknightcoder" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://lastknightcoder.gitee.io/Node.js%E4%B9%8B%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://lastknightcoder.github.io/lastknightcoder/Node.js%E4%B9%8B%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -390,7 +390,7 @@
 <nav class="post-nav flex-row flex-justify-between">
   
     <div class="waves-block waves-effect prev">
-      <a href="https://lastknightcoder.gitee.io/Node.js%E4%B9%8BExpress%E5%85%A5%E9%97%A8/" id="post-prev" class="post-nav-link">
+      <a href="https://lastknightcoder.github.io/lastknightcoder/Node.js%E4%B9%8BExpress%E5%85%A5%E9%97%A8/" id="post-prev" class="post-nav-link">
         <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
         <h4 class="title">Node.js之Express入门</h4>
       </a>
@@ -399,7 +399,7 @@
 
   
     <div class="waves-block waves-effect next">
-      <a href="https://lastknightcoder.gitee.io/Node.js%E4%B9%8B%E6%A0%B8%E5%BF%83%E6%A8%A1%E5%9D%97/" id="post-next" class="post-nav-link">
+      <a href="https://lastknightcoder.github.io/lastknightcoder/Node.js%E4%B9%8B%E6%A0%B8%E5%BF%83%E6%A8%A1%E5%9D%97/" id="post-next" class="post-nav-link">
         <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
         <h4 class="title">Node.js之核心模块</h4>
       </a>
@@ -451,12 +451,12 @@
     <div class="reward-content">
         
         <div class="reward-code">
-            <img id="rewardCode" src="https://lastknightcoder.gitee.io/img/wechatpay.png" alt="打赏二维码">
+            <img id="rewardCode" src="https://lastknightcoder.github.io/lastknightcoder/img/wechatpay.png" alt="打赏二维码">
         </div>
         
         <label class="reward-toggle">
             <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
-                data-wechat="https://lastknightcoder.gitee.io/img/wechatpay.png" data-alipay="https://lastknightcoder.gitee.io/img/alipay.png">
+                data-wechat="https://lastknightcoder.github.io/lastknightcoder/img/wechatpay.png" data-alipay="https://lastknightcoder.github.io/lastknightcoder/img/alipay.png">
             <div class="reward-toggle-ctrol">
                 <span class="reward-toggle-item wechat">微信</span>
                 <span class="reward-toggle-label"></span>
@@ -486,7 +486,7 @@
 
         <p>
             
-                <span><a href="https://lastknightcoder.gitee.io/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+                <span><a href="https://lastknightcoder.github.io/lastknightcoder/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
             
             <span>博客内容遵循 <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
         </p>
@@ -510,7 +510,7 @@
 <div class="global-share" id="globalShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://lastknightcoder.gitee.io/Node.js%E4%B9%8B%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF/&title=《Node.js之事件循环》 — Coder&pic=https://lastknightcoder.gitee.io/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://lastknightcoder.github.io/lastknightcoder/Node.js%E4%B9%8B%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF/&title=《Node.js之事件循环》 — Coder&pic=https://lastknightcoder.github.io/lastknightcoder/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -520,22 +520,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://lastknightcoder.gitee.io/Node.js%E4%B9%8B%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF/&title=《Node.js之事件循环》 — Coder&source=人生天地间，忽如远行客" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://lastknightcoder.github.io/lastknightcoder/Node.js%E4%B9%8B%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF/&title=《Node.js之事件循环》 — Coder&source=人生天地间，忽如远行客" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://lastknightcoder.gitee.io/Node.js%E4%B9%8B%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://lastknightcoder.github.io/lastknightcoder/Node.js%E4%B9%8B%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Node.js之事件循环》 — Coder&url=https://lastknightcoder.gitee.io/Node.js%E4%B9%8B%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF/&via=https://lastknightcoder.gitee.io" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Node.js之事件循环》 — Coder&url=https://lastknightcoder.github.io/lastknightcoder/Node.js%E4%B9%8B%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF/&via=https://lastknightcoder.github.io/lastknightcoder" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://lastknightcoder.gitee.io/Node.js%E4%B9%8B%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://lastknightcoder.github.io/lastknightcoder/Node.js%E4%B9%8B%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -546,7 +546,7 @@
 <div class="page-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2CAAAAADAeSUUAAADMklEQVR42u3aQW7jMBAEwPz/015gTwtsrHQP5cCkS6eAcSQVcxjPNL++4uvx9/p/5d/1x+X17G7Xn3z29GfvcPOFjY2NvQk7ed2clLxWsnK9uetbj42NjX0e+7psXD/g+q+S365s9/UTn65jY2NjfyQ7f0wLaxuM/G7Y2NjY2HnhaQvb9SfzrcHGxsbGvvfrfnuHpP3It/glszRsbGzst2e3Qe87//zCfBsbGxv7LdmP8loZxyeNR3vcZ6jAxsbGPoi9PqDJv/SvBAnJ0Ko9NoSNjY19EvuuJmTWNvxmbFzgsbGxsTdh5y+RtARt49H+VbtZPzQh2NjY2Eew18vD+npLWjlghI2NjX0eux3Ez9bb1DVve24OBrCxsbG3ZbePaYdQ+RHJttTNYgxsbGzsk9jtLZKCl2zQrBXJt6kOhrGxsbG3Zc8KzCz6bQtesjIsgdjY2Ngfxl6fqyeRbR7uJus/lD1sbGzs49h3FYaVJiFvcmZRxA/xADY2Nva27HvH8TecGxoFw3kBw8bGxj6PnY/yZwdo2hFV0ni0o6hv7oCNjY19EHsWvrblamVE1W5QHhtjY2Njn8FObj0b6KyUq/bYUBHx5iRsbGzsrdhJw5A8Pil+szCgfXo0VMLGxsY+gp0Um9kgflhaRnFC3uQ8rd7Y2NjYR7DXx0N5PJy8aJtX1++GjY2NfQS7bSRmsPXQNy+0UaSBjY2NfRx7/aBMfkQmHznl7cfwpBI2Njb2EexZgUk2pW0hhqWojBOwsbGxz2O3X+tXhj73xgN5KS2GStjY2Ngbsl8X9K40NrPDPXVpxMbGxj6CnTC+4usVEW9+BOeGVgQbGxt7c3Y+KpoNmPIi1wYMdUiAjY2NfRC7PRbT4u8qeG1g0I6osLGxsfdlP8rrrmB4fUOTQlX8b7GxsbG3Za8Umxn13k+2QytsbGzsU9l50WqHUG00O4sQ2nVsbGzsU9kzQP7SsylXvt35gAwbGxv7k9l5aZmVnHz7Zoc+v0m5sbGxsbGXi1B7WCcPKqKhEjY2NvZB7DaybSPhPKNYKZxLp5OwsbGxt2W3QW9+OGYlrJ0d5WnjamxsbOzN2X8AsgQrJsUQX9EAAAAASUVORK5CYII=" alt="微信分享二维码">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2CAAAAADAeSUUAAADKklEQVR42u3awXLiMBAEUP7/p9mqvePqHhmCxPOJihNbTxwm06PHI76e/6/886u71z9J3vvqOY93XNjY2NibsJ+X1/Urk7uzLUg2Jdmal8/BxsbGPo69XjxWtuyamrwxt2BjY2P/Mjv5rz4BJHfbPgIbGxsbu2WvLD0pddjY2NjYLTsJlfLXt0OF9vpoloaNjY399ex3DHr/6vMfz7exsbGxP85eLxt5U5GXwNmTi+dgY2NjH8ReD2iS1yeBUb5lbWtRdGDY2NjYm7NXNiIfD8yO7LRbjI2Njf1r7LY4zY7ptEWuXUm7HdjY2NjnsfOi1QY6bbg/K5n5pmBjY2OfxG4P2ayUivzuLFSqpyLY2NjYh7JXRrCzkCgPhpLyGYVK2NjY2Mex8/ZjVlTWxwOzQe8Nk21sbGzsTdizoW8eM7UHgFaCpOQLw8bGxv4d9qwxyP92/RBPHngNxwPY2NjYX89uC0BelvIo/95Wpyi92NjY2Eew24YhHw8ksLtakXZUjI2NjX0qO1/orDnJQ6uVdihqirCxsbEPYrfBzfsCprYJyRuPonpjY2Njb8tuH9Fu0+yw5uw3h2BsbGzsbdnXD5od0Mnbm9mA9oYRBTY2NvZB7JaRH5eZhVCzeptsyvA7x8bGxt6E3b5gVloS6koBa0svNjY29qnsPJq/Xvq9Y9080qrHDNjY2Nibs1tSEta0o9Z1dkJ92XthY2Njb86+a7ibl6JZlN8eJyqm3NjY2Nibs9t+JTmsk5fApJokDdKzvLCxsbFPYrdR0eyoTd6KtMeD2lCp/pawsbGxv57djgSSq21aViKtZPteZmnY2NjYx7Hbf+XrSfJNG/eW/AwbGxt7W/ZdMf2saH1yE4s+DBsbG3sr9jtKV7uI66ioHVpEXxU2Njb2Qez16jeL6ZeWMlrb8I3Y2NjYm7BXDsq0Q+JkQeuFMGqTsLGxsY9jz1Ko2ZHN/NBPcjeJxrCxsbGxZ0vPj3ImpSsfPxSJGjY2NvYPs5Nmo11Qwk7iqmhDsbGxsY9j56FSu7h8MJAPa1caG2xsbOzz2LNh6qzZWA+DZqHScMqNjY2N/e3sf4TWxHCvCKXuAAAAAElFTkSuQmCC" alt="微信分享二维码">
 </div>
 
 
@@ -554,7 +554,7 @@
 
     <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
 <script>
-var BLOG = { ROOT: 'https://lastknightcoder.gitee.io/', SHARE: true, REWARD: true };
+var BLOG = { ROOT: 'https://lastknightcoder.github.io/lastknightcoder/', SHARE: true, REWARD: true };
 
 
 </script>

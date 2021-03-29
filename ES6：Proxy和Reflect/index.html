@@ -24,7 +24,7 @@
     <meta name="description" content="在 ES6 之前我们很难模仿一个内置的对象的行为，例如模仿数组，当添加一个新的元素时，length 的长度 +1，当改变 length 的大小时，也会对数组中的元素产生影响，我们很难通过现有的语法去做到这件事情，在 ES6 中给我们提供了 Proxy，使得开发者能够创建内建的对象。 Proxy 可以为对象做一层代理，拦截对象的一些操作，例如为对象的属性赋值，访问对象的属性值，使用 in 操作判断对">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ES6：Proxy和Reflect">
-<meta property="og:url" content="https://lastknightcoder.gitee.io/ES6%EF%BC%9AProxy%E5%92%8CReflect/">
+<meta property="og:url" content="https://lastknightcoder.github.io/lastknightcoder/ES6%EF%BC%9AProxy%E5%92%8CReflect/">
 <meta property="og:site_name" content="Coder">
 <meta property="og:description" content="在 ES6 之前我们很难模仿一个内置的对象的行为，例如模仿数组，当添加一个新的元素时，length 的长度 +1，当改变 length 的大小时，也会对数组中的元素产生影响，我们很难通过现有的语法去做到这件事情，在 ES6 中给我们提供了 Proxy，使得开发者能够创建内建的对象。 Proxy 可以为对象做一层代理，拦截对象的一些操作，例如为对象的属性赋值，访问对象的属性值，使用 in 操作判断对">
 <meta property="og:locale" content="zh_CN">
@@ -38,9 +38,9 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://user-images.githubusercontent.com/29890094/106619623-becf4600-65ab-11eb-991e-5bf2eaff379f.png">
     
-        <link rel="alternate" type="application/atom+xml" title="Coder" href="https://lastknightcoder.gitee.io/atom.xml">
+        <link rel="alternate" type="application/atom+xml" title="Coder" href="https://lastknightcoder.github.io/lastknightcoder/atom.xml">
     
-    <link rel="shortcut icon" href="https://lastknightcoder.gitee.io/favicon.ico">
+    <link rel="shortcut icon" href="https://lastknightcoder.github.io/lastknightcoder/favicon.ico">
     <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
     <script>window.lazyScripts=[]</script>
 
@@ -57,10 +57,10 @@
     <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
         <i class="icon icon-lg icon-close"></i>
     </a>
-    <div class="brand-wrap" style="background-image:url(https://lastknightcoder.gitee.io/img/brand.jpg)">
+    <div class="brand-wrap" style="background-image:url(https://lastknightcoder.github.io/lastknightcoder/img/brand.jpg)">
       <div class="brand">
-        <a href="https://lastknightcoder.gitee.io/" class="avatar waves-effect waves-circle waves-light">
-          <img src="https://lastknightcoder.gitee.io/img/avatar.jpg">
+        <a href="https://lastknightcoder.github.io/lastknightcoder/" class="avatar waves-effect waves-circle waves-light">
+          <img src="https://lastknightcoder.github.io/lastknightcoder/img/avatar.jpg">
         </a>
         <hgroup class="introduce">
           <h5 class="nickname">熊滔</h5>
@@ -72,28 +72,28 @@
       <ul class="nav">
         
             <li class="waves-block waves-effect">
-              <a href="https://lastknightcoder.gitee.io/"  >
+              <a href="https://lastknightcoder.github.io/lastknightcoder/"  >
                 <i class="icon icon-lg icon-home"></i>
                 主页
               </a>
             </li>
         
             <li class="waves-block waves-effect">
-              <a href="https://lastknightcoder.gitee.io/archives"  >
+              <a href="https://lastknightcoder.github.io/lastknightcoder/archives"  >
                 <i class="icon icon-lg icon-archives"></i>
                 归档
               </a>
             </li>
         
             <li class="waves-block waves-effect">
-              <a href="https://lastknightcoder.gitee.io/tags"  >
+              <a href="https://lastknightcoder.github.io/lastknightcoder/tags"  >
                 <i class="icon icon-lg icon-tags"></i>
                 标签
               </a>
             </li>
         
             <li class="waves-block waves-effect">
-              <a href="https://lastknightcoder.gitee.io/categories"  >
+              <a href="https://lastknightcoder.github.io/lastknightcoder/categories"  >
                 <i class="icon icon-lg icon-th-list"></i>
                 分类
               </a>
@@ -147,7 +147,7 @@
 </time>
 
 
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="https://lastknightcoder.gitee.io/categories/ES6/">ES6</a></li></ul>
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="https://lastknightcoder.github.io/lastknightcoder/categories/ES6/">ES6</a></li></ul>
 
             
         </h5>
@@ -178,7 +178,7 @@
             <time class="post-time" title="2021-03-10 00:00:00" datetime="2021-03-09T16:00:00.000Z"  itemprop="datePublished">2021-03-10</time>
 
             
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="https://lastknightcoder.gitee.io/categories/ES6/">ES6</a></li></ul>
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="https://lastknightcoder.github.io/lastknightcoder/categories/ES6/">ES6</a></li></ul>
 
 
 
@@ -358,8 +358,8 @@
     </div>
     
     <footer>
-        <a href="https://lastknightcoder.gitee.io">
-            <img src="https://lastknightcoder.gitee.io/img/avatar.jpg" alt="熊滔">
+        <a href="https://lastknightcoder.github.io/lastknightcoder">
+            <img src="https://lastknightcoder.github.io/lastknightcoder/img/avatar.jpg" alt="熊滔">
             熊滔
         </a>
     </footer>
@@ -374,7 +374,7 @@
 
         <div class="post-footer">
             
-	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="https://lastknightcoder.gitee.io/tags/Proxy/" rel="tag">Proxy</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="https://lastknightcoder.gitee.io/tags/Reflect/" rel="tag">Reflect</a></li></ul>
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="https://lastknightcoder.github.io/lastknightcoder/tags/Proxy/" rel="tag">Proxy</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="https://lastknightcoder.github.io/lastknightcoder/tags/Reflect/" rel="tag">Reflect</a></li></ul>
 
 
             
@@ -384,7 +384,7 @@
 <div class="page-share" id="pageShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://lastknightcoder.gitee.io/ES6%EF%BC%9AProxy%E5%92%8CReflect/&title=《ES6：Proxy和Reflect》 — Coder&pic=https://lastknightcoder.gitee.io/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://lastknightcoder.github.io/lastknightcoder/ES6%EF%BC%9AProxy%E5%92%8CReflect/&title=《ES6：Proxy和Reflect》 — Coder&pic=https://lastknightcoder.github.io/lastknightcoder/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -394,22 +394,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://lastknightcoder.gitee.io/ES6%EF%BC%9AProxy%E5%92%8CReflect/&title=《ES6：Proxy和Reflect》 — Coder&source=人生天地间，忽如远行客" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://lastknightcoder.github.io/lastknightcoder/ES6%EF%BC%9AProxy%E5%92%8CReflect/&title=《ES6：Proxy和Reflect》 — Coder&source=人生天地间，忽如远行客" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://lastknightcoder.gitee.io/ES6%EF%BC%9AProxy%E5%92%8CReflect/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://lastknightcoder.github.io/lastknightcoder/ES6%EF%BC%9AProxy%E5%92%8CReflect/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《ES6：Proxy和Reflect》 — Coder&url=https://lastknightcoder.gitee.io/ES6%EF%BC%9AProxy%E5%92%8CReflect/&via=https://lastknightcoder.gitee.io" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《ES6：Proxy和Reflect》 — Coder&url=https://lastknightcoder.github.io/lastknightcoder/ES6%EF%BC%9AProxy%E5%92%8CReflect/&via=https://lastknightcoder.github.io/lastknightcoder" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://lastknightcoder.gitee.io/ES6%EF%BC%9AProxy%E5%92%8CReflect/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://lastknightcoder.github.io/lastknightcoder/ES6%EF%BC%9AProxy%E5%92%8CReflect/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -432,7 +432,7 @@
 <nav class="post-nav flex-row flex-justify-between">
   
     <div class="waves-block waves-effect prev">
-      <a href="https://lastknightcoder.gitee.io/ES6%EF%BC%9A%E7%94%A8%E6%A8%A1%E5%9D%97%E5%B0%81%E8%A3%85%E4%BB%A3%E7%A0%81/" id="post-prev" class="post-nav-link">
+      <a href="https://lastknightcoder.github.io/lastknightcoder/ES6%EF%BC%9A%E7%94%A8%E6%A8%A1%E5%9D%97%E5%B0%81%E8%A3%85%E4%BB%A3%E7%A0%81/" id="post-prev" class="post-nav-link">
         <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
         <h4 class="title">ES6：用模块封装代码</h4>
       </a>
@@ -441,7 +441,7 @@
 
   
     <div class="waves-block waves-effect next">
-      <a href="https://lastknightcoder.gitee.io/ES6%EF%BC%9APromise%E4%B8%8E%E5%BC%82%E6%AD%A5%E7%BC%96%E7%A8%8B/" id="post-next" class="post-nav-link">
+      <a href="https://lastknightcoder.github.io/lastknightcoder/ES6%EF%BC%9APromise%E4%B8%8E%E5%BC%82%E6%AD%A5%E7%BC%96%E7%A8%8B/" id="post-next" class="post-nav-link">
         <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
         <h4 class="title">ES6：Promise与异步编程</h4>
       </a>
@@ -493,12 +493,12 @@
     <div class="reward-content">
         
         <div class="reward-code">
-            <img id="rewardCode" src="https://lastknightcoder.gitee.io/img/wechatpay.png" alt="打赏二维码">
+            <img id="rewardCode" src="https://lastknightcoder.github.io/lastknightcoder/img/wechatpay.png" alt="打赏二维码">
         </div>
         
         <label class="reward-toggle">
             <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
-                data-wechat="https://lastknightcoder.gitee.io/img/wechatpay.png" data-alipay="https://lastknightcoder.gitee.io/img/alipay.png">
+                data-wechat="https://lastknightcoder.github.io/lastknightcoder/img/wechatpay.png" data-alipay="https://lastknightcoder.github.io/lastknightcoder/img/alipay.png">
             <div class="reward-toggle-ctrol">
                 <span class="reward-toggle-item wechat">微信</span>
                 <span class="reward-toggle-label"></span>
@@ -528,7 +528,7 @@
 
         <p>
             
-                <span><a href="https://lastknightcoder.gitee.io/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+                <span><a href="https://lastknightcoder.github.io/lastknightcoder/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
             
             <span>博客内容遵循 <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
         </p>
@@ -552,7 +552,7 @@
 <div class="global-share" id="globalShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://lastknightcoder.gitee.io/ES6%EF%BC%9AProxy%E5%92%8CReflect/&title=《ES6：Proxy和Reflect》 — Coder&pic=https://lastknightcoder.gitee.io/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://lastknightcoder.github.io/lastknightcoder/ES6%EF%BC%9AProxy%E5%92%8CReflect/&title=《ES6：Proxy和Reflect》 — Coder&pic=https://lastknightcoder.github.io/lastknightcoder/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -562,22 +562,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://lastknightcoder.gitee.io/ES6%EF%BC%9AProxy%E5%92%8CReflect/&title=《ES6：Proxy和Reflect》 — Coder&source=人生天地间，忽如远行客" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://lastknightcoder.github.io/lastknightcoder/ES6%EF%BC%9AProxy%E5%92%8CReflect/&title=《ES6：Proxy和Reflect》 — Coder&source=人生天地间，忽如远行客" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://lastknightcoder.gitee.io/ES6%EF%BC%9AProxy%E5%92%8CReflect/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://lastknightcoder.github.io/lastknightcoder/ES6%EF%BC%9AProxy%E5%92%8CReflect/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《ES6：Proxy和Reflect》 — Coder&url=https://lastknightcoder.gitee.io/ES6%EF%BC%9AProxy%E5%92%8CReflect/&via=https://lastknightcoder.gitee.io" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《ES6：Proxy和Reflect》 — Coder&url=https://lastknightcoder.github.io/lastknightcoder/ES6%EF%BC%9AProxy%E5%92%8CReflect/&via=https://lastknightcoder.github.io/lastknightcoder" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://lastknightcoder.gitee.io/ES6%EF%BC%9AProxy%E5%92%8CReflect/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://lastknightcoder.github.io/lastknightcoder/ES6%EF%BC%9AProxy%E5%92%8CReflect/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -588,7 +588,7 @@
 <div class="page-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACo0lEQVR42u3awU6FQAwFUP//p5+JKxMFb9upj8VhReAFe8aEDm0/PuLj9XXkd18/jvu7V8//fv0+htGBh4eH1wr9/k/m1/O7eQz5k395Ph4eHt4aL3kpJ4+7Z9zDqvFECQwPDw/vrbx8aztJA5MY8PDw8J7Puw8oefXnC4eHh4f3NF7y8d97ZVev5OeHay14eHh4Ma/aAHvC+WJ/Dw8PD2/QVU+SxH1rar5ko2jx8PDwFnjJWECvcVUdQaiOeRUKx3h4eHhHeflg02SkIGmGJQtXTU54eHh427x54z8JLk82+UJf/hIPDw9vgVcNKB8yqAY0GTX4o8GGh4eHd5RXTQzVAm5eUEi26eUxLDw8PLwFXu9T/9T1ahm3mnLw8PDwNnjVrXAv3B6pWiK5rLXg4eHhrfEmRdVeaumNUhU2+nh4eHhrvPzjP3mJV4vCk+GDP5IHHh4e3hqvOeXaGsCqhtvbauPh4eFt8+aFhurdJNwDBQs8PDy8Bd6khV/diFcLH5NRMDw8PLw93inMpJFWLUw0ixF4eHh4h3jJJjjPMPl5/vweCQ8PD2+b12vP9/DztlZ5CfDw8PCO8nrb6F6qyAPNk0pz6AoPDw9vzKumh8lvquWMPM2MatJ4eHh4MW/CTgBJuNUBhXkrDg8PD2/Cq7aaJpjqFEO1wYaHh4f3Ll61KZVvmvNk0ANH9Wk8PDy8MS8fJ81LADn1VKEBDw8P7z95r+IxLy7M22kHihF4eHh4A16vZ7T30s8HEZKCCB4eHt4er5oMqkmiR6qWOS7/b3h4eHhrvGYN42zLqphy8PDw8J7Pq25q87LF4iACHh4e3gN41cJrbwigmmwuFxQPDw9vjbfX9OoViKuxXT4TDw8Pb4HXG2yah9UbLxgx8PDw8Ka8TwSSGDyvGnqxAAAAAElFTkSuQmCC" alt="微信分享二维码">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACrElEQVR42u3awU4kMQwEUP7/p5frStBDVRyzs9LrE2Kanrw+xKacj4/4+vPX9fTp15+TJzz9Jrnz2oWHh4c3WPrX6+me17zXT3j9V8mrSdaMh4eHt83Lt/tb1Ml3JWvGw8PDe09e3gRHm3jc0OPh4eH9X7x5iJCXgdd34uHh4f1bXv7oydafL+uszODh4eH9Di9vat/n55X5Hh4eHt54qn4WwuYHDtrjBfVq8fDw8BZ4+YabLLQNHeYNerROPDw8vKu8SYB7Fra2x7BGjT4eHh7eAu9puckXtFFve4y1LR5FJIGHh4c34OWAdln5ga2ze6K2Gw8PD2+B147885D3DHkWcxyOwfDw8PAu8ZJW+wx865hCffQKDw8P7yovDwKSQVQeRkyC47x44OHh4e3x5oOuUV06okavDw8PD2+Blw+0zvC3npBHHkUkgYeHhzfgJf/8z0tC23znL/2H5+Ph4eFd5eVN81mUkEe6eWRcnK3Cw8PDW+DtRRLt0otDVG1MjIeHh3eV146U8oHZ2dLzrT9qyvHw8PDWeO3IKiFttON5RIKHh4e3x8uPNJ0dh2qD3Xpq1yYueHh4eJd48239LLrNt/v21eDh4eHt8fKBUx5bzOPa9vjC47fj4eHhLfBubdNtYcifn7TddTuOh4eHN+a1hSEPICYte1JaiqwFDw8Pb4GXb/EbTfPZC4oqHh4eHt4a74zabuUJ+PKFh4eHtwCbpBf5/QlmMsf75lM8PDy8Bd5kj52M9tsSkgy9LpcQPDw8vHLc1cYHE0xLqgsPHh4e3hovCSluTZfadjwPU4qP8fDw8H6dl4e8+Ygr/31+lAEPDw/vHXhJS90GrEnhOSwneHh4eGu8JIxoF5dv4ncPJeDh4eFt89p/+PPHJYFsWxgW53t4eHh4P//tJ6GvAyd1VJNuAAAAAElFTkSuQmCC" alt="微信分享二维码">
 </div>
 
 
@@ -596,7 +596,7 @@
 
     <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
 <script>
-var BLOG = { ROOT: 'https://lastknightcoder.gitee.io/', SHARE: true, REWARD: true };
+var BLOG = { ROOT: 'https://lastknightcoder.github.io/lastknightcoder/', SHARE: true, REWARD: true };
 
 
 </script>
