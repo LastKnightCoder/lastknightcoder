@@ -269,9 +269,7 @@
 <figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></span><br><span class="line">    &#123;&#123;message&#125;&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 
-
-接着便会解析该模板，例如上面将 `{{message}}` 替换为了 `data` 中定义的数据 `message` 的对应的值，即 `Hello World!`，解析完毕后便会渲染页面，我们便在页面上看到了 `Hello World!`。
-
+接着便会解析该模板，例如上面将 <code>{{message}}</code> 替换为了 <code>data</code> 中定义的数据 `message` 的对应的值，即 <code>Hello World!</code>，解析完毕后便会渲染页面，我们便在页面上看到了 <code>Hello World!</code>。
 
 
 <p>因为 <code>Vue</code> 对 <code>data</code> 属性中定义的数据进行了拦截，一旦我们改变对象属性的值，Vue 便会对用到该属性的模板进行解析、渲染。</p>
@@ -299,11 +297,11 @@
 <h2 id="模板语法"><a href="#模板语法" class="headerlink" title="模板语法"></a>模板语法</h2><p>本小节主要讲如何在模板中引用在 <code>data</code> 属性中定义的数据。</p>
 <h3 id="插值"><a href="#插值" class="headerlink" title="插值"></a>插值</h3>
 
-在模板中通过 `{{}}` 插值语法便可引用在 `data` 中定义的数据，正如上例中的 `{{message}}`，除此以外，`{{}}` 内部可以是任何的 JavaScript 表达式，如
+在模板中通过 <code>{{}}</code> 插值语法便可引用在 <code>data</code> 中定义的数据，正如上例中的 <code>{{message}}</code>，除此以外，<code>{{}}</code> 内部可以是任何的 JavaScript 表达式，如
 
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&#123;&#123;<span class="number">1</span> + <span class="number">2</span>&#125;&#125;</span><br><span class="line">&#123;&#123;message === <span class="string">'xxx'</span> ? <span class="string">'foo'</span> : <span class="string">'bar'</span>&#125;&#125;</span><br><span class="line">&#123;&#123;message.split(<span class="string">''</span>).reverse().join(<span class="string">''</span>)&#125;&#125;</span><br></pre></td></tr></table></figure>
 
-`{{}}` 中的内容会被解析，然后被替换为相应的内容。
+<code>{{}}</code> 中的内容会被解析，然后被替换为相应的内容。
 
 
 
