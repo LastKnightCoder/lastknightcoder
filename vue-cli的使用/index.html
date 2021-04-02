@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>vue-cli 的使用 | Coder</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Vue,框架,前端">
+    <meta name="description" content="在之前使用 Vue 的过程，我们所有的代码都是放在一个 script 标签中，所有的代码放在一起，势必会带来维护上的困难，另外，现如今的软件开发模式，都是多人协作，所有的代码都放在一起，也会给多人协作带来困扰，我们需要更加工程的方式来写 Vue 代码。 一般我们要求一个 Vue 组件对应一个以 .vue 结尾的文件，例如 &#x2F;&#x2F; Hello.vue&lt;template&gt;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vue-cli 的使用">
+<meta property="og:url" content="https://lastknightcoder.github.io/lastknightcoder/vue-cli%E7%9A%84%E4%BD%BF%E7%94%A8/">
+<meta property="og:site_name" content="Coder">
+<meta property="og:description" content="在之前使用 Vue 的过程，我们所有的代码都是放在一个 script 标签中，所有的代码放在一起，势必会带来维护上的困难，另外，现如今的软件开发模式，都是多人协作，所有的代码都放在一起，也会给多人协作带来困扰，我们需要更加工程的方式来写 Vue 代码。 一般我们要求一个 Vue 组件对应一个以 .vue 结尾的文件，例如 &#x2F;&#x2F; Hello.vue&lt;template&gt;">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/LastKnightCoder/ImgHosting2/20210401212443.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/LastKnightCoder/ImgHosting2/20210401212555.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/LastKnightCoder/ImgHosting2/20210401213214.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/LastKnightCoder/ImgHosting2/20210401213459.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/LastKnightCoder/ImgHosting2/20210401214614.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/LastKnightCoder/ImgHosting2/20210401214939.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/LastKnightCoder/ImgHosting2/20210401215201.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/LastKnightCoder/ImgHosting2/20210401215324.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/LastKnightCoder/ImgHosting2/20210401215910.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/LastKnightCoder/ImgHosting2/20210401224543.gif">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/LastKnightCoder/ImgHosting2/20210402112055.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/LastKnightCoder/ImgHosting2/20210402133949.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/LastKnightCoder/ImgHosting2/20210402134236.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/LastKnightCoder/ImgHosting2/20210402134338.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/LastKnightCoder/ImgHosting2/20210402134524.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/LastKnightCoder/ImgHosting2/20210402140435.png">
+<meta property="article:published_time" content="2021-04-01T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-04-01T16:00:00.000Z">
+<meta property="article:author" content="熊滔">
+<meta property="article:tag" content="Vue">
+<meta property="article:tag" content="框架">
+<meta property="article:tag" content="前端">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/LastKnightCoder/ImgHosting2/20210401212443.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="Coder" href="https://lastknightcoder.github.io/lastknightcoder/atom.xml">
+    
+    <link rel="shortcut icon" href="https://lastknightcoder.github.io/lastknightcoder/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(https://lastknightcoder.github.io/lastknightcoder/img/brand.jpg)">
+      <div class="brand">
+        <a href="https://lastknightcoder.github.io/lastknightcoder/" class="avatar waves-effect waves-circle waves-light">
+          <img src="https://lastknightcoder.github.io/lastknightcoder/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">熊滔</h5>
+          <a href="mailto:2223106858@qq.com" title="2223106858@qq.com" class="mail">2223106858@qq.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.github.io/lastknightcoder/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.github.io/lastknightcoder/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.github.io/lastknightcoder/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.github.io/lastknightcoder/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://gitee.com/LastKnightCoder" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">vue-cli 的使用</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">vue-cli 的使用</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2021-04-01T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2021-04-02
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="https://lastknightcoder.github.io/lastknightcoder/categories/Vue/">Vue</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#安装-vue-cli"><span class="post-toc-number">1.</span> <span class="post-toc-text">安装 vue-cli</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#创建一个项目"><span class="post-toc-number">2.</span> <span class="post-toc-text">创建一个项目</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#vue-create"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">vue-create</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#vue-ui"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">vue ui</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#简单的-Vue-项目"><span class="post-toc-number">3.</span> <span class="post-toc-text">简单的 Vue 项目</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#插件"><span class="post-toc-number">4.</span> <span class="post-toc-text">插件</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#静态路径"><span class="post-toc-number">5.</span> <span class="post-toc-text">静态路径</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#CSS"><span class="post-toc-number">6.</span> <span class="post-toc-text">CSS</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Scoped-CSS"><span class="post-toc-number">6.1.</span> <span class="post-toc-text">Scoped CSS</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Module-CSS"><span class="post-toc-number">6.2.</span> <span class="post-toc-text">Module CSS</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-vue-cli的使用"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">vue-cli 的使用</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2021-04-02 00:00:00" datetime="2021-04-01T16:00:00.000Z"  itemprop="datePublished">2021-04-02</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="https://lastknightcoder.github.io/lastknightcoder/categories/Vue/">Vue</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>在之前使用 <code>Vue</code> 的过程，我们所有的代码都是放在一个 <code>script</code> 标签中，所有的代码放在一起，势必会带来维护上的困难，另外，现如今的软件开发模式，都是多人协作，所有的代码都放在一起，也会给多人协作带来困扰，我们需要更加工程的方式来写 <code>Vue</code> 代码。</p>
+<p>一般我们要求一个 <code>Vue</code> 组件对应一个以 <code>.vue</code> 结尾的文件，例如</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; Hello.vue</span><br><span class="line">&lt;template&gt;</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">        &#123;&#123;msg&#125;&#125;</span><br><span class="line">    &lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">    data() &#123;</span><br><span class="line">        return &#123;</span><br><span class="line">            msg: &#39;Hello World!&#39;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>上面就定义了一个局部组件。</p>
+<h2 id="安装-vue-cli"><a href="#安装-vue-cli" class="headerlink" title="安装 vue-cli"></a>安装 vue-cli</h2><p>对于上述 <code>.vue</code> 文件是无法在浏览器显示的，因为浏览器只认识 <code>html, css, javascript</code> 文件，所以要使得 <code>.vue</code> 文件能够显示在浏览器，我们需要某种工具将上述代码转化为浏览器认识的形式，这就要借助于 <code>vue-cli</code>，首先对其进行下载</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install -g @vue/cli</span><br></pre></td></tr></table></figure>
+
+<p>通过 <code>vue --version</code> 可以查看所安装的 <code>vue-cli</code> 的版本</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">vue --version</span><br><span class="line">@vue/cli 4.5.12</span><br></pre></td></tr></table></figure>
+
+<p>我们可以通过 <code>vue serve</code> 快速在浏览器显示一个 <code>.vue</code> 文件，不过需要先下载一个全局扩展</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install -g @vue/cli-service-global</span><br></pre></td></tr></table></figure>
+
+<p>接着便可查看一个组件的原型(即在浏览器显示该组件)</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">vue serve Hello.vue</span><br></pre></td></tr></table></figure>
+
+<p><code>vue-cli</code> 会对 <code>Hello.vue</code> 进行一番处理，接着会在控制台打印如下信息</p>
+<img src="https://cdn.jsdelivr.net/gh/LastKnightCoder/ImgHosting2/20210401212443.png" alt="image-20210401212443197" style="zoom:50%;" />
+
+<p>我们可以在指定地址 <code>http://localhost:8080/</code> 查看该组件的原型，如下</p>
+<img src="https://cdn.jsdelivr.net/gh/LastKnightCoder/ImgHosting2/20210401212555.png" alt="image-20210401212555832" style="zoom:50%;" />
+
+<h2 id="创建一个项目"><a href="#创建一个项目" class="headerlink" title="创建一个项目"></a>创建一个项目</h2><h3 id="vue-create"><a href="#vue-create" class="headerlink" title="vue-create"></a>vue-create</h3><p>可以通过如下命令创建一个 <code>Vue</code> 项目</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">vue create 项目名</span><br></pre></td></tr></table></figure>
+
+<p>接着 <code>Vue</code> 便会提示使用何种预设(preset)</p>
+<img src="https://cdn.jsdelivr.net/gh/LastKnightCoder/ImgHosting2/20210401213214.png" alt="image-20210401213214590" style="zoom:50%;" />
+
+<p>创建的项目结构如下所示</p>
+<img src="https://cdn.jsdelivr.net/gh/LastKnightCoder/ImgHosting2/20210401213459.png" alt="image-20210401213459184" style="zoom:50%;" />
+
+<p>其中 <code>main.js</code> 便是入口文件，内容如下</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">'vue'</span></span><br><span class="line"><span class="keyword">import</span> App <span class="keyword">from</span> <span class="string">'./App.vue'</span></span><br><span class="line"></span><br><span class="line">Vue.config.productionTip = <span class="literal">false</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  render: <span class="function"><span class="params">h</span> =&gt;</span> h(App),</span><br><span class="line">&#125;).$mount(<span class="string">'#app'</span>)</span><br></pre></td></tr></table></figure>
+
+<p>就是引入了 <code>App.vue</code> 组件，并把该组件挂载在了 <code>id</code> 为 <code>app</code> 元素上，<code>App.vue</code> 的内容如下</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div id&#x3D;&quot;app&quot;&gt;</span><br><span class="line">    &lt;img alt&#x3D;&quot;Vue logo&quot; src&#x3D;&quot;.&#x2F;assets&#x2F;logo.png&quot;&gt;</span><br><span class="line">    &lt;HelloWorld msg&#x3D;&quot;Welcome to Your Vue.js App&quot;&#x2F;&gt;</span><br><span class="line">  &lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">import HelloWorld from &#39;.&#x2F;components&#x2F;HelloWorld.vue&#39;</span><br><span class="line"></span><br><span class="line">export default &#123;</span><br><span class="line">  name: &#39;App&#39;,</span><br><span class="line">  components: &#123;</span><br><span class="line">    HelloWorld</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br><span class="line"></span><br><span class="line">&lt;style&gt;</span><br><span class="line">#app &#123;</span><br><span class="line">  font-family: Avenir, Helvetica, Arial, sans-serif;</span><br><span class="line">  -webkit-font-smoothing: antialiased;</span><br><span class="line">  -moz-osx-font-smoothing: grayscale;</span><br><span class="line">  text-align: center;</span><br><span class="line">  color: #2c3e50;</span><br><span class="line">  margin-top: 60px;</span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;style&gt;</span><br></pre></td></tr></table></figure>
+
+<p><code>.vue</code> 文件由三部分组成</p>
+<ul>
+<li>template：定义模板内容</li>
+<li>script：在其中定义数据，计算属性，方法，生命周期方法等等</li>
+<li>style：定义组件样式</li>
+</ul>
+<p>在 <code>App.vue</code> 中又引入了 <code>HelloWorld.vue</code>，因为 <code>HelloWorld.vue</code> 的内容比较复杂，这里就不展示了，我们来看渲染后的页面是什么样子，在命令行输入</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm run serve</span><br></pre></td></tr></table></figure>
+
+<p>项目构建完成之后，我们便可以在 <code>http://localhost:8080/</code> 看到渲染后的页面</p>
+<img src="https://cdn.jsdelivr.net/gh/LastKnightCoder/ImgHosting2/20210401214614.png" alt="image-20210401214614127" style="zoom:50%;" />
+
+<h3 id="vue-ui"><a href="#vue-ui" class="headerlink" title="vue ui"></a>vue ui</h3><p>除了通过命令行的方式创建一个项目，我们还可以通过图形化的界面创建一个项目。在命令行中输入 <code>vue ui</code>，便会在浏览器打开一个 <code>UI</code> 界面</p>
+<img src="https://cdn.jsdelivr.net/gh/LastKnightCoder/ImgHosting2/20210401214939.png" alt="image-20210401214939237" style="zoom:50%;" />
+
+<p>点击 <code>Create</code> 来创建一个新项目</p>
+<img src="https://cdn.jsdelivr.net/gh/LastKnightCoder/ImgHosting2/20210401215201.png" alt="image-20210401215200999" style="zoom:50%;" />
+
+<p>填写完信息后，便会让你选择预设</p>
+<img src="https://cdn.jsdelivr.net/gh/LastKnightCoder/ImgHosting2/20210401215324.png" alt="image-20210401215324558" style="zoom:50%;" />
+
+<p>选择完预设后便可创建项目了，创建完项目后便可在可视化页面启动项目</p>
+<img src="https://cdn.jsdelivr.net/gh/LastKnightCoder/ImgHosting2/20210401215910.png" alt="image-20210401215909891" style="zoom:50%;" />
+
+<h2 id="简单的-Vue-项目"><a href="#简单的-Vue-项目" class="headerlink" title="简单的 Vue 项目"></a>简单的 Vue 项目</h2><p>现在我们使用 <code>.vue</code> 组件的形式来实现下面的功能</p>
+<img src="https://cdn.jsdelivr.net/gh/LastKnightCoder/ImgHosting2/20210401224543.gif" alt="1" style="zoom:50%;" />
+
+<p>这个功能在之前我们已经实现过了，主要分解为一个父组件，两个子组件</p>
+<ul>
+<li>App.vue<ul>
+<li>CourseAdd.vue</li>
+<li>CourseDisplay.vue</li>
+</ul>
+</li>
+</ul>
+<p><code>App.vue</code> 的内容如下</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div id&#x3D;&quot;app&quot;&gt;</span><br><span class="line">    &lt;CourseAdd @addCourse&#x3D;&quot;addCourse&quot;&gt;&lt;&#x2F;CourseAdd&gt;</span><br><span class="line">    &lt;CourseDisplay :courses&#x3D;&quot;courses&quot;&gt;&lt;&#x2F;CourseDisplay&gt;</span><br><span class="line">  &lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">import CourseAdd from &#39;.&#x2F;components&#x2F;CourseAdd&#39;</span><br><span class="line">import CourseDisplay from &#39;.&#x2F;components&#x2F;CourseDisplay&#39;</span><br><span class="line">export default &#123;</span><br><span class="line">    name: &#39;App&#39;,</span><br><span class="line">    components: &#123;</span><br><span class="line">      CourseAdd,</span><br><span class="line">      CourseDisplay</span><br><span class="line">    &#125;,</span><br><span class="line">    data() &#123;</span><br><span class="line">      return &#123;</span><br><span class="line">        courses: [&#39;语文&#39;, &#39;数学&#39;, &#39;英语&#39;]</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    methods: &#123;</span><br><span class="line">      addCourse(course) &#123;</span><br><span class="line">        this.courses.push(course)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>在 <code>App.vue</code> 中导入了 <code>CourseAdd</code> 与 <code>CourseDisplay</code> 两个组件，并且为 <code>CourseAdd</code> 组件绑定了自定义事件，目的是为了将数据由子组件传递到父组件，为 <code>CourseDisplay</code> 传递了 <code>courses</code> 以做展示。</p>
+<p><code>CourseAdd.vue</code> 的内容如下</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">        &lt;p&gt;&lt;input type&#x3D;&quot;text&quot; v-model&#x3D;&quot;course&quot; @keydown.enter&#x3D;&quot;addCourse&quot;&gt;&lt;&#x2F;p&gt;</span><br><span class="line">        &lt;p&gt;&lt;button @click&#x3D;&quot;addCourse&quot;&gt;添加课程&lt;&#x2F;button&gt;&lt;&#x2F;p&gt;</span><br><span class="line">    &lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">    name: &#39;CourseAdd&#39;,</span><br><span class="line">    data() &#123;</span><br><span class="line">        return &#123;</span><br><span class="line">            course: &#39;&#39;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    methods: &#123;</span><br><span class="line">        addCourse() &#123;</span><br><span class="line">            &#x2F;&#x2F; 空格以及空内容不做提交</span><br><span class="line">            if (this.course.trim() &#x3D;&#x3D;&#x3D; &#39;&#39;) &#123;</span><br><span class="line">                return;</span><br><span class="line">            &#125;</span><br><span class="line">            this.$emit(&#39;addCourse&#39;, this.course)</span><br><span class="line">            this.course &#x3D; &#39;&#39;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br><span class="line"></span><br><span class="line">&lt;style&gt;</span><br><span class="line">input &#123;</span><br><span class="line">    outline: none;</span><br><span class="line">    border: none;</span><br><span class="line">    border-bottom: 2px solid black;</span><br><span class="line">    padding: 5px 5px;</span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;style&gt;</span><br></pre></td></tr></table></figure>
+
+<p>我们为 <code>input</code> 绑定了按键事件，当我们按下 <code>enter</code> 键时就会触发 <code>addCourse</code> 方法，在 <code>addCourse</code> 方法中，我们触发了自定义事件 <code>addCourse</code> ，并且向事件传递了数据；或者当我们点击按钮时，也可触发此事件。</p>
+<p><code>CourseDisplay.vue</code> 的内容如下</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">        &lt;ul&gt;</span><br><span class="line">            &lt;li v-for&#x3D;&quot;course in courses&quot; :key&#x3D;&quot;course&quot;&gt;</span><br><span class="line">                &#123;&#123;course&#125;&#125;</span><br><span class="line">            &lt;&#x2F;li&gt;</span><br><span class="line">        &lt;&#x2F;ul&gt;</span><br><span class="line">    &lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">    name: &#39;CourseDisplay&#39;,</span><br><span class="line">    props: &#123;</span><br><span class="line">        courses: Array</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>代码十分简单，只是将父组件传入的 <code>courses</code> 进行展示。</p>
+<p>最后在 <code>main.js</code> 中引入 <code>App.vue</code> </p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">'vue'</span></span><br><span class="line"><span class="keyword">import</span> App <span class="keyword">from</span> <span class="string">'./App.vue'</span></span><br><span class="line"></span><br><span class="line">Vue.config.productionTip = <span class="literal">false</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  render: <span class="function"><span class="params">h</span> =&gt;</span> h(App),</span><br><span class="line">&#125;).$mount(<span class="string">'#app'</span>)</span><br></pre></td></tr></table></figure>
+
+<p>在命令行输入</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm run serve</span><br></pre></td></tr></table></figure>
+
+<p>即可在浏览器观察到上述动图功能。</p>
+<h2 id="插件"><a href="#插件" class="headerlink" title="插件"></a>插件</h2><p>Vue CLI 使用了一套基于插件的架构。如果你查阅一个新创建项目的 <code>package.json</code>，就会发现依赖都是以 <code>@vue/cli-plugin-</code> 开头的。插件可以修改 webpack 的内部配置，也可以向 <code>vue-cli-service</code> 注入命令。在项目创建的过程中，绝大部分列出的特性都是通过插件来实现的。</p>
+<p>我们可以通过 <code>vue add</code> 命令为项目添加一个插件</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">vue add router</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>因为 <code>vue add</code> 命令可能修改你现有的文件，所以推荐在安装插件之前，将当前项目的的最新状态提交。</p>
+</blockquote>
+<p>后续我们使用的组件库都是通过插件的方式添加的。</p>
+<blockquote>
+<p>我们也可以在 UI 页面为项目管理插件。</p>
+</blockquote>
+<h2 id="静态路径"><a href="#静态路径" class="headerlink" title="静态路径"></a>静态路径</h2><p>我们可以通过相对路径来引用静态资源文件，例如在 <code>App.vue</code> 中引用 <code>src/assets/logo.png</code></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div id&#x3D;&quot;app&quot;&gt;</span><br><span class="line">    &lt;img src&#x3D;&quot;.&#x2F;assets&#x2F;logo.png&quot; alt&#x3D;&quot;&quot;&gt;</span><br><span class="line">  &lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br></pre></td></tr></table></figure>
+
+<p>所有通过相对路径引入的资源都会被 <code>Webpack</code> 打包，对于图片资源会被放在根目录下面的 <code>img</code> 文件夹中，所以上面的引用实际上会被解析为</p>
+<img src="https://cdn.jsdelivr.net/gh/LastKnightCoder/ImgHosting2/20210402112055.png" alt="image-20210402112055792" style="zoom:50%;" />
+
+<p>我们也可以通过绝对路径来引入资源文件，因为项目 <code>public</code> 中的文件不会经过 <code>Webpack</code> 处理，而是会被直接复制到项目的根目录中，所以通过绝对路径引用的资源，就是在 <code>public</code> 文件夹中的资源。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;img src&#x3D;&quot;&#x2F;assets&#x2F;logo.png&quot; alt&#x3D;&quot;&quot;&gt;</span><br></pre></td></tr></table></figure>
+
+<p>就相当于访问 <code>public/assets/logo.png</code>。 </p>
+<p>默认情况下，<code>vue-cli</code> 假设你是部署在一个域名的根目录下，如 <code>https://www.app.com/</code>，但是如果你的项目是部署在一个子路径上，则你就需要使用 <code>publicPath</code> 指定这个子路径，例如你的应用被部署在 <code>https://www.app.com/demo/</code> 下，则应当将你的 <code>publicPath</code> 设置为 <code>/demo/</code></p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// vue.config.js</span></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    publicPath: <span class="string">'/demo/'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果通过绝对路径引入资源，则需要在 <code>data</code> 中定义 <code>publicPath</code> </p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">data() &#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    publicPath: process.env.BASE_URL，</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+
+<p>接着在修改引入方式</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;img :src&#x3D;&quot;&#96;$&#123;publicPath&#125;assets&#x2F;logo.png&#96;&quot; alt&#x3D;&quot;&quot;&gt;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>如果是通过相对路径引入的资源，则不必这么麻烦，<code>Webpack</code> 会帮我们除了好一切，我们只需要在 <code>vue.config.js</code> 中定义好 <code>publicPath</code> 即可，所以尽可能使用相对路径引入资源。</p>
+</blockquote>
+<p><code>Webpack</code> 为我们定义了一个别名，<code>@</code>，它表示项目的 <code>src</code> 目录，所以我们还可以通过下面的方式引用资源</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;img src&#x3D;&quot;@&#x2F;assets&#x2F;logo.png&quot; alt&#x3D;&quot;&quot;&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="CSS"><a href="#CSS" class="headerlink" title="CSS"></a>CSS</h2><h3 id="Scoped-CSS"><a href="#Scoped-CSS" class="headerlink" title="Scoped CSS"></a>Scoped CSS</h3><p>在组件 <code>style</code> 标签中定义的 <code>CSS</code> 其实是全局 <code>CSS</code>，它会对其他组件的样式也会产生影响，例如对于如下两个组件</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; Component1.vue</span><br><span class="line">&lt;template&gt;</span><br><span class="line">    &lt;div class&#x3D;&quot;com&quot;&gt;&lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">    name: &#39;Component1&#39;</span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br><span class="line"></span><br><span class="line">&lt;style&gt;</span><br><span class="line">.com &#123;</span><br><span class="line">    width: 100px;</span><br><span class="line">    height: 100px;</span><br><span class="line">    background-color: aqua;</span><br><span class="line">    margin-bottom: 10px;</span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;style&gt;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; Component2.vue</span><br><span class="line">&lt;template&gt;</span><br><span class="line">    &lt;div class&#x3D;&quot;com&quot;&gt;&lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">    name: &#39;Component2&#39;</span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>上面定义了两个组件，<code>Component1.vue</code> 中定义了样式，<code>Coponent2.vue</code> 中没有定义样式，但是 <code>Component1.vue</code> 中的样式是全局的，所以 <code>Component2.vue</code> 组件也会受到影响，在 <code>App.vue</code> 中使用者两个组件</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; App.vue</span><br><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div id&#x3D;&quot;app&quot;&gt;</span><br><span class="line">    &lt;component-1 &#x2F;&gt;</span><br><span class="line">    &lt;component-2 &#x2F;&gt;</span><br><span class="line">  &lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">import Component1 from &#39;.&#x2F;components&#x2F;Component1&#39;</span><br><span class="line">import Component2 from &#39;.&#x2F;components&#x2F;Componnet2&#39;</span><br><span class="line">export default &#123;</span><br><span class="line">  name: &#39;App&#39;,</span><br><span class="line">  components: &#123;</span><br><span class="line">    Component1,</span><br><span class="line">    Component2</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>运行 <code>npm run serve</code> 查看页面</p>
+<img src="https://cdn.jsdelivr.net/gh/LastKnightCoder/ImgHosting2/20210402133949.png" alt="image-20210402133949397" style="zoom:50%;" />
+
+<p>要使得 <code>Component1</code> 中的样式不影响其他组件，我们需要为 <code>style</code> 标签添加 <code>scoped</code> 属性</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;style scoped&gt;</span><br><span class="line">.com &#123;</span><br><span class="line">    width: 100px;</span><br><span class="line">    height: 100px;</span><br><span class="line">    background-color: aqua;</span><br><span class="line">    margin-bottom: 10px;</span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;style&gt;</span><br></pre></td></tr></table></figure>
+
+<p>这时在观察页面</p>
+<img src="https://cdn.jsdelivr.net/gh/LastKnightCoder/ImgHosting2/20210402134236.png" alt="image-20210402134236913" style="zoom:50%;" />
+
+<p>这时发现只有 <code>Component1.vue</code> 组件有样式。其原理是会为 <code>Component1.vue</code> 组件添加自定义属性</p>
+<img src="https://cdn.jsdelivr.net/gh/LastKnightCoder/ImgHosting2/20210402134338.png" alt="image-20210402134338820" style="zoom:50%;" />
+
+<p>上面的组件是 <code>Component1</code>，下面的组件是 <code>Component2</code>，可见 <code>Component1</code> 上有一个自定义属性 <code>data-v-04421304</code>，接着使用一个属性选择器使得样式只对 <code>Component1</code> 生效</p>
+<img src="https://cdn.jsdelivr.net/gh/LastKnightCoder/ImgHosting2/20210402134524.png" alt="image-20210402134524797" style="zoom:50%;" />
+
+<h3 id="Module-CSS"><a href="#Module-CSS" class="headerlink" title="Module CSS"></a>Module CSS</h3><p>另一种比较流行的方案是 <code>CSS in JS</code>，也就是 <code>Module CSS</code>，首先我们需要为 <code>style</code> 标签添加了 <code>module</code> 标签</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;style module&gt;</span><br><span class="line">.com &#123;</span><br><span class="line">    width: 100px;</span><br><span class="line">    height: 100px;</span><br><span class="line">    background-color: aqua;</span><br><span class="line">    margin-bottom: 10px;</span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;style&gt;</span><br></pre></td></tr></table></figure>
+
+<p>添加 <code>module</code> 属性后，组件中便会有 <code>$style</code> 这个计算属性，它是一个对象，我们可以通过 <code>$style.类名</code> 的方式为组件添加样式，例如</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">    &lt;div :class&#x3D;&quot;$style.com&quot;&gt;&lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br></pre></td></tr></table></figure>
+
+<p>实际的类名为</p>
+<img src="https://cdn.jsdelivr.net/gh/LastKnightCoder/ImgHosting2/20210402140435.png" alt="image-20210402140435126" style="zoom:50%;" />
+
+<p><code>Component1_com_2ata3</code>，它的组成为 <code>组件名_类名_哈希串</code>。</p>
+<p><code>Module CSS</code> 相对于 <code>Scoped CSS</code> 较为灵活</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;div :class&#x3D;&quot;$style.com&quot;&gt;Hello World&lt;&#x2F;div&gt;</span><br><span class="line">&lt;div :class&#x3D;&quot;[$style.com, $style.red]&quot;&gt;Hello World&lt;&#x2F;div&gt;</span><br><span class="line">&lt;div :class&#x3D;&quot;&#123;[$style.red]: isRed&#125;&quot;&gt;Hello World&lt;&#x2F;div&gt;</span><br></pre></td></tr></table></figure>
+
+<p>可以通过数据来控制是否添加类名，从而控制样式，以及我们还可以在 <code>JS</code> 中访问 <code>$style</code></p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">created() &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.$style);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><code>Module CSS</code> 与 <code>Scoped CSS</code> 并无高下之分，哪个用起来舒服便使用哪个。</p>
+</blockquote>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2021-04-01T16:00:00.000Z" itemprop="dateUpdated">2021-04-02 00:00:00</time>
+</span><br>
+
+
+        
+    </div>
+    
+    <footer>
+        <a href="https://lastknightcoder.github.io/lastknightcoder">
+            <img src="https://lastknightcoder.github.io/lastknightcoder/img/avatar.jpg" alt="熊滔">
+            熊滔
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="https://lastknightcoder.github.io/lastknightcoder/tags/Vue/" rel="tag">Vue</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="https://lastknightcoder.github.io/lastknightcoder/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="https://lastknightcoder.github.io/lastknightcoder/tags/%E6%A1%86%E6%9E%B6/" rel="tag">框架</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://lastknightcoder.github.io/lastknightcoder/vue-cli%E7%9A%84%E4%BD%BF%E7%94%A8/&title=《vue-cli 的使用》 — Coder&pic=https://lastknightcoder.github.io/lastknightcoder/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://lastknightcoder.github.io/lastknightcoder/vue-cli%E7%9A%84%E4%BD%BF%E7%94%A8/&title=《vue-cli 的使用》 — Coder&source=人生天地间，忽如远行客" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://lastknightcoder.github.io/lastknightcoder/vue-cli%E7%9A%84%E4%BD%BF%E7%94%A8/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《vue-cli 的使用》 — Coder&url=https://lastknightcoder.github.io/lastknightcoder/vue-cli%E7%9A%84%E4%BD%BF%E7%94%A8/&via=https://lastknightcoder.github.io/lastknightcoder" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://lastknightcoder.github.io/lastknightcoder/vue-cli%E7%9A%84%E4%BD%BF%E7%94%A8/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="https://lastknightcoder.github.io/lastknightcoder/Hexo%E6%B8%B2%E6%9F%93%E9%97%AE%E9%A2%98/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Hexo渲染问题</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'lastknightcoder';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="https://lastknightcoder.github.io/lastknightcoder/img/wechatpay.png" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="https://lastknightcoder.github.io/lastknightcoder/img/wechatpay.png" data-alipay="https://lastknightcoder.github.io/lastknightcoder/img/alipay.png">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="https://lastknightcoder.github.io/lastknightcoder/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>熊滔 &copy; 2019 - 2021</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://lastknightcoder.github.io/lastknightcoder/vue-cli%E7%9A%84%E4%BD%BF%E7%94%A8/&title=《vue-cli 的使用》 — Coder&pic=https://lastknightcoder.github.io/lastknightcoder/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://lastknightcoder.github.io/lastknightcoder/vue-cli%E7%9A%84%E4%BD%BF%E7%94%A8/&title=《vue-cli 的使用》 — Coder&source=人生天地间，忽如远行客" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://lastknightcoder.github.io/lastknightcoder/vue-cli%E7%9A%84%E4%BD%BF%E7%94%A8/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《vue-cli 的使用》 — Coder&url=https://lastknightcoder.github.io/lastknightcoder/vue-cli%E7%9A%84%E4%BD%BF%E7%94%A8/&via=https://lastknightcoder.github.io/lastknightcoder" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://lastknightcoder.github.io/lastknightcoder/vue-cli%E7%9A%84%E4%BD%BF%E7%94%A8/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2CAAAAADAeSUUAAADJElEQVR42u3aO3LjMBAFwL3/pbWpE9HvzdBVEtiMXLIIocFgOJ9//+Lr9eP6+cn19999kqyzX+GGCxsbG/tL2K/L69132qN5d+/1mi07sWBjY2Ofym5/pr0r+a3k3uTxJOEQGxsb+8ns65D2Cq4NeJYgYWNjY2Pnr/7JynmykayJjY2NjT17xc8Tkutg05ar2uLXDbU0bGxs7I9nz0LLZ/79J/1tbGxs7A9mv8prljbMEpKkbTxUYGNjYx/EzgPAfqzn+pjuHQNK1sHGxsY+jz0rx+flpFmIylOOujmBjY2NfQQ7b5rO2qtJCJy1eFfBDxsbG/tQdj64M7trE9I2g0HY2NjYT2DPRnby4JSXh/ZZQ/Tr2NjY2AexkzCQlOBnLdj9d1a1NGxsbOwj2LPCfZ6WbJqys2BWTCphY2NjH8Sebf06zOTBKQmWm9CFjY2NfTa7yFRGaclshU0juUhLsLGxsQ9i54Mys/rMXSWn9hCjI8bGxsY+jn1vYMubu/lgUEItjgAbGxv7y9ltUWnT+s2D0yzxSFbDxsbGPo/dFnE2wSOntm2GVUqDjY2N/eXsfNgx+TxPVNrBoFlg+yVoYWNjYx/BTo4gZ7QJQ1s2ytsMhQsbGxv7CHb7Wr9PP/LNJTvJkxBsbGzs89izRmze9N23b9sdRg8PGxsb+2j2bBxn1k6YpSub0FhvCxsbG/vj2bPX/dmRzVKaTdvgl0PBxsbGPog9K/T8RUloMzDUNpWxsbGxz2PfVeKfpRlts6Ed7iwubGxs7OPYs5LNLPi1a7aDPtjY2NinsvOG7l3lp3w8aDZCFLWrsbGxsR/DbgFtetCu2SYzb7+PjY2NfRx7U+5pS/DtdtvGcHT02NjY2EewX+U1ay1ch8lZEtK2cqPnjI2Njf2F7FmrYPYz+023beD9w8PGxsb+FnYeJGajOfum8iaAYWNjYz+H3QaGWTKTbKttP+TpUPRvbGxs7Aew9xuajQS1CUmUimBjY2M/kp1s6N7G7b7di42Njf0EdpsSbJKTvJzUhsziYWBjY2MfxG5HcNpUYd88yNOVvP2AjY2NfQT7P9Qnkc3B7AxUAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: 'https://lastknightcoder.github.io/lastknightcoder/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

@@ -21,12 +21,12 @@
     
     
     <meta name="keywords" content="Hexo,踩坑">
-    <meta name="description" content="这几天写了一篇有关于 Vue.js 的博客，在讲述插值语法时会用到 }}，但是 Hexo 博客使用的是 Nunjucks 来解析文章，内容中如果包含 {{ }} 或者 {% %} 就会发生错误      官方给出了三种解决办法  使用 raw 标签 &amp;#123;% raw %&amp;#125;将包含 &amp;#123;&amp;#123; &amp;#125;&amp;#125; 或者 &amp;#123;&amp;#123;% %&amp;#125;&amp;">
+    <meta name="description" content="这几天写了一篇有关于 Vue.js 的博客，在讲述插值语法时会用到 }}，但是 Hexo 博客使用的是 Nunjucks 来解析文章，内容中如果包含 {{ }} 或者 {% %} 就会发生错误      官方给出了三种解决办法：  使用 raw 标签 &amp;#123;% raw %&amp;#125;将包含 &amp;#123;&amp;#123; &amp;#125;&amp;#125; 或者 &amp;#123;&amp;#123;% %&amp;#125;">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Hexo渲染问题">
 <meta property="og:url" content="https://lastknightcoder.github.io/lastknightcoder/Hexo%E6%B8%B2%E6%9F%93%E9%97%AE%E9%A2%98/">
 <meta property="og:site_name" content="Coder">
-<meta property="og:description" content="这几天写了一篇有关于 Vue.js 的博客，在讲述插值语法时会用到 }}，但是 Hexo 博客使用的是 Nunjucks 来解析文章，内容中如果包含 {{ }} 或者 {% %} 就会发生错误      官方给出了三种解决办法  使用 raw 标签 &amp;#123;% raw %&amp;#125;将包含 &amp;#123;&amp;#123; &amp;#125;&amp;#125; 或者 &amp;#123;&amp;#123;% %&amp;#125;&amp;">
+<meta property="og:description" content="这几天写了一篇有关于 Vue.js 的博客，在讲述插值语法时会用到 }}，但是 Hexo 博客使用的是 Nunjucks 来解析文章，内容中如果包含 {{ }} 或者 {% %} 就会发生错误      官方给出了三种解决办法：  使用 raw 标签 &amp;#123;% raw %&amp;#125;将包含 &amp;#123;&amp;#123; &amp;#125;&amp;#125; 或者 &amp;#123;&amp;#123;% %&amp;#125;">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/LastKnightCoder/ImgHosting2/20210330000446.png">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/LastKnightCoder/ImgHosting2/20210330000543.png">
@@ -191,7 +191,7 @@
 
 <img src="https://cdn.jsdelivr.net/gh/LastKnightCoder/ImgHosting2/20210330000446.png" alt="image-20210330000446314" style="zoom:50%;" />
 
-<p>官方给出了三种解决办法</p>
+<p>官方给出了三种解决办法：</p>
 <ol>
 <li><p>使用 <code>raw</code> 标签</p>
 <figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">&#123;%<span class="built_in"> raw </span>%&#125;</span><br><span class="line">将包含 &#123;&#123; &#125;&#125; 或者 &#123;&#123;% %&#125;&#125; 的内容放在其中</span><br><span class="line">&#123;% endraw %&#125;</span><br></pre></td></tr></table></figure>
@@ -311,7 +311,14 @@
     </div>
 
     
-<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="https://lastknightcoder.github.io/lastknightcoder/vue-cli%E7%9A%84%E4%BD%BF%E7%94%A8/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">vue-cli 的使用</h4>
+      </a>
+    </div>
   
 
   
