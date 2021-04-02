@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>Node.js之Buffer | Coder</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Buffer">
+    <meta name="description" content="Buffer 是 Node.js 的内置类型，它是用来表示内存中一块区域的，它保存的是二进制数据，可以将它看做为一个二进制数组。 Buffer 可以用来表示图片、视频这样的二进制数据，另外我们从文件中读取到的也是 Buffer 类型的数据，从网络中接收的数据也是 Buffer 类型的数据，所以学习 Buffer 还是很有必要的。 Buffer 位于全局作用域中，所以不需要通过 require(&amp;#">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Node.js之Buffer">
+<meta property="og:url" content="https://lastknightcoder.github.io/lastknightcoder/Node.js%E4%B9%8BBuffer/">
+<meta property="og:site_name" content="Coder">
+<meta property="og:description" content="Buffer 是 Node.js 的内置类型，它是用来表示内存中一块区域的，它保存的是二进制数据，可以将它看做为一个二进制数组。 Buffer 可以用来表示图片、视频这样的二进制数据，另外我们从文件中读取到的也是 Buffer 类型的数据，从网络中接收的数据也是 Buffer 类型的数据，所以学习 Buffer 还是很有必要的。 Buffer 位于全局作用域中，所以不需要通过 require(&amp;#">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/LastKnightCoder/ImgHosting/20210302135327.gif">
+<meta property="article:published_time" content="2021-03-01T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-03-01T16:00:00.000Z">
+<meta property="article:author" content="熊滔">
+<meta property="article:tag" content="Buffer">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/LastKnightCoder/ImgHosting/20210302135327.gif">
+    
+        <link rel="alternate" type="application/atom+xml" title="Coder" href="https://lastknightcoder.github.io/lastknightcoder/atom.xml">
+    
+    <link rel="shortcut icon" href="https://lastknightcoder.github.io/lastknightcoder/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(https://lastknightcoder.github.io/lastknightcoder/img/brand.jpg)">
+      <div class="brand">
+        <a href="https://lastknightcoder.github.io/lastknightcoder/" class="avatar waves-effect waves-circle waves-light">
+          <img src="https://lastknightcoder.github.io/lastknightcoder/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">熊滔</h5>
+          <a href="mailto:2223106858@qq.com" title="2223106858@qq.com" class="mail">2223106858@qq.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.github.io/lastknightcoder/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.github.io/lastknightcoder/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.github.io/lastknightcoder/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.github.io/lastknightcoder/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://gitee.com/LastKnightCoder" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Node.js之Buffer</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Node.js之Buffer</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2021-03-01T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2021-03-02
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="https://lastknightcoder.github.io/lastknightcoder/categories/Node/">Node</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#创建-Buffer-对象"><span class="post-toc-number">1.</span> <span class="post-toc-text">创建 Buffer 对象</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#alloc"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">alloc</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#from"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">from</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Buffer-对象的属性"><span class="post-toc-number">2.</span> <span class="post-toc-text">Buffer 对象的属性</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#length"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">length</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#buffer"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">buffer</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#读-Buffer-对象"><span class="post-toc-number">3.</span> <span class="post-toc-text">读 Buffer 对象</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#下标"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">下标</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#readXxx"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">readXxx</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#迭代器"><span class="post-toc-number">3.3.</span> <span class="post-toc-text">迭代器</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#写-Buffer-对象"><span class="post-toc-number">4.</span> <span class="post-toc-text">写 Buffer 对象</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#下标-1"><span class="post-toc-number">4.1.</span> <span class="post-toc-text">下标</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#write"><span class="post-toc-number">4.2.</span> <span class="post-toc-text">write</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#writeXxx"><span class="post-toc-number">4.3.</span> <span class="post-toc-text">writeXxx</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#其他方法"><span class="post-toc-number">5.</span> <span class="post-toc-text">其他方法</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#isBuffer"><span class="post-toc-number">5.1.</span> <span class="post-toc-text">isBuffer</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#isEncoding"><span class="post-toc-number">5.2.</span> <span class="post-toc-text">isEncoding</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#slice"><span class="post-toc-number">5.3.</span> <span class="post-toc-text">slice</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#subarray"><span class="post-toc-number">5.4.</span> <span class="post-toc-text">subarray</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#copy"><span class="post-toc-number">5.5.</span> <span class="post-toc-text">copy</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#includes"><span class="post-toc-number">5.6.</span> <span class="post-toc-text">includes</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#indexOf"><span class="post-toc-number">5.7.</span> <span class="post-toc-text">indexOf</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#equals"><span class="post-toc-number">5.8.</span> <span class="post-toc-text">equals</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#参考文献"><span class="post-toc-number">6.</span> <span class="post-toc-text">参考文献</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-Node.js之Buffer"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Node.js之Buffer</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2021-03-02 00:00:00" datetime="2021-03-01T16:00:00.000Z"  itemprop="datePublished">2021-03-02</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="https://lastknightcoder.github.io/lastknightcoder/categories/Node/">Node</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>Buffer 是 Node.js 的内置类型，它是用来表示内存中一块区域的，它保存的是二进制数据，可以将它看做为一个二进制数组。</p>
+<p>Buffer 可以用来表示图片、视频这样的二进制数据，另外我们从文件中读取到的也是 Buffer 类型的数据，从网络中接收的数据也是 Buffer 类型的数据，所以学习 Buffer 还是很有必要的。</p>
+<p>Buffer 位于全局作用域中，所以不需要通过 <code>require(&#39;buffer&#39;)</code> 来引入 Buffer。</p>
+<h2 id="创建-Buffer-对象"><a href="#创建-Buffer-对象" class="headerlink" title="创建 Buffer 对象"></a>创建 Buffer 对象</h2><h3 id="alloc"><a href="#alloc" class="headerlink" title="alloc"></a>alloc</h3><p>我们可以通过 <code>Buffer.alloc(size, [fill], [encoding])</code> 来分配一个 <code>size</code> 字节大小的内存，还可以接收两个可选参数</p>
+<ul>
+<li>fill：使用 fill 来填充 Buffer 中的每一个字节</li>
+<li>encoding：如果 fill 为字符串，那么使用 encoding 来对字符串进行编码为二进制</li>
+</ul>
+<p>当不指定 fill 参数，默认为填充 0。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> buf1 = Buffer.alloc(<span class="number">5</span>);</span><br><span class="line"><span class="built_in">console</span>.log(buf1); <span class="comment">// &lt;Buffer 00 00 00 00 00&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> buf2 = Buffer.alloc(<span class="number">10</span>, <span class="number">1</span>);</span><br><span class="line"><span class="built_in">console</span>.log(buf2); <span class="comment">// &lt;Buffer 01 01 01 01 01 01 01 01 01 01&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> buf3 = Buffer.alloc(<span class="number">12</span>, <span class="string">"hello world!"</span>, <span class="string">"utf-8"</span>);</span><br><span class="line"><span class="built_in">console</span>.log(buf3); <span class="comment">// &lt;Buffer 68 65 6c 6c 6f 20 77 6f 72 6c 64 21&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>我们还可以使用 <code>allocUnsafe(size)</code> 来分配指定大小的内存，不过不会默认填充 0，其中的内容不确定</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> buf = Buffer.allocUnsafe(<span class="number">5</span>);</span><br><span class="line"><span class="built_in">console</span>.log(buf); <span class="comment">// &lt;Buffer c0 84 7c 2a 7b&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>我们可以通过 <code>fill(fill, encoding)</code> 方法为 Buffer 对象填充指定值</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> buf = Buffer.allocUnsafe(<span class="number">5</span>);</span><br><span class="line">buf.fill(<span class="number">0</span>);</span><br><span class="line"><span class="built_in">console</span>.log(buf); <span class="comment">// &lt;Buffer 00 00 00 00 00&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="from"><a href="#from" class="headerlink" title="from"></a>from</h3><p>我们也可以通过 <code>Buffer.from()</code> 方法来创建一个 Buffer 对象，<code>from</code> 方法可以接收的参数包括数组，字符串，Buffer 对象，对象等类型。</p>
+<p>接收一个整形数组，数组中的整数应该在 <code>0~255</code> 之间，超出此范围的数字将会被截断</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> buf = Buffer.from([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>]);</span><br><span class="line"><span class="built_in">console</span>.log(buf); <span class="comment">// &lt;Buffer 01 02 03 04 05&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>我们还可以像其中传入一个字符串，并指定编码，它会使用指定编码将字符串编码为二进制，如果不指定编码的话，默认为编码为 <code>utf-8</code></p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> buf = Buffer.from(<span class="string">"hello"</span>, <span class="string">"utf-8"</span>);</span><br><span class="line"><span class="built_in">console</span>.log(buf); <span class="comment">// &lt;Buffer 68 65 6c 6c 6f&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><code>from</code> 方法还可以接收一个 Buffer 对象，它会拷贝传入的 Buffer 对象中的数据到新的 Buffer 对象中</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> buf1 = Buffer.from(<span class="string">"hello"</span>, <span class="string">"utf-8"</span>);</span><br><span class="line"><span class="keyword">const</span> buf2 = Buffer.from(buf1);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(buf1 === buf2); <span class="comment">// false</span></span><br><span class="line"><span class="built_in">console</span>.log(buf2.toString()); <span class="comment">// hello</span></span><br></pre></td></tr></table></figure>
+
+<p><code>from</code> 方法还可以接收一个对象，当传入对象，首先会将对象转化为原始值，然后根据原始值转化为对应的二进制数组</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> obj = &#123;</span><br><span class="line">  [<span class="built_in">Symbol</span>.toPrimitive](hint) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"a"</span>;</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> buf = Buffer.from(obj);</span><br><span class="line"><span class="built_in">console</span>.log(buf.toString()); <span class="comment">// a</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Buffer-对象的属性"><a href="#Buffer-对象的属性" class="headerlink" title="Buffer 对象的属性"></a>Buffer 对象的属性</h2><h3 id="length"><a href="#length" class="headerlink" title="length"></a>length</h3><p>通过 length 属性可以知道 Buffer 数组的长度</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> buf = Buffer.from(<span class="string">"Hello World!"</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(buf.length); <span class="comment">// 12</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="buffer"><a href="#buffer" class="headerlink" title="buffer"></a>buffer</h3><p>Buffer 对象内部实际存储数据的是一个 ArrayBuffer 的对象，通过 buffer 属性可以得到这个对象</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> buf = Buffer.alloc(<span class="number">5</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(buf.buffer); <span class="comment">// ArrayBuffer &#123; [Uint8Contents]: &lt;00 00 00 00 00&gt;, byteLength: 5 &#125;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="读-Buffer-对象"><a href="#读-Buffer-对象" class="headerlink" title="读 Buffer 对象"></a>读 Buffer 对象</h2><p>本节介绍如何访问 Buffer 对象中的内容。</p>
+<h3 id="下标"><a href="#下标" class="headerlink" title="下标"></a>下标</h3><p>在文章的开头提过，我们可以将 Buffer 对象看做是一个二进制数组，既然是数组，那么就可以通过下标的形式来访问数组中的内容。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> buf = Buffer.from([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>]);</span><br><span class="line"><span class="built_in">console</span>.log(buf[<span class="number">0</span>]); <span class="comment">// 1</span></span><br><span class="line"><span class="built_in">console</span>.log(buf[<span class="number">5</span>]); <span class="comment">// undefined</span></span><br></pre></td></tr></table></figure>
+
+<p>它们会以补码的形式解析字节，返回对应的数字。</p>
+<h3 id="readXxx"><a href="#readXxx" class="headerlink" title="readXxx"></a>readXxx</h3><p>我们还可以通过 <code>buf.readInt8()</code> <code>buf.readInt16()</code> <code>buf.readUint8()</code> <code>buf.readUint16()</code> 等方法来访问 Buffer 对象中的内容。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> buf = Buffer.from([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>]);</span><br><span class="line"><span class="built_in">console</span>.log(buf.readInt8(<span class="number">2</span>)); <span class="comment">// 3</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 访问超出范围的内容，会抛出 RangeError</span></span><br><span class="line"><span class="built_in">console</span>.log(buf.readInt8(<span class="number">5</span>)); <span class="comment">// RangeError [ERR_OUT_OF_RANGE]: The value of "offset" is out of range.</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="迭代器"><a href="#迭代器" class="headerlink" title="迭代器"></a>迭代器</h3><p>Buffer 对象的迭代器同数组的迭代器相同，也有三个迭代器，分别是</p>
+<ul>
+<li>entries</li>
+<li>keys</li>
+<li>values</li>
+</ul>
+<p>我们通过遍历迭代器来访问 Buffer 对象中的内容。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> buf = Buffer.from([<span class="number">3</span>, <span class="number">4</span>, <span class="number">2</span>]);</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> entry <span class="keyword">of</span> buf.entries()) &#123;</span><br><span class="line">  <span class="comment">// 数组的一个元素为下标，第二个元素为下标对应的元素</span></span><br><span class="line">  <span class="built_in">console</span>.log(entry); <span class="comment">// [ 0, 3 ]</span></span><br><span class="line">  <span class="comment">// [ 1, 4 ]</span></span><br><span class="line">  <span class="comment">// [ 2, 2 ]</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> key <span class="keyword">of</span> buf.keys()) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(key); <span class="comment">// 0</span></span><br><span class="line">  <span class="comment">// 1</span></span><br><span class="line">  <span class="comment">// 2</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> value <span class="keyword">of</span> buf.values()) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(value); <span class="comment">// 3</span></span><br><span class="line">  <span class="comment">// 4</span></span><br><span class="line">  <span class="comment">// 2</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="写-Buffer-对象"><a href="#写-Buffer-对象" class="headerlink" title="写 Buffer 对象"></a>写 Buffer 对象</h2><p>本小节讲解如何向 Buffer 对象中写入内容。</p>
+<h3 id="下标-1"><a href="#下标-1" class="headerlink" title="下标"></a>下标</h3><p>我们可以直接通过下标来改变 Buffer 对象中的内容</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> buf = Buffer.from([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 通过下标设置值</span></span><br><span class="line">buf[<span class="number">0</span>] = <span class="number">4</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(buf); <span class="comment">// &lt;Buffer 04 02 03&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="write"><a href="#write" class="headerlink" title="write"></a>write</h3><p>我们可以通过 <code>write(string, [offset], [length], [encoding])</code> 方法向 Buffer 中写入字符串：</p>
+<ul>
+<li>string：表示要写入的字符串</li>
+<li>offset：偏移量，即跳过 offset 个字节开始写入，默认为 0</li>
+<li>length：要写入的最大字节数，不超过 <code>buf.length - offset</code>，默认值为 <code>buf.length - offset</code></li>
+<li>encoding：指定编码，默认为 <code>utf-8</code></li>
+</ul>
+<p>该方法返回已写入的字节数。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> buf = Buffer.from([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>]);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 跳过 1 个字节开始写入，1hi4</span></span><br><span class="line">buf.write(<span class="string">"hi"</span>, <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(buf); <span class="comment">// &lt;Buffer 01 68 69 04&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="writeXxx"><a href="#writeXxx" class="headerlink" title="writeXxx"></a>writeXxx</h3><p>同 readXxx，我们可以通过 <code>writeInt8()</code> 方法向 buf 中写入数据，方法接收两个参数：</p>
+<ul>
+<li>value：要写入的值</li>
+<li>offset：偏移量，默认为 0</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> buf = Buffer.alloc(<span class="number">5</span>);</span><br><span class="line"></span><br><span class="line">buf.writeInt8(<span class="number">1</span>, <span class="number">0</span>);</span><br><span class="line">buf.writeInt8(<span class="number">3</span>, <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(buf); <span class="comment">// &lt;Buffer 01 03 00 00 00&gt;</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>踩坑：没有 <code>writeInt16()</code>，不过有 <code>writeInt16BE()</code> 与 <code>writeInt16LE()</code>，分别代表以大端序、小端序写入</p>
+</blockquote>
+<h2 id="其他方法"><a href="#其他方法" class="headerlink" title="其他方法"></a>其他方法</h2><h3 id="isBuffer"><a href="#isBuffer" class="headerlink" title="isBuffer"></a>isBuffer</h3><p>该方法接收一个对象，用来判断该对象是不是一个 Buffer 对象</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> obj1 = &#123;&#125;;</span><br><span class="line"><span class="keyword">let</span> obj2 = Buffer.alloc(<span class="number">3</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(Buffer.isBuffer(obj1)); <span class="comment">// false</span></span><br><span class="line"><span class="built_in">console</span>.log(Buffer.isBuffer(obj2)); <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="isEncoding"><a href="#isEncoding" class="headerlink" title="isEncoding"></a>isEncoding</h3><p>该方法接收一个代表编码的字符串，返回 Buffer 是否支持该种编码，如果支持则返回 true，否则返回 false</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(Buffer.isEncoding(<span class="string">"utf-8"</span>)); <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(Buffer.isEncoding(<span class="string">"utf8"</span>)); <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(Buffer.isEncoding(<span class="string">"hex"</span>)); <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(Buffer.isEncoding(<span class="string">"latin"</span>)); <span class="comment">// false</span></span><br><span class="line"><span class="built_in">console</span>.log(Buffer.isEncoding(<span class="string">"gbk"</span>)); <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="slice"><a href="#slice" class="headerlink" title="slice"></a>slice</h3><p><code>slice(start, end)</code> 可以裁切原有的 Buffer 对象，返回一个新的 Buffer 对象，其中 start 和 end 代表裁切的起始位置和结束位置，左闭右开 [start, end)，这两个参数是可选的，start 默认为 0，end 默认为 <code>buf.length</code>。返回的 Buffer 对象与原先对象引用的是同一块内存，即它们的 buffer 属性是一样的。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> buffer = Buffer.from(<span class="string">"hello world!"</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> newBuffer = buffer.slice(<span class="number">6</span>); <span class="comment">// 裁切 6 以后的内容到新数组</span></span><br><span class="line"><span class="built_in">console</span>.log(newBuffer.toString()); <span class="comment">// world!</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(buffer.buffer === newBuffer.buffer); <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="subarray"><a href="#subarray" class="headerlink" title="subarray"></a>subarray</h3><p><code>subarray(start, end)</code> 几乎可以看做等同于 <code>slice</code> 方法了，二者的语义不同，不过行为确实一致的，subarray 的语义表示返回原数组的某个范围的子数组，而 slice 的语义表示的裁切。同样 subarray 返回新的 Buffer 对象，并且返回的 Buffer 对象的 buffer 与原 Buffer 对象的 buffer 属性是相同的。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> buffer = Buffer.from(<span class="string">"hello world!"</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> newBuffer = buffer.subarray(<span class="number">6</span>);</span><br><span class="line"><span class="built_in">console</span>.log(newBuffer.toString()); <span class="comment">// world!</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(buffer.buffer === newBuffer.buffer); <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="copy"><a href="#copy" class="headerlink" title="copy"></a>copy</h3><p><code>copy(target, [targetStart], [sourceStart], [sourceEnd])</code> 方法是将 source 从 sourceStart 到 sourceEnd 的内容复制到 target 从 targetStart 的位置，见下动图</p>
+<img src="https://cdn.jsdelivr.net/gh/LastKnightCoder/ImgHosting/20210302135327.gif" style="zoom: 50%"/>
+
+<p>除了 target 以外，其他三个参数都是可选参数，targetStart 与 sourceStart 的默认值为 0，sourceEnd 的默认值为 <code>buf.length</code>.</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> buf1 = Buffer.from(<span class="string">"HelloWorld"</span>);</span><br><span class="line"><span class="keyword">const</span> buf2 = Buffer.alloc(<span class="number">8</span>);</span><br><span class="line"></span><br><span class="line">buf1.copy(buf2, <span class="number">0</span>, <span class="number">1</span>, <span class="number">9</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(buf2.toString()); <span class="comment">// elloWorl</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="includes"><a href="#includes" class="headerlink" title="includes"></a>includes</h3><p><code>buf.includes(value, [offset], [encoding])</code> 方法的作用是判断 value 是否在 <code>buf</code> 中。</p>
+<p>value 可以是一个字符串，也可以是一个 Buffer 对象，也可以是一个整数；offset 用来规定查找范围，表示从 offset 处开始查找，默认为 0；enconding 表示编码，默认为 <code>utf-8</code>。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> buf = Buffer.from(<span class="string">"HelloWorld"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 默认从 0 开始搜索</span></span><br><span class="line"><span class="built_in">console</span>.log(buf.includes(<span class="string">"H"</span>)); <span class="comment">// true</span></span><br><span class="line"><span class="comment">// 从 1 开始搜索，后面不包含 H</span></span><br><span class="line"><span class="built_in">console</span>.log(buf.includes(<span class="string">"H"</span>, <span class="number">1</span>)); <span class="comment">// false</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(buf.includes(Buffer.from(<span class="string">"Hello"</span>))); <span class="comment">// true</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// H 对应的 utf-8 编码为 72</span></span><br><span class="line"><span class="built_in">console</span>.log(buf.includes(<span class="number">72</span>)); <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="indexOf"><a href="#indexOf" class="headerlink" title="indexOf"></a>indexOf</h3><p><code>buf.indexOf(value, [offset], [encoding])</code> 是用来查找 value 在 buf 中的下标的，参数的含义同 includes 方法相同，如果在 buf 找不到 value，那么会返回 <code>-1</code>，所以 <code>includes(value)</code> 方法其实就相当于 <code>indexOf(value) !== -1</code></p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> buf = Buffer.from(<span class="string">"HelloWorld"</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(buf.indexOf(<span class="string">"H"</span>)); <span class="comment">// 0</span></span><br><span class="line"><span class="built_in">console</span>.log(buf.indexOf(<span class="string">"H"</span>, <span class="number">1</span>)); <span class="comment">// -1</span></span><br><span class="line"><span class="built_in">console</span>.log(buf.indexOf(Buffer.from(<span class="string">"World"</span>))); <span class="comment">// 5</span></span><br><span class="line"><span class="built_in">console</span>.log(buf.indexOf(<span class="number">72</span>)); <span class="comment">// 0</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="equals"><a href="#equals" class="headerlink" title="equals"></a>equals</h3><p><code>buf.equals(otherBuffer)</code> 是比较两个 Buffer 对象的字节是否完全相同，如果相同，则返回 <code>true</code>，否则返回 <code>false</code></p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> buf1 = Buffer.alloc(<span class="number">5</span>);</span><br><span class="line"><span class="keyword">const</span> buf2 = Buffer.alloc(<span class="number">5</span>);</span><br><span class="line"><span class="keyword">const</span> buf3 = Buffer.allocUnsafe(<span class="number">5</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(buf1.equals(buf2)); <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(buf1.equals(buf3)); <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><ul>
+<li><a href="http://nodejs.cn/api/buffer.html" target="_blank" rel="noopener">Buffer|Node.js 文档</a></li>
+</ul>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2021-03-01T16:00:00.000Z" itemprop="dateUpdated">2021-03-02 00:00:00</time>
+</span><br>
+
+
+        
+    </div>
+    
+    <footer>
+        <a href="https://lastknightcoder.github.io/lastknightcoder">
+            <img src="https://lastknightcoder.github.io/lastknightcoder/img/avatar.jpg" alt="熊滔">
+            熊滔
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="https://lastknightcoder.github.io/lastknightcoder/tags/Buffer/" rel="tag">Buffer</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://lastknightcoder.github.io/lastknightcoder/Node.js%E4%B9%8BBuffer/&title=《Node.js之Buffer》 — Coder&pic=https://lastknightcoder.github.io/lastknightcoder/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://lastknightcoder.github.io/lastknightcoder/Node.js%E4%B9%8BBuffer/&title=《Node.js之Buffer》 — Coder&source=人生天地间，忽如远行客" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://lastknightcoder.github.io/lastknightcoder/Node.js%E4%B9%8BBuffer/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Node.js之Buffer》 — Coder&url=https://lastknightcoder.github.io/lastknightcoder/Node.js%E4%B9%8BBuffer/&via=https://lastknightcoder.github.io/lastknightcoder" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://lastknightcoder.github.io/lastknightcoder/Node.js%E4%B9%8BBuffer/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="https://lastknightcoder.github.io/lastknightcoder/ES6%EF%BC%9A%E8%BF%AD%E4%BB%A3%E5%99%A8%E5%92%8C%E7%94%9F%E6%88%90%E5%99%A8/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">ES6：迭代器与生成器</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="https://lastknightcoder.github.io/lastknightcoder/Node.js%E4%B9%8BMongoDB/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Node.js之MongoDB</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'lastknightcoder';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="https://lastknightcoder.github.io/lastknightcoder/img/wechatpay.png" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="https://lastknightcoder.github.io/lastknightcoder/img/wechatpay.png" data-alipay="https://lastknightcoder.github.io/lastknightcoder/img/alipay.png">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="https://lastknightcoder.github.io/lastknightcoder/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>熊滔 &copy; 2019 - 2021</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://lastknightcoder.github.io/lastknightcoder/Node.js%E4%B9%8BBuffer/&title=《Node.js之Buffer》 — Coder&pic=https://lastknightcoder.github.io/lastknightcoder/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://lastknightcoder.github.io/lastknightcoder/Node.js%E4%B9%8BBuffer/&title=《Node.js之Buffer》 — Coder&source=人生天地间，忽如远行客" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://lastknightcoder.github.io/lastknightcoder/Node.js%E4%B9%8BBuffer/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Node.js之Buffer》 — Coder&url=https://lastknightcoder.github.io/lastknightcoder/Node.js%E4%B9%8BBuffer/&via=https://lastknightcoder.github.io/lastknightcoder" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://lastknightcoder.github.io/lastknightcoder/Node.js%E4%B9%8BBuffer/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACtUlEQVR42u3aQW7DMAwEwP7/0+0Dgri7IhXkMDkViGtrVMBil/z5iT+/L5/Xb99d/3zl5ClrHzw8PLzx0l8fkDwyWfq7uyVLf3eH503Bw8PDu8dLbpf8XDw4YLRbiYeHh/fNvBYzORjy6/Hw8PC+k5cv4jmqyDfuowcDHh4eXszLb30WE+yWy1eyFjw8PLxpJrAQTNz7+Up/Dw8PD2/cVU+aYUnhm7+yn4vyerV4eHh4F3hbQUM7cNBGt6MNwsPDw1vlPS83aVwlWzBvm7XBLh4eHt493m5pO7/ybBNHIQUeHh5eyWuHpc4aZvnSz5pb/8QQeHh4eKu89mBIhqiS1/1kNGGh14eHh4e3ymuPirYgno8pJFu2VmTj4eHhxZXnJM84CxGen5WspNhQPDw8vAEvH6s6e0zbYEvCheJ6PDw8vAu8rWWdfds+cSG6xcPDw1vitYNQyXjB5BhIjqt8DXh4eHi7vLaxdFbO5mXx5JBY6Jvh4eHhxQHuVlWehxqTIYN6nXh4eHgXeJN2/lmkexbRnrXZ8PDw8HZ58zGmHNZe+QyLmnN4eHh4F3jt/+9nj8mHEiZlcT1ThoeHh3e05knbqY1l88hjEmcUnT08PDy88YRSW0CfFb6TA2MSc+Dh4eHt8vLXehtV5HfIi/V6PXh4eHjXeFuFdbL0rVCjmCzDw8PDu8ZrX9D5qMEkjGj/GHh4eHif5OWLbkOK9kVfd+2ewwg8PDy8Jd7Zv/dn7a4cM4+G8fDw8O7xJudJ/nLPF5c8Md8sPDw8vHu89jBom1JJodxGycXBg4eHh3eNl0QM80GoszI9ObTqr/Hw8PA+zsvvMFn62VgYHh4e3vfz2nA2iR6SEKQYHcDDw8O7wMuDgPx4aEPb/NioDwY8PDy8VV5b1Oav5uS3tkrqhf4eHh4e3v+8PwN05CmrUJ6gAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: 'https://lastknightcoder.github.io/lastknightcoder/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

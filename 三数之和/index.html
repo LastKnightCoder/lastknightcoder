@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>三数之和 | Coder</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="leetcode">
+    <meta name="description" content="题目描述给你一个包含 $n$ 个整数的数组 nums，判断 nums 中是否存在三个元素 $a$，$b$，$c$ ，使得 $a + b + c &#x3D; 0$ 。请你找出所有和为 $0$ 且不重复的三元组。  注意：答案中不可以包含重复的三元组。    解题思路如果只是单纯的三数之和，那么就是一道很简单的题，首先对数组进行排序，接着固定一个数，然后在剩下的数中查找有无两个数字与这个固定的数字加起来为 $">
+<meta property="og:type" content="article">
+<meta property="og:title" content="三数之和">
+<meta property="og:url" content="https://lastknightcoder.github.io/lastknightcoder/%E4%B8%89%E6%95%B0%E4%B9%8B%E5%92%8C/">
+<meta property="og:site_name" content="Coder">
+<meta property="og:description" content="题目描述给你一个包含 $n$ 个整数的数组 nums，判断 nums 中是否存在三个元素 $a$，$b$，$c$ ，使得 $a + b + c &#x3D; 0$ 。请你找出所有和为 $0$ 且不重复的三元组。  注意：答案中不可以包含重复的三元组。    解题思路如果只是单纯的三数之和，那么就是一道很简单的题，首先对数组进行排序，接着固定一个数，然后在剩下的数中查找有无两个数字与这个固定的数字加起来为 $">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/20210318161415.png">
+<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/20210318164312.png">
+<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/20210318164513.png">
+<meta property="article:published_time" content="2021-03-17T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-03-17T16:00:00.000Z">
+<meta property="article:author" content="熊滔">
+<meta property="article:tag" content="leetcode">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/20210318161415.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="Coder" href="https://lastknightcoder.github.io/lastknightcoder/atom.xml">
+    
+    <link rel="shortcut icon" href="https://lastknightcoder.github.io/lastknightcoder/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(https://lastknightcoder.github.io/lastknightcoder/img/brand.jpg)">
+      <div class="brand">
+        <a href="https://lastknightcoder.github.io/lastknightcoder/" class="avatar waves-effect waves-circle waves-light">
+          <img src="https://lastknightcoder.github.io/lastknightcoder/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">熊滔</h5>
+          <a href="mailto:2223106858@qq.com" title="2223106858@qq.com" class="mail">2223106858@qq.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.github.io/lastknightcoder/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.github.io/lastknightcoder/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.github.io/lastknightcoder/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.github.io/lastknightcoder/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://gitee.com/LastKnightCoder" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">三数之和</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">三数之和</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2021-03-17T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2021-03-18
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="https://lastknightcoder.github.io/lastknightcoder/categories/LeetCode/">LeetCode</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#题目描述"><span class="post-toc-number">1.</span> <span class="post-toc-text">题目描述</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#解题思路"><span class="post-toc-number">2.</span> <span class="post-toc-text">解题思路</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#参考链接"><span class="post-toc-number">3.</span> <span class="post-toc-text">参考链接</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#三数之和"><span class="post-toc-number">3.0.1.</span> <span class="post-toc-text">三数之和</span></a></li></ol></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-三数之和"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">三数之和</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2021-03-18 00:00:00" datetime="2021-03-17T16:00:00.000Z"  itemprop="datePublished">2021-03-18</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="https://lastknightcoder.github.io/lastknightcoder/categories/LeetCode/">LeetCode</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p>给你一个包含 $n$ 个整数的数组 nums，判断 nums 中是否存在三个元素 $a$，$b$，$c$ ，使得 $a + b + c = 0$ 。请你找出所有和为 $0$ 且不重复的三元组。</p>
+<blockquote>
+<p>注意：答案中不可以包含重复的三元组。</p>
+</blockquote>
+<img src="https://gitee.com/lastknightcoder/blogimage/raw/master/20210318161415.png" style="zoom:50%;" />
+
+<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>如果只是单纯的三数之和，那么就是一道很简单的题，首先对数组进行排序，接着固定一个数，然后在剩下的数中查找有无两个数字与这个固定的数字加起来为 $0$，有则找到一对，使用双指针即可，具体可以参考<a href="https://lastknightcoder.github.io/lastknightcoder/%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/">两数之和</a>。但是题目要求找到<strong>所有</strong>的<strong>不重复</strong>的三元组，这就使得题目有点不一样了。正是因为在这里耗费了大量的时间，我才决定将此题记录下来。</p>
+<p>一开始我的想法就是先找到所有的三元组，然后去重。找到所有的三元组容易，但是去重难，一开始我想使用 <code>Set</code> 集合进行去重。但是因为每一个三元组都是一个 <code>List</code> 集合，去重比较的是地址值，所以直接添加 <code>List</code> 集合到 <code>Set</code> 集合中是无法去重。因此我产生了一个大胆的想法，因为它比较的是地址值，所以我想写一个类继承 <code>List</code> 类，然后重写它的 <code>hashCode</code> 与 <code>equals</code> 方法(我不知道 <code>Set</code> 是不是靠这两个判重的)，但是最后还是失败了。</p>
+<p>后来我就去看题解，但是因为陷入了牛角尖，无法理解，觉得人家讲的不对，后来我就试图复现人家的代码，因为代码是根据别人的思路，但是按照自己的理解写的，所以写的不对，通过对比人家的代码，发现有一个地方写错了，这个地方正是我陷入误区的地方，所以通过纠正我就明白别人的算法，也就明白了如何去重。</p>
+<p><strong>算法去重的核心就是如果当前固定的数与上一个数相同，那么就跳过这个数。</strong>我一开始不理解的原因有两个：</p>
+<ol>
+<li>没有意识到题目要求所有的三元组，而我之前的算法还是两数之和的逻辑，找到一个符合条件的三元组则结束，这就导致我没有意识到<strong>每一次都会找到所有与固定数有关的所有三元组</strong>，这就意味着下面那个数如果与它之前的数相同的话，它就没有查找的必要，否则就会重复。</li>
+<li>另一个原因就是我看成了如果下一个数与当前数相同，则跳过当前数，直接来到下一个数，这个算法肯定是错的，怪自己没有看清</li>
+</ol>
+<p>另一个有可能重复的情况，先举个例子，给定数组 <code>[-1, 0, 0, 1, 1 ]</code>，首先固定数 <code>-1</code></p>
+<img src="https://gitee.com/lastknightcoder/blogimage/raw/master/20210318164312.png" style="zoom:50%;" />
+
+<p>此时我们找到了一个三元组 <code>[-1, 0, 1]</code> 使得三数之和为 $0$，但是因为要找到所有的三元组，所以要继续寻找</p>
+<img src="https://gitee.com/lastknightcoder/blogimage/raw/master/20210318164513.png" style="zoom:50%;" />
+
+<p>这时我们发现又找到一个三元组 <code>[-1, 0, 1]</code>，但是我们发现这个三元组与之前那个三元组重复了，其重复的原因就是 <code>nums[start] == nums[start + 1] || nums[end] == nums[end - 1]</code>，所以我们只要遇到上述情况直接跳过当前数，例如当 <code>nums[start] == nums[start + 1]</code> 的时候，直接 <code>start++</code>。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> List&lt;List&lt;Integer&gt;&gt; threeSum(<span class="keyword">int</span>[] nums) &#123;</span><br><span class="line">        List&lt;List&lt;Integer&gt;&gt; results = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        <span class="keyword">if</span> (nums.length &lt; <span class="number">3</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> results;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 首先进行排序</span></span><br><span class="line">        Arrays.sort(nums);</span><br><span class="line"></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.length; i++) &#123;</span><br><span class="line">            <span class="keyword">int</span> target = nums[i];</span><br><span class="line">            </span><br><span class="line">            <span class="comment">// 因为是升序，如果当前的数 &gt; 0，说明后面的数全大于 0，不可能加起来为 0</span></span><br><span class="line">            <span class="keyword">if</span> (target &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 不足三个数，break</span></span><br><span class="line">            <span class="keyword">if</span> (i + <span class="number">2</span> &gt;= nums.length) &#123;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 如果当前数与前一个数相同，防止重复，跳过</span></span><br><span class="line">            <span class="keyword">if</span> (i &gt; <span class="number">0</span> &amp;&amp; nums[i - <span class="number">1</span>] == nums[i]) <span class="keyword">continue</span>;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">int</span> start = i + <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">int</span> end = nums.length - <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">while</span> (start &lt; end) &#123;</span><br><span class="line">                <span class="keyword">if</span> (nums[start] + nums[end] + target == <span class="number">0</span>) &#123;</span><br><span class="line">                    List&lt;Integer&gt; res = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">                    res.add(target);</span><br><span class="line">                    res.add(nums[start]);</span><br><span class="line">                    res.add(nums[end]);</span><br><span class="line">                    results.add(res);</span><br><span class="line"></span><br><span class="line">                    <span class="comment">// 防止重复</span></span><br><span class="line">                    <span class="keyword">while</span> (start &lt; end &amp;&amp; nums[start] == nums[start + <span class="number">1</span>]) start++;</span><br><span class="line">                    <span class="keyword">while</span> (start &lt; end &amp;&amp; nums[end] == nums[end - <span class="number">1</span>]) end--;</span><br><span class="line"></span><br><span class="line">                    start++;</span><br><span class="line">                    end--;</span><br><span class="line"></span><br><span class="line">                &#125; <span class="keyword">else</span> <span class="keyword">if</span> (nums[start] + nums[end] + target &lt; <span class="number">0</span>) &#123;</span><br><span class="line">                    start++;</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    end--;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> results;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><ul>
+<li><h4 id="三数之和"><a href="#三数之和" class="headerlink" title="三数之和"></a><a href="https://leetcode-cn.com/problems/3sum/" target="_blank" rel="noopener">三数之和</a></h4></li>
+</ul>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2021-03-17T16:00:00.000Z" itemprop="dateUpdated">2021-03-18 00:00:00</time>
+</span><br>
+
+
+        
+    </div>
+    
+    <footer>
+        <a href="https://lastknightcoder.github.io/lastknightcoder">
+            <img src="https://lastknightcoder.github.io/lastknightcoder/img/avatar.jpg" alt="熊滔">
+            熊滔
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="https://lastknightcoder.github.io/lastknightcoder/tags/leetcode/" rel="tag">leetcode</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://lastknightcoder.github.io/lastknightcoder/%E4%B8%89%E6%95%B0%E4%B9%8B%E5%92%8C/&title=《三数之和》 — Coder&pic=https://lastknightcoder.github.io/lastknightcoder/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://lastknightcoder.github.io/lastknightcoder/%E4%B8%89%E6%95%B0%E4%B9%8B%E5%92%8C/&title=《三数之和》 — Coder&source=人生天地间，忽如远行客" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://lastknightcoder.github.io/lastknightcoder/%E4%B8%89%E6%95%B0%E4%B9%8B%E5%92%8C/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《三数之和》 — Coder&url=https://lastknightcoder.github.io/lastknightcoder/%E4%B8%89%E6%95%B0%E4%B9%8B%E5%92%8C/&via=https://lastknightcoder.github.io/lastknightcoder" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://lastknightcoder.github.io/lastknightcoder/%E4%B8%89%E6%95%B0%E4%B9%8B%E5%92%8C/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="https://lastknightcoder.github.io/lastknightcoder/%E5%90%88%E5%B9%B6K%E4%B8%AA%E5%8D%87%E5%BA%8F%E9%93%BE%E8%A1%A8/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">合并K个升序链表</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="https://lastknightcoder.github.io/lastknightcoder/%E7%BD%97%E9%A9%AC%E6%95%B0%E5%AD%97%E4%B8%8E%E6%95%B0%E5%AD%97%E7%9A%84%E8%BD%AC%E6%8D%A2/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">罗马数字与数字的转换</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'lastknightcoder';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="https://lastknightcoder.github.io/lastknightcoder/img/wechatpay.png" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="https://lastknightcoder.github.io/lastknightcoder/img/wechatpay.png" data-alipay="https://lastknightcoder.github.io/lastknightcoder/img/alipay.png">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="https://lastknightcoder.github.io/lastknightcoder/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>熊滔 &copy; 2019 - 2021</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://lastknightcoder.github.io/lastknightcoder/%E4%B8%89%E6%95%B0%E4%B9%8B%E5%92%8C/&title=《三数之和》 — Coder&pic=https://lastknightcoder.github.io/lastknightcoder/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://lastknightcoder.github.io/lastknightcoder/%E4%B8%89%E6%95%B0%E4%B9%8B%E5%92%8C/&title=《三数之和》 — Coder&source=人生天地间，忽如远行客" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://lastknightcoder.github.io/lastknightcoder/%E4%B8%89%E6%95%B0%E4%B9%8B%E5%92%8C/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《三数之和》 — Coder&url=https://lastknightcoder.github.io/lastknightcoder/%E4%B8%89%E6%95%B0%E4%B9%8B%E5%92%8C/&via=https://lastknightcoder.github.io/lastknightcoder" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://lastknightcoder.github.io/lastknightcoder/%E4%B8%89%E6%95%B0%E4%B9%8B%E5%92%8C/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2CAAAAADAeSUUAAADPElEQVR42u3awXLiQAwEUP7/p9nrVm0g3RJs4eH5lErw2G84KFLP7RZf93+u2+L6e4XnK+d/vb3jwsbGxr4I+/70evSARw979Jlk5edrzlZ7uDI2Njb2cewZIPnk85Vz2PMy1j4RGxsbGztvG/alsS1g2NjY2NhJYWgfPHvi83L1XwsYNjY29sezkzLTthOzZqOd5L99loaNjY398exZNPuZP78l38bGxsb+YPa9vNoh0ax4JEU0L1o/rIaNjY19ELsdA+UlJBn95MOgNqhI1sHGxsY+iZ0MfYaLLqKFWYhbtyvY2NjYF2e3sPxozmysn0e8s6j4hw4MGxsb+wj2vvo9HyHlsfFrw+CHv8fGxsY+iJ2Uq/xf/7yMzQpSGwzkzRI2Njb2GexZlJufh5m1K3kZm/0GGxsb++rsKDdYBLez7Zu1NPVJJWxsbOyD2LObZ6/bvno+tCrCDGxsbOyD2JsRfDKEmm1fcc5oMerCxsbGPoO9bxhmJSrfrPZQThEJYGNjYx/B3gyJ2magDX1ftSnDoBcbGxv74uz2CE4+SNo0J+3Y6PnmYmNjY38DO49+N+VtHxsnvKKAYWNjY1+Q3Zao9wW3eUszCwlWlRkbGxv7g9mzhmQWEmyGSjNS1ORgY2NjX5ydl5+isxkVqv0Aq/iesbGxsY9g56Fpfvgmf7lX3bU6fImNjY19cXb77/ssTN3EDPtn1aMlbGxs7Eux8+My+TAoiWbzYdaG9/BtsbGxsQ9l55FA+3LtSGgTUURfGDY2NvaXsdtjMbNCOHticgzoBbM0bGxs7A9mJ6Oi/YA+D3HfsXG/nE7CxsbGPoi9aS3yZmATCczalYd3YWNjYx/Kng30k8M9bdy7XwcbGxv729jt4ZjNkCgvh21EUWw9NjY29hHse3nNSHmJyjelbVcefs/Y2NjYF2e3xSApckXUGtw1a1fatgobGxv76uy8SLQFpj2UMzsMlBc2bGxs7LPZrxrZtyUq36y2tfjlM9jY2NjY5YC+bXja0CIpXS8rYNjY2NiHsmeHe/KwYXMXNjY29jewN2FqPkjatBltoPvLytjY2NgHsWdNRT7WycPgfbtSFDBsbGzsE9h/ACE47pp1u+8wAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: 'https://lastknightcoder.github.io/lastknightcoder/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

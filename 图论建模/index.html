@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>图论建模 | Coder</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="算法,数据结构,图论">
+    <meta name="description" content="现实中有很多的问题可以建模为图论问题，然后使用 DFS 与 BFS 算法轻松的解决，现在我们打算从 LeetCode 选择几道题，来了解如何将现实问题建模为图论问题。 二分图检测题目介绍给定一个无向图graph，当这个图为二分图时返回true。如果我们能将一个图的节点集合分割成两个独立的子集 A 和 B，并使图中的每一条边的两个节点一个来自 A 集合，一个来自 B 集合，我们就将这个图称为二分图。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="图论建模">
+<meta property="og:url" content="https://lastknightcoder.github.io/lastknightcoder/%E5%9B%BE%E8%AE%BA%E5%BB%BA%E6%A8%A1/">
+<meta property="og:site_name" content="Coder">
+<meta property="og:description" content="现实中有很多的问题可以建模为图论问题，然后使用 DFS 与 BFS 算法轻松的解决，现在我们打算从 LeetCode 选择几道题，来了解如何将现实问题建模为图论问题。 二分图检测题目介绍给定一个无向图graph，当这个图为二分图时返回true。如果我们能将一个图的节点集合分割成两个独立的子集 A 和 B，并使图中的每一条边的两个节点一个来自 A 集合，一个来自 B 集合，我们就将这个图称为二分图。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://user-images.githubusercontent.com/29890094/105479121-0a960b80-5cdf-11eb-9eac-8bc9271ff960.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/29890094/105491696-ae88b280-5cf1-11eb-8684-0cb5b9716d32.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/29890094/105468824-5d1cfb00-5cd2-11eb-8c13-1c95a843b10e.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/29890094/105468989-95243e00-5cd2-11eb-8731-ec3d7b256b6c.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/29890094/105474823-a45aba00-5cd9-11eb-99e8-0467bd4329a8.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/29890094/105567448-eb45bf80-5d6c-11eb-88ca-2f10d779b653.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/29890094/105567482-221bd580-5d6d-11eb-8da0-642643a4b13f.png">
+<meta property="article:published_time" content="2021-01-22T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-01-22T16:00:00.000Z">
+<meta property="article:author" content="熊滔">
+<meta property="article:tag" content="算法">
+<meta property="article:tag" content="数据结构">
+<meta property="article:tag" content="图论">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://user-images.githubusercontent.com/29890094/105479121-0a960b80-5cdf-11eb-9eac-8bc9271ff960.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="Coder" href="https://lastknightcoder.github.io/lastknightcoder/atom.xml">
+    
+    <link rel="shortcut icon" href="https://lastknightcoder.github.io/lastknightcoder/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(https://lastknightcoder.github.io/lastknightcoder/img/brand.jpg)">
+      <div class="brand">
+        <a href="https://lastknightcoder.github.io/lastknightcoder/" class="avatar waves-effect waves-circle waves-light">
+          <img src="https://lastknightcoder.github.io/lastknightcoder/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">熊滔</h5>
+          <a href="mailto:2223106858@qq.com" title="2223106858@qq.com" class="mail">2223106858@qq.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.github.io/lastknightcoder/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.github.io/lastknightcoder/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.github.io/lastknightcoder/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.github.io/lastknightcoder/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://gitee.com/LastKnightCoder" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">图论建模</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">图论建模</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2021-01-22T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2021-01-23
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="https://lastknightcoder.github.io/lastknightcoder/categories/Algorithms/">Algorithms</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#二分图检测"><span class="post-toc-number">1.</span> <span class="post-toc-text">二分图检测</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#题目介绍"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">题目介绍</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#解题思路"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">解题思路</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#岛屿的最大面积"><span class="post-toc-number">2.</span> <span class="post-toc-text">岛屿的最大面积</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#题目介绍-1"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">题目介绍</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#解题思路-1"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">解题思路</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#二进制矩阵中的最短路径"><span class="post-toc-number">3.</span> <span class="post-toc-text">二进制矩阵中的最短路径</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#题目介绍-2"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">题目介绍</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#解题思路-2"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">解题思路</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#打开转盘锁"><span class="post-toc-number">4.</span> <span class="post-toc-text">打开转盘锁</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#题目介绍-3"><span class="post-toc-number">4.1.</span> <span class="post-toc-text">题目介绍</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#解题思路-3"><span class="post-toc-number">4.2.</span> <span class="post-toc-text">解题思路</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#倒水智力题"><span class="post-toc-number">5.</span> <span class="post-toc-text">倒水智力题</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#滑动谜题"><span class="post-toc-number">6.</span> <span class="post-toc-text">滑动谜题</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#题目介绍-4"><span class="post-toc-number">6.1.</span> <span class="post-toc-text">题目介绍</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#解题思路-4"><span class="post-toc-number">6.2.</span> <span class="post-toc-text">解题思路</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-图论建模"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">图论建模</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2021-01-23 00:00:00" datetime="2021-01-22T16:00:00.000Z"  itemprop="datePublished">2021-01-23</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="https://lastknightcoder.github.io/lastknightcoder/categories/Algorithms/">Algorithms</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>现实中有很多的问题可以建模为图论问题，然后使用 DFS 与 BFS 算法轻松的解决，现在我们打算从 LeetCode 选择几道题，来了解如何将现实问题建模为图论问题。</p>
+<h2 id="二分图检测"><a href="#二分图检测" class="headerlink" title="二分图检测"></a><a href="https://leetcode-cn.com/problems/is-graph-bipartite/" target="_blank" rel="noopener">二分图检测</a></h2><h3 id="题目介绍"><a href="#题目介绍" class="headerlink" title="题目介绍"></a>题目介绍</h3><p>给定一个无向图graph，当这个图为二分图时返回true。如果我们能将一个图的节点集合分割成两个独立的子集 A 和 B，并使图中的每一条边的两个节点一个来自 A 集合，一个来自 B 集合，我们就将这个图称为二分图。</p>
+<p>graph 将会以邻接表方式给出，graph[i] 表示图中与节点 i 相连的所有节点。每个节点都是一个在 0 到<code>graph.length-1</code> 之间的整数。这图中没有自环和平行边： graph[i] 中不存在 i，并且 graph[i] 中没有重复的值。</p>
+<img src="https://user-images.githubusercontent.com/29890094/105479121-0a960b80-5cdf-11eb-9eac-8bc9271ff960.png" style="zoom:50%;" />
+
+<p>注意:</p>
+<ul>
+<li>graph 的长度范围为 [1, 100]。</li>
+<li>graph[i] 中的元素的范围为 <code>[0, graph.length - 1]</code>。</li>
+<li>graph[i] 不会包含 i 或者有重复的值。</li>
+<li>图是无向的: 如果 j 在 graph[i] 里边, 那么 i 也会在 graph[j] 里边。</li>
+</ul>
+<h3 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h3><p>这道题的解法是对图中的节点染色，我们使用 DFS 遍历该图，如果当前节点的颜色为红色，那么就将它未访问过的相邻的节点染为绿色，如果当前节点颜色为绿色，就将未访问过的相邻节点染为红色，根据颜色来区分两个集合。</p>
+<p>因为一条边连接的两个节点属于两个不同的几个集合，所以一条边连接的两个节点的颜色是不同的，如果我们在遍历的过程中发现已被访问过的相邻的节点的颜色与当前节点的颜色相同，说明它不符合二分图的定义，不是一个二分图；如果遍历图中所有的联通分量，都没有产生矛盾，说明这个图就是一个二分图。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">boolean</span>[] visited;</span><br><span class="line">    <span class="comment">// true 表示红色，false 表示绿色，默认为绿色</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">boolean</span>[] colors;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isBipartite</span><span class="params">(<span class="keyword">int</span>[][] graph)</span> </span>&#123;</span><br><span class="line">        visited = <span class="keyword">new</span> <span class="keyword">boolean</span>[graph.length];</span><br><span class="line">        colors = <span class="keyword">new</span> <span class="keyword">boolean</span>[graph.length];</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 遍历所有的联通分量</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; graph.length; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (!visited[i]) &#123;</span><br><span class="line">                <span class="keyword">if</span> (!dfs(i, graph)) &#123;</span><br><span class="line">                    <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// dfs 返回一个布尔值，用以当不为二分图时提前终止遍历</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> v, <span class="keyword">int</span>[][] graph)</span> </span>&#123;</span><br><span class="line">        visited[v] = <span class="keyword">true</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> w: graph[v]) &#123;</span><br><span class="line">            <span class="comment">// 如果未访问过，染为相反的颜色</span></span><br><span class="line">            <span class="keyword">if</span> (!visited[w]) &#123;</span><br><span class="line">                colors[w] = !colors[v];</span><br><span class="line">                <span class="comment">// 继续遍历</span></span><br><span class="line">                <span class="keyword">if</span> (!dfs(w, graph)) <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">            <span class="comment">// 如果已放访问过，且相邻节点颜色相同，不是二分图</span></span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (visited[w] &amp;&amp; colors[w] == colors[v]) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 未发现矛盾，为二分图</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="岛屿的最大面积"><a href="#岛屿的最大面积" class="headerlink" title="岛屿的最大面积"></a><a href="https://leetcode-cn.com/problems/max-area-of-island/" target="_blank" rel="noopener">岛屿的最大面积</a></h2><h3 id="题目介绍-1"><a href="#题目介绍-1" class="headerlink" title="题目介绍"></a>题目介绍</h3><p>给定一个包含了一些 0 和 1 的非空二维数组 grid 。一个岛屿是由一些相邻的 1 (代表土地) 构成的组合，这里的「相邻」要求两个 1 必须在<strong>水平或者竖直</strong>方向上相邻。你可以假设 grid 的四个边缘都被 0 (代表水) 包围着。</p>
+<p>找到给定的二维数组中最大的岛屿面积(如果没有岛屿，则返回面积为 0 )。</p>
+<img src="https://user-images.githubusercontent.com/29890094/105491696-ae88b280-5cf1-11eb-8684-0cb5b9716d32.png" style="zoom:50%;" />
+
+<p>注意: 给定的矩阵grid 的长度和宽度都不超过 50。</p>
+<h3 id="解题思路-1"><a href="#解题思路-1" class="headerlink" title="解题思路"></a>解题思路</h3><p>我们将这个矩阵看做是一个图，矩阵中所有的 1 就是一个个的节点，如果两个 1 是垂直或者水平相邻的，那么就可以认为它们被一条边连着，即在一个联通分量中，而我们的任务就是找出包含节点最多的联通分量，并返回节点数目。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Arrays;</span><br><span class="line"><span class="keyword">import</span> java.util.stream.Collectors;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> rows;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> columns;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">boolean</span>[][] visited;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span>[][] grid;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">maxAreaOfIsland</span><span class="params">(<span class="keyword">int</span>[][] grid)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 因为题目没说 grid 不为空，所以下面是对 grid 的一些校验</span></span><br><span class="line">        <span class="keyword">if</span> (grid == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">this</span>.rows = grid.length;</span><br><span class="line">        <span class="keyword">if</span> (rows == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">this</span>.columns = grid[<span class="number">0</span>].length;</span><br><span class="line">        <span class="keyword">if</span> (columns == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">this</span>.grid = grid;</span><br><span class="line">        <span class="keyword">this</span>.visited = <span class="keyword">new</span> <span class="keyword">boolean</span>[rows][columns];</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 最大岛屿数目</span></span><br><span class="line">        <span class="keyword">int</span> max = <span class="number">0</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> row = <span class="number">0</span>; row &lt; rows; row++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> column = <span class="number">0</span>; column &lt; columns; column++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (!visited[row][column] &amp;&amp; grid[row][column] == <span class="number">1</span>) &#123;</span><br><span class="line">                    <span class="comment">// dfs 返回的所在联通分量的节点数目</span></span><br><span class="line">                    max = Math.max(max, dfs(row, column));</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> max;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 表示以 [row, column] 为起点进行 DFS 遍历所在联通分量包含的节点数目</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> row,<span class="keyword">int</span> column)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> count = <span class="number">1</span>;</span><br><span class="line">        visited[row][column] = <span class="keyword">true</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span>[] w: adj(row, column)) &#123;</span><br><span class="line">            <span class="keyword">int</span> nextRow = w[<span class="number">0</span>];</span><br><span class="line">            <span class="keyword">int</span> nextColumn = w[<span class="number">1</span>];</span><br><span class="line">            <span class="keyword">if</span> (grid[nextRow][nextColumn] == <span class="number">0</span>) &#123;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (!visited[nextRow][nextColumn]) &#123;</span><br><span class="line">                count += dfs(nextRow, nextColumn);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> count;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 获得当前节点四个方向上的相邻节点</span></span><br><span class="line">    <span class="keyword">private</span> Iterable&lt;<span class="keyword">int</span>[]&gt; adj(<span class="keyword">int</span> row, <span class="keyword">int</span> column) &#123;</span><br><span class="line">        <span class="keyword">int</span>[][] dirs = &#123;&#123;-<span class="number">1</span>, <span class="number">0</span>&#125;, &#123;<span class="number">0</span>, -<span class="number">1</span>&#125;, &#123;<span class="number">0</span>, <span class="number">1</span>&#125;, &#123;<span class="number">1</span>, <span class="number">0</span>&#125;&#125;;</span><br><span class="line">        <span class="keyword">return</span> Arrays.stream(dirs)</span><br><span class="line">                .map(dir -&gt; <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;dir[<span class="number">0</span>] + row, dir[<span class="number">1</span>] + column&#125;)</span><br><span class="line">                .filter(item -&gt; item[<span class="number">0</span>] &lt; rows &amp;&amp; item[<span class="number">0</span>] &gt;= <span class="number">0</span> &amp;&amp; item[<span class="number">1</span>] &lt; columns &amp;&amp; item[<span class="number">1</span>] &gt;= <span class="number">0</span>)</span><br><span class="line">                .collect(Collectors.toList());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="二进制矩阵中的最短路径"><a href="#二进制矩阵中的最短路径" class="headerlink" title="二进制矩阵中的最短路径"></a><a href="https://leetcode-cn.com/problems/shortest-path-in-binary-matrix/" target="_blank" rel="noopener">二进制矩阵中的最短路径</a></h2><h3 id="题目介绍-2"><a href="#题目介绍-2" class="headerlink" title="题目介绍"></a>题目介绍</h3><p>在一个 $N \times N$ 的方形网格中，每个单元格有两种状态：空（0）或者阻塞（1）。现在我们的目标是从 $(0, 0)$ 到达 $(N-1, N-1)$，即从左上角到达右下角，而我们的目标是寻找一条<strong>最短</strong>路径，并且返回这条路径的长度。如果无法从左上角达到右下角，则返回 -1。</p>
+<p>每个单元格有 8 种可能的方向</p>
+<img src="https://user-images.githubusercontent.com/29890094/105468824-5d1cfb00-5cd2-11eb-8c13-1c95a843b10e.png" width="20%"/>
+
+<p>下面给出一个示例</p>
+<img src="https://user-images.githubusercontent.com/29890094/105468989-95243e00-5cd2-11eb-8731-ec3d7b256b6c.png" style="zoom:50%;" >
+
+<h3 id="解题思路-2"><a href="#解题思路-2" class="headerlink" title="解题思路"></a>解题思路</h3><p>我们将方格看做是一个图，方格中所有的 0 看做是图一个节点，如果两个 0 在各自的 8 个方向之中，就说明这两个节点之间有一条边。为了求得最短路径，我们需要从左上角这个节点进行 BFS，使用 <code>dis[i][j]</code> 记录  $(i, j)$ 距离 $(0, 0)$ 的距离，所以 $dis[N-1][N-1]$ 也就表示从左上角到达右下角的最短路径。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Arrays;</span><br><span class="line"><span class="keyword">import</span> java.util.LinkedList;</span><br><span class="line"><span class="keyword">import</span> java.util.Queue;</span><br><span class="line"><span class="keyword">import</span> java.util.stream.Collectors;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">boolean</span>[][] visited;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span>[][] dis;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> rows;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> columns;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">shortestPathBinaryMatrix</span><span class="params">(<span class="keyword">int</span>[][] grid)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.rows = grid.length;</span><br><span class="line">        <span class="keyword">this</span>.columns = grid[<span class="number">0</span>].length;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (grid[<span class="number">0</span>][<span class="number">0</span>] == <span class="number">1</span> || grid[rows - <span class="number">1</span>][columns - <span class="number">1</span>] == <span class="number">1</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (rows == <span class="number">1</span> &amp;&amp; grid[rows][columns] == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        dis = <span class="keyword">new</span> <span class="keyword">int</span>[rows][columns];</span><br><span class="line">        visited = <span class="keyword">new</span> <span class="keyword">boolean</span>[rows][columns];</span><br><span class="line"></span><br><span class="line">        Queue&lt;<span class="keyword">int</span>[]&gt; queue = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line">        queue.add(<span class="keyword">new</span> <span class="keyword">int</span>[]&#123;<span class="number">0</span>, <span class="number">0</span>&#125;);</span><br><span class="line">        visited[<span class="number">0</span>][<span class="number">0</span>] = <span class="keyword">true</span>;</span><br><span class="line">        dis[<span class="number">0</span>][<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> (!queue.isEmpty()) &#123;</span><br><span class="line">            <span class="keyword">int</span>[] location = queue.remove();</span><br><span class="line">            <span class="keyword">int</span> row = location[<span class="number">0</span>];</span><br><span class="line">            <span class="keyword">int</span> column = location[<span class="number">1</span>];</span><br><span class="line"></span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span>[] nextLocation: adj(row, column)) &#123;</span><br><span class="line">                <span class="keyword">int</span> nextRow = nextLocation[<span class="number">0</span>];</span><br><span class="line">                <span class="keyword">int</span> nextColumn = nextLocation[<span class="number">1</span>];</span><br><span class="line">                <span class="keyword">if</span> (!visited[nextRow][nextColumn] &amp;&amp; grid[nextRow][nextColumn] == <span class="number">0</span>) &#123;</span><br><span class="line">                    queue.add(<span class="keyword">new</span> <span class="keyword">int</span>[]&#123;nextRow, nextColumn&#125;);</span><br><span class="line">                    visited[nextRow][nextColumn] = <span class="keyword">true</span>;</span><br><span class="line">                    dis[nextRow][nextColumn] = dis[row][column] + <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">                    <span class="keyword">if</span> (nextRow == rows - <span class="number">1</span> &amp;&amp; nextColumn == columns - <span class="number">1</span>) &#123;</span><br><span class="line">                        <span class="keyword">return</span> dis[nextRow][nextColumn];</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Iterable&lt;<span class="keyword">int</span>[]&gt; adj(<span class="keyword">int</span> row, <span class="keyword">int</span> column) &#123;</span><br><span class="line">        <span class="keyword">int</span>[][] dirs = &#123;&#123;-<span class="number">1</span>, <span class="number">0</span>&#125;, &#123;<span class="number">0</span>, -<span class="number">1</span>&#125;, &#123;<span class="number">0</span>, <span class="number">1</span>&#125;, &#123;<span class="number">1</span>, <span class="number">0</span>&#125;,</span><br><span class="line">                &#123;<span class="number">1</span>, <span class="number">1</span>&#125;, &#123;-<span class="number">1</span>, <span class="number">1</span>&#125;, &#123;<span class="number">1</span>, -<span class="number">1</span>&#125;, &#123;-<span class="number">1</span>, -<span class="number">1</span>&#125;&#125;;</span><br><span class="line">        <span class="keyword">return</span> Arrays.stream(dirs)</span><br><span class="line">                .map(dir -&gt; <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;dir[<span class="number">0</span>] + row, dir[<span class="number">1</span>] + column&#125;)</span><br><span class="line">                .filter(item -&gt; item[<span class="number">0</span>] &lt; rows &amp;&amp; item[<span class="number">0</span>] &gt;= <span class="number">0</span> &amp;&amp; item[<span class="number">1</span>] &lt; columns &amp;&amp; item[<span class="number">1</span>] &gt;= <span class="number">0</span>)</span><br><span class="line">                .collect(Collectors.toList());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="打开转盘锁"><a href="#打开转盘锁" class="headerlink" title="打开转盘锁"></a><a href="https://leetcode-cn.com/problems/open-the-lock/" target="_blank" rel="noopener">打开转盘锁</a></h2><h3 id="题目介绍-3"><a href="#题目介绍-3" class="headerlink" title="题目介绍"></a>题目介绍</h3><p>你有一个带有四个圆形拨轮的转盘锁。每个拨轮都有10个数字： ‘0’, ‘1’, ‘2’, ‘3’, ‘4’, ‘5’, ‘6’, ‘7’, ‘8’, ‘9’ 。每个拨轮可以自由旋转：例如把 ‘9’ 变为  ‘0’，’0’ 变为 ‘9’ 。每次旋转都只能旋转一个拨轮的一位数字。</p>
+<p>锁的初始数字为 ‘0000’ ，一个代表四个拨轮的数字的字符串。列表 <code>deadends</code> 包含了一组死亡数字，一旦拨轮的数字和列表里的任何一个元素相同，这个锁将会被永久锁定，无法再被旋转。字符串 target 代表可以解锁的数字，你需要给出最小的旋转次数，如果无论如何不能解锁，返回 -1。</p>
+<img src="https://user-images.githubusercontent.com/29890094/105474823-a45aba00-5cd9-11eb-99e8-0467bd4329a8.png" style="zoom: 50%;" />
+
+<h3 id="解题思路-3"><a href="#解题思路-3" class="headerlink" title="解题思路"></a>解题思路</h3><p>我们把密码锁的一种组合称之为一种状态，例如 0000 这个组合表示的就是一种状态，现在我们的模板是将 0000 这种状态转变到 target 表示的状态，并且要求步骤最少。</p>
+<p>我们可以把一种状态建模为图中的顶点，如果一个状态能够转变为另一种状态，我们就说这两个状态表示的节点之间存在一条边。对于密码锁来说，每一个拨轮可以前后滚动，共有四个拨轮，这意味着一个状态最多与 8 个状态相邻(考虑到 <code>deadends</code>，少于 8 个)，所以我们只要从 0000 这个状态开始 BFS 遍历，即可找到最少到 target 的拨动次数。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"><span class="keyword">import</span> java.util.stream.Collectors;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">openLock</span><span class="params">(String[] deadends, String target)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="string">"0000"</span>.equals(target)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        HashSet&lt;String&gt; deadSet = <span class="keyword">new</span> HashSet&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; deadends.length; i++) &#123;</span><br><span class="line">            deadSet.add(deadends[i]);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (deadSet.contains(<span class="string">"0000"</span>))&#123;</span><br><span class="line">            <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        HashSet&lt;String&gt; visited = <span class="keyword">new</span> HashSet&lt;&gt;();</span><br><span class="line">        HashMap&lt;String, Integer&gt; dis = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        Queue&lt;String&gt; queue = <span class="keyword">new</span> LinkedList();</span><br><span class="line">        queue.add(<span class="string">"0000"</span>);</span><br><span class="line">        visited.add(<span class="string">"0000"</span>);</span><br><span class="line">        dis.put(<span class="string">"0000"</span>, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> (!queue.isEmpty()) &#123;</span><br><span class="line">            String state = queue.remove();</span><br><span class="line">            <span class="keyword">for</span> (String nextState: adj(state, deadSet)) &#123;</span><br><span class="line">                <span class="keyword">if</span> (!visited.contains(nextState)) &#123;</span><br><span class="line">                    queue.add(nextState);</span><br><span class="line">                    visited.add(nextState);</span><br><span class="line">                    dis.put(nextState, dis.get(state) + <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">                    <span class="keyword">if</span> (target.equals(nextState)) &#123;</span><br><span class="line">                        <span class="keyword">return</span> dis.get(nextState);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> Iterable&lt;String&gt; <span class="title">adj</span><span class="params">(String state, HashSet&lt;String&gt; deadSet)</span> </span>&#123;</span><br><span class="line">        ArrayList&lt;String&gt; list = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">4</span>; i++) &#123;</span><br><span class="line">            <span class="keyword">char</span>[] chars = state.toCharArray();</span><br><span class="line">            <span class="keyword">char</span> s = chars[i];</span><br><span class="line">            chars[i] = Character.forDigit((chars[i] - <span class="string">'0'</span> + <span class="number">1</span>) % <span class="number">10</span>, <span class="number">10</span>);</span><br><span class="line">            list.add(<span class="keyword">new</span> String(chars));</span><br><span class="line">            chars[i] = s;</span><br><span class="line">            chars[i] = Character.forDigit((chars[i] - <span class="string">'0'</span> - <span class="number">1</span> + <span class="number">10</span>) % <span class="number">10</span>, <span class="number">10</span>);</span><br><span class="line">            list.add(<span class="keyword">new</span> String(chars));</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> list.stream().filter(s -&gt; !deadSet.contains(s)).collect(Collectors.toList());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="倒水智力题"><a href="#倒水智力题" class="headerlink" title="倒水智力题"></a>倒水智力题</h2><p>有两个桶，一个能装 5 升水，一个能装 3 升水，如何得到 4 升水?</p>
+<p>这道题还是将状态看做是一个图的节点，如果状态之间能够互相转变，就说状态之前有一条边。我们定义状态 <code>&lt;x,y&gt;</code> 表示第一个桶有 <code>x</code> 升水，第二个桶有 <code>y</code> 升水。那么 <code>&lt;x, y&gt; </code> 与哪些状态是相连的呢，分为六种情况：</p>
+<ul>
+<li>倒空第一桶水：<code>&lt;x, y&gt; =&gt; &lt;0, y&gt;</code></li>
+<li>倒空第二桶水：<code>&lt;x, y&gt; =&gt; &lt;x, 0&gt;</code></li>
+<li>加满第一桶水：<code>&lt;x, y&gt; =&gt; &lt;5, y&gt;</code></li>
+<li>加满第二桶水：<code>&lt;x, y&gt; =&gt; &lt;x, 3&gt;</code></li>
+<li>第二桶水倒入第一桶水：<ul>
+<li>$x + y \geq 5$：<code>&lt;x, y&gt; =&gt; &lt;5, x + y - 5&gt;</code></li>
+<li>$x + y &lt; 5$：<code>&lt;x, y&gt; =&gt; &lt;x + y, 0&gt;</code></li>
+</ul>
+</li>
+<li>第一桶水倒入第二桶水：<ul>
+<li>$x + y \geq 3$：<code>&lt;x, y&gt; =&gt; &lt;x + y - 3, 3&gt;</code></li>
+<li>$x + y &lt; 3$：<code>&lt;x, y&gt; =&gt; &lt;0, x + y&gt;</code></li>
+</ul>
+</li>
+</ul>
+<p>我们使用一个两位数表示一个状态，十位数表示第一个桶中有多少升水，个位数表示第二个桶中有多少升水，例如 23 表示第一个桶中有 2 升水，第二个桶中有 3 升水。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WaterPuzzle</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Iterable&lt;Integer&gt; <span class="title">waterPuzzle</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        HashSet&lt;Integer&gt; visited = <span class="keyword">new</span> HashSet&lt;&gt;();</span><br><span class="line">        HashMap&lt;Integer, Integer&gt;  pre = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        Queue&lt;Integer&gt; queue = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line"></span><br><span class="line">        queue.add(<span class="number">0</span>);</span><br><span class="line">        visited.add(<span class="number">0</span>);</span><br><span class="line">        pre.put(<span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 保存最后找到的结果</span></span><br><span class="line">        <span class="keyword">int</span> endState = <span class="number">0</span>;</span><br><span class="line">        <span class="comment">// 用以跳出 while 循环</span></span><br><span class="line">        <span class="keyword">boolean</span> flag = <span class="keyword">false</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">while</span> (!queue.isEmpty()) &#123;</span><br><span class="line">            <span class="keyword">int</span> state = queue.remove();</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> nextState: adj(state)) &#123;</span><br><span class="line">                <span class="keyword">if</span> (!visited.contains(nextState)) &#123;</span><br><span class="line">                    visited.add(nextState);</span><br><span class="line">                    queue.add(nextState);</span><br><span class="line">                    pre.put(nextState, state);</span><br><span class="line">                    <span class="keyword">if</span> (nextState / <span class="number">10</span> == <span class="number">4</span> || nextState % <span class="number">10</span> == <span class="number">4</span>) &#123;</span><br><span class="line">                        endState = nextState;</span><br><span class="line">                        flag = <span class="keyword">true</span>;</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (flag) &#123;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        ArrayList&lt;Integer&gt; result = <span class="keyword">new</span> ArrayList();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> cur = endState;</span><br><span class="line">        result.add(cur);</span><br><span class="line">        <span class="keyword">while</span> (pre.get(cur) != <span class="number">0</span>) &#123;</span><br><span class="line">            cur = pre.get(cur);</span><br><span class="line">            result.add(cur);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        Collections.reverse(result);</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> Iterable&lt;Integer&gt; <span class="title">adj</span><span class="params">(<span class="keyword">int</span> state)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> first = state / <span class="number">10</span>;</span><br><span class="line">        <span class="keyword">int</span> second = state % <span class="number">10</span>;</span><br><span class="line"></span><br><span class="line">        Set&lt;Integer&gt; set = <span class="keyword">new</span> HashSet&lt;&gt;();</span><br><span class="line">        set.add(second);</span><br><span class="line">        set.add(first*<span class="number">10</span>);</span><br><span class="line">        set.add(<span class="number">5</span>*<span class="number">10</span> + second);</span><br><span class="line">        set.add(first * <span class="number">10</span> + <span class="number">3</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (first + second &gt;= <span class="number">5</span>) &#123;</span><br><span class="line">            set.add(<span class="number">5</span> * <span class="number">10</span> + (first + second) - <span class="number">5</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            set.add((first + second) * <span class="number">10</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (first + second &gt;= <span class="number">3</span>) &#123;</span><br><span class="line">            set.add((first + second - <span class="number">3</span>) * <span class="number">10</span> + <span class="number">3</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            set.add(first + second);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> ArrayList&lt;&gt;(set);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        WaterPuzzle waterPuzzle = <span class="keyword">new</span> WaterPuzzle();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> r: waterPuzzle.waterPuzzle()) &#123;</span><br><span class="line">            <span class="comment">// 在个位数前加上0</span></span><br><span class="line">            System.out.print((r &gt;= <span class="number">10</span> ? r : <span class="string">"0"</span> + r) + <span class="string">" "</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>输出为</p>
+<figure class="highlight basic"><table><tr><td class="code"><pre><span class="line"><span class="symbol">50 </span><span class="number">23</span> <span class="number">20</span> <span class="number">02</span> <span class="number">52</span> <span class="number">43</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="滑动谜题"><a href="#滑动谜题" class="headerlink" title="滑动谜题"></a><a href="https://leetcode-cn.com/problems/sliding-puzzle/submissions/" target="_blank" rel="noopener">滑动谜题</a></h2><h3 id="题目介绍-4"><a href="#题目介绍-4" class="headerlink" title="题目介绍"></a>题目介绍</h3><p>在一个 2 x 3 的板上（board）有 5 块砖瓦，用数字 1~5 来表示, 以及一块空缺用 0 来表示。一次移动定义为选择 0 与一个相邻的数字（上下左右）进行交换。最终当板 board 的结果是 [[1,2,3],[4,5,0]] 谜板被解开。</p>
+<img src="https://user-images.githubusercontent.com/29890094/105567448-eb45bf80-5d6c-11eb-88ca-2f10d779b653.png" style="zoom: 50%;" >
+
+<p>给出一个谜板的初始状态，返回最少可以通过多少次移动解开谜板，如果不能解开谜板，则返回 -1 。</p>
+<img src="https://user-images.githubusercontent.com/29890094/105567482-221bd580-5d6d-11eb-8da0-642643a4b13f.png" style="zoom:50%;" >
+
+<h3 id="解题思路-4"><a href="#解题思路-4" class="headerlink" title="解题思路"></a>解题思路</h3><p>我们将谜板上的一个组合看做是一个状态，一个状态就是图上的一个节点，如果一个状态能够转变到另一个状态，我们就说这两个状态节点之间有一条边连接。我们使用字符串来表示一个状态，例如 <code>[[1, 4, 5], [0, 2, 3]]</code> 这个状态表示为 <code>&quot;145023&quot;</code>，现在我们的目标是寻找一条从初始状态到 <code>&quot;123450&quot;</code> 这个状态的最短路径，使用 BFS 算法即可</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"><span class="keyword">import</span> java.util.stream.Collectors;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> HashMap&lt;String, Integer&gt; visited = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> rows;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> columns;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">slidingPuzzle</span><span class="params">(<span class="keyword">int</span>[][] board)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.rows = board.length;</span><br><span class="line">        <span class="keyword">this</span>.columns = board[<span class="number">0</span>].length;</span><br><span class="line">        String initState = boardToString(board);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (initState.equals(<span class="string">"123450"</span>)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        Queue&lt;String&gt; queue = <span class="keyword">new</span> LinkedList();</span><br><span class="line">        queue.add(initState);</span><br><span class="line">        visited.put(initState, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> (!queue.isEmpty()) &#123;</span><br><span class="line">            String state = queue.remove();</span><br><span class="line">            <span class="keyword">for</span> (String nextState: adj(state)) &#123;</span><br><span class="line">                <span class="keyword">if</span> (!visited.containsKey(nextState)) &#123;</span><br><span class="line">                    queue.add(nextState);</span><br><span class="line">                    visited.put(nextState, visited.get(state) + <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">                    <span class="keyword">if</span> (<span class="string">"123450"</span>.equals(nextState)) &#123;</span><br><span class="line">                        <span class="keyword">return</span> visited.get(nextState);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> String <span class="title">boardToString</span><span class="params">(<span class="keyword">int</span>[][] board)</span> </span>&#123;</span><br><span class="line">        StringBuilder stringBuilder = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; rows; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; columns; j++) &#123;</span><br><span class="line">                stringBuilder.append(board[i][j]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> stringBuilder.toString();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> Iterable&lt;String&gt; <span class="title">adj</span><span class="params">(String state)</span> </span>&#123;</span><br><span class="line">        ArrayList&lt;String&gt; result = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        <span class="keyword">char</span>[] chars = state.toCharArray();</span><br><span class="line">        <span class="keyword">int</span> index = state.indexOf(<span class="string">"0"</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> row = index / columns;</span><br><span class="line">        <span class="keyword">int</span> column = index % columns;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span>[][] dirs = &#123;&#123;<span class="number">0</span>, <span class="number">1</span>&#125;, &#123;<span class="number">0</span>, -<span class="number">1</span>&#125;, &#123;<span class="number">1</span>, <span class="number">0</span>&#125;, &#123;-<span class="number">1</span>, <span class="number">0</span>&#125;&#125;;</span><br><span class="line">        List&lt;Integer&gt; locations = Arrays.stream(dirs)</span><br><span class="line">                .map(dir -&gt; <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;dir[<span class="number">0</span>] + row, dir[<span class="number">1</span>] + column&#125;)</span><br><span class="line">                .filter(item -&gt; item[<span class="number">0</span>] &lt; rows &amp;&amp; item[<span class="number">0</span>] &gt;= <span class="number">0</span> &amp;&amp; item[<span class="number">1</span>] &lt; columns &amp;&amp; item[<span class="number">1</span>] &gt;= <span class="number">0</span>)</span><br><span class="line">                .map(item -&gt; item[<span class="number">0</span>] * columns + item[<span class="number">1</span>])</span><br><span class="line">                .collect(Collectors.toList());</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i: locations) &#123;</span><br><span class="line">            String res = swap(chars, index, i);</span><br><span class="line">            result.add(res);</span><br><span class="line">            swap(chars, i, index);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> String <span class="title">swap</span><span class="params">(<span class="keyword">char</span>[] chars, <span class="keyword">int</span> i, <span class="keyword">int</span> j)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">char</span> temp = chars[i];</span><br><span class="line">        chars[i] = chars[j];</span><br><span class="line">        chars[j] = temp;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> String(chars);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2021-01-22T16:00:00.000Z" itemprop="dateUpdated">2021-01-23 00:00:00</time>
+</span><br>
+
+
+        
+    </div>
+    
+    <footer>
+        <a href="https://lastknightcoder.github.io/lastknightcoder">
+            <img src="https://lastknightcoder.github.io/lastknightcoder/img/avatar.jpg" alt="熊滔">
+            熊滔
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="https://lastknightcoder.github.io/lastknightcoder/tags/%E5%9B%BE%E8%AE%BA/" rel="tag">图论</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="https://lastknightcoder.github.io/lastknightcoder/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="https://lastknightcoder.github.io/lastknightcoder/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://lastknightcoder.github.io/lastknightcoder/%E5%9B%BE%E8%AE%BA%E5%BB%BA%E6%A8%A1/&title=《图论建模》 — Coder&pic=https://lastknightcoder.github.io/lastknightcoder/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://lastknightcoder.github.io/lastknightcoder/%E5%9B%BE%E8%AE%BA%E5%BB%BA%E6%A8%A1/&title=《图论建模》 — Coder&source=人生天地间，忽如远行客" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://lastknightcoder.github.io/lastknightcoder/%E5%9B%BE%E8%AE%BA%E5%BB%BA%E6%A8%A1/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《图论建模》 — Coder&url=https://lastknightcoder.github.io/lastknightcoder/%E5%9B%BE%E8%AE%BA%E5%BB%BA%E6%A8%A1/&via=https://lastknightcoder.github.io/lastknightcoder" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://lastknightcoder.github.io/lastknightcoder/%E5%9B%BE%E8%AE%BA%E5%BB%BA%E6%A8%A1/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="https://lastknightcoder.github.io/lastknightcoder/%E6%A1%A5%E5%92%8C%E5%89%B2%E7%82%B9/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">桥和割点</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="https://lastknightcoder.github.io/lastknightcoder/ES6%EF%BC%9A%E5%87%BD%E6%95%B0/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">ES6：函数</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'lastknightcoder';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="https://lastknightcoder.github.io/lastknightcoder/img/wechatpay.png" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="https://lastknightcoder.github.io/lastknightcoder/img/wechatpay.png" data-alipay="https://lastknightcoder.github.io/lastknightcoder/img/alipay.png">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="https://lastknightcoder.github.io/lastknightcoder/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>熊滔 &copy; 2019 - 2021</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://lastknightcoder.github.io/lastknightcoder/%E5%9B%BE%E8%AE%BA%E5%BB%BA%E6%A8%A1/&title=《图论建模》 — Coder&pic=https://lastknightcoder.github.io/lastknightcoder/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://lastknightcoder.github.io/lastknightcoder/%E5%9B%BE%E8%AE%BA%E5%BB%BA%E6%A8%A1/&title=《图论建模》 — Coder&source=人生天地间，忽如远行客" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://lastknightcoder.github.io/lastknightcoder/%E5%9B%BE%E8%AE%BA%E5%BB%BA%E6%A8%A1/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《图论建模》 — Coder&url=https://lastknightcoder.github.io/lastknightcoder/%E5%9B%BE%E8%AE%BA%E5%BB%BA%E6%A8%A1/&via=https://lastknightcoder.github.io/lastknightcoder" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://lastknightcoder.github.io/lastknightcoder/%E5%9B%BE%E8%AE%BA%E5%BB%BA%E6%A8%A1/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2CAAAAADAeSUUAAADP0lEQVR42u3ay27bMBAF0Pz/T6dAVwViqfcO2dRijlaGbNE89GI8j4+P+Pr8fV29/vPO1VP3q31d5+uzV3euvmXDhY2Njf0Q9uftNdvE/TpX796vdkVN1n/xLdjY2NjHsfMwkz+VB60kKCYBrNgVNjY29o9kt//tZ8g85cDGxsbG3hVy2uC3cqzY2NjY2CtFpRzQFu7vi0Qte3MtDRsbG/vt2f9iW//r9bf2t7GxsbHfgP1ZXkkCMxv0aZOclQsbGxv7JHY+jnNfHpqN9czKVSsDPfV2sbGxsd+enYSodlCyLeu3Qa5tHry4g42NjX0Quw0MeSt3lsC04zttsoSNjY19HrsNJG0w29uIzUdz6s42NjY29mPZs7/1baE/P9xdO0mKWdjY2NhnsGfl+zxUrKcr7a9XxG1sbGzsI9izv+9JsMnL+gm4/TGiiI2NjY19BHtXItG2dfPEJk8z8uPDxsbGPpudj+CspBDrKcdKOoSNjY19ErtNMJJw0o5mFoGnbE4XeRg2Njb2cey2GZDcX2825CGt+JGwsbGxH85uyzGzZu1s4nF29FEAw8bGxj6O3TYD2pZw24S4D36zkaOoFoWNjY19KLttA+wqDK2M/gxnlLCxsbEfy84XbduxUTgpP98e5QsvNjY29nHsZNOzdGVWqMrbwO0nsbGxsU9l54X7vWOUu55qxzSxsbGxT2LPEoyV9m3bsm2/q2g8Y2NjYx/Bzs9mVsS5Z7TpzexOHbqwsbGxH8tOhmZmQSsvXeXHlAfaor+NjY2N/XD27CvzxnC7ufbZZOUXXRFsbGzsI9hJsjE7iHZDeeGpbUVfdkWwsbGxH85OglZbWkoKT+0Y0EqgvXwKGxsb+wh2smjeEsibtS2yDZB/+SGxsbGxj2Ov1MxnyUa+0dmxLs34YGNjYz+QXZdjRm2DWbDJQ2wRDrGxsbEPYq+HunboZ/1AZ4nTMOxhY2NjP4SdA2bNg3woZ7afYZKDjY2NfRy7LTklgNm77YEmQRcbGxsbey+mDXVttb9IRbCxsbF/PDs/lPwzs5XrQ8TGxsY+jp2HnLbcnzPa1u83tQewsbGx3569q9HbJgYJvg1LbTjExsbGfjj7FwvLyr5fuHYrAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: 'https://lastknightcoder.github.io/lastknightcoder/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

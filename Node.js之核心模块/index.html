@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>Node.js之核心模块 | Coder</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="fs,path,os,http,querystring">
+    <meta name="description" content="Node.js 的模块分为三种：  核心模块 第三方模块 本地模块  本篇重点介绍 Node.js 中的核心模块，包括    核心模块 作用    path 路径相关   fs 操作文件   os 提供相关操作系统信息   http 搭建 http 服务器   querystring 解析请求参数   pathpath 是我们介绍的第一个核心模块，所以有必要介绍如何引入核心模块。引入核心模块很简单">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Node.js之核心模块">
+<meta property="og:url" content="https://lastknightcoder.github.io/lastknightcoder/Node.js%E4%B9%8B%E6%A0%B8%E5%BF%83%E6%A8%A1%E5%9D%97/">
+<meta property="og:site_name" content="Coder">
+<meta property="og:description" content="Node.js 的模块分为三种：  核心模块 第三方模块 本地模块  本篇重点介绍 Node.js 中的核心模块，包括    核心模块 作用    path 路径相关   fs 操作文件   os 提供相关操作系统信息   http 搭建 http 服务器   querystring 解析请求参数   pathpath 是我们介绍的第一个核心模块，所以有必要介绍如何引入核心模块。引入核心模块很简单">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/LastKnightCoder/ImgHosting/20210220192055.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/LastKnightCoder/ImgHosting/20210220210926.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/LastKnightCoder/ImgHosting/20210220204430.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/LastKnightCoder/ImgHosting/20210220213829.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/LastKnightCoder/ImgHosting/20210220215045.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/LastKnightCoder/ImgHosting/20210220220557.png">
+<meta property="article:published_time" content="2021-02-20T14:13:00.000Z">
+<meta property="article:modified_time" content="2021-02-20T14:13:00.000Z">
+<meta property="article:author" content="熊滔">
+<meta property="article:tag" content="fs">
+<meta property="article:tag" content="path">
+<meta property="article:tag" content="os">
+<meta property="article:tag" content="http">
+<meta property="article:tag" content="querystring">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/LastKnightCoder/ImgHosting/20210220192055.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="Coder" href="https://lastknightcoder.github.io/lastknightcoder/atom.xml">
+    
+    <link rel="shortcut icon" href="https://lastknightcoder.github.io/lastknightcoder/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(https://lastknightcoder.github.io/lastknightcoder/img/brand.jpg)">
+      <div class="brand">
+        <a href="https://lastknightcoder.github.io/lastknightcoder/" class="avatar waves-effect waves-circle waves-light">
+          <img src="https://lastknightcoder.github.io/lastknightcoder/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">熊滔</h5>
+          <a href="mailto:2223106858@qq.com" title="2223106858@qq.com" class="mail">2223106858@qq.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.github.io/lastknightcoder/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.github.io/lastknightcoder/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.github.io/lastknightcoder/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.github.io/lastknightcoder/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://gitee.com/LastKnightCoder" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Node.js之核心模块</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Node.js之核心模块</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2021-02-20T14:13:00.000Z" itemprop="datePublished" class="page-time">
+  2021-02-20
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="https://lastknightcoder.github.io/lastknightcoder/categories/Node/">Node</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#path"><span class="post-toc-number">1.</span> <span class="post-toc-text">path</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#dirname"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">dirname</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#basename"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">basename</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#extname"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">extname</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#format"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">format</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#parse"><span class="post-toc-number">1.5.</span> <span class="post-toc-text">parse</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#normalize"><span class="post-toc-number">1.6.</span> <span class="post-toc-text">normalize</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#resolve"><span class="post-toc-number">1.7.</span> <span class="post-toc-text">resolve</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#join"><span class="post-toc-number">1.8.</span> <span class="post-toc-text">join</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#sep-与-delimeter"><span class="post-toc-number">1.9.</span> <span class="post-toc-text">sep 与 delimeter</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#fs"><span class="post-toc-number">2.</span> <span class="post-toc-text">fs</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#readFile"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">readFile</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#writeFile"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">writeFile</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#appendFile"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">appendFile</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#open"><span class="post-toc-number">2.4.</span> <span class="post-toc-text">open</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#rename"><span class="post-toc-number">2.5.</span> <span class="post-toc-text">rename</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#readdir"><span class="post-toc-number">2.6.</span> <span class="post-toc-text">readdir</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#rm"><span class="post-toc-number">2.7.</span> <span class="post-toc-text">rm</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#stat"><span class="post-toc-number">2.8.</span> <span class="post-toc-text">stat</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#os"><span class="post-toc-number">3.</span> <span class="post-toc-text">os</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#arch"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">arch</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#cpus"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">cpus</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#totalmem、freemem"><span class="post-toc-number">3.3.</span> <span class="post-toc-text">totalmem、freemem</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#hostname"><span class="post-toc-number">3.4.</span> <span class="post-toc-text">hostname</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#platform"><span class="post-toc-number">3.5.</span> <span class="post-toc-text">platform</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#http"><span class="post-toc-number">4.</span> <span class="post-toc-text">http</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#请求对象"><span class="post-toc-number">4.1.</span> <span class="post-toc-text">请求对象</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#req-url"><span class="post-toc-number">4.1.1.</span> <span class="post-toc-text">req.url</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#req-method"><span class="post-toc-number">4.1.2.</span> <span class="post-toc-text">req.method</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#req-headers"><span class="post-toc-number">4.1.3.</span> <span class="post-toc-text">req.headers</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#响应对象"><span class="post-toc-number">4.2.</span> <span class="post-toc-text">响应对象</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#setHeader"><span class="post-toc-number">4.2.1.</span> <span class="post-toc-text">setHeader</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#writeHead"><span class="post-toc-number">4.2.2.</span> <span class="post-toc-text">writeHead</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#write、end"><span class="post-toc-number">4.2.3.</span> <span class="post-toc-text">write、end</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#参考文章"><span class="post-toc-number">5.</span> <span class="post-toc-text">参考文章</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-Node.js之核心模块"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Node.js之核心模块</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2021-02-20 22:13:00" datetime="2021-02-20T14:13:00.000Z"  itemprop="datePublished">2021-02-20</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="https://lastknightcoder.github.io/lastknightcoder/categories/Node/">Node</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>Node.js 的模块分为三种：</p>
+<ul>
+<li>核心模块</li>
+<li>第三方模块</li>
+<li>本地模块</li>
+</ul>
+<p>本篇重点介绍 Node.js 中的核心模块，包括</p>
+<table>
+<thead>
+<tr>
+<th>核心模块</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>path</td>
+<td>路径相关</td>
+</tr>
+<tr>
+<td>fs</td>
+<td>操作文件</td>
+</tr>
+<tr>
+<td>os</td>
+<td>提供相关操作系统信息</td>
+</tr>
+<tr>
+<td>http</td>
+<td>搭建 http 服务器</td>
+</tr>
+<tr>
+<td>querystring</td>
+<td>解析请求参数</td>
+</tr>
+</tbody></table>
+<h2 id="path"><a href="#path" class="headerlink" title="path"></a>path</h2><p>path 是我们介绍的第一个核心模块，所以有必要介绍如何引入核心模块。引入核心模块很简单，直接 <code>require(&#39;xxx&#39;)</code> 即可，例如我们引入 path 模块</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">"path"</span>);</span><br></pre></td></tr></table></figure>
+
+<p>path 是与路径有关的模块，再介绍 path 之前，介绍两个与路径有关的变量， <code>__dirname</code> 与 <code>__filename</code>：</p>
+<ul>
+<li>__dirname：表示当前模块所在的目录，是一个表示绝对路径的字符串</li>
+<li>__filename：表示当前模块(文件)所在的路径，也是一个表示绝对路径的字符串</li>
+</ul>
+<p>这两个变量都是全局变量 global 的属性，所以可以直接在模块中访问</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; D:\Desktop\Node\2 核心模块\1. path.js</span><br><span class="line">console.log(__dirname);   &#x2F;&#x2F; D:\Desktop\Node\2 核心模块</span><br><span class="line">console.log(__filename);  &#x2F;&#x2F; D:\Desktop\Node\2 核心模块\1. path.js</span><br></pre></td></tr></table></figure>
+
+<p>将讲解 path 模块提供的 API 之前，首先我们明确一下路径的组成</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">┌─────────────────────┬────────────┐</span><br><span class="line">│          dir        │    base    │</span><br><span class="line">├──────┬              ├──────┬─────┤</span><br><span class="line">│ root │              │ name │ ext │</span><br><span class="line">&quot; C:\    目录1\目录2   \ 文件   .txt &quot;</span><br><span class="line">└──────┴──────────────┴──────┴─────┘</span><br><span class="line">（&quot;&quot; 行中的所有空格均可忽略。它们纯粹是用于格式化。）</span><br></pre></td></tr></table></figure>
+
+<p>可见路径可以被划分为两部分：</p>
+<ul>
+<li>dir：文件所在目录</li>
+<li>base：文件名称(包含扩展名)</li>
+</ul>
+<p>而 base 也可以被划分为两部分：</p>
+<ul>
+<li>name：文件名称</li>
+<li>ext：扩展名</li>
+</ul>
+<h3 id="dirname"><a href="#dirname" class="headerlink" title="dirname"></a>dirname</h3><p><code>path.dirname(path)</code> 返回的是给定路径的目录</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">"path"</span>);</span><br><span class="line"><span class="keyword">let</span> filepath = <span class="string">"C:\\Users\\index.html"</span>;</span><br><span class="line"><span class="built_in">console</span>.log(path.dirname(filepath)); <span class="comment">// C:\Users</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="basename"><a href="#basename" class="headerlink" title="basename"></a>basename</h3><p><code>path.basename(path, [ext])</code> 返回路径的最后一个部分，它会忽略最后的目录分隔符(如果有的话)</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">"path"</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> filepath = <span class="string">"C:\\Users\\index.html"</span>;</span><br><span class="line"><span class="built_in">console</span>.log(path.basename(filepath)); <span class="comment">// index.html</span></span><br><span class="line"></span><br><span class="line">filepath = <span class="string">"C:\\Users\\index.html\\"</span>;</span><br><span class="line"><span class="built_in">console</span>.log(path.basename(filepath)); <span class="comment">// index.html</span></span><br></pre></td></tr></table></figure>
+
+<p><code>basename()</code> 还接收一个可选参数，表示文件的扩展名，如果传入的扩展名与路径最后一部分的扩展名相同，则返回没有扩展名的文件名称</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">"path"</span>);</span><br><span class="line"><span class="keyword">let</span> filepath = <span class="string">"C:\\Users\\index.html"</span>;</span><br><span class="line"><span class="built_in">console</span>.log(path.basename(filepath, <span class="string">".html"</span>)); <span class="comment">// index</span></span><br></pre></td></tr></table></figure>
+
+<p>需要注意的是，扩展名是区分大小写的</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">"path"</span>);</span><br><span class="line"><span class="keyword">let</span> filepath = <span class="string">"C:\\Users\\index.HTML"</span>;</span><br><span class="line"><span class="built_in">console</span>.log(path.basename(filepath, <span class="string">".html"</span>)); <span class="comment">// index.HTML</span></span><br></pre></td></tr></table></figure>
+
+<p>如果传入的 path 与 ext 都不是字符串，则会抛出 TypeError。</p>
+<h3 id="extname"><a href="#extname" class="headerlink" title="extname"></a>extname</h3><p><code>path.extname(path)</code> 返回路径的扩展名，即路径中最后一个 <code>.</code> 之后的字符串(包括 <code>.</code>)，如果路径中没有 <code>.</code>，那么返回一个空字符串</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">"path"</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> filepath = <span class="string">"C:\\Users\\index.html"</span>;</span><br><span class="line"><span class="built_in">console</span>.log(path.extname(filepath)); <span class="comment">// ".html"</span></span><br><span class="line"></span><br><span class="line">filepath = <span class="string">"C:\\Users\\index."</span>;</span><br><span class="line"><span class="built_in">console</span>.log(path.extname(filepath)); <span class="comment">// "."</span></span><br><span class="line"></span><br><span class="line">filepath = <span class="string">"C:\\Users\\index.html.md"</span>;</span><br><span class="line"><span class="built_in">console</span>.log(path.extname(filepath)); <span class="comment">// ".md"</span></span><br><span class="line"></span><br><span class="line">filepath = <span class="string">"C:\\Users\\index"</span>;</span><br><span class="line"><span class="built_in">console</span>.log(path.extname(filepath)); <span class="comment">// ""</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="format"><a href="#format" class="headerlink" title="format"></a>format</h3><p><code>path.format(pathOject)</code> 方法根据一个 pathObject 得到一个绝对路径，pathObject 对象包含下面几个属性：</p>
+<ul>
+<li>dir</li>
+<li>root</li>
+<li>base</li>
+<li>name</li>
+<li>ext</li>
+</ul>
+<p>可见这些属性都是上面介绍的路径组成部分，它会根据这些属性构建出一个绝对路径。</p>
+<p>因为 dir 包括 root，base 包括 name 和 ext，所以当规定了 dir 属性时，则忽略 root 属性，当规定了 base 属性时，则忽略 name 和 ext 属性。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">"path"</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> filepath = path.format(&#123;</span><br><span class="line">  dir: <span class="string">"C:\\Users"</span>,</span><br><span class="line">  <span class="comment">// root 被忽略</span></span><br><span class="line">  root: <span class="string">"D:\\"</span>,</span><br><span class="line">  base: <span class="string">"index.html"</span>,</span><br><span class="line">  <span class="comment">// 下面两个属性被忽略</span></span><br><span class="line">  name: <span class="string">"a"</span>,</span><br><span class="line">  ext: <span class="string">".md"</span>,</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(filepath); <span class="comment">// C:\Users\index.html</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">"path"</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> filepath = path.format(&#123;</span><br><span class="line">  root: <span class="string">"D:\\"</span>,</span><br><span class="line">  name: <span class="string">"a"</span>,</span><br><span class="line">  ext: <span class="string">".md"</span>,</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(filepath); <span class="comment">// D:\a.md</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="parse"><a href="#parse" class="headerlink" title="parse"></a>parse</h3><p><code>path.parse(path)</code> 接收一个表示绝对路径的字符串，返回一个对象，它的作用与 path.format 正好相反，将一个绝对路径拆分为各个组成部分</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">"path"</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> filepath = <span class="string">"C:\\Users\\index.html"</span>;</span><br><span class="line"><span class="built_in">console</span>.log(path.parse(filepath));</span><br></pre></td></tr></table></figure>
+
+<p>打印一个对象如下</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  root: <span class="string">'C:\\'</span>,</span><br><span class="line">  dir: <span class="string">'C:\\Users'</span>,</span><br><span class="line">  base: <span class="string">'index.html'</span>,</span><br><span class="line">  ext: <span class="string">'.html'</span>,</span><br><span class="line">  name: <span class="string">'index'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="normalize"><a href="#normalize" class="headerlink" title="normalize"></a>normalize</h3><p><code>path.normalize(path)</code> 是用来规范路径的，主要有下面几个作用：</p>
+<ul>
+<li>将目录分隔符(<code>/</code>, <code>\\</code>) 转化为特定平台上的分隔符</li>
+<li>解析 <code>..</code>，<code>.</code> 路径</li>
+<li>将多个连续的目录分隔符合并为一个目录分隔符</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">"path"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用了两种目录分割符，并且一处连续使用了目录分割符</span></span><br><span class="line"><span class="keyword">const</span> filepath = <span class="string">"C:/Users\\\\\\index.html"</span>;</span><br><span class="line"><span class="built_in">console</span>.log(path.normalize(filepath)); <span class="comment">// C:\Users\index.html</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">"path"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 路径中包含 ".." 和 "." 表示的相对路径</span></span><br><span class="line"><span class="keyword">const</span> filepath = <span class="string">"C:/Users/a/b/../.././index.html"</span>;</span><br><span class="line"><span class="built_in">console</span>.log(path.normalize(filepath)); <span class="comment">// C:\Users\index.html</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="resolve"><a href="#resolve" class="headerlink" title="resolve"></a>resolve</h3><p><code>path.resove(...paths)</code> 接收多个路径，从右向左对路径进行拼接，<strong>直至</strong>拼接出绝对路径</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">"path"</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> filepath = path.resolve(<span class="string">"D:\\"</span>, <span class="string">"C:\\Users"</span>, <span class="string">"index.html"</span>);</span><br><span class="line"><span class="built_in">console</span>.log(filepath); <span class="comment">// C:\Users\index.html</span></span><br></pre></td></tr></table></figure>
+
+<p>上面我们对 <code>D:\\, C:\\Users, index.html</code> 从右向左进行拼接，<code>C:\\Users</code> 与 <code>index.html</code> 拼接得到 <code>C:\\Users\\index.html</code>，这已经是一个绝对路径了，所以就不在进行拼接了。</p>
+<p>如果传入的路径不能拼接出一个绝对路径，那么就会使用当前文件所在的路径拼接一个绝对路径，就相当于 resolve 第一个参数默认为 <code>__dirname</code></p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">"path"</span>);</span><br><span class="line"><span class="keyword">const</span> filepath = path.resolve(<span class="string">"index.html"</span>);</span><br><span class="line"><span class="built_in">console</span>.log(filepath); <span class="comment">// D:\Desktop\Node\2 核心模块\index.html</span></span><br></pre></td></tr></table></figure>
+
+<p>resolve 方法返回的路径是已经规范化(normalize)了的，并且尾部的分隔符会被删除(除非是根路径)。如果没有为 resolve 传入参数，那么会返回当前文件所在的路径</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">"path"</span>);</span><br><span class="line"><span class="built_in">console</span>.log(path.resolve()); <span class="comment">// D:\Desktop\Node\2 核心模块</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="join"><a href="#join" class="headerlink" title="join"></a>join</h3><p><code>path.join(...paths)</code> 方法接收一些路径，然后使用所在平台的分隔符(Windows 平台就是 <code>\</code>， Linux/Unix 平台就是 <code>/</code>)进行拼接，最后进行规范化然后返回。</p>
+<p>与 <code>path.resolve</code> 方法不同的是，<code>path.resolve</code> 方法一旦拼接出绝对路径后就不在进行拼接，<code>path.resolve</code> 方法返回的是一定是一个绝对路径，但是 <code>path.join</code> 方法只是将多个路径使用分割符进行拼接而已</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">"path"</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> resolvePath = path.resolve(<span class="string">"/a"</span>, <span class="string">"/b"</span>, <span class="string">"c"</span>);</span><br><span class="line"><span class="keyword">const</span> joinPath = path.join(<span class="string">"/a"</span>, <span class="string">"/b"</span>, <span class="string">"c"</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(resolvePath); <span class="comment">// D:\b\c</span></span><br><span class="line"><span class="built_in">console</span>.log(joinPath); <span class="comment">// \a\b\c</span></span><br></pre></td></tr></table></figure>
+
+<p>如果不为 <code>path.join</code> 传入任何参数的话，那么会返回 <code>.</code>。</p>
+<h3 id="sep-与-delimeter"><a href="#sep-与-delimeter" class="headerlink" title="sep 与 delimeter"></a>sep 与 delimeter</h3><p><code>path.sep</code> 与 <code>path.delimeter</code> 是 path 模块的两个属性</p>
+<ul>
+<li><code>path.sep</code>：所在平台的目录分隔符<ul>
+<li>Windows：<code>\</code></li>
+<li>Linux/Unix：<code>/</code></li>
+</ul>
+</li>
+<li><code>path.delimeter</code>：所在平台的目录界定符<ul>
+<li>Windows：<code>;</code></li>
+<li>Linux/Unix：<code>:</code></li>
+</ul>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">"path"</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(path.sep); <span class="comment">// \</span></span><br><span class="line"><span class="built_in">console</span>.log(path.delimiter); <span class="comment">// ;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="fs"><a href="#fs" class="headerlink" title="fs"></a>fs</h2><p>fs 模块是与文件系统有关的模块，可以使用它来进行文件相关的操作。</p>
+<h3 id="readFile"><a href="#readFile" class="headerlink" title="readFile"></a>readFile</h3><p>我们可以使用 <code>fs.readFile(path, [options], callback)</code> 读取一个文件的内容，该方法接收一个路径(相对路径与绝对路径均可)，当读取完文件内容之后，会将读取到的数据作为参数传递给传入的回调函数(callback)，该方法还接受一个 options 参数，它可以是一个包含如下属性的对象：</p>
+<ul>
+<li>encoding：指定读取内容的编码，默认为 null</li>
+<li>flag：指定读写模式，默认为 r，表示只读</li>
+</ul>
+<p>当没有指定 encoding 时，返回一个 Buffer。options 还可以是一个字符串，当 options 为一个字符串时，表示编码</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">"fs"</span>);</span><br><span class="line"></span><br><span class="line">fs.readFile(<span class="string">"./file/hello.txt"</span>, <span class="string">"utf-8"</span>, (err, data) =&gt; &#123;</span><br><span class="line">  <span class="keyword">if</span> (err) &#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(err.toString());</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">console</span>.log(data); <span class="comment">// Hello World!</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>上述代码读取了当前目录下的 file 文件夹下的 <code>hello.txt</code> 文件，读取完文件后会将内容使用 <code>utf-8</code> 进行解码为字符串，然后将该字符串传递给回调函数。向回调函数传递参数时，第一个参数为错误对象，第二个参数才为实际的内容，之所以将第一个参数设置为错误对象，是为了提醒用户记得处理错误。</p>
+<p>如果是第一次接触 Node.js 的话，可能不适合上面回调函数的写法，这种写法是异步写法，之所以这么写是因为 Node.js 是单线程的，为了提高程序执行的效率，所以使用异步的写法(如果无法领会上面这段话，就先放一放，我第一次接触回调函数的写法也是没有反应过来)。</p>
+<p><code>readFile</code> 还有一个对应的同步方法 <code>readFileSync(path, [options])</code>，参数的意义同上，不过这时不需要一个回调函数了，它会将读取到的内容返回</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">"fs"</span>);</span><br><span class="line"><span class="keyword">const</span> data = fs.readFileSync(<span class="string">"./file/hello.txt"</span>, <span class="string">"utf-8"</span>);</span><br><span class="line"><span class="built_in">console</span>.log(data); <span class="comment">// Hello World!</span></span><br></pre></td></tr></table></figure>
+
+<p>这时你可能会问怎么处理错误，那就是将代码放在 <code>try ... catch</code> 代码块中</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">"fs"</span>);</span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> data = fs.readFileSync(<span class="string">"./file/hello.txt"</span>, <span class="string">"utf-8"</span>);</span><br><span class="line">  <span class="built_in">console</span>.log(data); <span class="comment">// Hello World!</span></span><br><span class="line">&#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(e);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>同步的方式虽然比较好理解，但是以同步的方式读取文件，会阻塞程序的执行，降低代码的执行效率，所以推荐使用 <code>readFile</code> 读取文件。</p>
+<p>这种回调函数式的写法有一个问题就是会产生回调地狱，使得代码难以阅读。有下面三个文件在 file 文件夹下</p>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line"><span class="comment">// a.json</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="attr">"next"</span>: <span class="string">"b.json"</span>,</span><br><span class="line">  <span class="attr">"content"</span>: <span class="string">"this is a.json"</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// b.json</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="attr">"next"</span>: <span class="string">"c.json"</span>,</span><br><span class="line">  <span class="attr">"content"</span>: <span class="string">"this is b.json"</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// c.json</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="attr">"next"</span>: <span class="literal">null</span>,</span><br><span class="line">  <span class="attr">"content"</span>: <span class="string">"this is c.json"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>下面这段代码是依次读取 <code>a.json, b.json, c.json</code> 的内容，并打印出来</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">"fs"</span>);</span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">"path"</span>);</span><br><span class="line">fs.readFile(<span class="string">"./file/a.json"</span>, <span class="string">"utf-8"</span>, (err, data) =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> a = <span class="built_in">JSON</span>.parse(data);</span><br><span class="line">  <span class="built_in">console</span>.log(a.content);</span><br><span class="line">  fs.readFile(path.resolve(<span class="string">"file"</span>, a.next), <span class="string">"utf-8"</span>, (err, data) =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> b = <span class="built_in">JSON</span>.parse(data);</span><br><span class="line">    <span class="built_in">console</span>.log(b.content);</span><br><span class="line">    fs.readFile(path.resolve(<span class="string">"file"</span>, b.next), <span class="string">"utf-8"</span>, (err, data) =&gt; &#123;</span><br><span class="line">      <span class="keyword">const</span> c = <span class="built_in">JSON</span>.parse(data);</span><br><span class="line">      <span class="built_in">console</span>.log(c.content);</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>为了代码的简洁，已经省略了对错误的处理，可见上面嵌套的代码真的很难阅读，需要花费一番功夫去理解上面的代码做了什么事情。并且如果有更多的嵌套的话，代码的逻辑</p>
+<p>正是为了解决这样的问题，在 ES6 中提出了 Promise，写出同样目的的代码，但是嵌套最多只有两三层，代码简单易读。同样，Node.js 也提出了 Promise 的文件系统 API，在 <code>fs/promises</code> 模块下</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">"fs"</span>).promises;</span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">"path"</span>);</span><br><span class="line"></span><br><span class="line">fs.readFile(path.resolve(<span class="string">"file"</span>, <span class="string">"a.json"</span>), <span class="string">"utf-8"</span>)</span><br><span class="line">  .then(<span class="function">(<span class="params">data</span>) =&gt;</span> &#123;</span><br><span class="line">    data = <span class="built_in">JSON</span>.parse(data);</span><br><span class="line">    <span class="built_in">console</span>.log(data.content);</span><br><span class="line">    <span class="keyword">return</span> fs.readFile(path.resolve(<span class="string">"file"</span>, data.next), <span class="string">"utf-8"</span>);</span><br><span class="line">  &#125;)</span><br><span class="line">  .then(<span class="function">(<span class="params">data</span>) =&gt;</span> &#123;</span><br><span class="line">    data = <span class="built_in">JSON</span>.parse(data);</span><br><span class="line">    <span class="built_in">console</span>.log(data.content);</span><br><span class="line">    <span class="keyword">return</span> fs.readFile(path.resolve(<span class="string">"file"</span>, data.next), <span class="string">"utf-8"</span>);</span><br><span class="line">  &#125;)</span><br><span class="line">  .then(<span class="function">(<span class="params">data</span>) =&gt;</span> &#123;</span><br><span class="line">    data = <span class="built_in">JSON</span>.parse(data);</span><br><span class="line">    <span class="built_in">console</span>.log(data.content);</span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure>
+
+<p>使用回调函数的写法无论有多少层嵌套，改为使用 Promise 的写法，代码的嵌套就只有两层。</p>
+<h3 id="writeFile"><a href="#writeFile" class="headerlink" title="writeFile"></a>writeFile</h3><p><code>fs.writeFile(path, data, [options], callback)</code> 的作用是向文件写入内容，path 表示文件路径，data 表示向文件写入的内容，options 是一个可选参数，是一个包含如下属性的对象：</p>
+<ul>
+<li>encoding：将 data 表示的字符串使用该编码写入文件，默认为 <code>utf-8</code>，当 data 为 Buffer 类型的对象时，将忽略该属性</li>
+<li>flag：默认为 <code>w</code>，表示只写</li>
+<li>mode：默认为 <code>0o666</code></li>
+</ul>
+<p>当写入文件完毕时，会执行 callback 函数，callback 函数接收一个错误对象，根据错误对象我们可以判断是否写入文件成功</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">"fs"</span>);</span><br><span class="line"></span><br><span class="line">fs.writeFile(<span class="string">"./file/world.txt"</span>, <span class="string">"World"</span>, (err) =&gt; &#123;</span><br><span class="line">  <span class="keyword">if</span> (!err) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"写入成功！"</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>上面我们向 <code>./file/world.txt</code> 写入了一个 World 字符串，当写入成功后，打印出<code>写入成功！</code>。</p>
+<h3 id="appendFile"><a href="#appendFile" class="headerlink" title="appendFile"></a>appendFile</h3><p>上面 <code>writeFile</code> 表示的是向文件写入内容，之前文件的内容全部清除，如果我们希望只是想文件中添加内容，那就要使用 <code>appendFile(path, data, [options], callback)</code>，这些参数的意义同 <code>writeFile</code> 相同</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">"fs"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// world.txt 中没有任何内容</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; <span class="number">3</span>; i++) &#123;</span><br><span class="line">  fs.appendFile(<span class="string">"./file/world.txt"</span>, <span class="string">"Hello World\n"</span>, (err) =&gt; &#123;</span><br><span class="line">    <span class="keyword">if</span> (err) &#123;</span><br><span class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(err);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>执行完上述代码后，world.txt 中的内容为</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Hello World</span><br><span class="line">Hello World</span><br><span class="line">Hello World</span><br></pre></td></tr></table></figure>
+
+<h3 id="open"><a href="#open" class="headerlink" title="open"></a>open</h3><p>我们可以使用 <code>fs.open(path, [flags], [mode], callback)</code> 打开一个文件，打开文件后便可对文件进行<strong>多项</strong>操作，例如读取文件，向文件写入内容等等。</p>
+<p>操作系统维护着一个打开的文件和资源的表格，每个打开的文件都分配了一个文件描述符，操作系统根据文件描述符去描述和追踪特定的文件。</p>
+<p>使用 <code>fs.open</code> 打开一个文件之后，会得到一个文件描述符(file descriptor)，一旦分配一个文件描述符，我们便可以使用该文件描述符对文件进行读写。</p>
+<p><code>fs.open</code> 方法接收四个参数：</p>
+<ul>
+<li>path：文件路径</li>
+<li>flags：默认为 r，表示只读</li>
+<li>mode，默认为 <code>0o666</code>，表示拥有可读写的权限</li>
+<li>callback：打开文件成功后会调用该函数，该回调函数接收两个参数<ul>
+<li>err：错误对象</li>
+<li>fd：文件描述符</li>
+</ul>
+</li>
+</ul>
+<p>flags 可取如下值</p>
+<table>
+<thead>
+<tr>
+<th>flag</th>
+<th>意义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>r</code></td>
+<td>只读，如果文件不存在，抛出异常</td>
+</tr>
+<tr>
+<td><code>r+</code></td>
+<td>可读可写，如果文件不存在，抛出异常</td>
+</tr>
+<tr>
+<td><code>rs+</code></td>
+<td>可读可写，以同步的方式打开文件</td>
+</tr>
+<tr>
+<td><code>w</code></td>
+<td>只写，如果文件不存在，则创建文件</td>
+</tr>
+<tr>
+<td><code>wx</code></td>
+<td>同 <code>w</code>，不过文件不存在时则失败</td>
+</tr>
+<tr>
+<td><code>w+</code></td>
+<td>可读可写，文件不存在时创建文件</td>
+</tr>
+<tr>
+<td><code>wx+</code></td>
+<td>同 <code>w+</code>，不过文件不存在时失败</td>
+</tr>
+<tr>
+<td><code>a</code></td>
+<td>向文件追加内容，文件不存在则创建文件</td>
+</tr>
+<tr>
+<td><code>a+</code></td>
+<td>可向文件追加内容，也可以读取文件内容，文件不存在时则创建文件</td>
+</tr>
+<tr>
+<td><code>ax</code></td>
+<td>向文件追加内容，如果文件不存在则失败</td>
+</tr>
+<tr>
+<td><code>ax+</code></td>
+<td>同 <code>a+</code>，不过文件不存在时则失败</td>
+</tr>
+</tbody></table>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">fs.open(<span class="string">"./file/hello.txt"</span>, <span class="string">"w"</span>, (err, fd) =&gt; &#123;</span><br><span class="line">  fs.writeFile(fd, <span class="string">"Hello World!"</span>, (err) =&gt; &#123;</span><br><span class="line">    <span class="keyword">if</span> (!err) &#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">"写入成功"</span>);</span><br><span class="line">      <span class="comment">// 文件资源有限，需及时关闭资源</span></span><br><span class="line">      fs.close(fd, (err) =&gt; &#123;</span><br><span class="line">        <span class="keyword">if</span> (!err) &#123;</span><br><span class="line">          <span class="built_in">console</span>.log(<span class="string">"关闭成功"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h3 id="rename"><a href="#rename" class="headerlink" title="rename"></a>rename</h3><p><code>fs.rename(oldPath, newPath, callback)</code> 作用就是重命名，将 oldPath 重命名为 newPath，重命名完成以后会调用 callback 函数，会为该函数传入错误对象</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">"fs"</span>);</span><br><span class="line"></span><br><span class="line">fs.rename(<span class="string">"./file/hello.txt"</span>, <span class="string">"./file/world.txt"</span>, (err) =&gt; &#123;</span><br><span class="line">  <span class="keyword">if</span> (!err) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"重命名成功"</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h3 id="readdir"><a href="#readdir" class="headerlink" title="readdir"></a>readdir</h3><p><code>fs.readdir(dir, callback)</code> 方法是读取一个目录，返回一个字符串数组，数组中的元素是该目录下的文件名和目录名</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">"fs"</span>);</span><br><span class="line"></span><br><span class="line">fs.readdir(<span class="string">"./file/"</span>, (err, files) =&gt; &#123;</span><br><span class="line">  <span class="keyword">if</span> (err) &#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(err);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">console</span>.log(files);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>输出为</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">[<span class="string">"a.json"</span>, <span class="string">"b.json"</span>, <span class="string">"c.json"</span>, <span class="string">"hello.html"</span>, <span class="string">"index.html"</span>, <span class="string">"world.txt"</span>];</span><br></pre></td></tr></table></figure>
+
+<p>如果传入的路径不是一个目录，那么会抛出错误。</p>
+<h3 id="rm"><a href="#rm" class="headerlink" title="rm"></a>rm</h3><p><code>path.rm(path, [options], callback)</code>方法是用来删除文件或目录</p>
+<ul>
+<li>path：路径</li>
+<li>options：可选参数，包含如下属性：<ul>
+<li>force：如果 force 为 true 的话，如果文件不存在不会抛出错误</li>
+<li>recursive：如果传入的路径为目录，如果 recursive 为 false，那么会报错，如果为 true，则会删除该目录</li>
+<li>maxRetries：当读取文件出现错误时，会进行尝试，该属性设置最大尝试次数，如果 recursive 为 false 的话，会忽略该选项，默认为 0</li>
+<li>retryDelay：重试之间的间隔，单位为毫秒</li>
+</ul>
+</li>
+<li>callback：回调函数，删除完文件或目录后会调用该回调函数，该回调函数接收一个错误对象</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">"fs"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 删除 demo 文件夹下面的所有东西</span></span><br><span class="line">fs.rm(</span><br><span class="line">  <span class="string">"./demo/"</span>,</span><br><span class="line">  &#123;</span><br><span class="line">    force: <span class="literal">true</span>,</span><br><span class="line">    recursive: <span class="literal">true</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">  (err) =&gt; &#123;</span><br><span class="line">    <span class="keyword">if</span> (!err) &#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">"删除成功"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>该方法与 14.14.0 版本新增，所以如果要使用该方法需要升级 Node.js 到 14.14.0 版本以上。</p>
+</blockquote>
+<h3 id="stat"><a href="#stat" class="headerlink" title="stat"></a>stat</h3><p>fs.stat(path, callback) 方法可以获知文件或目录的相关信息，path 代表文件或目录的路径，callback 是回调函数，接收两个参数</p>
+<ul>
+<li>err：错误对象</li>
+<li>stats：fs.Stats 对象，该对象包含很多与文件信息相关的方法<ul>
+<li><code>isDirectory()</code>：是否是一个目录</li>
+<li><code>isFile()</code>：是否是一个文件</li>
+<li><code>size</code>：文件的大小(单位为 Byte)</li>
+<li><code>atime</code>：最后访问 (access) 时间</li>
+<li><code>mtime</code>：文件最后更改 (modified) 时间，是指文件内容的修改</li>
+<li><code>ctime</code>：文件最后改变 (changed) 时间，是指文件元信息的更改，例如权限</li>
+<li><code>birthtime</code>：文件的创建时间</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">"fs"</span>);</span><br><span class="line"></span><br><span class="line">fs.stat(<span class="string">"./file/world.txt"</span>, (err, stats) =&gt; &#123;</span><br><span class="line">  <span class="keyword">if</span> (err) &#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(err.message);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">console</span>.log(stats.isDirectory()); <span class="comment">// false</span></span><br><span class="line">  <span class="built_in">console</span>.log(stats.isFile()); <span class="comment">// true</span></span><br><span class="line">  <span class="built_in">console</span>.log(stats.size); <span class="comment">// 12</span></span><br><span class="line"></span><br><span class="line">  <span class="built_in">console</span>.log(stats.atime); <span class="comment">// 2021-02-19T10:31:40.744Z</span></span><br><span class="line">  <span class="built_in">console</span>.log(stats.mtime); <span class="comment">// 2021-02-19T10:15:58.439Z</span></span><br><span class="line">  <span class="built_in">console</span>.log(stats.ctime); <span class="comment">// 2021-02-19T10:31:39.845Z</span></span><br><span class="line">  <span class="built_in">console</span>.log(stats.birthtime); <span class="comment">// 2021-02-16T10:44:33.194Z</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h2 id="os"><a href="#os" class="headerlink" title="os"></a>os</h2><p>os 模块包含有关操作系统有关的信息，例如操作系统架构，CPU 的相关信息</p>
+<h3 id="arch"><a href="#arch" class="headerlink" title="arch"></a>arch</h3><p><code>os.arch()</code> 返回的是操作系统的架构，常见的架构包括</p>
+<ul>
+<li>arm</li>
+<li>arm64</li>
+<li>x32</li>
+<li>x64</li>
+<li>mips</li>
+<li>… …</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> os = <span class="built_in">require</span>(<span class="string">"os"</span>);</span><br><span class="line"><span class="built_in">console</span>.log(os.arch()); <span class="comment">// x64</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="cpus"><a href="#cpus" class="headerlink" title="cpus"></a>cpus</h3><p><code>os.cpus()</code> 是与 CPU 信息有关的方法，它返回一个数组，数组中的是一个个的对象，对象的格式如下</p>
+<ul>
+<li>model: CPU 的 model 信息</li>
+<li>speed: CPU 的速度(MHz)</li>
+<li>times: 包含如下属性的对象<ul>
+<li>user: CPU 在用户 user 状态下花费的时间</li>
+<li>nice: CPU 在用户 nice 状态下花费的时间，在 Windows 操作系统中该属性始终为 0</li>
+<li>sys: CPU 在用户 sys 状态下花费的时间</li>
+<li>idle: CPU 在用户 idle 状态下花费的时间</li>
+<li>irq: CPU 在用户 irq 状态下花费的时间</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> os = <span class="built_in">require</span>(<span class="string">"os"</span>);</span><br><span class="line"><span class="built_in">console</span>.log(os.cpus());</span><br></pre></td></tr></table></figure>
+
+<p>输出</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">[</span><br><span class="line">  &#123;</span><br><span class="line">    model: <span class="string">'Intel(R) Core(TM) i5-10210U CPU @ 1.60GHz'</span>,</span><br><span class="line">    speed: <span class="number">2112</span>,</span><br><span class="line">    times: &#123;</span><br><span class="line">      user: <span class="number">4533328</span>,</span><br><span class="line">      nice: <span class="number">0</span>,</span><br><span class="line">      sys: <span class="number">5867843</span>,</span><br><span class="line">      idle: <span class="number">85751843</span>,</span><br><span class="line">      irq: <span class="number">1135437</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  ... ...</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<h3 id="totalmem、freemem"><a href="#totalmem、freemem" class="headerlink" title="totalmem、freemem"></a>totalmem、freemem</h3><p><code>os.totlemen()</code> 获得系统的总内存，<code>os.freemen</code> 获得系统的目前可用内存，二者单位皆为 Byte</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> os = <span class="built_in">require</span>(<span class="string">"os"</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(os.totalmem()); <span class="comment">// 17001648128</span></span><br><span class="line"><span class="built_in">console</span>.log(os.freemem()); <span class="comment">// 7865696256</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="hostname"><a href="#hostname" class="headerlink" title="hostname"></a>hostname</h3><p><code>os.hostname()</code> 返回主机名</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> os = <span class="built_in">require</span>(<span class="string">"os"</span>);</span><br><span class="line"><span class="built_in">console</span>.log(os.hostname());</span><br></pre></td></tr></table></figure>
+
+<h3 id="platform"><a href="#platform" class="headerlink" title="platform"></a>platform</h3><p><code>os.platform()</code> 返回操作系统平台，常见有</p>
+<ul>
+<li>win32</li>
+<li>linux</li>
+<li>freebsd</li>
+<li>darwin</li>
+<li>openbsd</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> os = <span class="built_in">require</span>(<span class="string">"os"</span>);</span><br><span class="line"><span class="built_in">console</span>.log(os.platform()); <span class="comment">// win32</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="http"><a href="#http" class="headerlink" title="http"></a>http</h2><p>我们可以使用 http 模块搭建 HTTP 服务器，处理前端页面发起的请求，首先我们搭建一个简单的 HTTP 服务器</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> http = <span class="built_in">require</span>(<span class="string">"http"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 创建一个 HTTP 服务器</span></span><br><span class="line"><span class="keyword">const</span> server = http.createServer();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 监听请求，当有请求到达时触发回调函数</span></span><br><span class="line">server.on(<span class="string">"request"</span>, (req, res) =&gt; &#123;</span><br><span class="line">  res.setHeader(<span class="string">"Content-Type"</span>, <span class="string">"text/plain"</span>);</span><br><span class="line">  res.write(<span class="string">"Hello World!"</span>);</span><br><span class="line">  res.end();</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 监听 3000 端口</span></span><br><span class="line">server.listen(<span class="number">3000</span>, (err) =&gt; &#123;</span><br><span class="line">  <span class="keyword">if</span> (!err) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"服务启动在3000端口..."</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>上述我们搭建了一个 HTTP 服务器，它监听了 3000 端口，当有请求到来时，我们返回一个字符串 <code>Hello World！</code>，我们使用 Postman 发送一个请求测试</p>
+<img src="https://cdn.jsdelivr.net/gh/LastKnightCoder/ImgHosting/20210220192055.png" style="zoom:50%;" />
+
+<h3 id="请求对象"><a href="#请求对象" class="headerlink" title="请求对象"></a>请求对象</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">server.on(<span class="string">"request"</span>, (req, res) =&gt; &#123;</span><br><span class="line">  <span class="comment">// ... ...</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>上面的代码我们向回调函数传递了两个参数</p>
+<ul>
+<li>req：请求对象，包含了请求相关的信息，例如请求头，请求参数，请求地址</li>
+<li>res：响应对象，用以设置响应信息，例如响应头，响应内容</li>
+</ul>
+<p>在本节介绍请求对象。</p>
+<h4 id="req-url"><a href="#req-url" class="headerlink" title="req.url"></a>req.url</h4><p>通过 <code>req.url</code> 我们可以过得请求地址</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> http = <span class="built_in">require</span>(<span class="string">"http"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 创建一个 HTTP 服务器</span></span><br><span class="line"><span class="keyword">const</span> server = http.createServer();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 监听请求，当有请求到达时触发回调函数</span></span><br><span class="line">server.on(<span class="string">"request"</span>, (req, res) =&gt; &#123;</span><br><span class="line">  <span class="comment">// 解决中文乱码</span></span><br><span class="line">  res.setHeader(<span class="string">"Content-Type"</span>, <span class="string">"text/plain;charset=utf-8"</span>);</span><br><span class="line">  <span class="comment">// 根据不同的 url 返回不同的内容</span></span><br><span class="line">  <span class="keyword">if</span> (req.url === <span class="string">"/"</span>) &#123;</span><br><span class="line">    res.write(<span class="string">"您访问的是主页"</span>);</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (req.url === <span class="string">"/add"</span>) &#123;</span><br><span class="line">    res.write(<span class="string">"添加一条记录"</span>);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    res.write(<span class="string">"您访问的资源不存在"</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  res.end();</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 监听 3000 端口</span></span><br><span class="line">server.listen(<span class="number">3000</span>, (err) =&gt; &#123;</span><br><span class="line">  <span class="keyword">if</span> (!err) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"服务在启动3000端口..."</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>我们可以利用核心模块 <code>querystring</code> 来解析 url，获得请求参数</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> http = <span class="built_in">require</span>(<span class="string">"http"</span>);</span><br><span class="line"><span class="keyword">const</span> querystring = <span class="built_in">require</span>(<span class="string">"querystring"</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> server = http.createServer();</span><br><span class="line"></span><br><span class="line">server.on(<span class="string">"request"</span>, (req, res) =&gt; &#123;</span><br><span class="line">  <span class="comment">// 解析请求参数为键值对的形式</span></span><br><span class="line">  <span class="keyword">const</span> url = req.url;</span><br><span class="line">  <span class="keyword">const</span> query = url.split(<span class="string">"?"</span>)[<span class="number">1</span>];</span><br><span class="line">  <span class="keyword">const</span> params = querystring.parse(query);</span><br><span class="line"></span><br><span class="line">  res.setHeader(<span class="string">"Content-Type"</span>, <span class="string">"application/json"</span>);</span><br><span class="line">  <span class="comment">// 将请求参数返回</span></span><br><span class="line">  res.write(<span class="built_in">JSON</span>.stringify(params));</span><br><span class="line">  res.end();</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">server.listen(<span class="number">3000</span>);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"服务启动在3000端口......"</span>);</span><br></pre></td></tr></table></figure>
+
+<img src="https://cdn.jsdelivr.net/gh/LastKnightCoder/ImgHosting/20210220210926.png" style="zoom:50%;" />
+
+<h4 id="req-method"><a href="#req-method" class="headerlink" title="req.method"></a>req.method</h4><p>通过 <code>req.method</code> 属性，可以知道请求方法，常见请求方法包括</p>
+<ul>
+<li>GET</li>
+<li>POST</li>
+<li>PUT</li>
+<li>DELETE</li>
+<li>OPTIONS</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> http = <span class="built_in">require</span>(<span class="string">"http"</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> server = http.createServer();</span><br><span class="line"></span><br><span class="line">server.on(<span class="string">"request"</span>, (req, res) =&gt; &#123;</span><br><span class="line">  res.setHeader(<span class="string">"Content-Type"</span>, <span class="string">"text/plain;charset=utf-8"</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (req.method === <span class="string">"GET"</span>) &#123;</span><br><span class="line">    res.write(<span class="string">"GET 请求"</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (req.method === <span class="string">"POST"</span>) &#123;</span><br><span class="line">    res.write(<span class="string">"POST 请求"</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  res.end();</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">server.listen(<span class="number">3000</span>, (err) =&gt; &#123;</span><br><span class="line">  <span class="keyword">if</span> (!err) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"服务在启动3000端口..."</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h4 id="req-headers"><a href="#req-headers" class="headerlink" title="req.headers"></a>req.headers</h4><p><code>req.headers</code> 保存着所有的请求头的信息</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> http = <span class="built_in">require</span>(<span class="string">"http"</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> server = http.createServer();</span><br><span class="line"></span><br><span class="line">server.on(<span class="string">"request"</span>, (req, res) =&gt; &#123;</span><br><span class="line">  res.setHeader(<span class="string">"Content-Type"</span>, <span class="string">"application/json"</span>);</span><br><span class="line">  <span class="comment">// 将请求头原样返回</span></span><br><span class="line">  res.write(<span class="built_in">JSON</span>.stringify(req.headers));</span><br><span class="line">  res.end();</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">server.listen(<span class="number">3000</span>, (err) =&gt; &#123;</span><br><span class="line">  <span class="keyword">if</span> (!err) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"服务在启动3000端口..."</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<img src="https://cdn.jsdelivr.net/gh/LastKnightCoder/ImgHosting/20210220204430.png" style="zoom:50%;" />
+
+<h3 id="响应对象"><a href="#响应对象" class="headerlink" title="响应对象"></a>响应对象</h3><p>响应对象就是用来发送响应信息，包括</p>
+<ul>
+<li>响应头</li>
+<li>状态码</li>
+<li>响应内容</li>
+</ul>
+<h4 id="setHeader"><a href="#setHeader" class="headerlink" title="setHeader"></a>setHeader</h4><p>我们可以通过 setHeader(name, value) 来设置响应头，例如设置 <code>Content-Type</code> 响应头</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> http = <span class="built_in">require</span>(<span class="string">"http"</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> server = http.createServer();</span><br><span class="line"></span><br><span class="line">server.on(<span class="string">"request"</span>, (req, res) =&gt; &#123;</span><br><span class="line">  <span class="comment">// 设置响应头 Content-Type</span></span><br><span class="line">  res.setHeader(<span class="string">"Content-Type"</span>, <span class="string">"text/plain"</span>);</span><br><span class="line">  res.write(<span class="string">"Hello World!"</span>);</span><br><span class="line">  res.end();</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">server.listen(<span class="number">4000</span>);</span><br></pre></td></tr></table></figure>
+
+<h4 id="writeHead"><a href="#writeHead" class="headerlink" title="writeHead"></a>writeHead</h4><p>我们可以通过 writeHead 来设置响应状态码</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> http = <span class="built_in">require</span>(<span class="string">"http"</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> server = http.createServer();</span><br><span class="line"></span><br><span class="line">server.on(<span class="string">"request"</span>, (req, res) =&gt; &#123;</span><br><span class="line">  res.setHeader(<span class="string">"Content-Type"</span>, <span class="string">"text/plain"</span>);</span><br><span class="line">  res.writeHead(<span class="number">404</span>);</span><br><span class="line">  res.write(<span class="string">"Resource Not Found"</span>);</span><br><span class="line">  res.end();</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">server.listen(<span class="number">4000</span>);</span><br></pre></td></tr></table></figure>
+
+<img src="https://cdn.jsdelivr.net/gh/LastKnightCoder/ImgHosting/20210220213829.png" style="zoom:50%;" />
+
+<p>除此之外，writeHead 还可以接收一个可选的对象来设置请求头，它的优先级比 setHeader 方法的优先级高</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> http = <span class="built_in">require</span>(<span class="string">"http"</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> server = http.createServer();</span><br><span class="line"></span><br><span class="line">server.on(<span class="string">"request"</span>, (req, res) =&gt; &#123;</span><br><span class="line">  res.setHeader(<span class="string">"Content-Type"</span>, <span class="string">"text/plain"</span>);</span><br><span class="line">  <span class="comment">// 重新设置 Content-Type 请求头</span></span><br><span class="line">  res.writeHead(<span class="number">404</span>, &#123;</span><br><span class="line">    <span class="string">"Content-Type"</span>: <span class="string">"text/html"</span>,</span><br><span class="line">  &#125;);</span><br><span class="line">  res.write(<span class="string">"Resource Not Found"</span>);</span><br><span class="line">  res.end();</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">server.listen(<span class="number">4000</span>);</span><br></pre></td></tr></table></figure>
+
+<img src="https://cdn.jsdelivr.net/gh/LastKnightCoder/ImgHosting/20210220215045.png" style="zoom:50%;" />
+
+<h4 id="write、end"><a href="#write、end" class="headerlink" title="write、end"></a>write、end</h4><p>我们使用 res.write 方法来返回响应内容，res.write 方法可以多次调用，在调用多次 write 之后，应该使用 res.end 方法表示响应的结束。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> http = <span class="built_in">require</span>(<span class="string">"http"</span>);</span><br><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">"fs"</span>).promises;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> server = http.createServer();</span><br><span class="line"></span><br><span class="line">server.on(<span class="string">"request"</span>, (req, res) =&gt; &#123;</span><br><span class="line">  res.setHeader(<span class="string">"Content-Type"</span>, <span class="string">"text/html"</span>);</span><br><span class="line">  (<span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> data = <span class="keyword">await</span> fs.readFile(<span class="string">"./page/index.html"</span>, <span class="string">"utf-8"</span>);</span><br><span class="line">    res.write(data);</span><br><span class="line">    res.end();</span><br><span class="line">  &#125;)();</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">server.listen(<span class="number">4000</span>);</span><br></pre></td></tr></table></figure>
+
+<img src="https://cdn.jsdelivr.net/gh/LastKnightCoder/ImgHosting/20210220220557.png" style="zoom:50%;" />
+
+<p>end 方法也可以接收一个 data 参数</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">res.end(data);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 相当于</span></span><br><span class="line">res.write(data);</span><br><span class="line">res.end();</span><br></pre></td></tr></table></figure>
+
+<h2 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h2><ul>
+<li><a href="https://www.w3schools.com/nodejs/nodejs_filesystem.asp" target="_blank" rel="noopener">Node.js File System Module</a></li>
+<li><a href="https://www.geeksforgeeks.org/node-js-fs-open-method/" target="_blank" rel="noopener">Node.js | fs.open() Method</a></li>
+<li><a href="https://www.howtogeek.com/517098/linux-file-timestamps-explained-atime-mtime-and-ctime/" target="_blank" rel="noopener">Linux File Timestamps Explained: atime, mtime, and ctime</a></li>
+<li><a href="https://nodejs.org/api/fs.html" target="_blank" rel="noopener">Node.js v15.9.0 Documentation</a></li>
+<li><a href="https://my.oschina.net/u/3407699/blog/1624320" target="_blank" rel="noopener">nodejs 中服务器返回响应信息中的中文乱码</a></li>
+</ul>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2021-02-20T14:13:00.000Z" itemprop="dateUpdated">2021-02-20 22:13:00</time>
+</span><br>
+
+
+        
+    </div>
+    
+    <footer>
+        <a href="https://lastknightcoder.github.io/lastknightcoder">
+            <img src="https://lastknightcoder.github.io/lastknightcoder/img/avatar.jpg" alt="熊滔">
+            熊滔
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="https://lastknightcoder.github.io/lastknightcoder/tags/fs/" rel="tag">fs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="https://lastknightcoder.github.io/lastknightcoder/tags/http/" rel="tag">http</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="https://lastknightcoder.github.io/lastknightcoder/tags/os/" rel="tag">os</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="https://lastknightcoder.github.io/lastknightcoder/tags/path/" rel="tag">path</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="https://lastknightcoder.github.io/lastknightcoder/tags/querystring/" rel="tag">querystring</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://lastknightcoder.github.io/lastknightcoder/Node.js%E4%B9%8B%E6%A0%B8%E5%BF%83%E6%A8%A1%E5%9D%97/&title=《Node.js之核心模块》 — Coder&pic=https://lastknightcoder.github.io/lastknightcoder/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://lastknightcoder.github.io/lastknightcoder/Node.js%E4%B9%8B%E6%A0%B8%E5%BF%83%E6%A8%A1%E5%9D%97/&title=《Node.js之核心模块》 — Coder&source=人生天地间，忽如远行客" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://lastknightcoder.github.io/lastknightcoder/Node.js%E4%B9%8B%E6%A0%B8%E5%BF%83%E6%A8%A1%E5%9D%97/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Node.js之核心模块》 — Coder&url=https://lastknightcoder.github.io/lastknightcoder/Node.js%E4%B9%8B%E6%A0%B8%E5%BF%83%E6%A8%A1%E5%9D%97/&via=https://lastknightcoder.github.io/lastknightcoder" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://lastknightcoder.github.io/lastknightcoder/Node.js%E4%B9%8B%E6%A0%B8%E5%BF%83%E6%A8%A1%E5%9D%97/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="https://lastknightcoder.github.io/lastknightcoder/Node.js%E4%B9%8B%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">Node.js之事件循环</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="https://lastknightcoder.github.io/lastknightcoder/ES6%EF%BC%9ASet%E9%9B%86%E5%90%88%E4%B8%8EMap%E9%9B%86%E5%90%88/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">ES6：Set集合与Map集合</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'lastknightcoder';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="https://lastknightcoder.github.io/lastknightcoder/img/wechatpay.png" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="https://lastknightcoder.github.io/lastknightcoder/img/wechatpay.png" data-alipay="https://lastknightcoder.github.io/lastknightcoder/img/alipay.png">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="https://lastknightcoder.github.io/lastknightcoder/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>熊滔 &copy; 2019 - 2021</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://lastknightcoder.github.io/lastknightcoder/Node.js%E4%B9%8B%E6%A0%B8%E5%BF%83%E6%A8%A1%E5%9D%97/&title=《Node.js之核心模块》 — Coder&pic=https://lastknightcoder.github.io/lastknightcoder/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://lastknightcoder.github.io/lastknightcoder/Node.js%E4%B9%8B%E6%A0%B8%E5%BF%83%E6%A8%A1%E5%9D%97/&title=《Node.js之核心模块》 — Coder&source=人生天地间，忽如远行客" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://lastknightcoder.github.io/lastknightcoder/Node.js%E4%B9%8B%E6%A0%B8%E5%BF%83%E6%A8%A1%E5%9D%97/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Node.js之核心模块》 — Coder&url=https://lastknightcoder.github.io/lastknightcoder/Node.js%E4%B9%8B%E6%A0%B8%E5%BF%83%E6%A8%A1%E5%9D%97/&via=https://lastknightcoder.github.io/lastknightcoder" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://lastknightcoder.github.io/lastknightcoder/Node.js%E4%B9%8B%E6%A0%B8%E5%BF%83%E6%A8%A1%E5%9D%97/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2CAAAAADAeSUUAAADNUlEQVR42u3awW7rMAwEwP7/T+ddenhAYXtJKkCkjE9Ba8ca5UCQq5+f+Hr9d1399+/n5J6/91+96+/f71e14MLGxsbehP26vars3hJ7G3f/lqt7sLGxsU9l90rOFTj57/0GJUW0+iw2NjY29uRzcvU2CxsbGxv7Hez7SU7+lnwLsLGxsbHzopI0A3nb8DD6iUvgG2dp2NjY2B/PzlPRz//8lnwbGxsb+4PZr+I135reqlYNrX6fwsbGxj6IXR0GJSOe3sCoGu4mx4Ae1o+NjY19BPsdo5+1JSovhIWfBBsbG/sgdrKU/JU5o1eWevc/bBw2Njb25uz8BdXX3O9x9dnkJ2ke1sHGxsbenL12fD8BzIdK5a3BxsbGPoKdLCWH5SFBL6atBhXRLA0bGxt7c/akIaluXNIw5E1FvpLLp7CxsbEPYucP90LZpNT1SEnpisotNjY29rbsPNytjuZzZB7lVodNhaESNjY29rbsPAzo/WUS+vaO7yy7sLGxsbdiJ/1KtS2pLrGaTvdK4GW+jY2NjX0Eu1pyesHAZLnVex42HRsbG/sg9qoWpTes7y131UEfbGxs7DPYvQYgjwTyvZ+Xn0JQgY2NjX0QO29I8tHP5NhNtaRNGhVsbGzsM9jVoVJ1QN8bVM23e8HvjI2Njf3x7MlRm3n7kRetpB0qRMXY2NjYx7Hvxy69hCFPIfJyVd3Ky23CxsbGPpQ9Gc3n7Ue1EFbD4yhOxsbGxj6OXS0wvaF8r9moBtJR0IuNjY19KHteYJJvKC+x9TM8KLCxsbEPYk/AveKUNDmv4OoNlQpzL2xsbOwN2asGSb0xUzVyqDY2Dwd3sLGxsY9gV0c2ecHrtSjVNqMQ9GJjY2N/ATsvSKtai1670jsMhI2NjX0S+1W8qgdo8si22mbkrU65dGFjY2Nvxc6v3levGi31Sl0eY2NjY2Pvzn53K7LqAGVv5FSIB7CxsbE3Z+dnWuYxcA+ThwSFmoyNjY39lexJ7FpteCZF9OHt2NjY2F/MLh+OiQ/uTFZY3URsbGzs89irGoNeSJyMpaoRxcM3Y2NjYx/E7k1gJqTJYKg3YBrl29jY2Nify/4HTvxAO3hSZVwAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: 'https://lastknightcoder.github.io/lastknightcoder/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

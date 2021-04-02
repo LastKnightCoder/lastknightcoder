@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>Java多线程 | Coder</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Java,多线程">
+    <meta name="description" content="有关于Java多线程的介绍以及一点有关于Lambda的知识">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java多线程">
+<meta property="og:url" content="https://lastknightcoder.github.io/lastknightcoder/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B/">
+<meta property="og:site_name" content="Coder">
+<meta property="og:description" content="有关于Java多线程的介绍以及一点有关于Lambda的知识">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/Java23.png">
+<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/Java24.png">
+<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/Java25.png">
+<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/Java26.png">
+<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/Java27.png">
+<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/Java28.png">
+<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/Java29.png">
+<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/Java30.png">
+<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/Java31.png">
+<meta property="article:published_time" content="2019-07-12T16:00:00.000Z">
+<meta property="article:modified_time" content="2019-07-12T16:00:00.000Z">
+<meta property="article:author" content="熊滔">
+<meta property="article:tag" content="Java 多线程 线程池 Lambda表达式">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/Java23.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="Coder" href="https://lastknightcoder.github.io/lastknightcoder/atom.xml">
+    
+    <link rel="shortcut icon" href="https://lastknightcoder.github.io/lastknightcoder/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(https://lastknightcoder.github.io/lastknightcoder/img/brand.jpg)">
+      <div class="brand">
+        <a href="https://lastknightcoder.github.io/lastknightcoder/" class="avatar waves-effect waves-circle waves-light">
+          <img src="https://lastknightcoder.github.io/lastknightcoder/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">熊滔</h5>
+          <a href="mailto:2223106858@qq.com" title="2223106858@qq.com" class="mail">2223106858@qq.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.github.io/lastknightcoder/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.github.io/lastknightcoder/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.github.io/lastknightcoder/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.github.io/lastknightcoder/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://gitee.com/LastKnightCoder" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Java多线程</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Java多线程</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2019-07-12T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2019-07-13
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="https://lastknightcoder.github.io/lastknightcoder/categories/JavaSE/">JavaSE</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#多线程概述"><span class="post-toc-number">1.</span> <span class="post-toc-text">多线程概述</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#继承Thread类"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">继承Thread类</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#实现Runnable接口"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">实现Runnable接口</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Thread中的常见方法"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">Thread中的常见方法</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#线程安全"><span class="post-toc-number">2.</span> <span class="post-toc-text">线程安全</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#安全问题"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">安全问题</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#线程同步"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">线程同步</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#sychronized代码块"><span class="post-toc-number">2.2.1.</span> <span class="post-toc-text">sychronized代码块</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#同步方法"><span class="post-toc-number">2.2.2.</span> <span class="post-toc-text">同步方法</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Lock锁"><span class="post-toc-number">2.2.3.</span> <span class="post-toc-text">Lock锁</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#等待唤醒"><span class="post-toc-number">3.</span> <span class="post-toc-text">等待唤醒</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#线程状态"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">线程状态</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#等待唤醒-1"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">等待唤醒</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#线程池"><span class="post-toc-number">4.</span> <span class="post-toc-text">线程池</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Lambda表达式"><span class="post-toc-number">5.</span> <span class="post-toc-text">Lambda表达式</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Lambda的使用"><span class="post-toc-number">5.1.</span> <span class="post-toc-text">Lambda的使用</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Lambda的省略格式"><span class="post-toc-number">5.2.</span> <span class="post-toc-text">Lambda的省略格式</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Lambda表达式的使用前提"><span class="post-toc-number">5.3.</span> <span class="post-toc-text">Lambda表达式的使用前提</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-Java多线程"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Java多线程</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2019-07-13 00:00:00" datetime="2019-07-12T16:00:00.000Z"  itemprop="datePublished">2019-07-13</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="https://lastknightcoder.github.io/lastknightcoder/categories/JavaSE/">JavaSE</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h2 id="多线程概述"><a href="#多线程概述" class="headerlink" title="多线程概述"></a>多线程概述</h2><p>一个软件可以同时干多件事情，就是多线程，目前我们编写的程序都是单线程的，在main方法中从上到下的进行，执行完上面的程序才能执行后面的程序。下面就将讲解如何写多线程程序。</p>
+<p>在Java中创建多线程有两种放法，一种是继承Thread类，然后重写它的run()方法。第二种是实现Runnable接口，并且实现run()方法。</p>
+<h3 id="继承Thread类"><a href="#继承Thread类" class="headerlink" title="继承Thread类"></a>继承Thread类</h3><p>继承Thread类实现多线程的步骤为</p>
+<ul>
+<li>继承Thread类，重写run()方法</li>
+<li>创建类对象，调用继承的start()方法</li>
+</ul>
+<p>我们写一个MyThread类继承自Thread类，并重写run方法如下</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyThread</span> <span class="keyword">extends</span> <span class="title">Thread</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">20</span>; i++) &#123;</span><br><span class="line">            System.out.println(<span class="string">"thread"</span> + i);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>新建一个测试类，在其main方法中创建MyThread对象，并且调用对象继承自Thread的start()方法</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">MyThread thread = <span class="keyword">new</span> MyThread();</span><br><span class="line">thread.start();</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">20</span>; i++) &#123;</span><br><span class="line">    System.out.println(<span class="string">"main"</span> + i);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>程序输出为</p>
+<center>
+<img src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/Java23.png"/>
+</center>
+
+<p>观察到main方法中的程序和MyThread的run()方法中的程序在交替的进行。而不是在等待我执行完了，另一个在执行，而是两个在同时的执行，这就是多线程。</p>
+<h3 id="实现Runnable接口"><a href="#实现Runnable接口" class="headerlink" title="实现Runnable接口"></a>实现Runnable接口</h3><p>实现Runnable接口实现多线程的步骤为</p>
+<ul>
+<li>实现Runnable接口并实现run()方法</li>
+<li>在main中创建实现类对象</li>
+<li>将实现类对象多为参数传入Thread()的构造方法，得到一个Thread对象</li>
+<li>该Thread对象调用start()方法</li>
+</ul>
+<p>下面进行演示，首先创建一个类实现Runnable接口</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyRun</span> <span class="keyword">implements</span> <span class="title">Runnable</span></span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">20</span>; i++) &#123;</span><br><span class="line">            System.out.println(<span class="string">"Run"</span> + i);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>下面在实现类中实现多线程，如下</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Runnable run = <span class="keyword">new</span> MyRun(); <span class="comment">//创建实现类对象</span></span><br><span class="line">Thread thread = <span class="keyword">new</span> Thread(run); <span class="comment">//实现类对象作为参数传入Thread的构造方法</span></span><br><span class="line">thread.start(); <span class="comment">//Thread对象调用start()方法启动线程</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">20</span>; i++) &#123;</span><br><span class="line">    System.out.println(<span class="string">"main"</span> + i);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>输出为</p>
+<center>
+<img src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/Java24.png"/>
+</center>
+
+<p>可以观察到main中的程序和run()方法中的程序是在同时进行的。</p>
+<h3 id="Thread中的常见方法"><a href="#Thread中的常见方法" class="headerlink" title="Thread中的常见方法"></a>Thread中的常见方法</h3><ul>
+<li>getName()<ul>
+<li>获得线程的名称</li>
+</ul>
+</li>
+<li>currentThread()<ul>
+<li>获得正在执行的线程</li>
+</ul>
+</li>
+<li>setName(String str)<ul>
+<li>设置线程的名字</li>
+<li>也可以通过new Thread(String str)设置线程的名字</li>
+</ul>
+</li>
+<li>sleep(long l)<ul>
+<li>线程休眠l毫秒</li>
+</ul>
+</li>
+</ul>
+<p>我们修改MyRun中的run()方法为</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">20</span>; i++) &#123;</span><br><span class="line">    <span class="comment">//获得当前线程并且获得当前线程的名字</span></span><br><span class="line">    System.out.println(Thread.currentThread().getName() + i); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>修改main方法为</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Runnable run = <span class="keyword">new</span> MyRun();</span><br><span class="line">Thread thread = <span class="keyword">new</span> Thread(run);</span><br><span class="line">thread.setName(<span class="string">"run"</span>); <span class="comment">//增加了这一行，设置线程的名字</span></span><br><span class="line">thread.start();</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">20</span>; i++) &#123;</span><br><span class="line">    System.out.println(<span class="string">"main"</span> + i);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>输出结果为</p>
+<center>
+<img src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/Java25.png"/>
+</center>
+
+<h2 id="线程安全"><a href="#线程安全" class="headerlink" title="线程安全"></a>线程安全</h2><h3 id="安全问题"><a href="#安全问题" class="headerlink" title="安全问题"></a>安全问题</h3><p>现在考虑这么一个问题，有三个售票机在售票，那么它们不能发生售出同样的票，也不能售出不存在的票。现在我要用一个类模拟售票机售票，并使用多线程模拟同时售票，新建一个SellTicket类</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SellTicket</span> <span class="keyword">implements</span> <span class="title">Runnable</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> ticket = <span class="number">10</span>; <span class="comment">//总共10张票</span></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">while</span> (<span class="keyword">true</span>) &#123; <span class="comment">//表示一直售票</span></span><br><span class="line">            <span class="keyword">if</span> (ticket &gt; <span class="number">0</span>) &#123; <span class="comment">//如果还有票</span></span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    <span class="comment">//为了增加出错的可能，使当前的线程休眠1ms</span></span><br><span class="line">                    Thread.sleep(<span class="number">1</span>);</span><br><span class="line">                &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                System.out.println(Thread.currentThread().getName() + <span class="string">"正在卖第"</span> + ticket + <span class="string">"张票"</span>);</span><br><span class="line">                ticket --;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在测试类的main方法中创建三个线程同时售票</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Runnable sellTicket = <span class="keyword">new</span> SellTicket();</span><br><span class="line"><span class="comment">//创建三个线程 注意必须使用的同一个售票机对象 否则他们就是各自10张票而不是总共10张票</span></span><br><span class="line"><span class="keyword">new</span> Thread(sellTicket).start();</span><br><span class="line"><span class="keyword">new</span> Thread(sellTicket).start();</span><br><span class="line"><span class="keyword">new</span> Thread(sellTicket).start();</span><br></pre></td></tr></table></figure>
+
+<p>输出为</p>
+<center>
+<img src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/Java26.png"/>
+</center>
+
+<p>我们发现出现了不同的售票线程售出了相同的票，并且有的售票线程售出了不存在的票-1。</p>
+<h3 id="线程同步"><a href="#线程同步" class="headerlink" title="线程同步"></a>线程同步</h3><p>之所以会出现上面的问题，就是因为在有的售票机卖出了票，即进入了if语句后，但是还未进行ticket–操作，但是这个时候这个线程失去了CPU的执行权，并且别的线程拿到了CPU的执行权，由于未对ticket–，所以它们拿到的是同一张票，所以这就是为什么它们能卖出同一张票的原因。同理卖出不存在的票也是同种原因。</p>
+<p>那么如何解决这个问题，我们必须要求在售票机在完成售票并且对ticket–之前，别的售票机不能对ticket进行操作，这样就不会出现票重复和卖出不存在的票的情况了，而实现这个的技术就叫做同步。有三种实现方式，分别是</p>
+<ul>
+<li>synchronized代码块</li>
+<li>同步方法</li>
+<li>Lock锁</li>
+</ul>
+<p>下面具体介绍用法。</p>
+<h4 id="sychronized代码块"><a href="#sychronized代码块" class="headerlink" title="sychronized代码块"></a>sychronized代码块</h4><p>sychronized代码块的格式为</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">sychronized(锁对象) &#123;</span><br><span class="line">    <span class="comment">//需要同步的代码，也就是可能出现问题的代码</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其中锁对象可以是任意的对象，当一个线程执行到同步代码块时，会将该锁对象交给这个线程，当这个线程执行完同步代码块时，会释放锁对象，所以如果这个线程在同步代码块内失去了CPU的执行权，因为别的线程没有锁对象，就不能进入同步代码块执行，就会进入堵塞状态，等待锁对象被释放。所以锁对象就相当于是钥匙了，要保证多个线程的锁对象要相同，这样就只有一把钥匙了。</p>
+<p>我们重新修改SellTicket的类如下</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SellTicket</span> <span class="keyword">implements</span> <span class="title">Runnable</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> ticket = <span class="number">10</span>; <span class="comment">//总共10张票</span></span><br><span class="line">    Object object = <span class="keyword">new</span> Object(); <span class="comment">//锁对象</span></span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">while</span> (<span class="keyword">true</span>) &#123; <span class="comment">//表示一直售票</span></span><br><span class="line">            <span class="comment">//同步代码块 一次只有一个线程执行</span></span><br><span class="line">            <span class="keyword">synchronized</span> (object) &#123;</span><br><span class="line">                <span class="keyword">if</span> (ticket &gt; <span class="number">0</span>) &#123; <span class="comment">//如果还有票</span></span><br><span class="line">                    <span class="keyword">try</span> &#123;</span><br><span class="line">                        <span class="comment">//为了增加出错的可能，使当前的线程休眠1ms</span></span><br><span class="line">                        Thread.sleep(<span class="number">1</span>);</span><br><span class="line">                    &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                        e.printStackTrace();</span><br><span class="line">                    &#125;</span><br><span class="line">                    System.out.println(Thread.currentThread().getName() + <span class="string">"正在卖第"</span> + ticket + <span class="string">"张票"</span>);</span><br><span class="line">                    ticket --;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>输出结果为</p>
+<center>
+<img src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/Java27.png"/>
+</center>
+
+<p>这次我们发现没有卖出重复的票，也没有卖出不可能的票。</p>
+<h4 id="同步方法"><a href="#同步方法" class="headerlink" title="同步方法"></a>同步方法</h4><p>同步方法其实就是使用synchronized修饰的方法，这个方法每次也只能有一个线程执行，它的锁对象是this，我们把上面买票的程序抽取出为一个方法sellTicket()</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span>  <span class="title">sellTicket</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (ticket &gt; <span class="number">0</span>) &#123; <span class="comment">//如果还有票</span></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">//为了增加出错的可能，使当前的线程休眠1ms</span></span><br><span class="line">            Thread.sleep(<span class="number">1</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(Thread.currentThread().getName() + <span class="string">"正在卖第"</span> + ticket + <span class="string">"张票"</span>);</span><br><span class="line">        ticket --;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这时run()可简化为</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">while</span> (<span class="keyword">true</span>) &#123; <span class="comment">//表示一直售票</span></span><br><span class="line">        sellTicket();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>输出为</p>
+<center>
+<img src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/Java28.png"/>
+</center>
+
+<p>也达到了同样的效果。</p>
+<p>注意：</p>
+<ul>
+<li>同步方法也可以为静态方法，不过这时的锁对象不在是this了，而是本类的class属性，也是一个对象。</li>
+</ul>
+<h4 id="Lock锁"><a href="#Lock锁" class="headerlink" title="Lock锁"></a>Lock锁</h4><p>Lock是一个接口，它比较灵活。之前我们讲到，在线程执行到synchronized代码块时，会获得锁对象，在执行完代码块时，会释放锁对象，但是这些对我们都是不可见的，而Lock灵活在我们自己觉得在哪里加锁，哪里释放锁。它有两个方法</p>
+<ul>
+<li>lock()<ul>
+<li>加锁</li>
+</ul>
+</li>
+<li>unlock()<ul>
+<li>释放锁</li>
+</ul>
+</li>
+</ul>
+<p>lock()一般写在同步代码前，unlock()写在同步代码后。ReentrantLock是Lock的实现类，下面我们将演示如何使用Lock锁同步，修改run方法为</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Lock lock = <span class="keyword">new</span> ReentrantLock(); <span class="comment">//创建Lock锁实现类对象</span></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">while</span> (<span class="keyword">true</span>) &#123; <span class="comment">//表示一直售票</span></span><br><span class="line">        lock.lock();  <span class="comment">//加锁</span></span><br><span class="line">        <span class="keyword">if</span> (ticket &gt; <span class="number">0</span>) &#123; <span class="comment">//如果还有票</span></span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="comment">//为了增加出错的可能，使当前的线程休眠1ms</span></span><br><span class="line">                Thread.sleep(<span class="number">1</span>);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(Thread.currentThread().getName() + <span class="string">"正在卖第"</span> + ticket + <span class="string">"张票"</span>);</span><br><span class="line">            ticket --;</span><br><span class="line">        &#125;</span><br><span class="line">        lock.unlock(); <span class="comment">//释放锁</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>输出为</p>
+<center>
+<img src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/Java29.png"/>
+</center>
+
+<p>可见达到了同步的效果。</p>
+<h2 id="等待唤醒"><a href="#等待唤醒" class="headerlink" title="等待唤醒"></a>等待唤醒</h2><p>当我们排队买奶茶时，我们对老板说我们要一杯奶茶，然后我们就等着，老板去制作奶茶，等老板制作好奶茶后去喊我们。这其实就是等待唤醒，当多个线程去操作同一个资源时，比如奶茶，就需要一方(顾客)等着，等待另一方(老板)唤醒，总不能奶茶没有好我去抢吧。</p>
+<h3 id="线程状态"><a href="#线程状态" class="headerlink" title="线程状态"></a>线程状态</h3><p>在讲解等待唤醒之前，我们先对线程的状态有一个大致的了解，看图</p>
+<center>
+<img src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/Java30.png"/>
+</center>
+
+<p>当我们创建一个线程对象还没有start()时，这时它处于New状态；当我们执行start()方法后，这时的线程状态由New转向Runnable运行状态；如果执行完run()方法，或者调用了stop()方法或者抛出了异常那么该线程进入死亡状态。如果在Runnable状态失去了CPU的执行权，那么就会进入Blocked阻塞状态；线程在这里等待CPU的执行权，拿到了CPU的执行权就会从该状态来到Runnable状态；如果线程在运行时执行了sleep(l)或wait(l)(l为等待的时间)方法，那么就会由Runnable状态进入Timed waiting状态，在这个状态中，线程放弃争夺CPU的执行权，当等待的时间到了之后，如果CPU空闲，那么就进入Runnable状态，如果忙碌，那么就进入Blocked状态，与其他线程一起争夺CPU的执行权。如果在Runnable执行了wait()(不带参数的)方法，就会进入Waiting永久等待状态，直到锁对象执行notify()方法唤醒，如果CPU空闲，就进入Runnable状态，否则进入Blocked状态争夺CPU执行权。</p>
+<h3 id="等待唤醒-1"><a href="#等待唤醒-1" class="headerlink" title="等待唤醒"></a>等待唤醒</h3><p>这里的等待唤醒指的就是上面提及的Runnable状态执行wait()方法到Waiting永久等待状态，以及执行notiify()方法有永久等待状态到Runnable状态。前者为等待，后者为唤醒。</p>
+<p>注意：</p>
+<ul>
+<li>只有锁对象才能调用wait()和notify()方法</li>
+<li>wait()和notify()的调用者应该是同一锁对象，并且必须写在同步代码块中</li>
+<li>执行wait()被唤醒后，会继续执行wait()后面的代码</li>
+<li>notify()一次只能唤醒一个线程，唤醒的是睡眠最久的线程，notifyAll()能够唤醒所有的线程</li>
+</ul>
+<p>下面以最先提及的买奶茶为例演示这一过程。首先创建Runnable顾客类和老板类和奶茶类</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MilkTea</span> </span>&#123;</span><br><span class="line">    String taste; <span class="comment">//奶茶口味</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">boolean</span> flag = <span class="keyword">false</span>; <span class="comment">//奶茶有没有做好</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CustomerThread</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> MilkTea milkTea; <span class="comment">//作为锁对象</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">CustomerThread</span><span class="params">(MilkTea milkTea)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.milkTea = milkTea;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</span><br><span class="line">            <span class="keyword">synchronized</span> (milkTea) &#123; </span><br><span class="line">                <span class="keyword">if</span> (milkTea.flag == <span class="keyword">false</span>) &#123; <span class="comment">//奶茶没有准备好</span></span><br><span class="line">                    System.out.println(<span class="string">"老板来杯珍珠奶茶"</span>);</span><br><span class="line">                    <span class="keyword">try</span> &#123;</span><br><span class="line">                        milkTea.wait(); <span class="comment">//等待</span></span><br><span class="line">                    &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                        e.printStackTrace();</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                System.out.println(milkTea.taste + <span class="string">"真好喝"</span>); <span class="comment">//被唤醒后会执行这个</span></span><br><span class="line">                milkTea.flag = <span class="keyword">false</span>; <span class="comment">//奶茶喝完了</span></span><br><span class="line">                milkTea.notify();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Shopper</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> MilkTea milkTea; <span class="comment">//作为锁对象 和Customer相同</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Shopper</span><span class="params">(MilkTea milkTea)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.milkTea = milkTea;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</span><br><span class="line">            <span class="keyword">synchronized</span> (milkTea) &#123;</span><br><span class="line">                <span class="keyword">if</span> (milkTea.flag == <span class="keyword">true</span>) &#123;</span><br><span class="line">                    <span class="keyword">try</span> &#123;</span><br><span class="line">                        milkTea.wait(); <span class="comment">//等待</span></span><br><span class="line">                    &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                        e.printStackTrace();</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line"></span><br><span class="line">                    <span class="keyword">try</span> &#123;</span><br><span class="line">                        System.out.println(<span class="string">"做奶茶中 ..."</span>);</span><br><span class="line">                        Thread.sleep(<span class="number">3000</span>);</span><br><span class="line">                    &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                        e.printStackTrace();</span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line">                    milkTea.taste = <span class="string">"珍珠奶茶"</span>;</span><br><span class="line">                    milkTea.flag = <span class="keyword">true</span>;</span><br><span class="line">                    System.out.println(milkTea.taste + <span class="string">"做好了"</span>);</span><br><span class="line">                    milkTea.notify();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>下面在测试类中创建两个线程</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        MilkTea milkTea = <span class="keyword">new</span> MilkTea(); <span class="comment">//作为锁对象</span></span><br><span class="line">        <span class="keyword">new</span> Thread(<span class="keyword">new</span> CustomerThread(milkTea)).start();</span><br><span class="line">        <span class="keyword">new</span> Thread(<span class="keyword">new</span> Shopper(milkTea)).start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>输出为</p>
+<center>
+<img src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/Java31.png"/>
+</center>
+
+<p>这就是等待唤醒的过程。</p>
+<h2 id="线程池"><a href="#线程池" class="headerlink" title="线程池"></a>线程池</h2><p>当我们需要一个新的线程执行任务，我们就会创建一个新的线程，但是如果这个线程执行的任务很少，并且我们需要频繁的创建线程，这个创建线程的过程会很耗费时间，所以我们就想有没有一个机制，我们不用创建线程，当我们需要线程时我们去取，当我们用完时，我们还给它。这样就不需要频繁创建线程，省去时间，提高效率。线程池可以帮我们实现这一个想法。</p>
+<p>那接下来的问题我们怎么使用Java为我们准备的线程池，Executors提供了一个静态方法newFixedThreadPool(int nThreads)，这个方法接收的参数是线程池中线程的个数，返回一个ExecutorService对象，然后我们就可以使用该对象的submit(Runnable task)方法，传入一个Runnable实现类对象就可以了。下面我们来示例一番</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.concurrent.ExecutorService;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.Executors;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ThreadPool</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//创建一个匿名内部类</span></span><br><span class="line">        Runnable run = <span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++) &#123;</span><br><span class="line">                    System.out.println(Thread.currentThread().getName() + <span class="string">" "</span> + i);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">		<span class="comment">//长度有三个线程的线程池</span></span><br><span class="line">        ExecutorService threadPool = Executors.newFixedThreadPool(<span class="number">3</span>); </span><br><span class="line">        <span class="comment">//三个线程执行任务</span></span><br><span class="line">        threadPool.submit(run);</span><br><span class="line">        threadPool.submit(run);</span><br><span class="line">        threadPool.submit(run);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>输出为</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">pool-<span class="number">1</span>-thread-<span class="number">1</span> <span class="number">0</span></span><br><span class="line">pool-<span class="number">1</span>-thread-<span class="number">2</span> <span class="number">0</span></span><br><span class="line">pool-<span class="number">1</span>-thread-<span class="number">1</span> <span class="number">1</span></span><br><span class="line">pool-<span class="number">1</span>-thread-<span class="number">2</span> <span class="number">1</span></span><br><span class="line">pool-<span class="number">1</span>-thread-<span class="number">1</span> <span class="number">2</span></span><br><span class="line">pool-<span class="number">1</span>-thread-<span class="number">3</span> <span class="number">0</span></span><br><span class="line">pool-<span class="number">1</span>-thread-<span class="number">2</span> <span class="number">2</span></span><br><span class="line">pool-<span class="number">1</span>-thread-<span class="number">3</span> <span class="number">1</span></span><br><span class="line">pool-<span class="number">1</span>-thread-<span class="number">1</span> <span class="number">3</span></span><br><span class="line">pool-<span class="number">1</span>-thread-<span class="number">3</span> <span class="number">2</span></span><br><span class="line">pool-<span class="number">1</span>-thread-<span class="number">2</span> <span class="number">3</span></span><br><span class="line">pool-<span class="number">1</span>-thread-<span class="number">3</span> <span class="number">3</span></span><br><span class="line">pool-<span class="number">1</span>-thread-<span class="number">1</span> <span class="number">4</span></span><br><span class="line">pool-<span class="number">1</span>-thread-<span class="number">3</span> <span class="number">4</span></span><br><span class="line">pool-<span class="number">1</span>-thread-<span class="number">2</span> <span class="number">4</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Lambda表达式"><a href="#Lambda表达式" class="headerlink" title="Lambda表达式"></a>Lambda表达式</h2><p>我们在创建一个线程时，我们一般需要做一下的步骤</p>
+<ul>
+<li>创建一实现类实现Runnable接口</li>
+<li>重写run方法</li>
+<li>创建实现类对象</li>
+<li>将该对象传入Thread的构造方法中</li>
+</ul>
+<p>上面的写法可以简化，省去创建一个实现类，直接创建一个匿名内部类</p>
+<ul>
+<li>创建一个Runnable匿名内部类</li>
+<li>重写run方法</li>
+<li>将该对象传入Thread的构造方法中</li>
+</ul>
+<p>其实上面有很多的代码是多余，真正有用的代码就是run()方法里面的代码，但是为了创建一个线程我们不得不要创建一个对象，然后巴拉巴拉。其实有时候我们不关心谁来做，只需要告诉我怎么做，比如一个线程你只需要告诉我run()方法就可以了，告诉我怎么做就可以了，但是我们却要创建一个对象等等一系列的操作才能达到这个目的。</p>
+<h3 id="Lambda的使用"><a href="#Lambda的使用" class="headerlink" title="Lambda的使用"></a>Lambda的使用</h3><p>Java在JDK 1.8中引入了Lambda表达式，可以极大简化我们的编程，可以做到我上面所说的只关心怎么做的问题，不需要创建对象。我们来看看下面这段代码用Lambda怎么写</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++) &#123;</span><br><span class="line">            System.out.println(Thread.currentThread().getName() + <span class="string">" "</span> + i);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;).start();</span><br></pre></td></tr></table></figure>
+
+<p>Lambda的写法为</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">new</span> Thread(() -&gt; &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">20</span>; i++) &#123;</span><br><span class="line">        System.out.println(Thread.currentThread().getName() + <span class="string">" "</span> + i);</span><br><span class="line">    &#125; </span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>现在你可能没有看懂这个写法，下面让我为你解释一番。首先我们注意到</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++) &#123;</span><br><span class="line">            System.out.println(Thread.currentThread().getName() + <span class="string">" "</span> + i);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>被简单的替换为了</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">() -&gt; &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">20</span>; i++) &#123;</span><br><span class="line">        System.out.println(Thread.currentThread().getName() + <span class="string">" "</span> + i);</span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>两段代码很像，但是Lambda省略了很多的东西。首先我们知道Thread()里面传的是一个Runnable实现类的对象，该类重写类run方法，真正有用的就是run方法，所以我们把这些全部省略了，直接传入一个run()就可以了，并且由于run()方法的方法名是确定的，我们连run方法名都可以省去，返回值类型也是确定，所以我们也可以省去，最后只剩一个参数列表，在参数列表与方法体之间加入-&gt;就是Lambda表达式。使用Lambda不用创建对象，我们只需要传入一个方法，告诉它怎么做就可以了。这个也叫做函数式编程。</p>
+<p>Lambda表达式的格式为</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">(参数列表) -&gt; &#123;</span><br><span class="line">    <span class="comment">//方法体</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>为了熟悉Lambda表达式的使用，我们来看一个例子，定义一个Calculator的接口，里面有一个方法叫<code>calculate(int a, int b);</code>，如下</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Calculator</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">calculate</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在测试类中定义一个方法，该方法需要<code>Calculator</code>接口作为参数</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">cal</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b, Calculator calculator)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> result = calculator.calculate(a,b);</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个方法表示的是，a,b经过Calculator计算之后得到一个数，而计算方法，根据我们传入的calculator而定，这明显是我们只需要告诉计算器怎么做就行，我们把做的方法告诉它，使用Lambda表达式</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//加法计算器</span></span><br><span class="line"><span class="keyword">int</span> result1 = cal(<span class="number">2</span>,<span class="number">3</span>, (<span class="keyword">int</span> a, <span class="keyword">int</span> b) -&gt; &#123;</span><br><span class="line">    <span class="keyword">return</span> a + b;</span><br><span class="line">&#125;);</span><br><span class="line">System.out.println(result1);</span><br><span class="line"><span class="comment">//减法计算器</span></span><br><span class="line"><span class="keyword">int</span> result2 = cal(<span class="number">2</span>,<span class="number">3</span>, (<span class="keyword">int</span> a, <span class="keyword">int</span> b) -&gt; &#123;</span><br><span class="line">    <span class="keyword">return</span> a - b;</span><br><span class="line">&#125;);</span><br><span class="line">System.out.println(result2);</span><br></pre></td></tr></table></figure>
+
+<p>输出为</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="number">5</span></span><br><span class="line">-<span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+<p>根据我们传入的方法不同，这个计算器就不同，计算器关心的就是怎么做，你告诉怎么做就可以。</p>
+<h3 id="Lambda的省略格式"><a href="#Lambda的省略格式" class="headerlink" title="Lambda的省略格式"></a>Lambda的省略格式</h3><p>其实上面的Lambda还可以进行化简，因为还有很多是可以推断出来的，比如参数列表里面的参数类型可以省略，因为这个参数类型时确定的，不可能会变的。如</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> result1 = cal(<span class="number">2</span>,<span class="number">3</span>, (a, b) -&gt; &#123;</span><br><span class="line">    <span class="keyword">return</span> a + b;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>如果方法体里面只有一条语句时，那么花括号也可以省略，这时分号也可以省略，如果这条语句是return语句，那么return也可以省略，因为必须是要返回一个值的，这个可以推断出来，所以可以省略，所以上面又可以简写为</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> result1 = cal(<span class="number">2</span>,<span class="number">3</span>, (a, b) -&gt; a + b);</span><br></pre></td></tr></table></figure>
+
+<p>如果参数列表里面只有一个参数的话，那么小括号也可以省略</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">param -&gt; &#123;</span><br><span class="line">    <span class="comment">//方法体</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Lambda表达式的使用前提"><a href="#Lambda表达式的使用前提" class="headerlink" title="Lambda表达式的使用前提"></a>Lambda表达式的使用前提</h3><p>虽然Lambda表达式这么好用，但是是有使用前提的</p>
+<ul>
+<li>使用Lambda必须具有接口，且要求<strong>接口中有且仅有一个抽象方法</strong>。<ul>
+<li>比如Runnable接口，里面只有一个run()方法是抽象方法</li>
+<li>比如上面定义的Calculator接口，里面也只有一个抽象方法calculate()</li>
+</ul>
+</li>
+<li>使用Lambda必须具有<strong>上下文推断</strong>。<ul>
+<li>也就是方法的参数或局部变量类型必须为Lambda对应的接口类型，才能使用Lambda作为该接口的实例。</li>
+<li>不能是我要一个Calculator接口的calculate()方法，你给我传一个Runnable的run()方法，兄弟，暗号对不上啊。</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>备注：有且仅有一个抽象方法的接口，称为”<strong>函数式接口</strong>“。</p>
+</blockquote>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2019-07-12T16:00:00.000Z" itemprop="dateUpdated">2019-07-13 00:00:00</time>
+</span><br>
+
+
+        
+    </div>
+    
+    <footer>
+        <a href="https://lastknightcoder.github.io/lastknightcoder">
+            <img src="https://lastknightcoder.github.io/lastknightcoder/img/avatar.jpg" alt="熊滔">
+            熊滔
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="https://lastknightcoder.github.io/lastknightcoder/tags/Java/" rel="tag">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="https://lastknightcoder.github.io/lastknightcoder/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" rel="tag">多线程</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://lastknightcoder.github.io/lastknightcoder/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B/&title=《Java多线程》 — Coder&pic=https://lastknightcoder.github.io/lastknightcoder/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://lastknightcoder.github.io/lastknightcoder/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B/&title=《Java多线程》 — Coder&source=人生天地间，忽如远行客" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://lastknightcoder.github.io/lastknightcoder/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Java多线程》 — Coder&url=https://lastknightcoder.github.io/lastknightcoder/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B/&via=https://lastknightcoder.github.io/lastknightcoder" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://lastknightcoder.github.io/lastknightcoder/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="https://lastknightcoder.github.io/lastknightcoder/Java8%E6%96%B0%E7%89%B9%E6%80%A7/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">Java8新特性</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="https://lastknightcoder.github.io/lastknightcoder/Java%E5%B8%B8%E7%94%A8API/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Java常用API</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'lastknightcoder';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="https://lastknightcoder.github.io/lastknightcoder/img/wechatpay.png" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="https://lastknightcoder.github.io/lastknightcoder/img/wechatpay.png" data-alipay="https://lastknightcoder.github.io/lastknightcoder/img/alipay.png">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="https://lastknightcoder.github.io/lastknightcoder/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>熊滔 &copy; 2019 - 2021</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://lastknightcoder.github.io/lastknightcoder/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B/&title=《Java多线程》 — Coder&pic=https://lastknightcoder.github.io/lastknightcoder/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://lastknightcoder.github.io/lastknightcoder/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B/&title=《Java多线程》 — Coder&source=人生天地间，忽如远行客" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://lastknightcoder.github.io/lastknightcoder/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Java多线程》 — Coder&url=https://lastknightcoder.github.io/lastknightcoder/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B/&via=https://lastknightcoder.github.io/lastknightcoder" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://lastknightcoder.github.io/lastknightcoder/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACo0lEQVR42u3aMY4bMRAEQP3/03bixDCs654hFxvURgecxGUx4FDN+Xzi51f8JOPkI3//7rEHDw8P7+jUZ7zvjH8/kyxQPh88PDy8Z3jJcPlrvi9fsnvn8/nBgoeHh/cC3mZyeSHJiwoeHh7e+3n58TeJFfIyg4eHh/c2Xjv0bLPOx0kW5XDWgoeHhze/pfq0U3z+7yv3e3h4eHhHGwKSDT3f+pPPb+b5ZwQ8PDy8C7x8w22bovImgM0bk8AXDw8P7zYvb59qGW3B2AS7eHh4eE/yZkFqeyBuQ+RZGwEeHh7eDV5+0dW2WOVNBjcaDvDw8PDu8drWgTwO2DRU5aXrwDUYHh4eXslrD82zTfxsm0LReoWHh4d3gZeHs+3heDPy7O1F4oKHh4e34G1apmYH8dml1zDCwMPDw3uENwtk20usPJ6YHejx8PDwbvPaH/mzjXt2yN5c0eHh4eHd5iV76b2LrrzdqihveHh4eBd4efA6Oy6fCjWGYQQeHh7eNV5+eG1DhNm32kP5D6EJHh4e3jVeMolTzVJtEdrs83h4eHg3eJuNuI0Y2knPEob6o3h4eHgLXrsRt9t9GygcXho8PDy8o7z2Oj9vMpgVnoRULCUeHh7eUd6NiHY2WrIodSsYHh4e3mVe2wrQRqizWDYvXcOUAg8PD2/Ey2OFltFGCW1sERUGPDw8vGu8BJMUidnx+rN+/puy4OHh4R3iDX/eL2LZpNVgE+z+9V88PDy8C7x2w22nmMfEeWlpD/d4eHh4N3j5K2eTnn13FmrUB2s8PDy8BW8T4LbU2YG7yFeSf+Ph4eG9gHcWM1tQPDw8vPfzNtf8SWdUfpGGh4eH9zxvFq3OCkNbBvL2hagzAg8PD2/Na3/wn736ygvMqfACDw8Pb8H7DSOiSt9apJdIAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: 'https://lastknightcoder.github.io/lastknightcoder/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>表示数值的字符串 | Coder</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="剑指offer">
+    <meta name="description" content="题目：请实现一个函数用来判断字符串是否表示数值(包括整数和小数)。例如，字符串 +100, 5e2, -123, 3.14e+1 都表示数值，而 12e, 1a3.12, 1.2.3, +-5 都不是。  首先我们要明白数值的格式为 A.B[e|E]C，其中 A, B, C 代表的是数字，有一点不同的是 A, C 中的前方可以有正负号，而 B 不能有正负号。我们变成的思路便是，首先扫描字符串，看">
+<meta property="og:type" content="article">
+<meta property="og:title" content="表示数值的字符串">
+<meta property="og:url" content="https://lastknightcoder.github.io/lastknightcoder/%E8%A1%A8%E7%A4%BA%E6%95%B0%E5%80%BC%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2/">
+<meta property="og:site_name" content="Coder">
+<meta property="og:description" content="题目：请实现一个函数用来判断字符串是否表示数值(包括整数和小数)。例如，字符串 +100, 5e2, -123, 3.14e+1 都表示数值，而 12e, 1a3.12, 1.2.3, +-5 都不是。  首先我们要明白数值的格式为 A.B[e|E]C，其中 A, B, C 代表的是数字，有一点不同的是 A, C 中的前方可以有正负号，而 B 不能有正负号。我们变成的思路便是，首先扫描字符串，看">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-06-12T16:00:00.000Z">
+<meta property="article:modified_time" content="2020-06-12T16:00:00.000Z">
+<meta property="article:author" content="熊滔">
+<meta property="article:tag" content="剑指offer">
+<meta name="twitter:card" content="summary">
+    
+        <link rel="alternate" type="application/atom+xml" title="Coder" href="https://lastknightcoder.github.io/lastknightcoder/atom.xml">
+    
+    <link rel="shortcut icon" href="https://lastknightcoder.github.io/lastknightcoder/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(https://lastknightcoder.github.io/lastknightcoder/img/brand.jpg)">
+      <div class="brand">
+        <a href="https://lastknightcoder.github.io/lastknightcoder/" class="avatar waves-effect waves-circle waves-light">
+          <img src="https://lastknightcoder.github.io/lastknightcoder/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">熊滔</h5>
+          <a href="mailto:2223106858@qq.com" title="2223106858@qq.com" class="mail">2223106858@qq.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.github.io/lastknightcoder/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.github.io/lastknightcoder/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.github.io/lastknightcoder/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.github.io/lastknightcoder/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://gitee.com/LastKnightCoder" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">表示数值的字符串</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">表示数值的字符串</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2020-06-12T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2020-06-13
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="https://lastknightcoder.github.io/lastknightcoder/categories/%E5%89%91%E6%8C%87offer/">剑指offer</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+
+<article id="post-表示数值的字符串"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">表示数值的字符串</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2020-06-13 00:00:00" datetime="2020-06-12T16:00:00.000Z"  itemprop="datePublished">2020-06-13</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="https://lastknightcoder.github.io/lastknightcoder/categories/%E5%89%91%E6%8C%87offer/">剑指offer</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <blockquote>
+<p>题目：请实现一个函数用来判断字符串是否表示数值(包括整数和小数)。例如，字符串 <code>+100, 5e2, -123, 3.14e+1</code> 都表示数值，而 <code>12e, 1a3.12, 1.2.3, +-5</code> 都不是。</p>
+</blockquote>
+<p>首先我们要明白数值的格式为 <code>A.B[e|E]C</code>，其中 <code>A, B, C</code> 代表的是数字，有一点不同的是 <code>A, C</code> 中的前方可以有正负号，而 <code>B</code> 不能有正负号。我们变成的思路便是，首先扫描字符串，看是否匹配 <code>A</code>，即字符串的前方是否是数字(可包含正负号)，接着如果碰到小数点，则扫描小数点后的字符是否是数字(不能包含正负号)；最后匹配科学计数法，如果碰到 <code>e|E</code>，那么扫描后面的字符是否是数字(可包含正负号)。</p>
+<p>代码如下：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">IsNumberic</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 全局变量，控制从哪里开始扫描字符串</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> index;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">isNumberic</span><span class="params">(<span class="keyword">char</span>[] str)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (str == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 扫描字符串开头是否是数字(可带正负号)</span></span><br><span class="line">        <span class="keyword">boolean</span> numberic = scanInteger(str, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (index &lt; str.length) &#123;</span><br><span class="line">            <span class="comment">// 如果有小数点</span></span><br><span class="line">            <span class="keyword">if</span> (str[index] == <span class="string">'.'</span>) &#123;</span><br><span class="line">                index++;</span><br><span class="line">                <span class="comment">// 扫描小数点后的数字(不带正负号)</span></span><br><span class="line">                <span class="comment">// 使用 || 是因为 A. 或者 .B都算有效的数值</span></span><br><span class="line">                numberic = scanUnsignedInteger(str, index) || numberic;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> (index &lt; str.length) &#123;</span><br><span class="line">            <span class="comment">// 如果扫描到 e|E</span></span><br><span class="line">            <span class="keyword">if</span> (str[index] == <span class="string">'e'</span> || str[index] == <span class="string">'E'</span>) &#123;</span><br><span class="line">                index++;</span><br><span class="line">                <span class="comment">// 扫描 e|E 字符后面是否为数字(可带正负号)</span></span><br><span class="line">                numberic = numberic &amp;&amp; scanInteger(str, index);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 符合A.B[e|E]C的形式，并且字符串全部扫描完毕</span></span><br><span class="line">        <span class="keyword">return</span> numberic &amp;&amp; index == str.length;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 判断从某个位置开始，后面是否有数字(可带正负号)</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">scanInteger</span><span class="params">(<span class="keyword">char</span>[] str, <span class="keyword">int</span> start)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (start &gt;= str.length) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (str[start] == <span class="string">'+'</span> || str[start] == <span class="string">'-'</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> scanUnsignedInteger(str, start + <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> scanUnsignedInteger(str, start);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 判断从某个位置开始，后面是否有数字(不带正负号)</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">scanUnsignedInteger</span><span class="params">(<span class="keyword">char</span>[] str, <span class="keyword">int</span> start)</span> </span>&#123;</span><br><span class="line">        index = start;</span><br><span class="line">        <span class="keyword">if</span> (index &lt; str.length) &#123;</span><br><span class="line">            <span class="keyword">while</span>(str[index] &gt;= <span class="string">'0'</span> &amp;&amp; str[index] &lt;= <span class="string">'9'</span>) &#123;</span><br><span class="line">                index++;</span><br><span class="line">                <span class="keyword">if</span> (index == str.length) &#123;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> index &gt; start;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        System.out.println(isNumberic(<span class="string">".123"</span>.toCharArray())); <span class="comment">// true</span></span><br><span class="line">        System.out.println(isNumberic(<span class="string">"123."</span>.toCharArray())); <span class="comment">// true</span></span><br><span class="line">        System.out.println(isNumberic(<span class="string">"+.123"</span>.toCharArray())); <span class="comment">// true</span></span><br><span class="line">        System.out.println(isNumberic(<span class="string">"-.123"</span>.toCharArray())); <span class="comment">// true</span></span><br><span class="line">        System.out.println(isNumberic(<span class="string">".123e-2"</span>.toCharArray())); <span class="comment">// true</span></span><br><span class="line">        System.out.println(isNumberic(<span class="string">"1.2.2"</span>.toCharArray())); <span class="comment">// false</span></span><br><span class="line">        System.out.println(isNumberic(<span class="string">"1.2e+2"</span>.toCharArray())); <span class="comment">// true</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-06-12T16:00:00.000Z" itemprop="dateUpdated">2020-06-13 00:00:00</time>
+</span><br>
+
+
+        
+    </div>
+    
+    <footer>
+        <a href="https://lastknightcoder.github.io/lastknightcoder">
+            <img src="https://lastknightcoder.github.io/lastknightcoder/img/avatar.jpg" alt="熊滔">
+            熊滔
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="https://lastknightcoder.github.io/lastknightcoder/tags/%E5%89%91%E6%8C%87offer/" rel="tag">剑指offer</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://lastknightcoder.github.io/lastknightcoder/%E8%A1%A8%E7%A4%BA%E6%95%B0%E5%80%BC%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2/&title=《表示数值的字符串》 — Coder&pic=https://lastknightcoder.github.io/lastknightcoder/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://lastknightcoder.github.io/lastknightcoder/%E8%A1%A8%E7%A4%BA%E6%95%B0%E5%80%BC%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2/&title=《表示数值的字符串》 — Coder&source=人生天地间，忽如远行客" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://lastknightcoder.github.io/lastknightcoder/%E8%A1%A8%E7%A4%BA%E6%95%B0%E5%80%BC%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《表示数值的字符串》 — Coder&url=https://lastknightcoder.github.io/lastknightcoder/%E8%A1%A8%E7%A4%BA%E6%95%B0%E5%80%BC%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2/&via=https://lastknightcoder.github.io/lastknightcoder" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://lastknightcoder.github.io/lastknightcoder/%E8%A1%A8%E7%A4%BA%E6%95%B0%E5%80%BC%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="https://lastknightcoder.github.io/lastknightcoder/%E9%93%BE%E8%A1%A8%E4%B8%AD%E7%8E%AF%E7%9A%84%E5%85%A5%E5%8F%A3%E8%8A%82%E7%82%B9/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">链表中环的入口节点</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="https://lastknightcoder.github.io/lastknightcoder/%E4%BA%8C%E8%BF%9B%E5%88%B6%E4%B8%AD1%E7%9A%84%E4%B8%AA%E6%95%B0/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">二进制中1的个数</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'lastknightcoder';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="https://lastknightcoder.github.io/lastknightcoder/img/wechatpay.png" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="https://lastknightcoder.github.io/lastknightcoder/img/wechatpay.png" data-alipay="https://lastknightcoder.github.io/lastknightcoder/img/alipay.png">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="https://lastknightcoder.github.io/lastknightcoder/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>熊滔 &copy; 2019 - 2021</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://lastknightcoder.github.io/lastknightcoder/%E8%A1%A8%E7%A4%BA%E6%95%B0%E5%80%BC%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2/&title=《表示数值的字符串》 — Coder&pic=https://lastknightcoder.github.io/lastknightcoder/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://lastknightcoder.github.io/lastknightcoder/%E8%A1%A8%E7%A4%BA%E6%95%B0%E5%80%BC%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2/&title=《表示数值的字符串》 — Coder&source=人生天地间，忽如远行客" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://lastknightcoder.github.io/lastknightcoder/%E8%A1%A8%E7%A4%BA%E6%95%B0%E5%80%BC%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《表示数值的字符串》 — Coder&url=https://lastknightcoder.github.io/lastknightcoder/%E8%A1%A8%E7%A4%BA%E6%95%B0%E5%80%BC%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2/&via=https://lastknightcoder.github.io/lastknightcoder" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://lastknightcoder.github.io/lastknightcoder/%E8%A1%A8%E7%A4%BA%E6%95%B0%E5%80%BC%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASYAAAEmCAAAAADqr2IGAAAEcklEQVR42u3a0W4bMQwEQP//T6evLQI7u+S5sC6jJ8Nx76RRAYqkHo94fP01vn/zfTz7t8nvZzPJZ9W+8YEJEyZMmA5nyh89m+L3d23m8HoVs19Gm4cJEyZMmA5nyl/8evFJmM85kuCdbG0LigkTJkyYMOUo1x47Xv8yD/+YMGHChAlTeyB4R2n1NUSCNZsVJkyYMGG6H1ObjrZNyv2C2w1r0+PLauGYMGHChOnDmPLAfL/Pb7nfhAkTJkyYPobpqxz59ZdZat2WjGfN0XrVmDBhwoTpWKbZ5Zi2wbkv+87Kylc1XzFhwoQJ07lMSZG0vfiSl1nbQL5hml3uwYQJEyZMpzPNiqFtAM7Dc9uG3DdEixIwJkyYMGE6kKmFaK+5zA4HSWI8O3DkV4j++YwJEyZMmI5lShaTh9t8WsmkN2+c3cCJauGYMGHChOlApjy/uyq5zduis+dsUC5IgzFhwoQJ04cxJQeC5PWPeLSTvrbU2248JkyYMGE6nSlJdNvC6Ca055vRXiFq02NMmDBhwnQ/pryJmEC0y7iqeZlf06nnhgkTJkyYjmKaLfuq1mP7y82BYHbswIQJEyZMd2VqE9p25In0tQeC1c0mTJgwYcJ0LFMbnvPF5K3Etnm5OVIUQJgwYcKE6XCmfbF1VpDNDw35Vs1WUcwNEyZMmDDdgim5WLO/ELMZ7y4uP/0GEyZMmDAdyHRV6bZNKdvgnW/hVePp/yNMmDBhwnQUU1t+nbUeN+nxtaly8q4fVo0JEyZMmI5levay19NNvp8VXlvWpAS8XxcmTJgwYbofU3tlZ3OMaA8lyazyZ64OBJgwYcKE6SOZCr9RyE9ajPu0dhjU81lhwoQJE6ZbMM0anO3po01Q89R6lgBHl4QwYcKECdOtmdrl5SlufmjY/2ZTUMaECRMmTOcytWnnrBx87VWe5GiSHEHygQkTJkyYTmfaL2PzffvGGfHFnV5MmDBhwnQg0/7KTn5Q2LwlL+m2zcsfnoYJEyZMmA5kmpU4N8G1/esmkW4bsU9niAkTJkyYbsGUtyrbluS1QT1prM42OyrvYsKECROmo5jaxbeF102COuObtVeLuWHChAkTpgOZinrwgmNW/J11FfOLO8UlIUyYMGHCdCBTLVqOWZMyT5VbjjbJx4QJEyZMpzNtWoxtIM+n3haaZ2XfNsnHhAkTJkwnMs3S0c1fZ6Cbxud+CzFhwoQJ0z2Y8nCbl2KT7/MkdkN/WZEXEyZMmDAdxTSrZOaXY1Y3iUbF38f/GZgwYcKE6RCmr3K0aWReaX4HevvMp1uCCRMmTJiOZZrFxBylpc+fMCvy5u+64OiACRMmTJg+hmnfOGwn3abcedqch/n6kIEJEyZMmA5n2oT5WXH2fQeR/AnF0zBhwoQJ0y9jSkL+vnDcgrYhv8DChAkTJky/mKldcN5E3Lckk8NBcS0VEyZMmDAdy9QG7PbzbHlXXdzJN/UpNCZMmDBhOpapTSxnYT5fTNJMTbY2OV4kBWtMmDBhwnQs0x9wl+gZaRk11gAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: 'https://lastknightcoder.github.io/lastknightcoder/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

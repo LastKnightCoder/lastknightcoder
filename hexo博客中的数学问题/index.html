@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>Hexo中数学公式问题 | Coder</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Hexo">
+    <meta name="description" content="起因之前我的 Hexo 主题使用的是 Next 主题，Next 主题因为对数学公式有进行处理，所以在用 Next 主题时写数学公式是十分的顺畅的，但是最近觉得Next主题颜色太淡了，所以就换了一个颜色比较鲜艳的 Hexo 主题，但是这一换，数学公式就有了麻烦。 首先我们要明白这个麻烦是怎么产生的，因为 markdown 的语法跟 mathjax 有重叠，比如 _ 在 mathjax 中表示下标，但">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo中数学公式问题">
+<meta property="og:url" content="https://lastknightcoder.github.io/lastknightcoder/hexo%E5%8D%9A%E5%AE%A2%E4%B8%AD%E7%9A%84%E6%95%B0%E5%AD%A6%E9%97%AE%E9%A2%98/">
+<meta property="og:site_name" content="Coder">
+<meta property="og:description" content="起因之前我的 Hexo 主题使用的是 Next 主题，Next 主题因为对数学公式有进行处理，所以在用 Next 主题时写数学公式是十分的顺畅的，但是最近觉得Next主题颜色太淡了，所以就换了一个颜色比较鲜艳的 Hexo 主题，但是这一换，数学公式就有了麻烦。 首先我们要明白这个麻烦是怎么产生的，因为 markdown 的语法跟 mathjax 有重叠，比如 _ 在 mathjax 中表示下标，但">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/20200229131807.png">
+<meta property="article:published_time" content="2020-02-29T04:23:42.000Z">
+<meta property="article:modified_time" content="2020-02-29T04:23:42.000Z">
+<meta property="article:author" content="熊滔">
+<meta property="article:tag" content="Hexo">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/lastknightcoder/blogimage/raw/master/img/20200229131807.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="Coder" href="https://lastknightcoder.github.io/lastknightcoder/atom.xml">
+    
+    <link rel="shortcut icon" href="https://lastknightcoder.github.io/lastknightcoder/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(https://lastknightcoder.github.io/lastknightcoder/img/brand.jpg)">
+      <div class="brand">
+        <a href="https://lastknightcoder.github.io/lastknightcoder/" class="avatar waves-effect waves-circle waves-light">
+          <img src="https://lastknightcoder.github.io/lastknightcoder/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">熊滔</h5>
+          <a href="mailto:2223106858@qq.com" title="2223106858@qq.com" class="mail">2223106858@qq.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.github.io/lastknightcoder/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.github.io/lastknightcoder/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.github.io/lastknightcoder/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.github.io/lastknightcoder/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://gitee.com/LastKnightCoder" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Hexo中数学公式问题</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Hexo中数学公式问题</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2020-02-29T04:23:42.000Z" itemprop="datePublished" class="page-time">
+  2020-02-29
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="https://lastknightcoder.github.io/lastknightcoder/categories/Hexo/">Hexo</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#起因"><span class="post-toc-number">1.</span> <span class="post-toc-text">起因</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#解决"><span class="post-toc-number">2.</span> <span class="post-toc-text">解决</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#参考资料"><span class="post-toc-number">3.</span> <span class="post-toc-text">参考资料</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-hexo博客中的数学问题"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Hexo中数学公式问题</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2020-02-29 12:23:42" datetime="2020-02-29T04:23:42.000Z"  itemprop="datePublished">2020-02-29</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="https://lastknightcoder.github.io/lastknightcoder/categories/Hexo/">Hexo</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h2 id="起因"><a href="#起因" class="headerlink" title="起因"></a>起因</h2><p>之前我的 <code>Hexo</code> 主题使用的是 <code>Next</code> 主题，<code>Next</code> 主题因为对数学公式有进行处理，所以在用 <code>Next</code> 主题时写数学公式是十分的顺畅的，但是最近觉得Next主题颜色太淡了，所以就换了一个颜色比较鲜艳的 <code>Hexo</code> 主题，但是这一换，数学公式就有了麻烦。</p>
+<p>首先我们要明白这个麻烦是怎么产生的，因为 <code>markdown</code> 的语法跟 <code>mathjax</code> 有重叠，比如 <code>_</code> 在 <code>mathjax</code> 中表示下标，但是在 <code>markdown</code> 中，被两个下划线 <code>_</code> 包裹起来的内容会被转为 <code>&lt;em&gt;</code> 标签，即其间的内容会被转为斜体，这就使得数学公式渲染不出来；另一个就是 <code>\\</code> 在 <code>mathjax</code> 表示换行，但是在解析 <code>markdown</code> 时却会被转义。</p>
+<h2 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h2><p>这个时候我就去网上搜了解决办法，有好几种，比如第一种是修改 <code>marked.js(node_modules/marked/lib/marked.js)</code>，修改两个关键字为 <code>excape</code> 和 <code>em</code> 的正则表达式，这个方法我试了，但是没有用；第二个办法是卸载 <code>hexo</code> 默认的 <code>markdown</code> 解析 <code>hexo-renderer-marked</code>，然后安装 <code>hexo-renderer-pandoc</code>(好像 <code>Next</code> 就是这么干的)，前提是要安装 <code>Pandoc</code>，然后由于我的 <code>npm</code> 不知道出了什么原因，不能 <code>uninstall</code>，只能寻求它法。(不过你们可以尝试，解决办法链接<a href="https://segmentfault.com/a/1190000007261752" target="_blank" rel="noopener">在这</a>)</p>
+<p>不过功夫不负有心人，经过几个小时折腾，还是被我找到了解决办法，我在<a href="https://github.com/ppoffice/hexo-theme-icarus/issues/394" target="_blank" rel="noopener">hexo的issue</a>中看到，将有问题的数学公式如下处理：</p>
+<center>
+    <img src="https://gitee.com/lastknightcoder/blogimage/raw/master/img/20200229131807.png"/>
+</center>
+
+<p>这样数学公式就不会被 <code>marked</code> 解析，但是会被 <code>mathjax</code> 解析。</p>
+<p>上面的做法可以解决大部分的问题，但是我们数学公式里面包含一对 <code>&lt;&gt;</code> 的话，又会出现问题，通过 <code>F12</code> 检查元素，发现被 <code>&lt;&gt;</code> 包裹的内容被误认为是标签了，导致渲染不出来，要解决这个办法，把公式中所有的 <code>&lt;</code> 使用 <code>\lt</code> 替代，所有的 <code>&gt;</code> 使用 <code>\gt</code> 替代，这样就可以了。</p>
+<p><code>Hexo</code> 的数学公式真的是折腾的我够呛，所以这次经历必须记录下来，为了下次遇到同样问题时能够迅速解决。</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
+<li><a href="https://github.com/ppoffice/hexo-theme-icarus/issues/394" target="_blank" rel="noopener">关于数学公式的渲染问题</a></li>
+<li><a href="https://segmentfault.com/a/1190000007261752" target="_blank" rel="noopener">Hexo下mathjax转义问题</a></li>
+</ul>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-02-29T04:23:42.000Z" itemprop="dateUpdated">2020-02-29 12:23:42</time>
+</span><br>
+
+
+        
+    </div>
+    
+    <footer>
+        <a href="https://lastknightcoder.github.io/lastknightcoder">
+            <img src="https://lastknightcoder.github.io/lastknightcoder/img/avatar.jpg" alt="熊滔">
+            熊滔
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="https://lastknightcoder.github.io/lastknightcoder/tags/Hexo/" rel="tag">Hexo</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://lastknightcoder.github.io/lastknightcoder/hexo%E5%8D%9A%E5%AE%A2%E4%B8%AD%E7%9A%84%E6%95%B0%E5%AD%A6%E9%97%AE%E9%A2%98/&title=《Hexo中数学公式问题》 — Coder&pic=https://lastknightcoder.github.io/lastknightcoder/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://lastknightcoder.github.io/lastknightcoder/hexo%E5%8D%9A%E5%AE%A2%E4%B8%AD%E7%9A%84%E6%95%B0%E5%AD%A6%E9%97%AE%E9%A2%98/&title=《Hexo中数学公式问题》 — Coder&source=人生天地间，忽如远行客" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://lastknightcoder.github.io/lastknightcoder/hexo%E5%8D%9A%E5%AE%A2%E4%B8%AD%E7%9A%84%E6%95%B0%E5%AD%A6%E9%97%AE%E9%A2%98/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Hexo中数学公式问题》 — Coder&url=https://lastknightcoder.github.io/lastknightcoder/hexo%E5%8D%9A%E5%AE%A2%E4%B8%AD%E7%9A%84%E6%95%B0%E5%AD%A6%E9%97%AE%E9%A2%98/&via=https://lastknightcoder.github.io/lastknightcoder" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://lastknightcoder.github.io/lastknightcoder/hexo%E5%8D%9A%E5%AE%A2%E4%B8%AD%E7%9A%84%E6%95%B0%E5%AD%A6%E9%97%AE%E9%A2%98/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="https://lastknightcoder.github.io/lastknightcoder/Spring%20MVC%E7%AC%94%E8%AE%B0/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">Spring MVC笔记</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="https://lastknightcoder.github.io/lastknightcoder/Spring%E7%AC%94%E8%AE%B0/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Spring笔记</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'lastknightcoder';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="https://lastknightcoder.github.io/lastknightcoder/img/wechatpay.png" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="https://lastknightcoder.github.io/lastknightcoder/img/wechatpay.png" data-alipay="https://lastknightcoder.github.io/lastknightcoder/img/alipay.png">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="https://lastknightcoder.github.io/lastknightcoder/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>熊滔 &copy; 2019 - 2021</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://lastknightcoder.github.io/lastknightcoder/hexo%E5%8D%9A%E5%AE%A2%E4%B8%AD%E7%9A%84%E6%95%B0%E5%AD%A6%E9%97%AE%E9%A2%98/&title=《Hexo中数学公式问题》 — Coder&pic=https://lastknightcoder.github.io/lastknightcoder/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://lastknightcoder.github.io/lastknightcoder/hexo%E5%8D%9A%E5%AE%A2%E4%B8%AD%E7%9A%84%E6%95%B0%E5%AD%A6%E9%97%AE%E9%A2%98/&title=《Hexo中数学公式问题》 — Coder&source=人生天地间，忽如远行客" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://lastknightcoder.github.io/lastknightcoder/hexo%E5%8D%9A%E5%AE%A2%E4%B8%AD%E7%9A%84%E6%95%B0%E5%AD%A6%E9%97%AE%E9%A2%98/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Hexo中数学公式问题》 — Coder&url=https://lastknightcoder.github.io/lastknightcoder/hexo%E5%8D%9A%E5%AE%A2%E4%B8%AD%E7%9A%84%E6%95%B0%E5%AD%A6%E9%97%AE%E9%A2%98/&via=https://lastknightcoder.github.io/lastknightcoder" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://lastknightcoder.github.io/lastknightcoder/hexo%E5%8D%9A%E5%AE%A2%E4%B8%AD%E7%9A%84%E6%95%B0%E5%AD%A6%E9%97%AE%E9%A2%98/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASYAAAEmCAAAAADqr2IGAAAEmElEQVR42u3awW7rOAwF0P7/T3eAwWweXu3cS7qYKj1eBUlsSccLkRQ/PuLr89/r789X3/z96/3VzuRqPsko7YgfmDBhwoTpcKb20ffLSyaxeUKC0r7y6DmYMGHChOlwpvxxe+Ic7v6b+/nMnnD5PSZMmDBh+gVMya9XE81B820+CQKSuWHChAkTJkzPFk/b8m5LlqfHmDBhwoTp9zC1W/V+020hkjnnQck31sIxYcKECdMPY9o07pz++eELEyZMmDD9MKbP8vqOe/fJ7Xes9I9RMGHChAnTsUzJUWU7WJugtoFI3h7UpsQvZoUJEyZMmI5lmg0zSyxz6E0ZNy9A52vHhAkTJkznMt1v/0mpN5/Q5mmzNHj2HEyYMGHC9E5Mbfk1b+LJt+FNgp08Mx+3rhljwoQJE6ZDmDaJZZsSt7htKr558S8CAkyYMGHCdCxTvjG3SWZbxp0dQOYHq5vmIUyYMGHCdBZTewyZJ4qzhDl/h7PjzLYY/d/3mDBhwoTpcKb8auHajXkzh6eOVy8DAkyYMGHCdDhTvkHO7sqT5LbUuykiR0EJJkyYMGF6C6ZkirP2l5apPTptydrXgwkTJkyYzmW6DwvaMutqEkGYMiNrD2gvn4AJEyZMmA5nmkEkrTAt1gwoD02Seb5o38GECRMmTIcwteXa9pCyLQ3fE8wOR9tX+MVnTJgwYcL0FkyzYm5+8JksYNa4sylVR4EIJkyYMGE6likqbi6S3jY1zUOQzdxypssmHkyYMGHCdCxTnkbmwcGsKWcz1mxd0evBhAkTJkxHMeVHiUWDy2hJSYF404KTr6uoamPChAkTprdg2hwr7sfKF9Y29CRzxoQJEyZM78fUXu1RaJu4PjvucN/HhAkTJkzHMiUPmjX03G/S7b15etw2ANXHn5gwYcKE6SimdtL5XfkUNzN5qij84htMmDBhwnQs0+xQsy3+zsKFWXPPJnCpk15MmDBhwnQU0/7IMF9kXsbdtAG1ZFFtABMmTJgwHcU0a8Fpt9tZUt0GH0+FDkXSiwkTJkyYfjzTLF3M09SnnrkvEO//gwkTJkyYTmdqS6ub7X/zzJwsf5HRXZgwYcKE6UCmTbtMi5Xzze5Kis556vvHfzBhwoQJ0+FMs0PBduAZQZtIJ8uun4YJEyZMmI5lSrbYWfK5OWicJbQzlCLowYQJEyZMxzLl22oC+hTEptD8Hc1GmDBhwoTpRKbZRJ9d6j7dbRPspKz8xXEmJkyYMGE6nGm2Ac9acJKUdROazEZ80dmECRMmTJgOZNoXYZ/6fz6fWcCxaQnChAkTJkznMn2WV15OzYu/bfqaH2rux4reFSZMmDBh+sFM7aFm8jlhzZtpkrtmc6hjJUyYMGHCdCzTJgjIN922zJq8hrxZJw8ILrEwYcKECdPhTHnRs00m80LtfpH7Vp5LLEyYMGHC9AuYZinxLImdbfNPHZ1+MTomTJgwYfqVTLPkuQ07NhXrNhy5/A8mTJgwYTqcqW2IScq198eTs+BjNs9i479PfTFhwoQJ04FMbWLZNtzMEs58GXmK2wYfq/4mTJgwYcL0/zP9AyNABxc8t6ITAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: 'https://lastknightcoder.github.io/lastknightcoder/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>JavaScript加号运算符 | Coder</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="JavaScript,+号运算">
+    <meta name="description" content="今天看到几道有关加号的题目，觉得很怪异如下 [] + &amp;#123;&amp;#125; &#x2F;&#x2F; &#39;[object Object]&#39;[] + [] &#x2F;&#x2F; &#39;&#39;&amp;#123;&amp;#125; + [] &#x2F;&#x2F; 0&amp;#123;&amp;#125; + &amp;#123;&amp;#125; &#x2F;&#x2F; NaN[] + &amp;#123;&amp;#125; &#x3D;&#x3D; &amp;#123;&amp;#125; + [] &#x2F;&#x2F; true&amp;#123;&amp;#125; + [] !&#x3D; [] +">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript加号运算符">
+<meta property="og:url" content="https://lastknightcoder.github.io/lastknightcoder/JavaScript%E5%8A%A0%E5%8F%B7%E8%BF%90%E7%AE%97%E7%AC%A6/">
+<meta property="og:site_name" content="Coder">
+<meta property="og:description" content="今天看到几道有关加号的题目，觉得很怪异如下 [] + &amp;#123;&amp;#125; &#x2F;&#x2F; &#39;[object Object]&#39;[] + [] &#x2F;&#x2F; &#39;&#39;&amp;#123;&amp;#125; + [] &#x2F;&#x2F; 0&amp;#123;&amp;#125; + &amp;#123;&amp;#125; &#x2F;&#x2F; NaN[] + &amp;#123;&amp;#125; &#x3D;&#x3D; &amp;#123;&amp;#125; + [] &#x2F;&#x2F; true&amp;#123;&amp;#125; + [] !&#x3D; [] +">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-07-04T16:03:00.000Z">
+<meta property="article:modified_time" content="2020-07-04T16:03:00.000Z">
+<meta property="article:author" content="熊滔">
+<meta property="article:tag" content="JavaScript">
+<meta property="article:tag" content="+号运算">
+<meta name="twitter:card" content="summary">
+    
+        <link rel="alternate" type="application/atom+xml" title="Coder" href="https://lastknightcoder.github.io/lastknightcoder/atom.xml">
+    
+    <link rel="shortcut icon" href="https://lastknightcoder.github.io/lastknightcoder/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(https://lastknightcoder.github.io/lastknightcoder/img/brand.jpg)">
+      <div class="brand">
+        <a href="https://lastknightcoder.github.io/lastknightcoder/" class="avatar waves-effect waves-circle waves-light">
+          <img src="https://lastknightcoder.github.io/lastknightcoder/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">熊滔</h5>
+          <a href="mailto:2223106858@qq.com" title="2223106858@qq.com" class="mail">2223106858@qq.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.github.io/lastknightcoder/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.github.io/lastknightcoder/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.github.io/lastknightcoder/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.github.io/lastknightcoder/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://gitee.com/LastKnightCoder" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">JavaScript加号运算符</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">JavaScript加号运算符</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2020-07-04T16:03:00.000Z" itemprop="datePublished" class="page-time">
+  2020-07-05
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="https://lastknightcoder.github.io/lastknightcoder/categories/JavaScript/">JavaScript</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#一元运算符"><span class="post-toc-number">1.</span> <span class="post-toc-text">一元运算符</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#二元运算符"><span class="post-toc-number">2.</span> <span class="post-toc-text">二元运算符</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#题目讲解"><span class="post-toc-number">3.</span> <span class="post-toc-text">题目讲解</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#参考文献"><span class="post-toc-number">4.</span> <span class="post-toc-text">参考文献</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-JavaScript加号运算符"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">JavaScript加号运算符</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2020-07-05 00:03:00" datetime="2020-07-04T16:03:00.000Z"  itemprop="datePublished">2020-07-05</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="https://lastknightcoder.github.io/lastknightcoder/categories/JavaScript/">JavaScript</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>今天看到几道有关加号的题目，觉得很怪异如下</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">[] + &#123;&#125; <span class="comment">// '[object Object]'</span></span><br><span class="line">[] + [] <span class="comment">// ''</span></span><br><span class="line">&#123;&#125; + [] <span class="comment">// 0</span></span><br><span class="line">&#123;&#125; + &#123;&#125; <span class="comment">// NaN</span></span><br><span class="line">[] + &#123;&#125; == &#123;&#125; + [] <span class="comment">// true</span></span><br><span class="line">&#123;&#125; + [] != [] + &#123;&#125; <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+
+<p>当时我就完全没有搞懂，所以决定探索一下 <code>JavaScript</code> 中的 <code>+</code> 号运算符，另外，对于 <code>toString</code> 和 <code>valueOf</code> 这两个方法一直搞不清会调用哪个，在探索 <code>+</code> 号运算符的过程中也一并搞懂了，我将会在下面仔细讲解。</p>
+<h2 id="一元运算符"><a href="#一元运算符" class="headerlink" title="一元运算符"></a>一元运算符</h2><p><code>+</code> 既可以作为一元运算符，也可以作为二元运算符，首先我们先讲解较简单的一元运算符，如下表：</p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>转换规则</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>undefiend</code></td>
+<td><code>NaN</code></td>
+</tr>
+<tr>
+<td><code>null</code></td>
+<td><code>0</code></td>
+</tr>
+<tr>
+<td><code>boolean</code></td>
+<td><code>true =&gt; 1</code><br /><code>false =&gt; 0</code></td>
+</tr>
+<tr>
+<td><code>number</code></td>
+<td>原样返回，如 <code>+1 =&gt; 1</code></td>
+</tr>
+<tr>
+<td><code>string</code></td>
+<td>1. 如果字符串为纯数字组成，如 <code>&quot;5678&quot; =&gt; 5678</code><br />2. 如果不为纯数字，那么返回 <code>NaN</code><br />3. 空字符串会被转化为 <code>0</code>，即 <code>&quot;&quot; =&gt; 0</code></td>
+</tr>
+<tr>
+<td><code>symbol</code></td>
+<td>抛出 <code>TypeError</code> 异常</td>
+</tr>
+<tr>
+<td><code>object</code></td>
+<td>分为两步：<br />1. 先进行 <code>toPrimitive</code> 转化为基本数据类型，得到返回值 <code>ret</code><br />2. 然后对 <code>ret</code> 进行上面描述过程的转换，例如如果返回 <code>true</code>，得到 <code>1</code></td>
+</tr>
+</tbody></table>
+<p>下表是 <code>ECMAScript</code> 中的规范，上面的内容来自这里：</p>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>Undefined</code></td>
+<td><code>NaN</code></td>
+</tr>
+<tr>
+<td><code>Null</code></td>
+<td><code>+0</code></td>
+</tr>
+<tr>
+<td><code>Boolean</code></td>
+<td><code>The result is 1 if the argument is true.</code> <br /><code>The result is +0 if the argument is false.</code></td>
+</tr>
+<tr>
+<td><code>Number</code></td>
+<td><code>The result equals the input argument (no conversion).</code></td>
+</tr>
+<tr>
+<td><code>String</code></td>
+<td><code>See grammar and note below.</code></td>
+</tr>
+<tr>
+<td><code>Object</code></td>
+<td><code>Apply the following steps:</code><br /><code>1. Let primValue be ToPrimitive(input argument, hint Number).</code><br /><code>2. Return ToNumber(primValue).</code></td>
+</tr>
+</tbody></table>
+<p>下面来看几个例子，来验证上面的内容</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(+<span class="literal">undefined</span>); <span class="comment">// NaN</span></span><br><span class="line"><span class="built_in">console</span>.log(+<span class="literal">null</span>); <span class="comment">// 0</span></span><br><span class="line"><span class="built_in">console</span>.log(+<span class="literal">true</span>); <span class="comment">// 1</span></span><br><span class="line"><span class="built_in">console</span>.log(+<span class="literal">false</span>); <span class="comment">// 0</span></span><br><span class="line"><span class="built_in">console</span>.log(+<span class="number">2</span>); <span class="comment">// 2</span></span><br><span class="line"><span class="built_in">console</span>.log(+<span class="built_in">Symbol</span>()); <span class="comment">// Uncaught TypeError: Cannot convert a Symbol value to a number</span></span><br><span class="line"><span class="built_in">console</span>.log(+<span class="string">"123"</span>); <span class="comment">// 123</span></span><br><span class="line"><span class="built_in">console</span>.log(+<span class="string">"1aa1"</span>); <span class="comment">// NaN</span></span><br></pre></td></tr></table></figure>
+
+<p>对于对象首先要进行 <code>toPrimitive</code> 转化为原始类型，然后将原始类型转化为数字</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> obj1 = &#123;</span><br><span class="line">    valueOf() &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">12</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="built_in">console</span>.log(+obj1); <span class="comment">// 12</span></span><br><span class="line"><span class="keyword">let</span> obj2 = &#123;&#125;;</span><br><span class="line"><span class="built_in">console</span>.log(+obj2); <span class="comment">// NaN</span></span><br></pre></td></tr></table></figure>
+
+<p>对于空对象，在转化为原始值时得到的是 <code>&quot;[object Object]&quot;</code>，将它转化为数字时，这个字符串不是纯数字，所以会被转化为 <code>NaN</code>。</p>
+<h2 id="二元运算符"><a href="#二元运算符" class="headerlink" title="二元运算符"></a>二元运算符</h2><p>当把 <code>+</code> 作为二元运算符时，遵循以下过程：</p>
+<ol>
+<li>Let <em>lref</em> be the result of evaluating <em>AdditiveExpression</em>.</li>
+<li>Let <em>lval</em> be <a href="http://www.ecma-international.org/ecma-262/6.0/#sec-getvalue" target="_blank" rel="noopener">GetValue</a>(<em>lref</em>).</li>
+<li><a href="http://www.ecma-international.org/ecma-262/6.0/#sec-returnifabrupt" target="_blank" rel="noopener">ReturnIfAbrupt</a>(<em>lval</em>).</li>
+<li>Let <em>rref</em> be the result of evaluating <em>MultiplicativeExpression</em>.</li>
+<li>Let <em>rval</em> be <a href="http://www.ecma-international.org/ecma-262/6.0/#sec-getvalue" target="_blank" rel="noopener">GetValue</a>(<em>rref</em>).</li>
+<li><a href="http://www.ecma-international.org/ecma-262/6.0/#sec-returnifabrupt" target="_blank" rel="noopener">ReturnIfAbrupt</a>(<em>rval</em>).</li>
+<li>Let <em>lprim</em> be <a href="http://www.ecma-international.org/ecma-262/6.0/#sec-toprimitive" target="_blank" rel="noopener">ToPrimitive</a>(<em>lval</em>).</li>
+<li><a href="http://www.ecma-international.org/ecma-262/6.0/#sec-returnifabrupt" target="_blank" rel="noopener">ReturnIfAbrupt</a>(<em>lprim</em>).</li>
+<li>Let <em>rprim</em> be <a href="http://www.ecma-international.org/ecma-262/6.0/#sec-toprimitive" target="_blank" rel="noopener">ToPrimitive</a>(<em>rval</em>).</li>
+<li><a href="http://www.ecma-international.org/ecma-262/6.0/#sec-returnifabrupt" target="_blank" rel="noopener">ReturnIfAbrupt</a>(<em>rprim</em>).</li>
+<li>If <a href="http://www.ecma-international.org/ecma-262/6.0/#sec-ecmascript-data-types-and-values" target="_blank" rel="noopener">Type</a>(<em>lprim</em>) is String or <a href="http://www.ecma-international.org/ecma-262/6.0/#sec-ecmascript-data-types-and-values" target="_blank" rel="noopener">Type</a>(<em>rprim</em>) is String, then<ol>
+<li>Let <em>lstr</em> be <a href="http://www.ecma-international.org/ecma-262/6.0/#sec-tostring" target="_blank" rel="noopener">ToString</a>(<em>lprim</em>).</li>
+<li><a href="http://www.ecma-international.org/ecma-262/6.0/#sec-returnifabrupt" target="_blank" rel="noopener">ReturnIfAbrupt</a>(<em>lstr</em>).</li>
+<li>Let <em>rstr</em> be <a href="http://www.ecma-international.org/ecma-262/6.0/#sec-tostring" target="_blank" rel="noopener">ToString</a>(<em>rprim</em>).</li>
+<li><a href="http://www.ecma-international.org/ecma-262/6.0/#sec-returnifabrupt" target="_blank" rel="noopener">ReturnIfAbrupt</a>(<em>rstr</em>).</li>
+<li>Return the String that is the result of concatenating <em>lstr</em> and <em>rstr.</em></li>
+</ol>
+</li>
+<li>Let <em>lnum</em> be <a href="http://www.ecma-international.org/ecma-262/6.0/#sec-tonumber" target="_blank" rel="noopener">ToNumber</a>(<em>lprim</em>).</li>
+<li><a href="http://www.ecma-international.org/ecma-262/6.0/#sec-returnifabrupt" target="_blank" rel="noopener">ReturnIfAbrupt</a>(<em>lnum</em>).</li>
+<li>Let <em>rnum</em> be <a href="http://www.ecma-international.org/ecma-262/6.0/#sec-tonumber" target="_blank" rel="noopener">ToNumber</a>(<em>rprim</em>).</li>
+<li><a href="http://www.ecma-international.org/ecma-262/6.0/#sec-returnifabrupt" target="_blank" rel="noopener">ReturnIfAbrupt</a>(<em>rnum</em>).</li>
+<li>Return the result of applying the addition operation to <em>lnum</em> and <em>rnum</em>. See the Note below <a href="http://www.ecma-international.org/ecma-262/6.0/#sec-applying-the-additive-operators-to-numbers" target="_blank" rel="noopener">12.7.5</a>.</li>
+</ol>
+<p>上面是 <code>ECMAScript</code> 中的规范，如果英文不太熟的话，下面我将以中文简单翻译如下：</p>
+<ol>
+<li>首先将 <code>+</code> 号两边的值通过 <code>toPrimitive</code> 转化为基本数据类型(如果已经是基本数据类型，则原样返回)</li>
+<li>如果得到的两个基本数据类型中有字符串，那么将二者转化为字符串拼接起来，将结果返回</li>
+<li>如果两个基本数据类型中没有字符串，那么就将两个值转化为数字，然后进行相加</li>
+</ol>
+<p>下面来看几个例子：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 两个值中有一个为字符串，则调用二者的 toString 方法，然后进行相加</span></span><br><span class="line"><span class="string">""</span> + <span class="number">2</span>; <span class="comment">// "2"</span></span><br><span class="line"><span class="literal">true</span> + <span class="string">"abc"</span>; <span class="comment">// "trueabc"</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 两个值中没有字符串，那么转化为数字然后相加</span></span><br><span class="line"><span class="number">2</span> + <span class="literal">true</span>; <span class="comment">// =&gt; 2 + 1 = 3</span></span><br><span class="line"><span class="literal">null</span> + <span class="number">2</span>; <span class="comment">// =&gt; 0 + 2 = 2</span></span><br><span class="line">[] + <span class="number">2</span>; <span class="comment">// =&gt; "" + 2 = "2"</span></span><br></pre></td></tr></table></figure>
+
+<p>对于对象要转化为原始类型，然后进行相加，那么对象转化为原始类型的过程是什么? 下面是调用的过程：</p>
+<ul>
+<li>如果有 <code>[Symbol.toPrimitive]</code> 方法，则调用 <code>[Symbol.toPrimitive]()</code> 方法转化为原始类型，该方法的返回必须为原始类型</li>
+<li>如果没有 <code>[Symbol.toPrimitive]</code> 方法，那么调用 <code>valueOf</code> 方法，如果 <code>valueOf</code> 返回的不是原始值(基本数据类型)，那么就调用 <code>toString</code> 方法，如果 <code>toString</code> 返回的也不是原始值，那么就会报错</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">[] + <span class="number">2</span>; <span class="comment">// "" + 2 = "2"</span></span><br></pre></td></tr></table></figure>
+
+<p>数组也是对象，因为数组没有 <code>[Symbol.toPrimitive]</code> 方法，所以首先会调用数组的 <code>valueOf</code> 方法，因为数组的 <code>valueOf</code> 方法返回的是数组本身，并不是基本数据类型，所以接着会调用数组的 <code>toString</code> 方法，得到一个空字符串 <code>&quot;&quot;</code> ，通过我们上面的讲解，如果两个值中有一个是字符串的话，则会将二者转化为字符串进行拼接，所以 <code>[] + 2 =&gt; &quot;&quot; + 2 = &quot;2&quot;</code>。下面在来看一个例子：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> obj = &#123;</span><br><span class="line">    [<span class="built_in">Symbol</span>.toPrimitive](hint) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">20</span>;</span><br><span class="line">    &#125;,</span><br><span class="line">    valueOf() &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="number">2</span> + obj; <span class="comment">// 22</span></span><br></pre></td></tr></table></figure>
+
+<p>由于对象 <code>obj</code> 有 <code>[Symbol.toPrimitive]</code> 方法，所以在转化为基本数据类型时会调用该方法，得到的值为 <code>20</code>，所以 <code>2 + obj =&gt; 2 + 20 = 22</code>。</p>
+<h2 id="题目讲解"><a href="#题目讲解" class="headerlink" title="题目讲解"></a>题目讲解</h2><p>回到开头我们提出的几个例子：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">[] + &#123;&#125; <span class="comment">// '[object Object]'</span></span><br></pre></td></tr></table></figure>
+
+<p>首先将两个东西转化为基本数据类型，因为它们都没有 <code>[Symbol.toPrimitive]</code> 方法，所以接着会调用它们的 <code>valueOf</code> 方法，但是它们的 <code>valueOf</code> 方法返回的都是它们本身，所以接着会调用它们的 <code>toString</code> 方法，<code>[]</code> 的 <code>toString</code> 方法得到的是 <code>&#39;&#39;</code> 空字符串，<code>{}</code> 的 <code>toString</code> 方法得到的是 <code>&#39;[object Object]&#39;</code>，二者都是字符串，将二者进行拼接，得到的结果是 <code>&#39;[object Object]&#39;</code>。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">[] + [] <span class="comment">// ''</span></span><br></pre></td></tr></table></figure>
+
+<p>有上题的经验，<code>[] =&gt; &#39;&#39;</code>，两个空字符串进行拼接得到的结果是 <code>&#39;&#39;</code>。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&#123;&#125; + [] <span class="comment">// 0</span></span><br></pre></td></tr></table></figure>
+
+<p>接着看 <code>{} + []</code>，因为 <code>JavaScript</code> 会将以 <code>{</code> 开头的语句解析为代码块而不是一个空对象，所以 <code>{} + []</code> 相当于 <code>+[]</code>，这时的 <code>+</code> 相当于是一个一元运算符，根据一元运算符上面讲解的内容，首先将 <code>[]</code> 转化为基本数据类型，得到 <code>&quot;&quot;</code>，接着将 <code>&quot;&quot;</code> 转化为数字，得到的结果为 <code>0</code>。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&#123;&#125; + &#123;&#125; <span class="comment">// NaN</span></span><br></pre></td></tr></table></figure>
+
+<p>根据上一道题的讲解，<code>{} + {}</code> 相当于 <code>+{}</code>，<code>{}</code> 转换为基本数据类型得到的是 <code>&quot;[object Object]&quot;</code>，该字符串转换为数字得到的 <code>NaN</code>，所以结果是 <code>NaN</code>。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">[] + &#123;&#125; == &#123;&#125; + [] <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+
+<p><code>[] + {}</code> 得到的结果是 <code>&#39;[object Object]&#39;</code>，<code>{} + []</code> 得到的结果并不是 <code>0</code>，因为这时 <code>{}</code> 并不是在语句的开头，会被看做是空对象，所以 <code>{} + []</code> 得到的结果也是 <code>&#39;[object Object]&#39;</code>，二者是相等的，结果是 <code>true</code></p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&#123;&#125; + [] != [] + &#123;&#125; <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+
+<p><code>{} + []</code> 因为在开头，得到的结果是 <code>0</code>，而 <code>[] + {}</code> 的结果是 <code>[object Object]</code>，二者不相等，所以 <code>{} + [] != [] + {}</code> 的结果也是 <code>true</code>。</p>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><ul>
+<li><a href="https://www.cnblogs.com/polk6/p/js-adv-addopr.html" target="_blank" rel="noopener">JavaScript 加号运算符详解</a></li>
+<li><a href="https://stackoverflow.com/questions/2485632/valueof-vs-tostring-in-javascript" target="_blank" rel="noopener">valueOf() vs. toString() in Javascript</a></li>
+<li><a href="http://www.ecma-international.org/ecma-262/6.0/#sec-addition-operator-plus-runtime-semantics-evaluation" target="_blank" rel="noopener">The Addition operator ( <code>+</code> )</a></li>
+<li><a href="https://www.ecma-international.org/ecma-262/5.1/#sec-9.3" target="_blank" rel="noopener">ToNumber</a></li>
+<li><a href="https://segmentfault.com/a/1190000016325587" target="_blank" rel="noopener">ECMAScript7规范中的ToPrimitive抽象操作</a></li>
+<li><a href="https://javascript.info/object-toprimitive" target="_blank" rel="noopener">Object to primitive conversion</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/74982324" target="_blank" rel="noopener">Symbol.toPrimitive 与 [] + {} == {} + []</a></li>
+</ul>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-07-04T16:03:00.000Z" itemprop="dateUpdated">2020-07-05 00:03:00</time>
+</span><br>
+
+
+        
+    </div>
+    
+    <footer>
+        <a href="https://lastknightcoder.github.io/lastknightcoder">
+            <img src="https://lastknightcoder.github.io/lastknightcoder/img/avatar.jpg" alt="熊滔">
+            熊滔
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="https://lastknightcoder.github.io/lastknightcoder/tags/%E5%8F%B7%E8%BF%90%E7%AE%97/" rel="tag">+号运算</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="https://lastknightcoder.github.io/lastknightcoder/tags/JavaScript/" rel="tag">JavaScript</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://lastknightcoder.github.io/lastknightcoder/JavaScript%E5%8A%A0%E5%8F%B7%E8%BF%90%E7%AE%97%E7%AC%A6/&title=《JavaScript加号运算符》 — Coder&pic=https://lastknightcoder.github.io/lastknightcoder/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://lastknightcoder.github.io/lastknightcoder/JavaScript%E5%8A%A0%E5%8F%B7%E8%BF%90%E7%AE%97%E7%AC%A6/&title=《JavaScript加号运算符》 — Coder&source=人生天地间，忽如远行客" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://lastknightcoder.github.io/lastknightcoder/JavaScript%E5%8A%A0%E5%8F%B7%E8%BF%90%E7%AE%97%E7%AC%A6/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《JavaScript加号运算符》 — Coder&url=https://lastknightcoder.github.io/lastknightcoder/JavaScript%E5%8A%A0%E5%8F%B7%E8%BF%90%E7%AE%97%E7%AC%A6/&via=https://lastknightcoder.github.io/lastknightcoder" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://lastknightcoder.github.io/lastknightcoder/JavaScript%E5%8A%A0%E5%8F%B7%E8%BF%90%E7%AE%97%E7%AC%A6/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="https://lastknightcoder.github.io/lastknightcoder/%E4%BD%BF%E7%94%A8CSS%E5%92%8CJavaScript%E5%81%9A%E4%B8%80%E4%B8%AA%E6%97%B6%E9%92%9F/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">使用CSS和JavaScript做一个时钟</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="https://lastknightcoder.github.io/lastknightcoder/%E8%82%A1%E7%A5%A8%E7%9A%84%E6%9C%80%E5%A4%A7%E5%88%A9%E6%B6%A6/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">股票的最大利润</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'lastknightcoder';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="https://lastknightcoder.github.io/lastknightcoder/img/wechatpay.png" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="https://lastknightcoder.github.io/lastknightcoder/img/wechatpay.png" data-alipay="https://lastknightcoder.github.io/lastknightcoder/img/alipay.png">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="https://lastknightcoder.github.io/lastknightcoder/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>熊滔 &copy; 2019 - 2021</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://lastknightcoder.github.io/lastknightcoder/JavaScript%E5%8A%A0%E5%8F%B7%E8%BF%90%E7%AE%97%E7%AC%A6/&title=《JavaScript加号运算符》 — Coder&pic=https://lastknightcoder.github.io/lastknightcoder/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://lastknightcoder.github.io/lastknightcoder/JavaScript%E5%8A%A0%E5%8F%B7%E8%BF%90%E7%AE%97%E7%AC%A6/&title=《JavaScript加号运算符》 — Coder&source=人生天地间，忽如远行客" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://lastknightcoder.github.io/lastknightcoder/JavaScript%E5%8A%A0%E5%8F%B7%E8%BF%90%E7%AE%97%E7%AC%A6/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《JavaScript加号运算符》 — Coder&url=https://lastknightcoder.github.io/lastknightcoder/JavaScript%E5%8A%A0%E5%8F%B7%E8%BF%90%E7%AE%97%E7%AC%A6/&via=https://lastknightcoder.github.io/lastknightcoder" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://lastknightcoder.github.io/lastknightcoder/JavaScript%E5%8A%A0%E5%8F%B7%E8%BF%90%E7%AE%97%E7%AC%A6/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2CAAAAADAeSUUAAADPklEQVR42u3aS27jQAwFwNz/0hlgtok875E2xmqXVoajSKz2guDn6yu+vv9eP795fP288+fTHj/58fdXdz7twsbGxr4JOw89D/rqcxLiVQzJPYkFGxsb+1T246Q1e80qrPIIcgs2Njb2J7Pz45gVMDkmSbTY2NjY2EkhkaefDTtvP2FjY2N/Mrtt8edlQDt+2AwSXtJLw8bGxn579ivC+l+fXzjfxsbGxn5L9nd5vaIVlY8BZjH/8mRsbGzsg9h5+yb5Pm/uJMXDbK0njwQbGxv7JHa7lDNbrGnHtKvWf16iYGNjY9+cnbdj2hWZ2aEkz89/nstDxMbGxj6InQ9TZyOETdMqb1flMRSPw8bGxr4JO1/BeVags5WgduQQNZKwsbGxP4adD3pz2H6onBzT5ZFhY2NjfwA7HwPkhUrbbMrfVZdS2NjY2Iey8yWbPKw29Nk9dRrGxsbGPojdjgSSlZp26Scf/W6ej42NjX0qe9OaScKdtf7bVFqPDbCxsbGPY+epaxboc9tV+Rsv/wsbGxv7IHZbKswa9PsG02aVBxsbG/tsdv5vycvyJv6z1nfaFlVUtWBjY2Pfip0XD3k7vk0n7cg2j3/1+2NjY2PfkJ2MBPLRbJ7w9gkyGVdcvh0bGxv75uxZ2ZD3q5LkN/utVkeDjY2NfRC7bQM9d9S6Wetpm1NREYKNjY19c3ZeHrTUPNxViz+OFhsbG/skdt4AmrX78+Q0GxgM346NjY19KLsNpR0nzIqN2fH946/Y2NjYB7HzRJWnpXZ9px0ktOXH5duxsbGxj2BvBrHt4k6ShNoVouGoABsbG/sgdtvcb4ep+fFt7mwTITY2NvZJ7Lwd37ZyNkPZNuHl6bDoY2FjY2Pfip0vytQvGM1VNyVQcd7Y2NjYB7Gf9fok8bRFTpIy2++xsbGxT2JvUl1ewLSjgjbovCyp8djY2Ng3YScpJF+7aT8P94zKxFYXJNjY2Ng3ZLcFQz5OaEPfjJaHORkbGxv7Y9j56szmCUnh0f4kvzwTGxsb+4PZbSizeetsSFz0zLCxsbGPYycP2hQts9JlNnJ48ngAGxsb++3Zmw5MkszyZJmPk2fjYWxsbOzj2H8AwgeM4Nb/nhsAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: 'https://lastknightcoder.github.io/lastknightcoder/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>
