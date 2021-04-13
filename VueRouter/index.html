@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>VueRouter | Coder</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="">
+    <meta name="description" content="Vue 经常被用来构建单页应用，这意味着需要在前端完成在多个视图之间的切换，想要做到这一点，目前的解决方案通过监控路由，根据路由来切换不同的组件，以达到多视图的切换。Vue 官方为我们提供了 Vue Router 来帮助我们实现这个目的。 安装如果你的项目只是简单的 HTML 页面，那么可以通过 CDN 引入 Vue Router &lt;script src&#x3D;&quot;https:&#x2F;&#x2F;unpkg.com">
+<meta property="og:type" content="article">
+<meta property="og:title" content="VueRouter">
+<meta property="og:url" content="https://lastknightcoder.github.io/lastknightcoder/VueRouter/">
+<meta property="og:site_name" content="Coder">
+<meta property="og:description" content="Vue 经常被用来构建单页应用，这意味着需要在前端完成在多个视图之间的切换，想要做到这一点，目前的解决方案通过监控路由，根据路由来切换不同的组件，以达到多视图的切换。Vue 官方为我们提供了 Vue Router 来帮助我们实现这个目的。 安装如果你的项目只是简单的 HTML 页面，那么可以通过 CDN 引入 Vue Router &lt;script src&#x3D;&quot;https:&#x2F;&#x2F;unpkg.com">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/LastKnightCoder/ImgHosting2/20210404133346.gif">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/LastKnightCoder/ImgHosting2/20210404134333.gif">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/LastKnightCoder/ImgHosting2/20210404143251.gif">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/LastKnightCoder/ImgHosting2/20210404144349.gif">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/LastKnightCoder/ImgHosting2/20210404145423.gif">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/LastKnightCoder/ImgHosting2/20210404153620.gif">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/LastKnightCoder/ImgHosting2/20210404172547.gif">
+<meta property="article:published_time" content="2021-04-01T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-04-01T16:00:00.000Z">
+<meta property="article:author" content="熊滔">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/LastKnightCoder/ImgHosting2/20210404133346.gif">
+    
+        <link rel="alternate" type="application/atom+xml" title="Coder" href="https://lastknightcoder.github.io/lastknightcoder/atom.xml">
+    
+    <link rel="shortcut icon" href="https://lastknightcoder.github.io/lastknightcoder/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(https://lastknightcoder.github.io/lastknightcoder/img/brand.jpg)">
+      <div class="brand">
+        <a href="https://lastknightcoder.github.io/lastknightcoder/" class="avatar waves-effect waves-circle waves-light">
+          <img src="https://lastknightcoder.github.io/lastknightcoder/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">熊滔</h5>
+          <a href="mailto:2223106858@qq.com" title="2223106858@qq.com" class="mail">2223106858@qq.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.github.io/lastknightcoder/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.github.io/lastknightcoder/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.github.io/lastknightcoder/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.github.io/lastknightcoder/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://gitee.com/LastKnightCoder" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">VueRouter</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">VueRouter</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2021-04-01T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2021-04-02
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="https://lastknightcoder.github.io/lastknightcoder/categories/Vue/">Vue</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#安装"><span class="post-toc-number">1.</span> <span class="post-toc-text">安装</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#基本使用"><span class="post-toc-number">2.</span> <span class="post-toc-text">基本使用</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#动态路由匹配"><span class="post-toc-number">3.</span> <span class="post-toc-text">动态路由匹配</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#嵌套路由"><span class="post-toc-number">4.</span> <span class="post-toc-text">嵌套路由</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#编程式的导航"><span class="post-toc-number">5.</span> <span class="post-toc-text">编程式的导航</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#重定向与别名"><span class="post-toc-number">6.</span> <span class="post-toc-text">重定向与别名</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#路由守卫"><span class="post-toc-number">7.</span> <span class="post-toc-text">路由守卫</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#全局前置守卫"><span class="post-toc-number">7.1.</span> <span class="post-toc-text">全局前置守卫</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#路由守卫-1"><span class="post-toc-number">7.2.</span> <span class="post-toc-text">路由守卫</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#组件内的守卫"><span class="post-toc-number">7.3.</span> <span class="post-toc-text">组件内的守卫</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#组件缓存"><span class="post-toc-number">8.</span> <span class="post-toc-text">组件缓存</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#参考链接"><span class="post-toc-number">9.</span> <span class="post-toc-text">参考链接</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-VueRouter"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">VueRouter</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2021-04-02 00:00:00" datetime="2021-04-01T16:00:00.000Z"  itemprop="datePublished">2021-04-02</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="https://lastknightcoder.github.io/lastknightcoder/categories/Vue/">Vue</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p><code>Vue</code> 经常被用来构建单页应用，这意味着需要在前端完成在多个视图之间的切换，想要做到这一点，目前的解决方案通过监控路由，根据路由来切换不同的组件，以达到多视图的切换。<code>Vue</code> 官方为我们提供了 <code>Vue Router</code> 来帮助我们实现这个目的。</p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>如果你的项目只是简单的 <code>HTML</code> 页面，那么可以通过 <code>CDN</code> 引入 <code>Vue Router</code></p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"https://unpkg.com/vue-router/dist/vue-router.js"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>如果你的项目是一个 <code>npm</code> 项目，那么可以通过 <code>npm</code> 下载 <code>Vue Router</code></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install --save vue-router</span><br></pre></td></tr></table></figure>
+
+<p>如果你是通过 <code>vue-cli</code> 创建的项目，则你可通过 <code>vue add</code> 来添加 <code>Vue Router</code></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">vue add router</span><br></pre></td></tr></table></figure>
+
+<h2 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h2><p>首先看入口组件 <code>App.vue</code></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; App.vue</span><br><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div id&#x3D;&quot;app&quot;&gt;</span><br><span class="line">    &lt;router-link to&#x3D;&quot;&#x2F;&quot;&gt;Index&lt;&#x2F;router-link&gt;</span><br><span class="line">    &lt;router-link to&#x3D;&quot;&#x2F;about&quot;&gt;About&lt;&#x2F;router-link&gt;</span><br><span class="line"></span><br><span class="line">    &lt;router-view&gt;&lt;&#x2F;router-view&gt;</span><br><span class="line">  &lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br></pre></td></tr></table></figure>
+
+<p>其中牵涉到两个新标签：</p>
+<ul>
+<li><code>&lt;router-link&gt;</code>：默认会被渲染为超链接，当点击时会跳转到 <code>to</code> 属性指定的地址(路由)</li>
+<li><code>&lt;router-view&gt;</code>：根据路由被渲染为特定的组件</li>
+</ul>
+<p>接下来我们便要定义路由与组件之间的对应关系。我们将对应写在单独的文件中，以便后期维护，新建文件夹 <code>router</code>，接着在其中新建文件 <code>index.js</code>，在其中定义路由规则</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// router/index.js</span></span><br><span class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">'vue'</span></span><br><span class="line"><span class="keyword">import</span> VueRouter <span class="keyword">from</span> <span class="string">'vue-router'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> Index <span class="keyword">from</span> <span class="string">'@/views/Index.vue'</span></span><br><span class="line"><span class="keyword">import</span> About <span class="keyword">from</span> <span class="string">'@/views/About.vue'</span></span><br><span class="line"></span><br><span class="line">Vue.use(VueRouter);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> routes = [&#123;</span><br><span class="line">    path: <span class="string">'/'</span>,</span><br><span class="line">    component: Index</span><br><span class="line">&#125;, &#123;</span><br><span class="line">    path: <span class="string">'/about'</span>,</span><br><span class="line">    component: About</span><br><span class="line">&#125;]</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> router = <span class="keyword">new</span> VueRouter(&#123;</span><br><span class="line">    routes</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> router</span><br></pre></td></tr></table></figure>
+
+<p>除开引入组件的代码，首先我们通过 <code>Vue.use(VueRouter)</code> 使用了 <code>VueRouter</code> 插件，接着我们定义的路由与组件的对应关系</p>
+<table>
+<thead>
+<tr>
+<th>路由</th>
+<th>组件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>/</td>
+<td>Index</td>
+</tr>
+<tr>
+<td>/about</td>
+<td>About</td>
+</tr>
+</tbody></table>
+<p>当路由为 <code>/</code> 时，<code>&lt;router-view&gt;</code> 便会被渲染为 <code>&lt;Index&gt;</code>，当路由为 <code>/about</code> 时，<code>&lt;router-view&gt;</code> 便会被渲染为 <code>&lt;About&gt;</code>。<code>Index.vue</code> 与 <code>About.vue</code> 的内容如下</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; Index.vue</span><br><span class="line">&lt;template&gt;</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">        &lt;h1&gt;Welcome to Index page!&lt;&#x2F;h1&gt;</span><br><span class="line">    &lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; About.vue</span><br><span class="line">&lt;template&gt;</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">        &lt;h1&gt;This is About page!&lt;&#x2F;h1&gt;</span><br><span class="line">    &lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br></pre></td></tr></table></figure>
+
+<p>内容都十分的简单。接着我们根据路由对应关系创建了 <code>VueRouter</code> 实例 <code>router</code>，并将其导出。在入口文件 <code>main.js</code> 中我们使用该 <code>router</code></p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// main.js</span></span><br><span class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">'vue'</span></span><br><span class="line"><span class="keyword">import</span> App <span class="keyword">from</span> <span class="string">'./App.vue'</span></span><br><span class="line"><span class="keyword">import</span> router <span class="keyword">from</span> <span class="string">'./router'</span></span><br><span class="line"></span><br><span class="line">Vue.config.productionTip = <span class="literal">false</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  router,</span><br><span class="line">  render: <span class="function"><span class="params">h</span> =&gt;</span> h(App)</span><br><span class="line">&#125;).$mount(<span class="string">'#app'</span>)</span><br></pre></td></tr></table></figure>
+
+<img src="https://cdn.jsdelivr.net/gh/LastKnightCoder/ImgHosting2/20210404133346.gif" alt="1" style="zoom:50%;" />
+
+<p>当我们点击链接时，地址栏发生变化，且渲染的组件也顺应变化。</p>
+<blockquote>
+<p><code>VueRouter</code> 有两种导航模式：</p>
+<ul>
+<li><code>hash</code></li>
+<li><code>history</code></li>
+</ul>
+<p>注意到地址栏中出现了 <code>#</code>，表示此时 <code>VueRouter</code> 是 <code>hash</code> 模式，地址栏中有 <code>#</code> 未免不好看，我们可以在创建 <code>VueRouter</code> 实例时设置 <code>mode</code> 选项为 <code>&#39;history&#39;</code>，这时 <code>VueRouter</code> 便是 <code>history</code> 模式了</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// router/index.js</span></span><br><span class="line"><span class="keyword">const</span> router = <span class="keyword">new</span> VueRouter(&#123;</span><br><span class="line">    mode: <span class="string">'history'</span>,</span><br><span class="line">    routes</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<img src="https://cdn.jsdelivr.net/gh/LastKnightCoder/ImgHosting2/20210404134333.gif" alt="2" style="zoom:50%;" />
+
+<p>这时地址栏上便没有 <code>#</code> 了。</p>
+</blockquote>
+<p>有的时候路径的拼写比较复杂，我们可以为路由命名，然后在 <code>to</code> 属性直接指定跳转的路由名称。首先我们在 <code>routes</code> 数组中为路由指定名称</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// router/index.js</span></span><br><span class="line"><span class="keyword">const</span> routes = [&#123;</span><br><span class="line">    name: <span class="string">'index'</span>,</span><br><span class="line">    path: <span class="string">'/'</span>,</span><br><span class="line">    component: Index</span><br><span class="line">&#125;, &#123;</span><br><span class="line">    name: <span class="string">'about'</span>,</span><br><span class="line">    path: <span class="string">'/about'</span>,</span><br><span class="line">    component: About</span><br><span class="line">&#125;]</span><br></pre></td></tr></table></figure>
+
+<p>上面我们通过 <code>name</code> 属性为路由指定了名称，接着我们修改 <code>App.vue</code> 中的导航链接</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; App.vue</span><br><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div id&#x3D;&quot;app&quot;&gt;</span><br><span class="line">    &lt;router-link :to&#x3D;&quot;&#123;name: &#39;index&#39;&#125;&quot;&gt;Index&lt;&#x2F;router-link&gt;</span><br><span class="line">    &lt;router-link :to&#x3D;&quot;&#123;name: &#39;about&#39;&#125;&quot;&gt;About&lt;&#x2F;router-link&gt;</span><br><span class="line"></span><br><span class="line">    &lt;router-view&gt;&lt;&#x2F;router-view&gt;</span><br><span class="line">  &lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="动态路由匹配"><a href="#动态路由匹配" class="headerlink" title="动态路由匹配"></a>动态路由匹配</h2><p>有的时候我们可能需要为组件传递额外的参数，以显示不同的信息，例如 <code>/user/1</code> 显示 <code>id = 1</code> 的用户的信息，<code>/user/2</code> 显示 <code>id = 2</code> 用户的信息，参数通过路由传递，这种路由我们称为动态路由。为了能够接收到参数，我们需要如下定义路由与组件的关系</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// router/index.js</span></span><br><span class="line"><span class="keyword">const</span> routes = [&#123;</span><br><span class="line">    path: <span class="string">'/user/:id'</span>,</span><br><span class="line">    component: User</span><br><span class="line">&#125;]</span><br></pre></td></tr></table></figure>
+
+<p>注意到动态路由的定义方式 <code>path: &#39;/user/:id&#39;</code>，接着我们便可在 <code>User</code> 组件中通过计算属性 <code>$route</code> 来访问到传入的参数，<code>$route</code> 包含如下属性</p>
+<ul>
+<li>fullpath</li>
+<li>path</li>
+<li>query</li>
+<li>params</li>
+<li>name</li>
+</ul>
+<p>我们可以通过 <code>$route.params.id</code> 来访问到传入的参数，<code>User.vue</code> 如下</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; User.vue</span><br><span class="line">&lt;template&gt;</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">        &lt;p&gt;User: &#123;&#123;$route.params.id&#125;&#125;&lt;&#x2F;p&gt;</span><br><span class="line">    &lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br></pre></td></tr></table></figure>
+
+<p><code>App.vue</code> 的内容如下</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; App.vue</span><br><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div id&#x3D;&quot;app&quot;&gt;</span><br><span class="line">    &lt;router-link to&#x3D;&quot;&#x2F;user&#x2F;1&quot;&gt;user1&lt;&#x2F;router-link&gt;</span><br><span class="line">    &lt;router-link to&#x3D;&quot;&#x2F;user&#x2F;2&quot;&gt;user2&lt;&#x2F;router-link&gt;</span><br><span class="line"></span><br><span class="line">    &lt;router-view&gt;&lt;&#x2F;router-view&gt;</span><br><span class="line">  &lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br></pre></td></tr></table></figure>
+
+<img src="https://cdn.jsdelivr.net/gh/LastKnightCoder/ImgHosting2/20210404143251.gif" alt="1" style="zoom:50%;" />
+
+<p>有一点需要注意的是，动态路由组件进行切换时会进行组件复用，当路由从 <code>/user/1</code> 变为 <code>/user/2</code> 时并没有重新创建一个新的组件，而是复用了之前的组件。我们可以在 <code>created</code> 方法中打印信息，如果在切换组件时，信息始终只打印了一次，就说明组件只被创建了一次，即组件复用了</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; User.vue</span><br><span class="line">&lt;template&gt;</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">        &lt;p&gt;User: &#123;&#123;$route.params.id&#125;&#125;&lt;&#x2F;p&gt;</span><br><span class="line">    &lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">    created() &#123;</span><br><span class="line">        console.log(&#39;created&#39;)</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+
+<img src="https://cdn.jsdelivr.net/gh/LastKnightCoder/ImgHosting2/20210404144349.gif" alt="2" style="zoom:50%;" />
+
+<p>组件复用能够带来性能上的优势，但是有的时候我们需要根据路由参数请求数据，因为组件复用的关系，无法通过生命周期钩子请求数据，这时我们可以通过监听器来监听 <code>$watch</code>，当路由发生变化时，我们便发起请求</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; User.vue</span><br><span class="line">&lt;template&gt;</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">        &lt;p&gt;User: &#123;&#123;$route.params.id&#125;&#125;&lt;&#x2F;p&gt;</span><br><span class="line">    &lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">    watch: &#123;</span><br><span class="line">        $route: &#123;</span><br><span class="line">            immediate: true,</span><br><span class="line">            handler() &#123;</span><br><span class="line">                console.log(&#39;route change!&#39;, this.$route.params.id);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+
+<img src="https://cdn.jsdelivr.net/gh/LastKnightCoder/ImgHosting2/20210404145423.gif" alt="3" style="zoom:50%;" />
+
+<p>在组件中直接使用 <code>$route</code> 会使得组件与路由形成高度的耦合，我们希望路由参数能够通过 <code>props</code> 传递给组件。首先需要在路由定义中添加 <code>props</code> 属性，并声明为 <code>true</code></p>
+<figure class="highlight javascript"><figcaption><span>&#123;5&#125;</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="comment">// router/index.js</span></span><br><span class="line"><span class="keyword">const</span> routes = [&#123;</span><br><span class="line">    path: <span class="string">'/user/:id'</span>,</span><br><span class="line">    component: User,</span><br><span class="line">    props: <span class="literal">true</span></span><br><span class="line">&#125;]</span><br></pre></td></tr></table></figure>
+
+<p>接着在 <code>User</code> 组件中对 <code>props</code> 属性进行声明</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; User.vue</span><br><span class="line">&lt;template&gt;</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">        &lt;p&gt;User: &#123;&#123;id&#125;&#125;&lt;&#x2F;p&gt;</span><br><span class="line">    &lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">    props: [&#39;id&#39;]</span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="嵌套路由"><a href="#嵌套路由" class="headerlink" title="嵌套路由"></a>嵌套路由</h2><p>假设在 <code>User</code> 组件中还嵌套这一层路由</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; User.vue</span><br><span class="line">&lt;template&gt;</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">        &lt;p&gt;User: &#123;&#123;$route.params.id&#125;&#125;&lt;&#x2F;p&gt;</span><br><span class="line">        &lt;router-view&gt;&lt;&#x2F;router-view&gt;</span><br><span class="line">    &lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br></pre></td></tr></table></figure>
+
+<p>例如当路由为 <code>/user/:id/foo</code> 时，<code>User</code> 组件中的 <code>&lt;router-view&gt;</code> 渲染为 <code>Foo</code> 组件，当路由为 <code>/user:id/bar</code> 时，渲染为 <code>Bar</code> 组件，当路由为 <code>/user/:id/</code> 时，渲染为 <code>UserHome</code> 组件。为了达到这个目的，我们需要修改 <code>router/index.js</code></p>
+<figure class="highlight javascript"><figcaption><span>&#123;5-14&#125;</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="comment">// router/index.js</span></span><br><span class="line"><span class="keyword">const</span> routes = [&#123;</span><br><span class="line">    path: <span class="string">'/user/:id'</span>,</span><br><span class="line">    component: User,</span><br><span class="line">    children: [&#123;</span><br><span class="line">        path: <span class="string">''</span>,</span><br><span class="line">        component: UserHome</span><br><span class="line">    &#125;, &#123;</span><br><span class="line">        path: <span class="string">'foo'</span>,</span><br><span class="line">        component: Foo</span><br><span class="line">    &#125;, &#123;</span><br><span class="line">        path: <span class="string">'bar'</span>,</span><br><span class="line">        component: Bar</span><br><span class="line">    &#125;]</span><br><span class="line">&#125;]</span><br></pre></td></tr></table></figure>
+
+<p>注意到我们添加了 <code>children</code> 属性，这是嵌套路由的关键。修改 <code>App.vue</code> 中的跳转链接</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; App.vue</span><br><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div id&#x3D;&quot;app&quot;&gt;</span><br><span class="line">    &lt;router-link to&#x3D;&quot;&#x2F;user&#x2F;1&#x2F;foo&quot;&gt;user&#x2F;1&#x2F;foo&lt;&#x2F;router-link&gt;</span><br><span class="line">    &lt;router-link to&#x3D;&quot;&#x2F;user&#x2F;1&#x2F;bar&quot;&gt;user&#x2F;1&#x2F;bar&lt;&#x2F;router-link&gt;</span><br><span class="line">    &lt;router-link to&#x3D;&quot;&#x2F;user&#x2F;1&#x2F;&quot;&gt;user&#x2F;1&#x2F;&lt;&#x2F;router-link&gt;</span><br><span class="line"></span><br><span class="line">    &lt;router-view&gt;&lt;&#x2F;router-view&gt;</span><br><span class="line">  &lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line"></span><br><span class="line">&lt;style&gt;</span><br><span class="line">a &#123;</span><br><span class="line">  margin-right: 10px;;</span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;style&gt;</span><br></pre></td></tr></table></figure>
+
+<img src="https://cdn.jsdelivr.net/gh/LastKnightCoder/ImgHosting2/20210404153620.gif" alt="4" style="zoom:50%;" />
+
+<h2 id="编程式的导航"><a href="#编程式的导航" class="headerlink" title="编程式的导航"></a>编程式的导航</h2><p>除了通过链接的方式对路由进行更改，我们还可以通过 <code>$router</code> 计算属性更改路由，如</p>
+<ul>
+<li><code>$router.push()</code></li>
+<li><code>$router.replace()</code></li>
+</ul>
+<p>方法的参数可以为字符串，也可以是一个对象</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 字符串</span></span><br><span class="line">router.push(<span class="string">'home'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 对象</span></span><br><span class="line">router.push(&#123; <span class="attr">path</span>: <span class="string">'home'</span> &#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 命名的路由</span></span><br><span class="line">router.push(&#123; <span class="attr">name</span>: <span class="string">'user'</span>, <span class="attr">params</span>: &#123; <span class="attr">userId</span>: <span class="string">'123'</span> &#125;&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 带查询参数，变成 /register?plan=private</span></span><br><span class="line">router.push(&#123; <span class="attr">path</span>: <span class="string">'register'</span>, <span class="attr">query</span>: &#123; <span class="attr">plan</span>: <span class="string">'private'</span> &#125;&#125;)</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>注意：如果提供了 <code>path</code>，<code>params</code> 会被忽略，上述例子中的 <code>query</code> 并不属于这种情况。取而代之的是下面例子的做法，你需要提供路由的 <code>name</code> 或手写完整的带有参数的 <code>path</code>：</strong></p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> userId = <span class="string">'123'</span></span><br><span class="line">router.push(&#123; <span class="attr">name</span>: <span class="string">'user'</span>, <span class="attr">params</span>: &#123; userId &#125;&#125;) <span class="comment">// -&gt; /user/123</span></span><br><span class="line">router.push(&#123; <span class="attr">path</span>: <span class="string">`/user/<span class="subst">$&#123;userId&#125;</span>`</span> &#125;) <span class="comment">// -&gt; /user/123</span></span><br><span class="line"><span class="comment">// 这里的 params 不生效</span></span><br><span class="line">router.push(&#123; <span class="attr">path</span>: <span class="string">'/user'</span>, <span class="attr">params</span>: &#123; userId &#125;&#125;) <span class="comment">// -&gt; /user</span></span><br></pre></td></tr></table></figure>
+</blockquote>
+<p><code>$router.replace</code> 接收的参数同 <code>$router.push</code> 相同，唯一不同在于 <code>replace</code> 是替换当前的历史记录，而 <code>push</code> 是添加一条历史记录，它的声明式写法为</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;router-link :to&#x3D;&quot;...&quot; replace&gt;</span><br></pre></td></tr></table></figure>
+
+<p>我们还可以通过 <code>$router.go</code> 方法在历史记录之间跳转，该方法接收一个整数 $n$，正数表示向前跳转多少步，负数表示向后跳转多少步</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 在浏览器记录中前进一步，等同于 history.forward()</span></span><br><span class="line">router.go(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 后退一步记录，等同于 history.back()</span></span><br><span class="line">router.go(<span class="number">-1</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 前进 3 步记录</span></span><br><span class="line">router.go(<span class="number">3</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 如果 history 记录不够用，那就默默地失败呗</span></span><br><span class="line">router.go(<span class="number">-100</span>)</span><br><span class="line">router.go(<span class="number">100</span>)</span><br></pre></td></tr></table></figure>
+
+<h2 id="重定向与别名"><a href="#重定向与别名" class="headerlink" title="重定向与别名"></a>重定向与别名</h2><p>重定向就是当你访问路由 <code>/a</code> 时，会自动跳转到路由 <code>/b</code>，如下配置</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> routes = [&#123;</span><br><span class="line">    path: <span class="string">'/a'</span>,</span><br><span class="line">    redirect: <span class="string">'/b'</span></span><br><span class="line">&#125;]</span><br></pre></td></tr></table></figure>
+
+<p>重定向也可以指定为一个命名的路由</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> routes = [&#123;</span><br><span class="line">    path: <span class="string">'/a'</span>,</span><br><span class="line">    redirect: &#123;</span><br><span class="line">        name: <span class="string">'index'</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;]</span><br></pre></td></tr></table></figure>
+
+<p>假设 <code>/b</code> 是 <code>/a</code> 的别名，当我们访问 <code>/b</code> 时，路由不变，但是会使用 <code>/a</code> 对应的组件，配置如下</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> routes = [&#123;</span><br><span class="line">    path: <span class="string">'/a'</span>,</span><br><span class="line">    component: A,</span><br><span class="line">    alias: <span class="string">'/b'</span></span><br><span class="line">&#125;]</span><br></pre></td></tr></table></figure>
+
+<h2 id="路由守卫"><a href="#路由守卫" class="headerlink" title="路由守卫"></a>路由守卫</h2><p>当我们访问一个路由前，我们首先是要对身份进行验证，是否有权限访问这个路由，<code>Vue Router</code> 提供了路由守卫来做这件事情，路由守卫主要用来跳转或者取消的方式来守卫路由。路由守卫分为三种：</p>
+<ul>
+<li>全局</li>
+<li>路由</li>
+<li>组件</li>
+</ul>
+<h3 id="全局前置守卫"><a href="#全局前置守卫" class="headerlink" title="全局前置守卫"></a>全局前置守卫</h3><p>可以通过 <code>router.beforeEach</code> 注册一个全局前置守卫</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> router = <span class="keyword">new</span> VueRouter(&#123; ... &#125;)</span><br><span class="line"></span><br><span class="line">router.beforeEach(<span class="function">(<span class="params">to, <span class="keyword">from</span>, next</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>当我们进入一个路由之前会触发此守卫方法，该守卫方法接收三个参数：</p>
+<ul>
+<li><code>to</code>：即将要进入的目标 路由对象</li>
+<li><code>from</code>：当前导航正要离开的路由</li>
+<li><code>next:</code>：<ul>
+<li><code>next()</code>：放行</li>
+<li><code>next(false)</code>：中断当前导航，如果 URL 改变了，则 URL 会被重置到 <code>from</code> 路由对应的地址</li>
+<li><code>next(&#39;/&#39;)</code> 或者 <code>next({ path: &#39;/&#39; })</code>：跳转到一个不同的地址。当前的导航被中断，然后进行一个新的导航。你可以向 <code>next</code> 传递任意位置对象，且允许设置诸如 <code>replace: true</code>、<code>name: &#39;home&#39;</code> 之类的选项</li>
+<li><code>next(error)</code>：如果传入 <code>next</code> 的参数是一个 <code>Error</code> 实例，则导航会被终止且该错误会被传递给 <code>router.onError()</code> 注册过的回调</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">router.beforeEach(<span class="function">(<span class="params">to, <span class="keyword">from</span>, next</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (to.name !== <span class="string">'Login'</span> &amp;&amp; !isAuthenticated) next(&#123; <span class="attr">name</span>: <span class="string">'Login'</span> &#125;)</span><br><span class="line">  <span class="keyword">else</span> next()</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="路由守卫-1"><a href="#路由守卫-1" class="headerlink" title="路由守卫"></a>路由守卫</h3><p>可以在 <code>routes</code> 中配置路由守卫 <code>beforeEnter</code></p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> routes = [&#123;</span><br><span class="line">    path: <span class="string">'/a'</span>,</span><br><span class="line">    component: A,</span><br><span class="line">    beforeEnter: <span class="function">(<span class="params">to, <span class="keyword">from</span>, next</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;]</span><br></pre></td></tr></table></figure>
+
+<p>方法参数同上。</p>
+<h3 id="组件内的守卫"><a href="#组件内的守卫" class="headerlink" title="组件内的守卫"></a>组件内的守卫</h3><p>也可以直接在组件内部定义路由守卫，有三个：</p>
+<ul>
+<li><code>beforeRouteEnter(to, from, next)</code>：进入该组件时触发，在其中不能获得组件实例 <code>this</code></li>
+<li><code>beforeRouteUpdate(to, from, next)</code>：路由发生改变，且组件被复用时触发，即动态路由</li>
+<li><code>beforeRouteLeave(to, from, next)</code>：离开当前组件对应的路由时触发</li>
+</ul>
+<h2 id="组件缓存"><a href="#组件缓存" class="headerlink" title="组件缓存"></a>组件缓存</h2><p>当我们在不同的路由之间进行切换时，路由对应的组件会被销毁与重建(动态路由组件可能会被复用)，频繁的创建组件可能会对性能带来影响，我们可以组件加上缓存，当再次来到某个路由时，不是重新创建一个组件，而是使用缓存的组件。</p>
+<p>为 <code>&lt;router-view&gt;</code> 的外层加上 <code>&lt;keep-alive&gt;</code> 可以将组件进行缓存，为了验证组件是否有缓存，我们在 <code>created</code> 钩子函数中打印消息，如果在多次切换路由时只打印一次消息，说明组件被缓存了，并没有重新创建组件</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; Index.vue</span><br><span class="line">&lt;template&gt;</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">        &lt;h1&gt;Welcome to Index page!&lt;&#x2F;h1&gt;</span><br><span class="line">    &lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">    created() &#123;</span><br><span class="line">        console.log(&#39;Index.vue created!&#39;)</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; About.vue</span><br><span class="line">&lt;template&gt;</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">        &lt;h1&gt;This is About page!&lt;&#x2F;h1&gt;</span><br><span class="line">    &lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">    created() &#123;</span><br><span class="line">        console.log(&#39;About.vue created!&#39;)</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; App.vue</span><br><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div id&#x3D;&quot;app&quot;&gt;</span><br><span class="line">    &lt;router-link to&#x3D;&quot;&#x2F;&quot;&gt;Index&lt;&#x2F;router-link&gt;</span><br><span class="line">    &lt;router-link to&#x3D;&quot;&#x2F;about&quot;&gt;About&lt;&#x2F;router-link&gt;</span><br><span class="line"></span><br><span class="line">    &lt;keep-alive&gt;</span><br><span class="line">      &lt;router-view&gt;&lt;&#x2F;router-view&gt;</span><br><span class="line">    &lt;&#x2F;keep-alive&gt;</span><br><span class="line">  &lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line"></span><br><span class="line">&lt;style&gt;</span><br><span class="line">a &#123;</span><br><span class="line">  margin-right: 10px;;</span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;style&gt;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> routes = [&#123;</span><br><span class="line">    name: <span class="string">'index'</span>,</span><br><span class="line">    path: <span class="string">'/'</span>,</span><br><span class="line">    component: Index</span><br><span class="line">&#125;, &#123;</span><br><span class="line">    name: <span class="string">'about'</span>,</span><br><span class="line">    path: <span class="string">'/about'</span>,</span><br><span class="line">    component: About</span><br><span class="line">&#125;]</span><br></pre></td></tr></table></figure>
+
+<img src="https://cdn.jsdelivr.net/gh/LastKnightCoder/ImgHosting2/20210404172547.gif" alt="5" style="zoom:50%;" />
+
+<p>当我们多次改变路由时，组件只被创建了一次，可见组件被缓存了。</p>
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><ul>
+<li><a href="https://router.vuejs.org/zh/guide/" target="_blank" rel="noopener">Vue Router 官方文档</a></li>
+</ul>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2021-04-01T16:00:00.000Z" itemprop="dateUpdated">2021-04-02 00:00:00</time>
+</span><br>
+
+
+        
+    </div>
+    
+    <footer>
+        <a href="https://lastknightcoder.github.io/lastknightcoder">
+            <img src="https://lastknightcoder.github.io/lastknightcoder/img/avatar.jpg" alt="熊滔">
+            熊滔
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://lastknightcoder.github.io/lastknightcoder/VueRouter/&title=《VueRouter》 — Coder&pic=https://lastknightcoder.github.io/lastknightcoder/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://lastknightcoder.github.io/lastknightcoder/VueRouter/&title=《VueRouter》 — Coder&source=人生天地间，忽如远行客" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://lastknightcoder.github.io/lastknightcoder/VueRouter/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《VueRouter》 — Coder&url=https://lastknightcoder.github.io/lastknightcoder/VueRouter/&via=https://lastknightcoder.github.io/lastknightcoder" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://lastknightcoder.github.io/lastknightcoder/VueRouter/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="https://lastknightcoder.github.io/lastknightcoder/vue-cli%E7%9A%84%E4%BD%BF%E7%94%A8/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">vue-cli 的使用</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="https://lastknightcoder.github.io/lastknightcoder/Hexo%E6%B8%B2%E6%9F%93%E9%97%AE%E9%A2%98/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Hexo渲染问题</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'lastknightcoder';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="https://lastknightcoder.github.io/lastknightcoder/img/wechatpay.png" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="https://lastknightcoder.github.io/lastknightcoder/img/wechatpay.png" data-alipay="https://lastknightcoder.github.io/lastknightcoder/img/alipay.png">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="https://lastknightcoder.github.io/lastknightcoder/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>熊滔 &copy; 2019 - 2021</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://lastknightcoder.github.io/lastknightcoder/VueRouter/&title=《VueRouter》 — Coder&pic=https://lastknightcoder.github.io/lastknightcoder/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://lastknightcoder.github.io/lastknightcoder/VueRouter/&title=《VueRouter》 — Coder&source=人生天地间，忽如远行客" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://lastknightcoder.github.io/lastknightcoder/VueRouter/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《VueRouter》 — Coder&url=https://lastknightcoder.github.io/lastknightcoder/VueRouter/&via=https://lastknightcoder.github.io/lastknightcoder" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://lastknightcoder.github.io/lastknightcoder/VueRouter/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACG0lEQVR42u3aQW7DMAwEwP7/0+m1Fxu7olPA0ugUBHHNubCkyJ+f+Hz+nPvvr765/8v3b3nsYGBgvJbxuT3JC5JA25PHhoGBcQ4jSYXtU1ehJJmzfQsGBgZGElz+mzx9Y2BgYEwYSaObI9sGGAMD40xG0kzmwSWlYf754V4cAwPjhYz81v3/P39lvoGBgfEqxjcu6ycF4uIIAQMDY2vGpEFtFyba0rOOBwMDY1PGN67A8kWN9peX32BgYGzNaBNcfh2WvH7+efH/BgYGxgsZa2lxbUjZlp6jqzcMDIztGMljeVG4lnwX1ywwMDCOZLShtMOAtmGuB5wYGBgbMSZhJatakyu2ovXFwMA4gJGn1Hao2Taxi601BgbGAYynSr0kuDxBF89iYGAcw5ivfK1d6D+8M4KBgbEdYy1RTlY02hJwhMHAwNiCMVmDaFN2suy1mKwxMDC2ZkzSYj4emGCKaz4MDIytGXmg7SJFHtZk/QIDA+MExtoyVlvSJQl3bVSAgYFxGmNtYau9JsvTfZG+MTAwDmC0l26Txa/JmOHylxgYGJsyPuVZK9rWBpPF9RwGBsbWjPys8e6fzVPzfNiJgYHxdkY+DJgUlG0R2Q4eMDAwTmDkia9dy0hIi6tgGBgYGEGJllzAPTVyiPZEMDAwMMrXTJB5Y4yBgXEOI19abdvUfCEsT7IYGBinMUat41K47WjzsUEmBgbG+xi/8dYsukLOYowAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: 'https://lastknightcoder.github.io/lastknightcoder/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

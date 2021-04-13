@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>控制对象的访问 | Coder</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="">
+    <meta name="description" content="本篇文章总结控制对象访问的相关 API。 Object.definePropertyObject.defineProperty 可以对对象的属性进行配置，它接收如下参数：  obj：对象 prop：属性 descriptor：属性描述符  其中 descriptor 包括如下配置选项  value：属性的值 writable：属性是否可写，默认为 false set：为属性设置值时会触发此方法，设">
+<meta property="og:type" content="article">
+<meta property="og:title" content="控制对象的访问">
+<meta property="og:url" content="https://lastknightcoder.github.io/lastknightcoder/%E6%8E%A7%E5%88%B6%E5%AF%B9%E8%B1%A1%E7%9A%84%E8%AE%BF%E9%97%AE/">
+<meta property="og:site_name" content="Coder">
+<meta property="og:description" content="本篇文章总结控制对象访问的相关 API。 Object.definePropertyObject.defineProperty 可以对对象的属性进行配置，它接收如下参数：  obj：对象 prop：属性 descriptor：属性描述符  其中 descriptor 包括如下配置选项  value：属性的值 writable：属性是否可写，默认为 false set：为属性设置值时会触发此方法，设">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-04-12T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-04-12T16:00:00.000Z">
+<meta property="article:author" content="熊滔">
+<meta name="twitter:card" content="summary">
+    
+        <link rel="alternate" type="application/atom+xml" title="Coder" href="https://lastknightcoder.github.io/lastknightcoder/atom.xml">
+    
+    <link rel="shortcut icon" href="https://lastknightcoder.github.io/lastknightcoder/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(https://lastknightcoder.github.io/lastknightcoder/img/brand.jpg)">
+      <div class="brand">
+        <a href="https://lastknightcoder.github.io/lastknightcoder/" class="avatar waves-effect waves-circle waves-light">
+          <img src="https://lastknightcoder.github.io/lastknightcoder/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">熊滔</h5>
+          <a href="mailto:2223106858@qq.com" title="2223106858@qq.com" class="mail">2223106858@qq.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.github.io/lastknightcoder/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.github.io/lastknightcoder/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.github.io/lastknightcoder/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.github.io/lastknightcoder/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://gitee.com/LastKnightCoder" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">控制对象的访问</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">控制对象的访问</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2021-04-12T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2021-04-13
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="https://lastknightcoder.github.io/lastknightcoder/categories/JavaScript/">JavaScript</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Object-defineProperty"><span class="post-toc-number">1.</span> <span class="post-toc-text">Object.defineProperty</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#例子1"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">例子1</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#例子2"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">例子2</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#例子3"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">例子3</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#例子4"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">例子4</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Object-defineProperties"><span class="post-toc-number">2.</span> <span class="post-toc-text">Object.defineProperties</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Object-preventExtensions"><span class="post-toc-number">3.</span> <span class="post-toc-text">Object.preventExtensions</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Object-seal"><span class="post-toc-number">4.</span> <span class="post-toc-text">Object.seal</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Object-freeze"><span class="post-toc-number">5.</span> <span class="post-toc-text">Object.freeze</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Proxy"><span class="post-toc-number">6.</span> <span class="post-toc-text">Proxy</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#例子1-1"><span class="post-toc-number">6.1.</span> <span class="post-toc-text">例子1</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#例子2-1"><span class="post-toc-number">6.2.</span> <span class="post-toc-text">例子2</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#参考文献"><span class="post-toc-number">7.</span> <span class="post-toc-text">参考文献</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-控制对象的访问"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">控制对象的访问</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2021-04-13 00:00:00" datetime="2021-04-12T16:00:00.000Z"  itemprop="datePublished">2021-04-13</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="https://lastknightcoder.github.io/lastknightcoder/categories/JavaScript/">JavaScript</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>本篇文章总结控制对象访问的相关 API。</p>
+<h2 id="Object-defineProperty"><a href="#Object-defineProperty" class="headerlink" title="Object.defineProperty"></a>Object.defineProperty</h2><p><code>Object.defineProperty</code> 可以对对象的属性进行配置，它接收如下参数：</p>
+<ul>
+<li><code>obj</code>：对象</li>
+<li><code>prop</code>：属性</li>
+<li><code>descriptor</code>：属性描述符</li>
+</ul>
+<p>其中 <code>descriptor</code> 包括如下配置选项</p>
+<ul>
+<li><code>value</code>：属性的值</li>
+<li><code>writable</code>：属性是否可写，默认为 <code>false</code></li>
+<li><code>set</code>：为属性设置值时会触发此方法，设置的新值会作为参数传入</li>
+<li><code>get</code>：访问此属性是会触发此方法</li>
+<li><code>configurable</code>：该属性是否可再次进行配置，默认为 <code>false</code></li>
+<li><code>enumerable</code>：是否可遍历，默认为 <code>false</code></li>
+</ul>
+<p>其中 <code>value</code> 与 <code>writable</code> 是一组，<code>set</code> 和 <code>get</code> 是一组，二者不可同时使用。</p>
+<h3 id="例子1"><a href="#例子1" class="headerlink" title="例子1"></a>例子1</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> obj = &#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">Object</span>.defineProperty(obj, <span class="string">'name'</span>, &#123;</span><br><span class="line">    value: <span class="string">'Alice'</span>,</span><br><span class="line">    writable: <span class="literal">false</span></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(obj.name) <span class="comment">// Alice</span></span><br><span class="line"></span><br><span class="line">obj.name = <span class="string">'Bob'</span>      <span class="comment">// 不可写，更改无效</span></span><br><span class="line"><span class="built_in">console</span>.log(obj.name) <span class="comment">// Alice</span></span><br></pre></td></tr></table></figure>
+
+<p>在上面我们为 <code>obj</code> 的 <code>name</code> 属性配置了 <code>value</code> 属性为 <code>Alice</code> 作为 <code>obj.name</code> 的初始值，又配置了 <code>writable</code> 为 <code>false</code>，表明该属性是不可写的，对该属性进行赋值时无效的。</p>
+<h3 id="例子2"><a href="#例子2" class="headerlink" title="例子2"></a>例子2</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> obj = &#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> username</span><br><span class="line"><span class="built_in">Object</span>.defineProperty(obj, <span class="string">'name'</span>, &#123;</span><br><span class="line">    <span class="keyword">set</span>(value) &#123;</span><br><span class="line">        <span class="keyword">if</span> (value === <span class="string">'Alice'</span>) &#123;</span><br><span class="line">            username = value</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="keyword">get</span>() &#123;</span><br><span class="line">        <span class="keyword">return</span> username</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">obj.name = <span class="string">'Alice'</span>     <span class="comment">// 赋值有效</span></span><br><span class="line"><span class="built_in">console</span>.log(obj.name)  <span class="comment">// Alice</span></span><br><span class="line"></span><br><span class="line">obj.name = <span class="string">'Bob'</span>       <span class="comment">// 赋值无效 </span></span><br><span class="line"><span class="built_in">console</span>.log(obj.name)  <span class="comment">// Alice</span></span><br></pre></td></tr></table></figure>
+
+<p>上面我们为 <code>obj</code> 的 <code>name</code> 属性配置了 <code>set</code> 和 <code>get</code> 方法，没当我们为 <code>obj.name</code> 赋予新值时都会调用 <code>set</code> 方法，并将新值传入，在 <code>set</code> 方法中，我们对新值进行了判断，如果新值为 <code>Alice</code> 则我们赋值给 <code>username</code>；每次当我们访问 <code>obj.name</code> 时，则会触发 <code>get</code> 方法，在 <code>get</code> 方法中我们直接返回了 <code>username</code> 这个变量的值，通过这种方式可以控制对象属性的访问操作。</p>
+<h3 id="例子3"><a href="#例子3" class="headerlink" title="例子3"></a>例子3</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> obj = &#123;</span><br><span class="line">    a: <span class="number">1</span>,</span><br><span class="line">    b: <span class="number">2</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.keys(obj)) <span class="comment">// [ 'a', 'b' ]</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="built_in">Object</span>.defineProperty(obj, <span class="string">'a'</span>, &#123;</span><br><span class="line">    enumerable: <span class="literal">false</span>         <span class="comment">// 不可枚举</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.keys(obj)) <span class="comment">// [ 'b' ]</span></span><br></pre></td></tr></table></figure>
+
+<p>在上面我们定义了一个 <code>obj</code> 对象，其中有 <code>a, b</code> 两个属性，默认都是可枚举的。通过 <code>Object.keys</code> 方法可以取得对象中所以可枚举的属性，这时它们都在返回的数组中；接着我们配置 <code>a</code> 为不可枚举，此时再次调用 <code>Object.keys</code>，此时 <code>a</code> 就不在返回的数组中了。</p>
+<h3 id="例子4"><a href="#例子4" class="headerlink" title="例子4"></a>例子4</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> obj = &#123;</span><br><span class="line">    a: <span class="number">1</span>,</span><br><span class="line">    b: <span class="number">2</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">Object</span>.defineProperty(obj, <span class="string">'a'</span>, &#123;</span><br><span class="line">    enumerable: <span class="literal">false</span>,</span><br><span class="line">    configurable: <span class="literal">false</span></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.keys(obj)) <span class="comment">// [ 'b' ]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// TypeError: Cannot redefine property: a</span></span><br><span class="line"><span class="built_in">Object</span>.defineProperty(obj, <span class="string">'a'</span>, &#123;</span><br><span class="line">    enumerable: <span class="literal">true</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>上面我们配置了 <code>a</code> 为不可枚举，并且配置 <code>configurable</code> 为 <code>false</code>，然后接着我们又想配置属性 <code>a</code> 为可枚举的，但是会报错 <code>TypeError: Cannot redefine property: a</code>，这是因为我们配置 <code>configurable</code> 为 <code>false</code>，表示不可再次配置，当我们再次对属性 <code>a</code> 进行配置便会报错。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> obj = &#123;</span><br><span class="line">    a: <span class="number">1</span>,</span><br><span class="line">    b: <span class="number">2</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">Object</span>.defineProperty(obj, <span class="string">'a'</span>, &#123;</span><br><span class="line">    enumerable: <span class="literal">false</span>,</span><br><span class="line">    configurable: <span class="literal">true</span>        <span class="comment">// 可继续配置</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.keys(obj)) <span class="comment">// [ 'b' ]</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">Object</span>.defineProperty(obj, <span class="string">'a'</span>, &#123;</span><br><span class="line">    enumerable: <span class="literal">true</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.keys(obj)) <span class="comment">// [ 'a', 'b' ]</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Object-defineProperties"><a href="#Object-defineProperties" class="headerlink" title="Object.defineProperties"></a>Object.defineProperties</h2><p><code>Object.defineProperties</code> 每次只能配置对象的一个属性，而 <code>Object.defineProperties</code> 可以一次性配置对象的多个属性，它的语法如下：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Object</span>.defineProperties(obj, &#123;</span><br><span class="line">    prop1: &#123;</span><br><span class="line">        <span class="comment">// 配置选项同 Object.defineProperty</span></span><br><span class="line">    &#125;,</span><br><span class="line">    prop2: &#123;</span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>见下例：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> obj = &#123;</span><br><span class="line">    name: <span class="string">'Alice'</span>,</span><br><span class="line">    age: <span class="number">25</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">Object</span>.defineProperties(obj, &#123;</span><br><span class="line">    name: &#123;</span><br><span class="line">        writable: <span class="literal">false</span>    <span class="comment">// 不能写 name 属性</span></span><br><span class="line">    &#125;,</span><br><span class="line">    age: &#123;</span><br><span class="line">        enumerable: <span class="literal">false</span>, <span class="comment">// 不能遍历到 age 这个属性</span></span><br><span class="line">        <span class="keyword">get</span>() &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">18</span>      <span class="comment">// 别问，问就是 18</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h2 id="Object-preventExtensions"><a href="#Object-preventExtensions" class="headerlink" title="Object.preventExtensions"></a>Object.preventExtensions</h2><p><code>Object.preventExtions(obj)</code> 可以使得对象 <code>obj</code> 不可扩展，即不能为对象添加新的属性</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> obj = &#123;</span><br><span class="line">    name: <span class="string">'Alice'</span>,</span><br><span class="line">    age: <span class="number">20</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">Object</span>.preventExtensions(obj)</span><br><span class="line"></span><br><span class="line">obj.gender = <span class="string">'female'</span>   <span class="comment">// 无法添加新的属性</span></span><br><span class="line"><span class="built_in">console</span>.log(obj.gender) <span class="comment">// undefined</span></span><br></pre></td></tr></table></figure>
+
+<p>上面我们将 <code>obj</code> 设置为不可扩展后试图添加新的属性，但是并没有成功。设置为不可扩展后，我们可以正常访问现有对象上的属性，以及更改和删除</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> obj = &#123;</span><br><span class="line">    name: <span class="string">'Alice'</span>,</span><br><span class="line">    age: <span class="number">20</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">Object</span>.preventExtensions(obj)</span><br><span class="line"></span><br><span class="line">obj.name = <span class="string">'Bob'</span></span><br><span class="line"><span class="built_in">console</span>.log(obj.name)  <span class="comment">// Bob</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">delete</span> obj.name</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.keys(obj)) <span class="comment">// [ 'age' ]</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>对象一旦变为不可扩展后，就一直是不可扩展的。</strong>通过 <code>Object.isExtensible</code> 方法可以判断一个对象是否是可扩展的</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> obj = &#123;</span><br><span class="line">    name: <span class="string">'Alice'</span>,</span><br><span class="line">    age: <span class="number">20</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.isExtensible(obj)) <span class="comment">// true</span></span><br><span class="line"><span class="built_in">Object</span>.preventExtensions(obj)</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.isExtensible(obj)) <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Object-seal"><a href="#Object-seal" class="headerlink" title="Object.seal"></a>Object.seal</h2><p><code>seal</code> 的意思是封印，<code>Object.seal</code> 比 <code>Object.preventExtensiable</code> 更近一步，被 <code>seal</code> 了的对象，除了变为不可扩展，还不可配置 <code>configurable: false</code>，属性不能被删除了以及属性不能被 <code>Object,defineProperty</code> 进行配置了</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> obj = &#123;</span><br><span class="line">    name: <span class="string">'Alice'</span>,</span><br><span class="line">    age: <span class="number">20</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">Object</span>.seal(obj)</span><br><span class="line"></span><br><span class="line">obj.gender = <span class="string">'female'</span></span><br><span class="line"><span class="built_in">console</span>.log(obj.female) <span class="comment">// undefined, 不可扩展</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">delete</span> obj.name</span><br><span class="line"><span class="built_in">console</span>.log(obj.name)   <span class="comment">// Alice, 不可删除</span></span><br></pre></td></tr></table></figure>
+
+<p>但是我们还可以对象现有的属性进行更改的</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> obj = &#123;</span><br><span class="line">    name: <span class="string">'Alice'</span>,</span><br><span class="line">    age: <span class="number">20</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">Object</span>.seal(obj)</span><br><span class="line"></span><br><span class="line">obj.name = <span class="string">'Bob'</span></span><br><span class="line"><span class="built_in">console</span>.log(obj.name) <span class="comment">// Bob</span></span><br></pre></td></tr></table></figure>
+
+<p>通过 <code>Object.isSealed</code> 可以判断对象是否被 <code>seal</code> 了</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> obj = &#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.isSealed(obj)) <span class="comment">// false</span></span><br><span class="line"><span class="built_in">Object</span>.seal(obj)</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.isSealed(obj)) <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Object-freeze"><a href="#Object-freeze" class="headerlink" title="Object.freeze"></a>Object.freeze</h2><p><code>freeze</code> 是冻结的意思，它相对于 <code>Object.seal</code> 更进一步，不仅不可扩展，不可配置，对象的数据熟悉 <code>writable</code>  会被设置为  <code>false</code></p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> obj = &#123;</span><br><span class="line">    name: <span class="string">'Alice'</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">Object</span>.freeze(obj)</span><br><span class="line"></span><br><span class="line">obj.age = <span class="number">18</span>     <span class="comment">// 不可扩展，无效</span></span><br><span class="line">obj.name = <span class="string">'Bob'</span> <span class="comment">// 不可修改，无效</span></span><br><span class="line"><span class="keyword">delete</span> obj.name  <span class="comment">// 不可配置，无效</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(obj) <span class="comment">// &#123; name: 'Alice' &#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>但是如果有定义 <code>set</code> 方法的话，对象属性还是可以被修改的</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> obj = &#123;</span><br><span class="line">    name: <span class="string">'Alice'</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> username = obj.name</span><br><span class="line"><span class="built_in">Object</span>.defineProperty(obj, <span class="string">'name'</span>, &#123;</span><br><span class="line">    <span class="keyword">set</span>(value) &#123;</span><br><span class="line">        username = value</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="keyword">get</span>() &#123;</span><br><span class="line">        <span class="keyword">return</span> username</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="built_in">Object</span>.freeze(obj)</span><br><span class="line"></span><br><span class="line">obj.name = <span class="string">'Bob'</span></span><br><span class="line"><span class="built_in">console</span>.log(obj.name) <span class="comment">// Bob</span></span><br></pre></td></tr></table></figure>
+
+<p>通过 <code>Object.isFrozen</code> 方法可以判断一个对象是否被 <code>freeze</code> 了</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> obj = &#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.isFrozen(obj)) <span class="comment">// false</span></span><br><span class="line"><span class="built_in">Object</span>.freeze(obj)</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.isFrozen(obj)) <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Proxy"><a href="#Proxy" class="headerlink" title="Proxy"></a>Proxy</h2><p><code>Proxy</code> 是 <code>ES6</code> 中的新特性，它可以为对象做一层代理，当用户通过代理访问对象时，代理可以拦截一些操作，例如为属性赋值，访问属性的值，从而控制对象的访问。<code>Proxy</code> 可以拦截 13 种操作，这里不会详细介绍，只会介绍 <code>set</code> 和 <code>get</code> 拦截。</p>
+<p><code>Proxy</code> 的语法如下</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> proxy = <span class="keyword">new</span> <span class="built_in">Proxy</span>(target, &#123;</span><br><span class="line">    <span class="comment">// 拦截的方法</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="例子1-1"><a href="#例子1-1" class="headerlink" title="例子1"></a>例子1</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> target = &#123;</span><br><span class="line">    name: <span class="string">'Alice'</span>,</span><br><span class="line">    age: <span class="number">18</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> proxy = <span class="keyword">new</span> <span class="built_in">Proxy</span>(target, &#123;</span><br><span class="line">    <span class="keyword">set</span>(trapTarget, key, value, receiver) &#123;</span><br><span class="line">        <span class="comment">// 只能为 age 属性赋值，并且值必须不大于 18 才能赋值成功</span></span><br><span class="line">        <span class="keyword">if</span> (key === <span class="string">'age'</span> &amp;&amp; value &lt;= <span class="number">18</span>) &#123;</span><br><span class="line">            trapTarget[key] = value</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 无法为 name 赋值</span></span><br><span class="line">proxy.name = <span class="string">'Bob'</span></span><br><span class="line"><span class="built_in">console</span>.log(proxy.name)  <span class="comment">// Alice</span></span><br><span class="line"><span class="built_in">console</span>.log(target.name) <span class="comment">// Alice</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 大于 18 赋值失败</span></span><br><span class="line">proxy.age = <span class="number">19</span></span><br><span class="line"><span class="built_in">console</span>.log(proxy.age)   <span class="comment">// 18</span></span><br><span class="line"><span class="built_in">console</span>.log(target.age)  <span class="comment">// 18</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 不大于 18，赋值成功</span></span><br><span class="line">proxy.age = <span class="number">15</span></span><br><span class="line"><span class="built_in">console</span>.log(proxy.age)   <span class="comment">// 15</span></span><br><span class="line"><span class="built_in">console</span>.log(target.age)  <span class="comment">// 15</span></span><br></pre></td></tr></table></figure>
+
+<p>上面我们为 <code>target</code> 对象做了层代理，当我们通过代理赋值时，会被 <code>set</code> 方法拦截，<code>set</code> 方法接收四个参数：</p>
+<ul>
+<li><code>trapTarget</code>：被代理的对象</li>
+<li><code>key</code>：被赋值的属性</li>
+<li><code>value</code>：被赋的值</li>
+<li><code>receiver</code>：操作发生的对象，即代理对象</li>
+</ul>
+<p>上面我们只允许对 <code>age</code> 属性赋值，并且赋的值不能大于 <code>18</code>。</p>
+<h3 id="例子2-1"><a href="#例子2-1" class="headerlink" title="例子2"></a>例子2</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> target = &#123;</span><br><span class="line">    name: <span class="string">'Alice'</span>,</span><br><span class="line">    age: <span class="number">20</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> proxy = <span class="keyword">new</span> <span class="built_in">Proxy</span>(target, &#123;</span><br><span class="line">    <span class="keyword">get</span>(trapTarget, key, receiver) &#123;</span><br><span class="line">        <span class="keyword">if</span> (key === <span class="string">'age'</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">18</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> trapTarget[key]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(proxy.age)  <span class="comment">// 18</span></span><br><span class="line"><span class="built_in">console</span>.log(target.age) <span class="comment">// 20</span></span><br></pre></td></tr></table></figure>
+
+<p>我们对 <code>target</code> 的 <code>get</code> 方法进行了代理，当我们通过代理对象访问属性值时，如果访问的是 <code>age</code> 属性，则返回 <code>18</code>，其他属性不做处理直接返回原值。</p>
+<blockquote>
+<p>如果直接通过 <code>target</code> 访问属性的话，操作是不会被拦截的，代理没有作用。</p>
+</blockquote>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><ul>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty" target="_blank" rel="noopener">Object.defineProperty</a></li>
+<li><a href="https://lastknightcoder.github.io/vuepress-blog/ES6/Proxy%E5%92%8CReflect/">Proxy和Relect</a></li>
+<li>《JavaSCript高级程序设计》，第三版</li>
+</ul>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2021-04-12T16:00:00.000Z" itemprop="dateUpdated">2021-04-13 00:00:00</time>
+</span><br>
+
+
+        
+    </div>
+    
+    <footer>
+        <a href="https://lastknightcoder.github.io/lastknightcoder">
+            <img src="https://lastknightcoder.github.io/lastknightcoder/img/avatar.jpg" alt="熊滔">
+            熊滔
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://lastknightcoder.github.io/lastknightcoder/%E6%8E%A7%E5%88%B6%E5%AF%B9%E8%B1%A1%E7%9A%84%E8%AE%BF%E9%97%AE/&title=《控制对象的访问》 — Coder&pic=https://lastknightcoder.github.io/lastknightcoder/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://lastknightcoder.github.io/lastknightcoder/%E6%8E%A7%E5%88%B6%E5%AF%B9%E8%B1%A1%E7%9A%84%E8%AE%BF%E9%97%AE/&title=《控制对象的访问》 — Coder&source=人生天地间，忽如远行客" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://lastknightcoder.github.io/lastknightcoder/%E6%8E%A7%E5%88%B6%E5%AF%B9%E8%B1%A1%E7%9A%84%E8%AE%BF%E9%97%AE/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《控制对象的访问》 — Coder&url=https://lastknightcoder.github.io/lastknightcoder/%E6%8E%A7%E5%88%B6%E5%AF%B9%E8%B1%A1%E7%9A%84%E8%AE%BF%E9%97%AE/&via=https://lastknightcoder.github.io/lastknightcoder" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://lastknightcoder.github.io/lastknightcoder/%E6%8E%A7%E5%88%B6%E5%AF%B9%E8%B1%A1%E7%9A%84%E8%AE%BF%E9%97%AE/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="https://lastknightcoder.github.io/lastknightcoder/Vuex/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Vuex</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'lastknightcoder';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="https://lastknightcoder.github.io/lastknightcoder/img/wechatpay.png" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="https://lastknightcoder.github.io/lastknightcoder/img/wechatpay.png" data-alipay="https://lastknightcoder.github.io/lastknightcoder/img/alipay.png">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="https://lastknightcoder.github.io/lastknightcoder/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>熊滔 &copy; 2019 - 2021</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://lastknightcoder.github.io/lastknightcoder/%E6%8E%A7%E5%88%B6%E5%AF%B9%E8%B1%A1%E7%9A%84%E8%AE%BF%E9%97%AE/&title=《控制对象的访问》 — Coder&pic=https://lastknightcoder.github.io/lastknightcoder/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://lastknightcoder.github.io/lastknightcoder/%E6%8E%A7%E5%88%B6%E5%AF%B9%E8%B1%A1%E7%9A%84%E8%AE%BF%E9%97%AE/&title=《控制对象的访问》 — Coder&source=人生天地间，忽如远行客" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://lastknightcoder.github.io/lastknightcoder/%E6%8E%A7%E5%88%B6%E5%AF%B9%E8%B1%A1%E7%9A%84%E8%AE%BF%E9%97%AE/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《控制对象的访问》 — Coder&url=https://lastknightcoder.github.io/lastknightcoder/%E6%8E%A7%E5%88%B6%E5%AF%B9%E8%B1%A1%E7%9A%84%E8%AE%BF%E9%97%AE/&via=https://lastknightcoder.github.io/lastknightcoder" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://lastknightcoder.github.io/lastknightcoder/%E6%8E%A7%E5%88%B6%E5%AF%B9%E8%B1%A1%E7%9A%84%E8%AE%BF%E9%97%AE/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQ4AAAEOCAAAAABd2qZ5AAAD4ElEQVR42u3aQXJaQQwEUO5/aecAMT/dkqiweKxcBg8zD1cJ9ej1ih8/bx7Pzz4/3q3/bs2/X5+s8PrEAwcOHDhwjI6abC4/3vO75/tpKfMz4sCBAweOW47njW5KYFvLZisnHMmHgQMHDhw4vocjJ8vfZfbuzyvgwIEDB45v42gbp1lUl1PO9o8DBw4cOD7NkYSDSUnLt74PIpP474NZKQ4cOHDgSG+Czhqt7/n5I/MdOHDgwIFjcf0zK1qzIYn2Yum5PStOhwMHDhw4bgrFagShHTjYRIR5Y9kS48CBAweOK45NmZwx5Yj5yMI+ZHwl1RsHDhw4cEzqzvF4XNtcJWT7IYn89zhw4MCBY8ORF7znv8oh8i22fLMAEQcOHDhw7Dnaxma2oRxxdpicu7hwwoEDBw4c266q2FB+7VSMEYyK66xdHHZ7OHDgwIEj4NgPJbQjBZuGbVPgk2szHDhw4MBxxZEPDewr1Ca/bItu/RUBBw4cOHCccjz/WRsdtkMG+3G6FuKXn3HgwIEDxylHG8klW9+XzKSx3ESTv9zC4cCBAweOBUe+9HMUmG+iXW12gbS/QsOBAwcOHDOOdhQgd52tuW/bZnvDgQMHDhyf4JhFe5vCOVstbzjr9XHgwIEDxxFH2/bkl0b5s3WXWX4ViIouDhw4cOA45cjL2y3H5oNpL8CiFg4HDhw4cKw5ZuMF7aBDXmhnhf+s0OLAgQMHjtMWrm2c2qPuG7N9LPh2Jzhw4MCBY82xOUw7iLC/dtqEjHUEiQMHDhw4Fhz58NknSmPbRs6YirgQBw4cOHAsOJLLpKQ45cV1Ew7m66/+L3DgwIEDx4Jj30TlWLPLrfZjy1erg0UcOHDgwBFwzEK3TVC4GXRIjtS2gm97WRw4cODAMeLIj5cskZfJfFvt7dnVlwMcOHDgwDHjaBuwfSFsV746dhRu4sCBAweOI452fKHdUBvt5WX7atwBBw4cOHBcccziuSQonAWLeYSXx4JJ4zecvMCBAwcOHEelbjZwkASFs1J6NU6BAwcOHDiuOJK60z6bI7YrtKMSxXAGDhw4cOBYc+SN2SywW/WU62Yy/5hx4MCBA8cVx0/5aEvaZjCijReT5u0fBRsHDhw4cKw5ZgVvNvSwH1O4ii/bNhIHDhw4cLQc++JaB3Dx668utIpCiwMHDhw4jjieX9pe6mzCu/Ywszbs7fo4cODAgeMLOGZB4f7dNx/A2xPhwIEDB47/xDFryfIimuynbc+iYBEHDhw4cBxxJOFgfoD9GMRsAGITIOLAgQMHjiuOtsjNylg+DNe2YW2TNrtUw4EDBw4cAccfRwcWqLtL33kAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: 'https://lastknightcoder.github.io/lastknightcoder/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>
