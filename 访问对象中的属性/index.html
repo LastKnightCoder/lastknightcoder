@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>访问对象的属性 | Coder</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="">
+    <meta name="description" content="本篇文章关于遍历对象属性的问题，包括 for ...in，Object.keys()，Reflect.ownKeys()， Object.getOwnPropertyNames()，ObjectgetOwnPropertySymbols() 等方法及区别。 Object.keys()Object.keys(obj) 方法返回对象 obj 上所有可枚举的属性，不包括其原型上的属性 let paren">
+<meta property="og:type" content="article">
+<meta property="og:title" content="访问对象的属性">
+<meta property="og:url" content="https://lastknightcoder.github.io/lastknightcoder/%E8%AE%BF%E9%97%AE%E5%AF%B9%E8%B1%A1%E4%B8%AD%E7%9A%84%E5%B1%9E%E6%80%A7/">
+<meta property="og:site_name" content="Coder">
+<meta property="og:description" content="本篇文章关于遍历对象属性的问题，包括 for ...in，Object.keys()，Reflect.ownKeys()， Object.getOwnPropertyNames()，ObjectgetOwnPropertySymbols() 等方法及区别。 Object.keys()Object.keys(obj) 方法返回对象 obj 上所有可枚举的属性，不包括其原型上的属性 let paren">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-04-29T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-04-29T16:00:00.000Z">
+<meta property="article:author" content="熊滔">
+<meta name="twitter:card" content="summary">
+    
+        <link rel="alternate" type="application/atom+xml" title="Coder" href="https://lastknightcoder.github.io/lastknightcoder/atom.xml">
+    
+    <link rel="shortcut icon" href="https://lastknightcoder.github.io/lastknightcoder/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(https://lastknightcoder.github.io/lastknightcoder/img/brand.jpg)">
+      <div class="brand">
+        <a href="https://lastknightcoder.github.io/lastknightcoder/" class="avatar waves-effect waves-circle waves-light">
+          <img src="https://lastknightcoder.github.io/lastknightcoder/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">熊滔</h5>
+          <a href="mailto:2223106858@qq.com" title="2223106858@qq.com" class="mail">2223106858@qq.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.github.io/lastknightcoder/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.github.io/lastknightcoder/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.github.io/lastknightcoder/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.github.io/lastknightcoder/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://gitee.com/LastKnightCoder" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">访问对象的属性</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">访问对象的属性</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2021-04-29T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2021-04-30
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="https://lastknightcoder.github.io/lastknightcoder/categories/JavaScript/">JavaScript</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Object-keys"><span class="post-toc-number">1.</span> <span class="post-toc-text">Object.keys()</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Reflect-ownKeys"><span class="post-toc-number">2.</span> <span class="post-toc-text">Reflect.ownKeys()</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#for-…-in"><span class="post-toc-number">3.</span> <span class="post-toc-text">for … in</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Object-getOwnPropertyNames"><span class="post-toc-number">4.</span> <span class="post-toc-text">Object.getOwnPropertyNames()</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Object-getOwnPropertySymbols"><span class="post-toc-number">5.</span> <span class="post-toc-text">Object.getOwnPropertySymbols()</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-访问对象中的属性"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">访问对象的属性</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2021-04-30 00:00:00" datetime="2021-04-29T16:00:00.000Z"  itemprop="datePublished">2021-04-30</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="https://lastknightcoder.github.io/lastknightcoder/categories/JavaScript/">JavaScript</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>本篇文章关于遍历对象属性的问题，包括 <code>for ...in</code>，<code>Object.keys()</code>，<code>Reflect.ownKeys()</code>， <code>Object.getOwnPropertyNames()</code>，<code>ObjectgetOwnPropertySymbols()</code> 等方法及区别。</p>
+<h2 id="Object-keys"><a href="#Object-keys" class="headerlink" title="Object.keys()"></a>Object.keys()</h2><p><code>Object.keys(obj)</code> 方法返回对象 <code>obj</code> 上所有<strong>可枚举</strong>的属性，不包括其原型上的属性</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> parent = &#123;</span><br><span class="line">    category: <span class="string">'parent'</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 设置 person 为 child 的原型</span></span><br><span class="line"><span class="keyword">let</span> child = <span class="built_in">Object</span>.create(parent)</span><br><span class="line"></span><br><span class="line">child.name = <span class="string">'Alice'</span></span><br><span class="line">child[<span class="built_in">Symbol</span>(<span class="string">'age'</span>)] = <span class="number">18</span></span><br><span class="line"><span class="built_in">Object</span>.defineProperty(child, <span class="string">'gender'</span>, &#123;</span><br><span class="line">    enumerable: <span class="literal">false</span>,</span><br><span class="line">    value: <span class="string">'female'</span></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.keys(child)) <span class="comment">// [ 'name' ]</span></span><br></pre></td></tr></table></figure>
+
+<p>需要注意的是，<code>Object.keys()</code> 无法得到键为 <code>symbol</code> 类型的属性。</p>
+<h2 id="Reflect-ownKeys"><a href="#Reflect-ownKeys" class="headerlink" title="Reflect.ownKeys()"></a>Reflect.ownKeys()</h2><p><code>Reflect</code> 是在 <code>ES6</code> 中提出的，我们可以通过 <code>Reflect.ownKeys(obj)</code> 取得对象 <code>obj</code> 上所有的属性，包括不可枚举的属性以及 <code>symbol</code> 类型的属性，但是它不能获得其原型上的属性。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Reflect</span>.ownKeys(child)) <span class="comment">// [ 'name', 'gender', Symbol(age) ]</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="for-…-in"><a href="#for-…-in" class="headerlink" title="for … in"></a>for … in</h2><p><code>for ... in</code> 同样可以得到对象 <code>obj</code> 上所有<strong>可枚举</strong>的属性(不包括 <code>symbol</code> 类型的属性)，除此之外，它还可以获得其原型上的属性</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> keys = []</span><br><span class="line"><span class="keyword">for</span> (key <span class="keyword">in</span> child) &#123;</span><br><span class="line">    keys.push(key)</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(keys) <span class="comment">// [ 'name', 'category' ]</span></span><br></pre></td></tr></table></figure>
+
+<p>如果希望只获得当前对象上的属性，可以通过 <code>obj.hasOwnProperty(key)</code> 方法进行过滤，如果 <code>key</code> 是 <code>obj</code> 上的属性，而不是其原型上的属性，则会返回 <code>true</code>，否则返回 <code>false</code></p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> keys = []</span><br><span class="line"><span class="keyword">for</span> (key <span class="keyword">in</span> child) &#123;</span><br><span class="line">    <span class="keyword">if</span> (child.hasOwnProperty(key)) &#123;</span><br><span class="line">        keys.push(key)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(keys) <span class="comment">// [ 'name' ]</span></span><br></pre></td></tr></table></figure>
+
+<p>也可对 <code>Object.keys()</code> 或 <code>Reflect.ownKeys()</code> 进行遍历</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> keys = []</span><br><span class="line"><span class="keyword">for</span> (key <span class="keyword">of</span> <span class="built_in">Object</span>.keys(child)) &#123;</span><br><span class="line">    keys.push(key)</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(keys) <span class="comment">// [ 'name' ]</span></span><br><span class="line"></span><br><span class="line">keys = []</span><br><span class="line"><span class="keyword">for</span> (key <span class="keyword">of</span> <span class="built_in">Reflect</span>.ownKeys(child)) &#123;</span><br><span class="line">    keys.push(key)</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(keys) <span class="comment">// [ 'name', 'gender', Symbol(age) ]</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Object-getOwnPropertyNames"><a href="#Object-getOwnPropertyNames" class="headerlink" title="Object.getOwnPropertyNames()"></a>Object.getOwnPropertyNames()</h2><p>通过 <code>Object.getOwnPropertyNames(obj)</code> 可以获得对象 <code>obj</code> 上所有类型为 <code>string</code> 的属性，包括不可枚举的，但不包括其原型上的属性值</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.getOwnPropertyNames(child)); <span class="comment">// [ 'name', 'gender' ]</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Object-getOwnPropertySymbols"><a href="#Object-getOwnPropertySymbols" class="headerlink" title="Object.getOwnPropertySymbols()"></a>Object.getOwnPropertySymbols()</h2><p>通过 <code>Object.getOwnPropertySymbols(obj)</code> 可以获得对象 <code>obj</code> 上所有类型为 <code>symbol</code> 的属性，包括不可枚举的，但不包含其原型上的属性</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.getOwnPropertySymbols(child)) <span class="comment">// [ Symbol(age) ]</span></span><br></pre></td></tr></table></figure>
+
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2021-04-29T16:00:00.000Z" itemprop="dateUpdated">2021-04-30 00:00:00</time>
+</span><br>
+
+
+        
+    </div>
+    
+    <footer>
+        <a href="https://lastknightcoder.github.io/lastknightcoder">
+            <img src="https://lastknightcoder.github.io/lastknightcoder/img/avatar.jpg" alt="熊滔">
+            熊滔
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://lastknightcoder.github.io/lastknightcoder/%E8%AE%BF%E9%97%AE%E5%AF%B9%E8%B1%A1%E4%B8%AD%E7%9A%84%E5%B1%9E%E6%80%A7/&title=《访问对象的属性》 — Coder&pic=https://lastknightcoder.github.io/lastknightcoder/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://lastknightcoder.github.io/lastknightcoder/%E8%AE%BF%E9%97%AE%E5%AF%B9%E8%B1%A1%E4%B8%AD%E7%9A%84%E5%B1%9E%E6%80%A7/&title=《访问对象的属性》 — Coder&source=人生天地间，忽如远行客" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://lastknightcoder.github.io/lastknightcoder/%E8%AE%BF%E9%97%AE%E5%AF%B9%E8%B1%A1%E4%B8%AD%E7%9A%84%E5%B1%9E%E6%80%A7/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《访问对象的属性》 — Coder&url=https://lastknightcoder.github.io/lastknightcoder/%E8%AE%BF%E9%97%AE%E5%AF%B9%E8%B1%A1%E4%B8%AD%E7%9A%84%E5%B1%9E%E6%80%A7/&via=https://lastknightcoder.github.io/lastknightcoder" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://lastknightcoder.github.io/lastknightcoder/%E8%AE%BF%E9%97%AE%E5%AF%B9%E8%B1%A1%E4%B8%AD%E7%9A%84%E5%B1%9E%E6%80%A7/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="https://lastknightcoder.github.io/lastknightcoder/%E9%98%B2%E6%8A%96%E4%B8%8E%E8%8A%82%E6%B5%81/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">防抖与节流</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'lastknightcoder';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="https://lastknightcoder.github.io/lastknightcoder/img/wechatpay.png" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="https://lastknightcoder.github.io/lastknightcoder/img/wechatpay.png" data-alipay="https://lastknightcoder.github.io/lastknightcoder/img/alipay.png">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="https://lastknightcoder.github.io/lastknightcoder/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>熊滔 &copy; 2019 - 2021</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://lastknightcoder.github.io/lastknightcoder/%E8%AE%BF%E9%97%AE%E5%AF%B9%E8%B1%A1%E4%B8%AD%E7%9A%84%E5%B1%9E%E6%80%A7/&title=《访问对象的属性》 — Coder&pic=https://lastknightcoder.github.io/lastknightcoder/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://lastknightcoder.github.io/lastknightcoder/%E8%AE%BF%E9%97%AE%E5%AF%B9%E8%B1%A1%E4%B8%AD%E7%9A%84%E5%B1%9E%E6%80%A7/&title=《访问对象的属性》 — Coder&source=人生天地间，忽如远行客" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://lastknightcoder.github.io/lastknightcoder/%E8%AE%BF%E9%97%AE%E5%AF%B9%E8%B1%A1%E4%B8%AD%E7%9A%84%E5%B1%9E%E6%80%A7/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《访问对象的属性》 — Coder&url=https://lastknightcoder.github.io/lastknightcoder/%E8%AE%BF%E9%97%AE%E5%AF%B9%E8%B1%A1%E4%B8%AD%E7%9A%84%E5%B1%9E%E6%80%A7/&via=https://lastknightcoder.github.io/lastknightcoder" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://lastknightcoder.github.io/lastknightcoder/%E8%AE%BF%E9%97%AE%E5%AF%B9%E8%B1%A1%E4%B8%AD%E7%9A%84%E5%B1%9E%E6%80%A7/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASYAAAEmCAAAAADqr2IGAAAEhUlEQVR42u3a0W4bOQwF0Pz/T2eBPhXo2r6XHLfW5MyTESca6SgARVJfX/Hz/ev5/fOfT/L7z0d+NP7zkR/97fOffL3jwYQJEyZMH8n0/fR5PvXnr0xGSyjbrco3Jlk7JkyYMGG6B1M+XP63j0Cfj7Y/fORzzo8pmDBhwoTpJzDtE87kYJEgtqO1aTAmTJgwYcK0STuTRLc9iHyXDyZMmDBh+mlM7wixmxS3PXy0W/vGWjgmTJgwYfowptnFnXt8fvv9JkyYMGHC9E+Zrk0XZ6E9SYn381mtGhMmTJgwHcvULmxTir125KuuChVvxIQJEyZMBzLlpc8Zx+wA0SK2l3Lali0mTJgwYboH075OfFXwThLX2WzbpiwmTJgwYTqdadPLy4uqs0Q0uV4zK+a2STsmTJgwYTqXadYm3JR0N9dS2+CdzH9YIcCECRMmTEcx5WE1D9XJASLnno0za9n+z7eYMGHChOlYplkjMA/GeVu0JW7bqJs0GxMmTJgwnctUpH+LYm4b2mcJ9r6w+3A+mDBhwoTpWKb8QNAG+Dwk5ynr5jLQpgCNCRMmTJjOZWqDdH5ZZxOGZwSzeUYHGkyYMGHCdCxTni7uDwptEzRpSW4OIvW3mDBhwoTpWKa2vXfVt/klm5y+LfW2JWZMmDBhwnQiU17kzT/PWpX5gmeXh1ZJOCZMmDBhugVT3hTMp5i0M/Okty0rJ+NEqT4mTJgwYboRU9vwa8NzG4XbGD1rmtbtTEyYMGHC9PFM7STafDCnvKrxuU+JL9grTJgwYcL0MUzJcHkCPKuUJu+apbUXF6wxYcKECdNNmZJk8h1XbTYbOduqF99iwoQJE6ZjmWZF2LY9ubk6s7+sMyvvYsKECROmezAl5de8ibgpvM7ekhxWkvm8mBUmTJgwYboRU55YbsJ8XjLe/6Td+OxGDyZMmDBhOoNpP6F8nFmAn139aTds+J+FCRMmTJg+mGkz3LWB+aqi8KxF+mIbMGHChAnTsUxXtSdnaWQxuYCgnVtbdMaECRMmTCcytUF38/stRLIBVzVQX8wTEyZMmDDdgmnT4Nxcr0mS3tnyiks5zzcSEyZMmDAdy9Q2LBOCNgAnZdbZhdTk8JGUgDFhwoQJ07lMbXAd1o/j5mX+xhZus3mYMGHChOlOTLOkN8dqF5MnsW0rtJgzJkyYMGE6lqkNqPnP8425ahmzJLk4ZGDChAkTpgOZkqJqHiXbVuKs/dm+fVOGfpH6YsKECROmo5hmbcv8AlB+vNinu/l7k6IzJkyYMGE6l2kPtG8ctgltnh63R5yiPI0JEyZMmA5h+i6fTdk3T0eTkYvgvd9OTJgwYcJ0LFN7saaNlclvzpLqfZE3+YwJEyZMmO7B1B4CkpLuLO3cJLrtBZ18LZgwYcKE6R5MybLbRPSCk0hZ0h3WtjFhwoQJE6aL0tq2S9iG+YSsXRcmTJgwYfqZTO3i25LxVddx9m/BhAkTJkz3YJpd1smDcRvy29DeHjLqUi8mTJgwYTqWqS16zpLM9tDQlob/zmECEyZMmDAdxfQfRFjc3vKYJu8AAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: 'https://lastknightcoder.github.io/lastknightcoder/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>
