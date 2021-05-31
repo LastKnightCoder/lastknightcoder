@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>使用 Github Actions 部署 VuePress 博客 | Coder</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Github Actions - VuePress">
+    <meta name="description" content="随着我 VuePress 博客中的东西越来越多，每次我打包好项目然后上传到 Github 上需要好一会儿时间，之前在一些文章中知道 Github Actions 可以帮我自动部署项目，正好今天尝试尝试。 在使用 Github Actions 以前，部署过程是这样的：  写文章 生成静态文件 将静态文件部署到 Github Page 上   使用了 Github Actions 后，过程变为了：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用 Github Actions 部署 VuePress 博客">
+<meta property="og:url" content="https://lastknightcoder.github.io/lastknightcoder/%E4%BD%BF%E7%94%A8%20Github%20Actions%20%E9%83%A8%E7%BD%B2%20VuePress%20%E5%8D%9A%E5%AE%A2/">
+<meta property="og:site_name" content="Coder">
+<meta property="og:description" content="随着我 VuePress 博客中的东西越来越多，每次我打包好项目然后上传到 Github 上需要好一会儿时间，之前在一些文章中知道 Github Actions 可以帮我自动部署项目，正好今天尝试尝试。 在使用 Github Actions 以前，部署过程是这样的：  写文章 生成静态文件 将静态文件部署到 Github Page 上   使用了 Github Actions 后，过程变为了：">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/LastKnightCoder/ImgHosting2/20210531185034.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/LastKnightCoder/ImgHosting2/20210531185129.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/LastKnightCoder/ImgHosting2/20210531185615.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/LastKnightCoder/ImgHosting2/20210531190036.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/LastKnightCoder/ImgHosting2/20210531190224.png">
+<meta property="article:published_time" content="2021-05-30T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-05-30T16:00:00.000Z">
+<meta property="article:author" content="熊滔">
+<meta property="article:tag" content="Github Actions - VuePress">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/LastKnightCoder/ImgHosting2/20210531185034.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="Coder" href="https://lastknightcoder.github.io/lastknightcoder/atom.xml">
+    
+    <link rel="shortcut icon" href="https://lastknightcoder.github.io/lastknightcoder/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(https://lastknightcoder.github.io/lastknightcoder/img/brand.jpg)">
+      <div class="brand">
+        <a href="https://lastknightcoder.github.io/lastknightcoder/" class="avatar waves-effect waves-circle waves-light">
+          <img src="https://lastknightcoder.github.io/lastknightcoder/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">熊滔</h5>
+          <a href="mailto:2223106858@qq.com" title="2223106858@qq.com" class="mail">2223106858@qq.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.github.io/lastknightcoder/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.github.io/lastknightcoder/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.github.io/lastknightcoder/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.github.io/lastknightcoder/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://gitee.com/LastKnightCoder" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">使用 Github Actions 部署 VuePress 博客</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">使用 Github Actions 部署 VuePress 博客</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2021-05-30T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2021-05-31
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="https://lastknightcoder.github.io/lastknightcoder/categories/ES6/">ES6</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#配置文件"><span class="post-toc-number">1.</span> <span class="post-toc-text">配置文件</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#配置密钥"><span class="post-toc-number">2.</span> <span class="post-toc-text">配置密钥</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#踩坑"><span class="post-toc-number">3.</span> <span class="post-toc-text">踩坑</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-使用 Github Actions 部署 VuePress 博客"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">使用 Github Actions 部署 VuePress 博客</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2021-05-31 00:00:00" datetime="2021-05-30T16:00:00.000Z"  itemprop="datePublished">2021-05-31</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="https://lastknightcoder.github.io/lastknightcoder/categories/ES6/">ES6</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>随着我 <code>VuePress</code> 博客中的东西越来越多，每次我打包好项目然后上传到 <code>Github</code> 上需要好一会儿时间，之前在一些文章中知道 <code>Github Actions</code> 可以帮我自动部署项目，正好今天尝试尝试。</p>
+<p>在使用 <code>Github Actions</code> 以前，部署过程是这样的：</p>
+<ul>
+<li>写文章</li>
+<li>生成静态文件</li>
+<li>将静态文件部署到 <code>Github Page</code> 上</li>
+</ul>
+<p> 使用了 <code>Github Actions</code> 后，过程变为了：</p>
+<ul>
+<li>写文章</li>
+<li>提交文章到 <code>Github</code> 上</li>
+</ul>
+<h2 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h2><p>接着我们介绍如何使用这一利器。首先你需要在你的项目下新建 <code>.github/workflows/</code> 文件夹，接着在 <code>workflows</code> 文件夹下新增 <code>xxx.yml</code> 文件，这个文件名随意，但是必须是 <code>YAML</code> 文件，比如我新增文件名为 <code>deploy.yml</code>，给出我的配置内容(去掉了一些个性化的配置)</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">name:</span> <span class="string">Build</span> <span class="string">and</span> <span class="string">Deploy</span></span><br><span class="line"><span class="attr">on:</span></span><br><span class="line">  <span class="attr">push:</span></span><br><span class="line">    <span class="attr">branches:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">master</span></span><br><span class="line"><span class="attr">jobs:</span></span><br><span class="line">  <span class="attr">build-and-deploy:</span></span><br><span class="line">    <span class="attr">runs-on:</span> <span class="string">ubuntu-latest</span></span><br><span class="line">    <span class="attr">steps:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Checkout</span> <span class="string">🛎️</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">actions/checkout@v2.3.1</span></span><br><span class="line"></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Install</span> <span class="string">and</span> <span class="string">Build</span> <span class="string">🔧</span> </span><br><span class="line">        <span class="attr">run:</span> <span class="string">|</span></span><br><span class="line">          <span class="string">npm</span> <span class="string">install</span></span><br><span class="line">          <span class="string">npm</span> <span class="string">run</span> <span class="string">build</span></span><br><span class="line"></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Deploy</span> <span class="string">🚀</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">JamesIves/github-pages-deploy-action@4.1.3</span></span><br><span class="line">        <span class="attr">with:</span></span><br><span class="line">          <span class="attr">BRANCH:</span> <span class="string">gh-pages</span></span><br><span class="line">          <span class="attr">FOLDER:</span> <span class="string">docs/.vuepress/dist</span></span><br><span class="line">          <span class="attr">ACCESS_TOKEN:</span> <span class="string">$&#123;&#123;</span> <span class="string">secrets.ACCESS_TOKEN</span> <span class="string">&#125;&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>当你向 <code>Github</code> 提交代码时，它会自动的检测 <code>.github/workflows/</code> 目录，如果有配置的话，就会根据你的配置 <code>workflow</code> 自动部署项目。</p>
+<p>从上面的配置看，主要分为三个部门：</p>
+<ul>
+<li><p><code>name</code>：这个 <code>workflow</code> 的名称，自己随便取</p>
+</li>
+<li><p><code>on</code>：触发条件</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">on:</span></span><br><span class="line">  <span class="attr">push:</span></span><br><span class="line">    <span class="attr">branches:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">master</span></span><br></pre></td></tr></table></figure>
+
+<p>上述表示当我们向 <code>master</code> 分支 <code>push</code> 时就会触发该 <code>workflow</code></p>
+</li>
+<li><p><code>jobs</code>：规定要执行的任务，例如上面我们定义了一个任务 <code>build-and-deploy</code>，每个任务包含如下配置</p>
+<ul>
+<li><p><code>runs-on</code>：运行所需要的虚拟机环境，<code>Github</code> 为我们提供了如下环境</p>
+<ul>
+<li><code>ubuntu-latest</code>，<code>ubuntu-18.04</code>或<code>ubuntu-16.04</code></li>
+<li><code>windows-latest</code>，<code>windows-2019</code>或<code>windows-2016</code></li>
+<li><code>macOS-latest</code>或<code>macOS-10.14</code></li>
+</ul>
+<p>这里我们选择了 <code>ubuntu-latest</code></p>
+</li>
+<li><p><code>steps</code>：任务运行的步骤</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>接着我们对我们运行的步骤进行说明，我们的步骤包含三步，第一步是拉取主分支的代码</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Checkout</span> <span class="string">🛎️</span></span><br><span class="line">  <span class="attr">uses:</span> <span class="string">actions/checkout@v2.3.1</span></span><br></pre></td></tr></table></figure>
+
+<p>第二步，运行两个命令 <code>npm install</code> 与 <code>npm run build</code></p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Install</span> <span class="string">and</span> <span class="string">Build</span> <span class="string">🔧</span> </span><br><span class="line">  <span class="attr">run:</span> <span class="string">|</span></span><br><span class="line">    <span class="string">npm</span> <span class="string">install</span></span><br><span class="line">    <span class="string">npm</span> <span class="string">run</span> <span class="string">build</span></span><br></pre></td></tr></table></figure>
+
+<p>第三步，将 生成的静态文件夹部署到 <code>gh-pages</code> 分支上</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Deploy</span> <span class="string">🚀</span></span><br><span class="line">  <span class="attr">uses:</span> <span class="string">JamesIves/github-pages-deploy-action@4.1.3</span></span><br><span class="line">  <span class="attr">with:</span></span><br><span class="line">    <span class="attr">BRANCH:</span> <span class="string">gh-pages</span></span><br><span class="line">    <span class="attr">FOLDER:</span> <span class="string">docs/.vuepress/dist</span></span><br><span class="line">    <span class="attr">ACCESS_TOKEN:</span> <span class="string">$&#123;&#123;</span> <span class="string">secrets.ACCESS_TOKEN</span> <span class="string">&#125;&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="配置密钥"><a href="#配置密钥" class="headerlink" title="配置密钥"></a>配置密钥</h2><p>使用 <code>Github Actions</code> 是需要 <code>ACCESS-TOKEN</code>，既然都已经会使用 <code>Github</code> 了，就肯定知道这个东西怎么生成了，如果不会，请求参照<a href="https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token" target="_blank" rel="noopener">官方文档</a>。</p>
+<p>我们需要在仓库的 <code>Setting</code> 中选择 <code>Secrets</code></p>
+<img src="https://cdn.jsdelivr.net/gh/LastKnightCoder/ImgHosting2/20210531185034.png" alt="image-20210531185033956" style="zoom:50%;" />
+
+<p>点击右上方的 <code>New repository secret</code></p>
+<img src="https://cdn.jsdelivr.net/gh/LastKnightCoder/ImgHosting2/20210531185129.png" alt="image-20210531185129280" style="zoom:50%;" />
+
+<p><code>Name</code> 必须写为 <code>ACCESS_TOKEN</code>，<code>Value</code> 就是你的 <code>token</code>，填写完毕点击 <code>Add secret</code>，如果填写没有问题的话，点击之后就会提示添加成功。</p>
+<p>每次当你将 <code>Vuepress</code> 项目提交到 <code>Github</code> 上的时候，<code>Github</code> 就会自动帮你部署项目。</p>
+<img src="https://cdn.jsdelivr.net/gh/LastKnightCoder/ImgHosting2/20210531185615.png" alt="image-20210531185615412" style="zoom:50%;" />
+
+<p>在 <code>Actions</code> 的这个选项中可以看到项目的部署情况，上面可以看到我尝试了三次，第三次成功了，前两次是踩坑，下面就介绍了我踩的两次坑。</p>
+<h2 id="踩坑"><a href="#踩坑" class="headerlink" title="踩坑"></a>踩坑</h2><p>在 <code>VuePress</code> 官网上面，给出的构建脚本命令是</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm run docs:build</span><br></pre></td></tr></table></figure>
+
+<p>我觉得麻烦，改为了 <code>npm run build</code>，所以第一次运行的时候，就提示我没有这个脚本</p>
+<img src="https://cdn.jsdelivr.net/gh/LastKnightCoder/ImgHosting2/20210531190036.png" alt="image-20210531190036475" style="zoom:50%;" />
+
+<p>我改过来了，所以如果你构建的脚本命令和我的不一致的话，还是要改的。</p>
+<p>另一个坑，上面配置好了以后，我将我的 <code>VuePress</code> 博客提交到 <code>Github</code>，但是运行一段时间之后爆出了错误</p>
+<img src="https://cdn.jsdelivr.net/gh/LastKnightCoder/ImgHosting2/20210531190224.png" alt="image-20210531190224283" style="zoom:50%;" />
+
+<p>从错误的类型看好像是超内存了，然后经过我的搜索，在 <code>Github</code> 的一个 <code>issue</code> 中找到了<a href="https://github.com/ScaCap/action-surefire-report/issues/17#issuecomment-677015255" target="_blank" rel="noopener">解决办法</a>，添加下面的环境变量</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">env:</span></span><br><span class="line">  <span class="attr">NODE_OPTIONS:</span> <span class="string">'--max_old_space_size=4096'</span></span><br></pre></td></tr></table></figure>
+
+<p>更改后的配置文件如下</p>
+<figure class="highlight yaml"><figcaption><span>&#123;17-18&#125;</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="attr">name:</span> <span class="string">Build</span> <span class="string">and</span> <span class="string">Deploy</span></span><br><span class="line"><span class="attr">on:</span></span><br><span class="line">  <span class="attr">push:</span></span><br><span class="line">    <span class="attr">branches:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">master</span></span><br><span class="line"><span class="attr">jobs:</span></span><br><span class="line">  <span class="attr">build-and-deploy:</span></span><br><span class="line">    <span class="attr">runs-on:</span> <span class="string">ubuntu-latest</span></span><br><span class="line">    <span class="attr">steps:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Checkout</span> <span class="string">🛎️</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">actions/checkout@v2.3.1</span></span><br><span class="line"></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Install</span> <span class="string">and</span> <span class="string">Build</span> <span class="string">🔧</span> </span><br><span class="line">        <span class="attr">run:</span> <span class="string">|</span></span><br><span class="line">          <span class="string">npm</span> <span class="string">install</span></span><br><span class="line">          <span class="string">npm</span> <span class="string">run</span> <span class="string">build</span></span><br><span class="line">        <span class="attr">env:</span></span><br><span class="line">          <span class="attr">NODE_OPTIONS:</span> <span class="string">'--max_old_space_size=4096'</span></span><br><span class="line"></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Deploy</span> <span class="string">🚀</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">JamesIves/github-pages-deploy-action@4.1.3</span></span><br><span class="line">        <span class="attr">with:</span></span><br><span class="line">          <span class="attr">BRANCH:</span> <span class="string">gh-pages</span></span><br><span class="line">          <span class="attr">FOLDER:</span> <span class="string">docs/.vuepress/dist</span></span><br><span class="line">          <span class="attr">ACCESS_TOKEN:</span> <span class="string">$&#123;&#123;</span> <span class="string">secrets.ACCESS_TOKEN</span> <span class="string">&#125;&#125;</span></span><br></pre></td></tr></table></figure>
+
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2021-05-30T16:00:00.000Z" itemprop="dateUpdated">2021-05-31 00:00:00</time>
+</span><br>
+
+
+        
+    </div>
+    
+    <footer>
+        <a href="https://lastknightcoder.github.io/lastknightcoder">
+            <img src="https://lastknightcoder.github.io/lastknightcoder/img/avatar.jpg" alt="熊滔">
+            熊滔
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="https://lastknightcoder.github.io/lastknightcoder/tags/Github-Actions-VuePress/" rel="tag">Github Actions - VuePress</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://lastknightcoder.github.io/lastknightcoder/%E4%BD%BF%E7%94%A8%20Github%20Actions%20%E9%83%A8%E7%BD%B2%20VuePress%20%E5%8D%9A%E5%AE%A2/&title=《使用 Github Actions 部署 VuePress 博客》 — Coder&pic=https://lastknightcoder.github.io/lastknightcoder/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://lastknightcoder.github.io/lastknightcoder/%E4%BD%BF%E7%94%A8%20Github%20Actions%20%E9%83%A8%E7%BD%B2%20VuePress%20%E5%8D%9A%E5%AE%A2/&title=《使用 Github Actions 部署 VuePress 博客》 — Coder&source=人生天地间，忽如远行客" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://lastknightcoder.github.io/lastknightcoder/%E4%BD%BF%E7%94%A8%20Github%20Actions%20%E9%83%A8%E7%BD%B2%20VuePress%20%E5%8D%9A%E5%AE%A2/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《使用 Github Actions 部署 VuePress 博客》 — Coder&url=https://lastknightcoder.github.io/lastknightcoder/%E4%BD%BF%E7%94%A8%20Github%20Actions%20%E9%83%A8%E7%BD%B2%20VuePress%20%E5%8D%9A%E5%AE%A2/&via=https://lastknightcoder.github.io/lastknightcoder" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://lastknightcoder.github.io/lastknightcoder/%E4%BD%BF%E7%94%A8%20Github%20Actions%20%E9%83%A8%E7%BD%B2%20VuePress%20%E5%8D%9A%E5%AE%A2/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="https://lastknightcoder.github.io/lastknightcoder/%E8%AE%BF%E9%97%AE%E5%AF%B9%E8%B1%A1%E4%B8%AD%E7%9A%84%E5%B1%9E%E6%80%A7/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">访问对象的属性</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'lastknightcoder';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="https://lastknightcoder.github.io/lastknightcoder/img/wechatpay.png" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="https://lastknightcoder.github.io/lastknightcoder/img/wechatpay.png" data-alipay="https://lastknightcoder.github.io/lastknightcoder/img/alipay.png">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="https://lastknightcoder.github.io/lastknightcoder/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>熊滔 &copy; 2019 - 2021</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://lastknightcoder.github.io/lastknightcoder/%E4%BD%BF%E7%94%A8%20Github%20Actions%20%E9%83%A8%E7%BD%B2%20VuePress%20%E5%8D%9A%E5%AE%A2/&title=《使用 Github Actions 部署 VuePress 博客》 — Coder&pic=https://lastknightcoder.github.io/lastknightcoder/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://lastknightcoder.github.io/lastknightcoder/%E4%BD%BF%E7%94%A8%20Github%20Actions%20%E9%83%A8%E7%BD%B2%20VuePress%20%E5%8D%9A%E5%AE%A2/&title=《使用 Github Actions 部署 VuePress 博客》 — Coder&source=人生天地间，忽如远行客" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://lastknightcoder.github.io/lastknightcoder/%E4%BD%BF%E7%94%A8%20Github%20Actions%20%E9%83%A8%E7%BD%B2%20VuePress%20%E5%8D%9A%E5%AE%A2/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《使用 Github Actions 部署 VuePress 博客》 — Coder&url=https://lastknightcoder.github.io/lastknightcoder/%E4%BD%BF%E7%94%A8%20Github%20Actions%20%E9%83%A8%E7%BD%B2%20VuePress%20%E5%8D%9A%E5%AE%A2/&via=https://lastknightcoder.github.io/lastknightcoder" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://lastknightcoder.github.io/lastknightcoder/%E4%BD%BF%E7%94%A8%20Github%20Actions%20%E9%83%A8%E7%BD%B2%20VuePress%20%E5%8D%9A%E5%AE%A2/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASYAAAEmCAAAAADqr2IGAAAEhElEQVR42u3ay24bMQwF0Pz/T7vbBoXHl6SMmuPjVZC4GulMAb708xN/HuPP3+v8u+ZP6/PsKdd/nTwREyZMmDBtZMqP92wrPdDeHp7t53r9Z3vOd4gJEyZMmLYzJctd0+TbegaUr3/q1SZnx4QJEyZM38aU01QDdiE8x8VzkkZgwoQJEyZMOVleJFc7q9Um7zU9JkyYMGH6NqZqg7XaeE22VV0hp0/WP9YLx4QJEyZMH8aUP+Z+P7/lfhMmTJgwYfoYpkfxc6ocvU4mkmMkQT3/5otTY8KECROmtUx5gMyv11w3eSeFa2/w2XsuJkyYMGG6H1NvqNnbVpIKzFfojVpfJASYMGHChGkhUzUAV4+Rt1l7SUYS5k+NRTFhwoQJ0y6mJKj3LsdUA3AvCUiavL1S+dfPmDBhwoRpLVOvDZqH3mQrvVSgmi5MGtaYMGHChGk7UxLO80s8+cGqTd7kN/PX9mJNTJgwYcK0kKl3gSY/xjv+Oi+2y+U9JkyYMGFay5SPGOcjzPzY1dK0esGoWkhjwoQJE6aNTPMLNNVwnq9ZbdfOG8pPXwMmTJgwYVrONGmAVkN1HqSrfPllnfw7mDBhwoRpO1P1Ok51zFmeqbaSj7wf20sgMGHChAnTXqZJOK+OQifoE+J5KY4JEyZMmO7HlBeieZCuXpHppSDV9aNTYMKECROm5Uy9xu5kSJkTTErlwq2l6xY2JkyYMGFayzQvZauHPBW2q5QHPpgwYcKEaSHTJJQmg8b8MPNCOn8l5eIZEyZMmDAtZ8qL3jzozlu6eet5sv9oh5gwYcKEaS1THiCrg8w8/J96Vi/w50kMJkyYMGHayNRrks6v5kxasdVyurdyoc7GhAkTJkwLmV5kEHGYrzZ8q43jfPzZq2QxYcKECdM9mOYPSL7fSxomA9dqQ/npCpgwYcKEaTnT9QN6BWT1GNU0YvLyHsUPJkyYMGHaztQsCFuJRW/NSTKRr/CiyYsJEyZMmJYzVcnybSXjxslINXkx1bQAEyZMmDDdiSnf4qmWbjVRmBxyMvh82iHAhAkTJkxLmE6lAqcuzVSby9VUIHkx0ewXEyZMmDAtYXrHFZzRG7s8XrW07jWvMWHChAnTnZhOlYinGrJ5sjIvpKv/RTBhwoQJ0z2YesVqEm7zsjnHzTlOjVExYcKECdMupmrg7I0eq2E+HzT2+HKgX1NfTJgwYcJ0I6beMXqXZqrrV9vQSbrz4juYMGHChOkWTNXGbhKGk9Cbr/O+QeyLdTBhwoQJ01qmajP3VLAv9J7jFapD1knLGxMmTJgwbWF6FD/VQJsPGk8NRN8xZMWECRMmTHuZegEy55uMSCeF8f9KIzBhwoQJ02cy5ddf3vdmCg3WFuWBhAATJkyYMC1nygNqb/xZ6DTH36ymJr1WMiZMmDBh+jamJBjn4Tn5fW/kmQNFrJgwYcKE6WuY8iHl9b+9XmfSLK4mB9E6mDBhwoRpOdOpVmnSQu0lBL3RafLCotIdEyZMmDCtZaoWlkkgnzRheytXw/wxGkyYMGHC9LlMfwCfc94/qtG69AAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: 'https://lastknightcoder.github.io/lastknightcoder/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

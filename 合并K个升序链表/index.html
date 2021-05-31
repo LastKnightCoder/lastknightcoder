@@ -214,7 +214,7 @@
 <img src="https://cdn.jsdelivr.net/gh/LastKnightCoder/ImgHosting2/20210326113204.png" style="zoom:50%;" />
 
 <p>已经打败 87% 的人了，时间从 120ms 降到了 2ms，再次感受到了算法的魅力。</p>
-<p>在最后我稍微分析归并的方法为什么比一个个合并较快，从合并的次数看，一个个合并需要合并 $n - 1$ 次，而归并排序需要合并<br>$$<br>\frac{n}{2} + \frac{n}{4} + \frac{n}{8} + \dots + 1<br>$$<br>为了方便计算，不妨假设 $n = 2^i$，即 $n$ 为 $2$ 的整数次幂，则上次可以改为<br>$$<br>\sum_{i = 1}^{\log_2 n} \frac{n}{2^i} \approx n - 1<br>$$<br>所以从合并的次数上看，几乎是相当的。但是注意到一一合并得到的链表越来越长</p>
+<p>在最后我稍微分析归并的方法为什么比一个个合并较快，从合并的次数看，一个个合并需要合并 $n - 1$ 次，而归并排序需要合并<br>$$<br>\frac{n}{2} + \frac{n}{4} + \frac{n}{8} + \dots + 1<br>$$<br>为了方便计算，不妨假设 $n = 2^i$，即 $n$ 为 $2$ 的整数次幂，则上次可以改为<br>$$<br>\sum_{i = 1}^{\log_2 n} \frac{n}{2^i} \approx n - 1<br>$$<br>所以从合并的次数上看，几乎是相当的。但是注意到一一合并得到的链表越来越长<br>$$<br>\sum_{i=1}^{\log _{2} n} \frac{n}{2^{i}} \approx n-1<br>$$</p>
 <ul>
 <li>list + listi -&gt; list</li>
 <li>list + list(i + 1) -&gt; list</li>
