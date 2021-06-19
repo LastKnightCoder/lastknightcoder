@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>PicGo图床上传问题 | Coder</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="图床,PicGo">
+    <meta name="description" content="问题描述使用 PicGo 上传图片报错     查看日志相关日志如下 ------Error Stack Begin------RequestError: Error: tunneling socket could not be established, cause&#x3D;connect ECONNREFUSED 127.0.0.1:1080    at new RequestError (D:\Pic">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PicGo图床上传问题">
+<meta property="og:url" content="https://lastknightcoder.github.io/lastknightcoder/PicGo%E5%9B%BE%E5%BA%8A%E4%B8%8A%E4%BC%A0%E9%97%AE%E9%A2%98/">
+<meta property="og:site_name" content="Coder">
+<meta property="og:description" content="问题描述使用 PicGo 上传图片报错     查看日志相关日志如下 ------Error Stack Begin------RequestError: Error: tunneling socket could not be established, cause&#x3D;connect ECONNREFUSED 127.0.0.1:1080    at new RequestError (D:\Pic">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/LastKnightCoder/ImgHosting3/20210619103831.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/LastKnightCoder/ImgHosting3/20210619103837.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/LastKnightCoder/ImgHosting3/20210619103847.png">
+<meta property="article:published_time" content="2021-06-18T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-06-18T16:00:00.000Z">
+<meta property="article:author" content="熊滔">
+<meta property="article:tag" content="图床">
+<meta property="article:tag" content="PicGo">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/LastKnightCoder/ImgHosting3/20210619103831.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="Coder" href="https://lastknightcoder.github.io/lastknightcoder/atom.xml">
+    
+    <link rel="shortcut icon" href="https://lastknightcoder.github.io/lastknightcoder/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(https://lastknightcoder.github.io/lastknightcoder/img/brand.jpg)">
+      <div class="brand">
+        <a href="https://lastknightcoder.github.io/lastknightcoder/" class="avatar waves-effect waves-circle waves-light">
+          <img src="https://lastknightcoder.github.io/lastknightcoder/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">熊滔</h5>
+          <a href="mailto:2223106858@qq.com" title="2223106858@qq.com" class="mail">2223106858@qq.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.github.io/lastknightcoder/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.github.io/lastknightcoder/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.github.io/lastknightcoder/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.github.io/lastknightcoder/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://gitee.com/LastKnightCoder" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">PicGo图床上传问题</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">PicGo图床上传问题</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2021-06-18T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2021-06-19
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="https://lastknightcoder.github.io/lastknightcoder/categories/PicGo/">PicGo</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#问题描述"><span class="post-toc-number">1.</span> <span class="post-toc-text">问题描述</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#查看日志"><span class="post-toc-number">2.</span> <span class="post-toc-text">查看日志</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#解决办法"><span class="post-toc-number">3.</span> <span class="post-toc-text">解决办法</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#参考文章"><span class="post-toc-number">4.</span> <span class="post-toc-text">参考文章</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-PicGo图床上传问题"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">PicGo图床上传问题</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2021-06-19 00:00:00" datetime="2021-06-18T16:00:00.000Z"  itemprop="datePublished">2021-06-19</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="https://lastknightcoder.github.io/lastknightcoder/categories/PicGo/">PicGo</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>使用 PicGo 上传图片报错</p>
+<img src="https://cdn.jsdelivr.net/gh/LastKnightCoder/ImgHosting3/20210619103831.png" alt="image-20210619101835151" style="zoom:50%;" />
+
+<img src="https://cdn.jsdelivr.net/gh/LastKnightCoder/ImgHosting3/20210619103837.png" alt="image-20210619102314780" style="zoom:50%;" />
+
+<h2 id="查看日志"><a href="#查看日志" class="headerlink" title="查看日志"></a>查看日志</h2><p>相关日志如下</p>
+<figure class="highlight taggerscript"><table><tr><td class="code"><pre><span class="line">------Error Stack Begin------</span><br><span class="line">RequestError: Error: tunneling socket could not be established, cause=connect ECONNREFUSED 127.0.0.1:1080</span><br><span class="line">    at new RequestError (D:<span class="symbol">\P</span>icGo<span class="symbol">\r</span>esources<span class="symbol">\a</span>pp.asar<span class="symbol">\n</span>ode_modules<span class="symbol">\r</span>equest-promise-core<span class="symbol">\l</span>ib<span class="symbol">\e</span>rrors.js:14:15)</span><br><span class="line">    at Request.plumbing.callback (D:<span class="symbol">\P</span>icGo<span class="symbol">\r</span>esources<span class="symbol">\a</span>pp.asar<span class="symbol">\n</span>ode_modules<span class="symbol">\r</span>equest-promise-core<span class="symbol">\l</span>ib<span class="symbol">\p</span>lumbing.js:87:29)</span><br><span class="line">    at Request.RP<span class="keyword">$callback [as _callback] </span>(D:<span class="symbol">\P</span>icGo<span class="symbol">\r</span>esources<span class="symbol">\a</span>pp.asar<span class="symbol">\n</span>ode_modules<span class="symbol">\r</span>equest-promise-core<span class="symbol">\l</span>ib<span class="symbol">\p</span>lumbing.js:46:31)</span><br><span class="line">    at self.callback (D:<span class="symbol">\P</span>icGo<span class="symbol">\r</span>esources<span class="symbol">\a</span>pp.asar<span class="symbol">\n</span>ode_modules<span class="symbol">\r</span>equest<span class="symbol">\r</span>equest.js:185:22)</span><br><span class="line">    at Request.emit (events.js:200:13)</span><br><span class="line">    at Request.onRequestError (D:<span class="symbol">\P</span>icGo<span class="symbol">\r</span>esources<span class="symbol">\a</span>pp.asar<span class="symbol">\n</span>ode_modules<span class="symbol">\r</span>equest<span class="symbol">\r</span>equest.js:881:8)</span><br><span class="line">    at ClientRequest.emit (events.js:200:13)</span><br><span class="line">    at ClientRequest.onError (D:<span class="symbol">\P</span>icGo<span class="symbol">\r</span>esources<span class="symbol">\a</span>pp.asar<span class="symbol">\n</span>ode_modules<span class="symbol">\t</span>unnel-agent<span class="symbol">\i</span>ndex.js:179:21)</span><br><span class="line">    at Object.onceWrapper (events.js:288:20)</span><br><span class="line">    at ClientRequest.emit (events.js:200:13)</span><br><span class="line">-------Error Stack End-------</span><br></pre></td></tr></table></figure>
+
+<p>上网搜索，发现是设置了代理，去掉代理设置即可。</p>
+<h2 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h2><p>打开配置文件</p>
+<img src="https://cdn.jsdelivr.net/gh/LastKnightCoder/ImgHosting3/20210619103847.png" alt="image-20210619102143684" style="zoom:50%;" />
+
+<p>发现设置了代理，将改行删掉即可(所以我当时为什么要设置代理)</p>
+<h2 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h2><ul>
+<li><a href="https://www.cnblogs.com/masterchd/p/14230191.html" target="_blank" rel="noopener">PicGo RequestError: Error: tunneling socket could not be established, cause=connect ECONNREFUSED 127.0.0.1:36677</a></li>
+</ul>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2021-06-18T16:00:00.000Z" itemprop="dateUpdated">2021-06-19 00:00:00</time>
+</span><br>
+
+
+        
+    </div>
+    
+    <footer>
+        <a href="https://lastknightcoder.github.io/lastknightcoder">
+            <img src="https://lastknightcoder.github.io/lastknightcoder/img/avatar.jpg" alt="熊滔">
+            熊滔
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="https://lastknightcoder.github.io/lastknightcoder/tags/PicGo/" rel="tag">PicGo</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="https://lastknightcoder.github.io/lastknightcoder/tags/%E5%9B%BE%E5%BA%8A/" rel="tag">图床</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://lastknightcoder.github.io/lastknightcoder/PicGo%E5%9B%BE%E5%BA%8A%E4%B8%8A%E4%BC%A0%E9%97%AE%E9%A2%98/&title=《PicGo图床上传问题》 — Coder&pic=https://lastknightcoder.github.io/lastknightcoder/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://lastknightcoder.github.io/lastknightcoder/PicGo%E5%9B%BE%E5%BA%8A%E4%B8%8A%E4%BC%A0%E9%97%AE%E9%A2%98/&title=《PicGo图床上传问题》 — Coder&source=人生天地间，忽如远行客" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://lastknightcoder.github.io/lastknightcoder/PicGo%E5%9B%BE%E5%BA%8A%E4%B8%8A%E4%BC%A0%E9%97%AE%E9%A2%98/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《PicGo图床上传问题》 — Coder&url=https://lastknightcoder.github.io/lastknightcoder/PicGo%E5%9B%BE%E5%BA%8A%E4%B8%8A%E4%BC%A0%E9%97%AE%E9%A2%98/&via=https://lastknightcoder.github.io/lastknightcoder" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://lastknightcoder.github.io/lastknightcoder/PicGo%E5%9B%BE%E5%BA%8A%E4%B8%8A%E4%BC%A0%E9%97%AE%E9%A2%98/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="https://lastknightcoder.github.io/lastknightcoder/%E8%BF%9C%E7%A8%8B%E8%AE%BF%E9%97%AE%20Linux%20%E4%B8%8A%E7%9A%84%20jupyter/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">远程访问 Linux 上的 jupyter</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'lastknightcoder';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="https://lastknightcoder.github.io/lastknightcoder/img/wechatpay.png" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="https://lastknightcoder.github.io/lastknightcoder/img/wechatpay.png" data-alipay="https://lastknightcoder.github.io/lastknightcoder/img/alipay.png">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="https://lastknightcoder.github.io/lastknightcoder/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>熊滔 &copy; 2019 - 2021</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://lastknightcoder.github.io/lastknightcoder/PicGo%E5%9B%BE%E5%BA%8A%E4%B8%8A%E4%BC%A0%E9%97%AE%E9%A2%98/&title=《PicGo图床上传问题》 — Coder&pic=https://lastknightcoder.github.io/lastknightcoder/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://lastknightcoder.github.io/lastknightcoder/PicGo%E5%9B%BE%E5%BA%8A%E4%B8%8A%E4%BC%A0%E9%97%AE%E9%A2%98/&title=《PicGo图床上传问题》 — Coder&source=人生天地间，忽如远行客" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://lastknightcoder.github.io/lastknightcoder/PicGo%E5%9B%BE%E5%BA%8A%E4%B8%8A%E4%BC%A0%E9%97%AE%E9%A2%98/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《PicGo图床上传问题》 — Coder&url=https://lastknightcoder.github.io/lastknightcoder/PicGo%E5%9B%BE%E5%BA%8A%E4%B8%8A%E4%BC%A0%E9%97%AE%E9%A2%98/&via=https://lastknightcoder.github.io/lastknightcoder" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://lastknightcoder.github.io/lastknightcoder/PicGo%E5%9B%BE%E5%BA%8A%E4%B8%8A%E4%BC%A0%E9%97%AE%E9%A2%98/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQ4AAAEOCAAAAABd2qZ5AAAD9klEQVR42u3ay47bQAwEQP//TztATgEWkrvJkTeH0inw6jEqHTpD8vWKj/ff4+cv//7+85f296sz79dwf7fXEwcOHDhw4Ahe9epIOK6uulr07DPkK7yHvl8tDhw4cOA4xZEsJT8/j+c8dO8pZ9fiwIEDB47f5cgDLH/5NoaTON98Qhw4cODA8U2OdtFJyW/23OSeOHDgwIHjdznyyJwV6ZJ75ij58WCtFAcOHDhwdHk3DL//898PznfgwIEDB444YttwmkVpe1W7hSveCAcOHDhwrDk2xbvZdu5UqOcDE3VzCwcOHDhwLDhmRcDZ4MKMvr0q4bsEwoEDBw4chzhm2622vdQOvc0CO2lffQhaHDhw4MCx4GiXlT9mFslRHI62c8V6cODAgQPHgiN/4TzkZqGb3/NUoEY7Whw4cODAseDIgzZv7SSjCZtwnX28KGhx4MCBA8eCo23Y7EtyeSi2m8PZE3HgwIEDx1mO5LIEbrZhy7dnSXi3n61YCg4cOHDgKDnajVY+rNDesz2nXRUOHDhw4HiaI4/YWUDmy0pCdPYW0bNw4MCBA8chjtmQweaczWYsaW61hcIi83HgwIEDRzcVMBytzsMvf2LCtGk74cCBAweOJzjyDU8eq0nsvRbH2UbXhx0tDhw4cOAY7Zj2kTbr2swC9VSp8fLdceDAgQPHgiMPxWPltrhdtA/XelU4cODAgWPN0WK18TYL4PxT1SMLGyYcOHDgwPHYQEPeo3miFLjqqiW1Uhw4cODAcbTP0r5kUYMsA7KFzochirjFgQMHDhwLjvZhya4nQZnRv2+Pdm04cODAgeMUR3KL5K/52EH+2vnaEproM+DAgQMHjjVHW8ibvfBsMCIJ7M128cNzceDAgQPHgiMZU2vH2vYtovYpbeHy8j44cODAgWPNsVnoZqs2GzvYzwBGV+HAgQMHjhFHXtRr20h5oygP6XbzljwXBw4cOHA8wZEPENQPGLWUhnMZ8SjG5bNw4MCBA8eaI99E5Ruhdryg/aVtUM1aVjhw4MCBY8Yxi8x2BG027taWJvfDFjhw4MCB4xTHLGjb5tCm5JcjzsbpcODAgQPHKY761DK66gJcPKYwG2WIPjMOHDhw4FhwvMtjNnyQt5rybVs7ZhHdHwcOHDhwrDnacJqFXx7Jm6GH2XAGDhw4cOB4giMv8OWFvA1TWy6cDdVdhjQOHDhw4DjE0QZnO+jQlgjbFlT+P4gP68GBAwcOHF/naMcaZiMOp4p6dUjjwIEDB44vcuQtqHaz1w7GzUYrcODAgQPHNznyaJyFbr70fHCh7a1FG0gcOHDgwLHmaAca2pCbtYLa4G9H+jYlSxw4cODAcXH8AbD0KlxJTF6dAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: 'https://lastknightcoder.github.io/lastknightcoder/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>
