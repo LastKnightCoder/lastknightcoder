@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>跑马灯动画 | Coder</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="">
+    <meta name="description" content="本篇文章介绍一种跑马灯动画，如下   上面的动画主要实现了两个功能：  文字的无缝衔接 动画的动态加减速  首先给出例子用到的 html 与 css 代码 &lt;!DOCTYPE html&gt;&lt;html lang&#x3D;&quot;en&quot;&gt;&lt;head&gt;    &lt;meta charset&#x3D;&quot;UTF-8&quot;&gt;    &lt;meta http-equiv&#x3D;&quot;X-UA-Compa">
+<meta property="og:type" content="article">
+<meta property="og:title" content="跑马灯动画">
+<meta property="og:url" content="https://lastknightcoder.github.io/lastknightcoder/%E8%B7%91%E9%A9%AC%E7%81%AF%E5%8A%A8%E7%94%BB/">
+<meta property="og:site_name" content="Coder">
+<meta property="og:description" content="本篇文章介绍一种跑马灯动画，如下   上面的动画主要实现了两个功能：  文字的无缝衔接 动画的动态加减速  首先给出例子用到的 html 与 css 代码 &lt;!DOCTYPE html&gt;&lt;html lang&#x3D;&quot;en&quot;&gt;&lt;head&gt;    &lt;meta charset&#x3D;&quot;UTF-8&quot;&gt;    &lt;meta http-equiv&#x3D;&quot;X-UA-Compa">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://blog-hostimaging.oss-cn-beijing.aliyuncs.com/1625150270025.gif">
+<meta property="og:image" content="http://blog-hostimaging.oss-cn-beijing.aliyuncs.com/1625150660387.gif">
+<meta property="og:image" content="http://blog-hostimaging.oss-cn-beijing.aliyuncs.com/1625152644530.gif">
+<meta property="og:image" content="http://blog-hostimaging.oss-cn-beijing.aliyuncs.com/1625153417380.gif">
+<meta property="og:image" content="http://blog-hostimaging.oss-cn-beijing.aliyuncs.com/1625154160556.gif">
+<meta property="og:image" content="http://blog-hostimaging.oss-cn-beijing.aliyuncs.com/1625154867508.gif">
+<meta property="og:image" content="http://blog-hostimaging.oss-cn-beijing.aliyuncs.com/1625156643332.gif">
+<meta property="og:image" content="http://blog-hostimaging.oss-cn-beijing.aliyuncs.com/1625157285140.gif">
+<meta property="og:image" content="http://blog-hostimaging.oss-cn-beijing.aliyuncs.com/1625157889578.gif">
+<meta property="article:published_time" content="2021-07-01T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-07-01T16:00:00.000Z">
+<meta property="article:author" content="熊滔">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://blog-hostimaging.oss-cn-beijing.aliyuncs.com/1625150270025.gif">
+    
+        <link rel="alternate" type="application/atom+xml" title="Coder" href="https://lastknightcoder.github.io/lastknightcoder/atom.xml">
+    
+    <link rel="shortcut icon" href="https://lastknightcoder.github.io/lastknightcoder/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(https://lastknightcoder.github.io/lastknightcoder/img/brand.jpg)">
+      <div class="brand">
+        <a href="https://lastknightcoder.github.io/lastknightcoder/" class="avatar waves-effect waves-circle waves-light">
+          <img src="https://lastknightcoder.github.io/lastknightcoder/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">熊滔</h5>
+          <a href="mailto:2223106858@qq.com" title="2223106858@qq.com" class="mail">2223106858@qq.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.github.io/lastknightcoder/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.github.io/lastknightcoder/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.github.io/lastknightcoder/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://lastknightcoder.github.io/lastknightcoder/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://gitee.com/LastKnightCoder" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">跑马灯动画</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">跑马灯动画</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2021-07-01T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2021-07-02
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="https://lastknightcoder.github.io/lastknightcoder/categories/CSS/">CSS</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="https://lastknightcoder.github.io/lastknightcoder/categories/CSS/%E5%8A%A8%E7%94%BB/">动画</a></li></ul></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#动画的无缝衔接"><span class="post-toc-number">1.</span> <span class="post-toc-text">动画的无缝衔接</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#动画动态加减速"><span class="post-toc-number">2.</span> <span class="post-toc-text">动画动态加减速</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#改变动画的持续时间"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">改变动画的持续时间</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#创建多个新动画"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">创建多个新动画</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#总结"><span class="post-toc-number">3.</span> <span class="post-toc-text">总结</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-跑马灯动画"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">跑马灯动画</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2021-07-02 00:00:00" datetime="2021-07-01T16:00:00.000Z"  itemprop="datePublished">2021-07-02</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="https://lastknightcoder.github.io/lastknightcoder/categories/CSS/">CSS</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="https://lastknightcoder.github.io/lastknightcoder/categories/CSS/%E5%8A%A8%E7%94%BB/">动画</a></li></ul></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>本篇文章介绍一种跑马灯动画，如下</p>
+<img src="http://blog-hostimaging.oss-cn-beijing.aliyuncs.com/1625150270025.gif" style="zoom: 50%">
+
+<p>上面的动画主要实现了两个功能：</p>
+<ul>
+<li>文字的无缝衔接</li>
+<li>动画的动态加减速</li>
+</ul>
+<p>首先给出例子用到的 <code>html</code> 与 <code>css</code> 代码</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"X-UA-Compatible"</span> <span class="attr">content</span>=<span class="string">"IE=edge"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1.0"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"index.css"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"container"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"nowrap"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">"txt"</span>&gt;</span>朝辞白帝彩云间，千里江陵一日还。两岸猿声啼不住，轻舟已过万重山。<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">button</span> <span class="attr">id</span>=<span class="string">"speedUp"</span>&gt;</span>加速<span class="tag">&lt;/<span class="name">button</span>&gt;</span><span class="tag">&lt;<span class="name">button</span> <span class="attr">id</span>=<span class="string">"slowDown"</span>&gt;</span>减速<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"module"</span>&gt;</span></span><br><span class="line"><span class="javascript">        <span class="keyword">import</span> <span class="string">'./index.js'</span></span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line">* &#123;</span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">0</span>;</span><br><span class="line">    <span class="attribute">margin</span>: <span class="number">0</span>;</span><br><span class="line">    <span class="attribute">box-sizing</span>: border-box;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.container</span> &#123;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">500px</span>;</span><br><span class="line">    <span class="attribute">margin</span>: <span class="number">100px</span> auto;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.nowrap</span> &#123;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">    <span class="attribute">white-space</span>: nowrap;</span><br><span class="line">    <span class="attribute">overflow</span>: hidden;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>制作动画的手段有很多种，使用 <code>JavaScript</code> 以及 <code>CSS</code> 均可实现，不过 <code>CSS</code> 的性能较好，所以本文使用 <code>CSS</code> 来实现动画。</p>
+<h2 id="动画的无缝衔接"><a href="#动画的无缝衔接" class="headerlink" title="动画的无缝衔接"></a>动画的无缝衔接</h2><p>一开始我都不明白什么叫动画的无缝衔接，后来我看到了不是无缝衔接的例子瞬间就明白了，如下</p>
+<img src="http://blog-hostimaging.oss-cn-beijing.aliyuncs.com/1625150660387.gif" style="zoom: 50%">
+
+<p>可以观察到第一次动画完毕以后非常突兀的来到了文字的开头，与上面无缝衔接的动画想比，可以感觉到无缝衔接动画非常的流畅，所以如何实现动画的无缝衔接呢? 答案就是将内容复制两份，这样当文字滚动在最后时出现的就不是空白，而是开头的文字。</p>
+<p>因为我们使用的是 <code>transform: translateX()</code> 来制作动画，所以我们要获取复制前文本的长度，以确定最终变换的距离，以及为了实现动画的速度与文本的长短无关，那么动画运动的总时间是与文本的长度成正比的，这个比例系数自然就是速度了 $s = vt$。上面这一切都表明我们的动画的创建是与文本长度有关的，而文本的长度我们事前不知道，所以动画的创建也是动态的，我们通过向 <code>DOM</code> 插入一个 <code>style</code> 标签来动态创建动画。</p>
+<p>创建动画相关的代码如下</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 动画的速度，实际测试大约为 1s 两个字</span></span><br><span class="line"><span class="keyword">let</span> speed = <span class="number">36</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 动态插入 keyframe</span></span><br><span class="line"><span class="keyword">const</span> style = <span class="built_in">document</span>.createElement(<span class="string">'style'</span>);</span><br><span class="line"><span class="built_in">document</span>.getElementsByTagName(<span class="string">'head'</span>)[<span class="number">0</span>].appendChild(style)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> createKeyFrame = <span class="function">(<span class="params">width, name</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> keyframe = <span class="string">`</span></span><br><span class="line"><span class="string">        @keyframes <span class="subst">$&#123;name&#125;</span> &#123;</span></span><br><span class="line"><span class="string">            0% &#123;</span></span><br><span class="line"><span class="string">                transform: translateX(0px);</span></span><br><span class="line"><span class="string">            &#125;</span></span><br><span class="line"><span class="string">            100% &#123;</span></span><br><span class="line"><span class="string">                transform: translateX(-<span class="subst">$&#123;width&#125;</span>px);</span></span><br><span class="line"><span class="string">            &#125;</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string">        .<span class="subst">$&#123;name&#125;</span> &#123;</span></span><br><span class="line"><span class="string">            animation: <span class="subst">$&#123;name&#125;</span> <span class="subst">$&#123;(<span class="built_in">Math</span>.abs(width)<span class="regexp">/speed).toFixed(2)&#125;s linear infinite;</span></span></span></span><br><span class="line"><span class="string"><span class="subst"><span class="regexp">        &#125;</span></span></span></span><br><span class="line"><span class="string"><span class="subst"><span class="regexp">    `</span></span></span></span><br><span class="line"><span class="string"><span class="subst"><span class="regexp">    style.innerHTML = keyframe</span></span></span></span><br><span class="line"><span class="string"><span class="subst"><span class="regexp">&#125;</span></span></span></span><br></pre></td></tr></table></figure>
+
+<p>上面 <code>createKeyFrame</code> 函数用以动态创建一个动画，该函数接收两个参数 <code>width</code> 表示文本的长度以及 <code>name</code> 表示动画的名称，除了创建一个动画，我们还创建一个名字与动画名相同的类，我们只要为元素添加这个类，这个类便会拥有这个动画，动画的执行次数为无限次。</p>
+<p>准备好这些以后，我们便可以开始为文本应用动画了，在应用动画之前，我们首先需要获得文本的长度，然后将文本复制一遍插入到原文本后面，如下</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 包含文字的元素</span></span><br><span class="line"><span class="keyword">const</span> txt = <span class="built_in">document</span>.getElementsByClassName(<span class="string">'txt'</span>)[<span class="number">0</span>]</span><br><span class="line"><span class="comment">// 文本的长度</span></span><br><span class="line"><span class="keyword">let</span> textWidth = <span class="number">0</span></span><br><span class="line"><span class="keyword">const</span> initAnimation = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// 获得文本长度，控制动画时间，以及 transform 的距离</span></span><br><span class="line">    textWidth = txt.scrollWidth</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 如果宽度足够显示所有的文字，则没有必要使用动画</span></span><br><span class="line">    <span class="keyword">if</span> (textWidth &lt;= <span class="number">500</span>) &#123;</span><br><span class="line">        <span class="comment">// 不仅不添加动画，而且要移除之前添加的动画</span></span><br><span class="line">        txt.classList.remove(<span class="string">'slow'</span>, <span class="string">'temp-slow'</span>, <span class="string">'fast'</span>, <span class="string">'temp-fast'</span>)</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 获得文本内容</span></span><br><span class="line">    <span class="keyword">const</span> textContent = txt.textContent</span><br><span class="line">    <span class="comment">// 在后面设置添加相同的文字，做到动画的无缝衔接</span></span><br><span class="line">    txt.textContent = textContent + textContent</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 动态制作动画</span></span><br><span class="line">    createKeyFrame(textWidth, <span class="string">'slow'</span>)</span><br><span class="line">    <span class="comment">// 应用动画</span></span><br><span class="line">    txt.classList.add(<span class="string">'slow'</span>)</span><br><span class="line">&#125;</span><br><span class="line">initAnimation()</span><br></pre></td></tr></table></figure>
+
+<p>上面的程序首先获得文本的长度，这里有一个小细节，如果文本的长度小于容器的长度的话，那么就没必要使用动画，在这里我们移除了一些类，这些类后面会用到，这里只要理解这个行为是移除所有动画即可。如果文本的长度大于容器的长度，我们接下来就来取得文本的内容，然后复制一份并且添加原文本的后面，接着添加动画，并且为元素应用动画，此时效果看起来是这样</p>
+<img src="http://blog-hostimaging.oss-cn-beijing.aliyuncs.com/1625152644530.gif" style="zoom: 50%">
+
+<p>此时我们已经实现了动画的无缝衔接，但是加减速功能还没有实现。</p>
+<h2 id="动画动态加减速"><a href="#动画动态加减速" class="headerlink" title="动画动态加减速"></a>动画动态加减速</h2><h3 id="改变动画的持续时间"><a href="#改变动画的持续时间" class="headerlink" title="改变动画的持续时间"></a>改变动画的持续时间</h3><p>那么如何实现动画的动态加减速呢，首先自然而然的一个想法就是直接改变动画的总时间，我们先以加速为例</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 是否处于加速状态</span></span><br><span class="line"><span class="keyword">let</span> speeded = <span class="literal">false</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> upBtn = <span class="built_in">document</span>.getElementById(<span class="string">'speedUp'</span>)</span><br><span class="line"><span class="keyword">const</span> speedUp = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// 如果已经处于加速状态，则直接返回</span></span><br><span class="line">    <span class="keyword">if</span> (speeded) &#123;</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 设置为加速状态</span></span><br><span class="line">    speeded = <span class="literal">true</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 速度变为原来四倍</span></span><br><span class="line">    speed = speed * <span class="number">4</span></span><br><span class="line">    <span class="comment">// 改变动画的运行时间</span></span><br><span class="line">    txt.style.animationDuration = textWidth / speed + <span class="string">'s'</span></span><br><span class="line">&#125;</span><br><span class="line">upBtn.addEventListener(<span class="string">'click'</span>, speedUp)</span><br></pre></td></tr></table></figure>
+
+<p>我们为加速按钮添加了一个点击事件，为了防止多次触发加速，我们使用一个变量 <code>speeded</code> 来记录元素是否处于加速状态，如果已经处于加速状态，则函数直接返回，否则我们将速度变为原来的四倍，当然不要忘了将元素设置为处于加速状态，然后设置动画的执行时间为 <code>textWidth / speed</code>，我们来看看实际效果</p>
+<img src="http://blog-hostimaging.oss-cn-beijing.aliyuncs.com/1625153417380.gif" style="zoom: 50%">
+
+<p>可以观察到，当我们点击加速的那个瞬间，动画似乎不对劲，但是哪里不对劲，因为速度太快我没有观察处理，不过我们可以使用数据来告诉我们答案，我们打印改变动画持续时间前后元素的 <code>transfrom</code> 的值，首先我们定义一个函数来获得元素的 <code>translateX</code> 的值</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> getTranslateX = <span class="function"><span class="params">ele</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> +<span class="built_in">window</span>.getComputedStyle(ele).transform.split(<span class="string">','</span>)[<span class="number">4</span>]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>上面的函数是怎么得到?</p>
+<p>首先我们通过 <code>window.getComputedStyle(ele).transform</code> 来获取元素的 <code>transform</code> 属性，它是一个形如下面的字符串</p>
+<figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line">matrix(<span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">-97.8686</span>, <span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+
+<p>倒数第二个数字 <code>-97.8686</code> 表示的就是 <code>translateX</code> (针对二维的情况，没有 <code>translateZ</code>)，所以我们通过 <code>,</code> 分割字符串，然后获得第五个即下标为 4 的字符串即为 <code>translateX</code> 的值，因为是字符串，所以我在前方加了一元运算符 <code>+</code> 将字符串转换为数字。</p>
+</blockquote>
+<p>我们在改变动画运行时间前后打印此时的 <code>translateX</code> 的值</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> speedUp = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (speeded) &#123;</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    speeded = <span class="literal">true</span></span><br><span class="line">    speed = speed * <span class="number">4</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'加速前'</span>, getTranslateX(txt))</span><br><span class="line">    txt.style.animationDuration = textWidth / speed + <span class="string">'s'</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'加速后'</span>, getTranslateX(txt))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<img src="http://blog-hostimaging.oss-cn-beijing.aliyuncs.com/1625154160556.gif" style="zoom: 50%">
+
+<p>我们可以观察到点击前后 <code>translateX</code> 的值发生了相当大的突变，这里我给出一个解释，假设你一开始以 <code>2m/s</code> 的速度进行奔跑，跑了 <code>2s</code>，此时你应该处于 <code>4m</code> 的位置，这时你的速度变为 <code>4m/s</code>，所以浏览器认为你的位置应该处于 <code>8m</code> 的位置，在这个时刻，你的位置发生了突变。</p>
+<p>那怎么解决这个问题呢? 我的第一个想法是，既然是因为突然加速太快导致严重的突变，那么我慢慢的改变速度(即动画的运行时间)是否就没有这么严重的卡顿问题呢，咱们来试一试</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> speedUp = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (speeded) &#123;</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 获得当前的动画持续时间</span></span><br><span class="line">    <span class="keyword">let</span> duration = <span class="built_in">window</span>.getComputedStyle(txt).animationDuration</span><br><span class="line">    <span class="comment">// 每次动画持续时间减少 0.1s</span></span><br><span class="line">    duration = <span class="built_in">parseFloat</span>(duration).toFixed(<span class="number">1</span>) - <span class="number">0.1</span></span><br><span class="line">    txt.style.animationDuration = <span class="built_in">Math</span>.max(duration, textWidth/(speed * <span class="number">4</span>)) + <span class="string">'s'</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 没有达到指定的动画时间时，就持续调用加速动画</span></span><br><span class="line">    <span class="keyword">if</span>(duration &gt; textWidth/speed/<span class="number">4</span>) &#123;</span><br><span class="line">        setTimeout(speedUp, <span class="number">10</span>)</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        speeded = <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们首先获得当前动画的持续时间，然后将该动画的持续时间减少 <code>0.1s</code>，如果当前的动画的持续时间没到达到预期的运行时间 <code>textWidth/(speed * 4)</code>，那么就会持续的调用加速函数，时间间隔为 <code>10ms</code>，直至达到希望的时间，我们来看看效果</p>
+<img src="http://blog-hostimaging.oss-cn-beijing.aliyuncs.com/1625154867508.gif" style="zoom: 50%">
+
+<p>我们可以看到文本没有发生突变，并且动画逐渐的加速起来了，从图中看的效果比较好，如果能够接受逐渐加速的解决方案，似乎已经满足了我们的需求。但是实际的效果比动图所示的效果差，由于录制 <code>GIF</code> 软件帧率的原因，导致效果很好，从我实际观察看，有两个瑕疵：</p>
+<ul>
+<li>速度越来越快，甚至加速过程中的速度超过了最后加速后的速度</li>
+<li>有卡顿的效果</li>
+</ul>
+<p>对此我比较苦恼，开始从数学上是分析原因，这里不给出数学上的推导，给出我得到的两个结论：</p>
+<ul>
+<li>加速过程中越来越快的问题可以通过改变加速函数的运行时间间隔来解决，当速度较慢时，时间间隔可以较短，此时的突变距离短，看不出来，当速度较快时，需要加长时间间隔，以减缓速度，但是会导致加速时间过长</li>
+<li>卡段的原因是因为突变，也可以通过改变时间间隔减缓症状，但是消除卡顿的效果会导致加速时间很长(突变是一定有的，不过从效果上感觉不到)</li>
+</ul>
+<p>基于上述结论，我得到一个简单的时间间隔加速公式(公式没有数学推导)</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">setTimeout(speedUp, <span class="number">-5</span> * (duration - textWidth/(speed * <span class="number">4</span>)) + <span class="number">75</span>)</span><br></pre></td></tr></table></figure>
+
+<p>这是一个线性函数，当持续时间越接近于最终持续时间，间隔就越长，效果有所改善，但是还是有卡顿效果。</p>
+<h3 id="创建多个新动画"><a href="#创建多个新动画" class="headerlink" title="创建多个新动画"></a>创建多个新动画</h3><p>那有没有更好的解决办法，似乎我已经做到了极致，经过我苦思冥想，最终还是想出来了。既然我改变动画持续时间会导致突变，那么我可不可以同时改变两个值，比如动画名称以及动画持续时间，我脑中开始浮现一种思路，抛弃原来的动画，创建一个新动画，不过创建一个新的动画会导致突然回到原点，我们只要记录原先旧动画 <code>translateX</code> 的位置，将其设置为新动画的起点，那新旧动画不就衔接上了吗? 我们的 <code>createKeyFrame</code> 函数还不支持设置动画原点的功能，我们将其加上</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> createKeyFrame = <span class="function">(<span class="params">width, name, startPosition = <span class="number">0</span></span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> keyframe = <span class="string">`</span></span><br><span class="line"><span class="string">        @keyframes <span class="subst">$&#123;name&#125;</span> &#123;</span></span><br><span class="line"><span class="string">            0% &#123;</span></span><br><span class="line"><span class="string">                transform: translateX(<span class="subst">$&#123;startPosition&#125;</span>px);</span></span><br><span class="line"><span class="string">            &#125;</span></span><br><span class="line"><span class="string">            100% &#123;</span></span><br><span class="line"><span class="string">                transform: translateX(-<span class="subst">$&#123;width&#125;</span>px);</span></span><br><span class="line"><span class="string">            &#125;</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string">        .<span class="subst">$&#123;name&#125;</span> &#123;</span></span><br><span class="line"><span class="string">            animation: <span class="subst">$&#123;name&#125;</span> <span class="subst">$&#123;(<span class="built_in">Math</span>.abs(width + startPosition)<span class="regexp">/speed).toFixed(2)&#125;s linear infinite</span></span></span></span><br><span class="line"><span class="string"><span class="subst"><span class="regexp">        &#125;</span></span></span></span><br><span class="line"><span class="string"><span class="subst"><span class="regexp">    `</span></span></span></span><br><span class="line"><span class="string"><span class="subst"><span class="regexp">    style.innerHTML = keyframe</span></span></span></span><br><span class="line"><span class="string"><span class="subst"><span class="regexp">&#125;</span></span></span></span><br></pre></td></tr></table></figure>
+
+<p>我们为函数添加了一个新的参数 <code>startPosition</code>，它的默认值为 <code>0</code> (这意味原先的代码不必修改)，然后我们修改了两处：</p>
+<ol>
+<li>动画的起始设置为了 <code>translateX(${startPosition}px)</code></li>
+<li>动画的运行时间设置为 <code>${(Math.abs(width + startPosition)/speed).toFixed(2)}s</code>，因为 <code>startPosition</code> 为负数，所以这里是 <code>width + startPosition</code></li>
+</ol>
+<p>现在我们修改加速函数的逻辑</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> speedUp = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (speeded) &#123;</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    speeded = <span class="literal">true</span></span><br><span class="line">    speed = speed * <span class="number">4</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 获得当前的 translateX</span></span><br><span class="line">    <span class="keyword">const</span> translateX = getTranslateX(txt)</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 移除之前添加的慢动画</span></span><br><span class="line">    txt.classList.remove(<span class="string">'slow'</span>)</span><br><span class="line">    <span class="comment">// 创建一个名为 temp-fast 的新动画</span></span><br><span class="line">    createKeyFrame(textWidth, <span class="string">'temp-fast'</span>, translateX)</span><br><span class="line">    <span class="comment">// 添加新动画</span></span><br><span class="line">    txt.classList.add(<span class="string">'temp-fast'</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上面的代码非常的简单，不多解释了，我们来看看效果</p>
+<img src="http://blog-hostimaging.oss-cn-beijing.aliyuncs.com/1625156643332.gif" style="zoom: 50%">
+
+<p>我们点击加速按钮的时候，可以观察到动画十分的流畅，没有丝毫的突变，就是有一个缺点就是新动画的开头不是文本的开头，我们接下来解决这个问题，思路很简单，当当前这个动画执行完毕时，我们再次创建一个动画起始位置为文本原点的新动画，然后移除原来的动画，添加新动画。</p>
+<p>我最开始的想法是使用 <code>setTimeout</code> 不断读取当前的 <code>translateX</code>，当 <code>translateX</code> 与文本的长度很接近时(具体有多接近才叫接近，通过观察控制台，我发现大约在 <code>3px</code> 以内)，可以认为这个动画执行完毕了，这时我们创建这个新动画，该新动画的的起点为文本的原点。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> speedUp = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (speeded) &#123;</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    speeded = <span class="literal">true</span></span><br><span class="line">    speed = speed * <span class="number">4</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 获得当前的 translateX</span></span><br><span class="line">    <span class="keyword">const</span> translateX = getTranslateX(txt)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 移除之前添加的慢动画</span></span><br><span class="line">    txt.classList.remove(<span class="string">'slow'</span>)</span><br><span class="line">    <span class="comment">// 创建一个名为 temp-fast 的新动画</span></span><br><span class="line">    createKeyFrame(textWidth, <span class="string">'temp-fast'</span>, translateX)</span><br><span class="line">    <span class="comment">// 添加新动画</span></span><br><span class="line">    txt.classList.add(<span class="string">'temp-fast'</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> reset = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">const</span> x = getTranslateX(txt)</span><br><span class="line">        <span class="keyword">if</span> ((textWidth + x) &lt; <span class="number">3</span>) &#123;</span><br><span class="line">            <span class="comment">// 移除临时的快动画</span></span><br><span class="line">            txt.classList.remove(<span class="string">'temp-fast'</span>)</span><br><span class="line">            <span class="comment">// 创建起始位置为文本原点的动画</span></span><br><span class="line">            createKeyFrame(textWidth, <span class="string">'fast'</span>)</span><br><span class="line">            <span class="comment">// 添加新动画</span></span><br><span class="line">            txt.classList.add(<span class="string">'fast'</span>)</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            setTimeout(reset, <span class="number">1</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    reset()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们来看看实际的效果如何</p>
+<img src="http://blog-hostimaging.oss-cn-beijing.aliyuncs.com/1625157285140.gif" style="zoom: 50%">
+
+<p>可见加速过程十分的流畅，没有任何的卡顿，以及动画也能回到文本的原点了。</p>
+<p>但是使用定时器耗费性能比较严重，后来经过<strong>高建</strong>师兄指点，我们不必使用定时器，我们只要监听添加的临时动画执行完毕的事件即可，这样既准确，效率又高。那么我们创建的临时动画的执行次数不能是无限次的，而是一次，我们的 <code>createKeyFrame</code> 函数不支持，我们再次改造，为了不修改原来的代码，我们默认执行次数为无限次，如下</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> createKeyFrame = <span class="function">(<span class="params">width, name, startPosition = <span class="number">0</span>, iterateCount = <span class="string">'infinite'</span></span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> keyframe = <span class="string">`</span></span><br><span class="line"><span class="string">        @keyframes <span class="subst">$&#123;name&#125;</span> &#123;</span></span><br><span class="line"><span class="string">            0% &#123;</span></span><br><span class="line"><span class="string">                transform: translateX(<span class="subst">$&#123;startPosition&#125;</span>px);</span></span><br><span class="line"><span class="string">            &#125;</span></span><br><span class="line"><span class="string">            100% &#123;</span></span><br><span class="line"><span class="string">                transform: translateX(-<span class="subst">$&#123;width&#125;</span>px);</span></span><br><span class="line"><span class="string">            &#125;</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string">        .<span class="subst">$&#123;name&#125;</span> &#123;</span></span><br><span class="line"><span class="string">            animation: <span class="subst">$&#123;name&#125;</span> <span class="subst">$&#123;(<span class="built_in">Math</span>.abs(width + startPosition)<span class="regexp">/speed).toFixed(2)&#125;s linear $&#123;iterateCount&#125;</span></span></span></span><br><span class="line"><span class="string"><span class="subst"><span class="regexp">        &#125;</span></span></span></span><br><span class="line"><span class="string"><span class="subst"><span class="regexp">    `</span></span></span></span><br><span class="line"><span class="string"><span class="subst"><span class="regexp">    style.innerHTML = keyframe</span></span></span></span><br><span class="line"><span class="string"><span class="subst"><span class="regexp">&#125;</span></span></span></span><br></pre></td></tr></table></figure>
+
+<p>接着我们修改加速函数的逻辑，如下</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> speedUp = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (speeded) &#123;</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    speeded = <span class="literal">true</span></span><br><span class="line">    speed = speed * <span class="number">4</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 获得当前的 translateX</span></span><br><span class="line">    <span class="keyword">const</span> translateX = getTranslateX(txt)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 移除之前添加的慢动画</span></span><br><span class="line">    txt.classList.remove(<span class="string">'slow'</span>)</span><br><span class="line">    <span class="comment">// 创建一个名为 temp-fast 的新动画，执行一次</span></span><br><span class="line">    createKeyFrame(textWidth, <span class="string">'temp-fast'</span>, translateX, <span class="number">1</span>)</span><br><span class="line">    <span class="comment">// 添加新动画</span></span><br><span class="line">    txt.classList.add(<span class="string">'temp-fast'</span>)</span><br><span class="line"></span><br><span class="line">    txt.onanimationend = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        txt.classList.remove(<span class="string">'temp-fast'</span>)</span><br><span class="line">        <span class="comment">// 创建起始位置为文本原点的动画</span></span><br><span class="line">        createKeyFrame(textWidth, <span class="string">'fast'</span>)</span><br><span class="line">        <span class="comment">// 添加新动画</span></span><br><span class="line">        txt.classList.add(<span class="string">'fast'</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上面的代码修改有两处，第一处是创建临时动画时传入了动画的执行次数</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">createKeyFrame(textWidth, <span class="string">'temp-fast'</span>, translateX, <span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+
+<p>第二处就是将定时器的逻辑改为了监听事件</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">txt.onanimationend = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    txt.classList.remove(<span class="string">'temp-fast'</span>)</span><br><span class="line">    <span class="comment">// 创建起始位置为文本原点的动画</span></span><br><span class="line">    createKeyFrame(textWidth, <span class="string">'fast'</span>)</span><br><span class="line">    <span class="comment">// 添加新动画</span></span><br><span class="line">    txt.classList.add(<span class="string">'fast'</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这次我们来看效果如下</p>
+<img src="http://blog-hostimaging.oss-cn-beijing.aliyuncs.com/1625157889578.gif" style="zoom: 50%">
+
+<p>这个动画真的非常的丝滑，比德芙还丝滑。</p>
+<p>同样的我们加上减速的逻辑，其思路同加速一模一样，我们直接呈上代码</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> downBtn = <span class="built_in">document</span>.getElementById(<span class="string">'slowDown'</span>)</span><br><span class="line"><span class="keyword">const</span> slowDown = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (!speeded) &#123;</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line">    speeded = <span class="literal">false</span></span><br><span class="line">    speed = speed / <span class="number">4</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> translateX = getTranslateX(txt)</span><br><span class="line">    </span><br><span class="line">    txt.classList.remove(<span class="string">'fast'</span>, <span class="string">'temp-fast'</span>)</span><br><span class="line">    <span class="comment">// 创建临时慢动画</span></span><br><span class="line">    createKeyFrame(textWidth, translateX, <span class="string">'temp-slow'</span>, <span class="number">1</span>)</span><br><span class="line">    txt.classList.add(<span class="string">'temp-slow'</span>)</span><br><span class="line"></span><br><span class="line">    txt.onanimationend = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        txt.classList.remove(<span class="string">'temp-slow'</span>)</span><br><span class="line">        <span class="comment">// 创建起始位置为文本原点的动画</span></span><br><span class="line">        createKeyFrame(textWidth, <span class="string">'slow'</span>)</span><br><span class="line">        <span class="comment">// 添加新动画</span></span><br><span class="line">        txt.classList.add(<span class="string">'slow'</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">downBtn.addEventListener(<span class="string">'click'</span>, slowDown)</span><br></pre></td></tr></table></figure>
+
+<p>逻辑可以说同加速一模一样了，不过有一个地方不同，因为当我们点击减速时，动画可能处于临时加速状态，也可能处于真正的加速状态，所以创建临时慢动画之前，两个动画都要移除</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">txt.classList.remove(<span class="string">'fast'</span>, <span class="string">'temp-fast'</span>)</span><br></pre></td></tr></table></figure>
+
+<p>同理点击加速按钮时也是同理，在创建临时快动画之前，我们要移除两个慢动画</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">txt.classList.remove(<span class="string">'slow'</span>, <span class="string">'temp-slow'</span>)</span><br></pre></td></tr></table></figure>
+
+<p>在这里呼应一下前文，我们说当文本的长度小于容器的长度时(我们的实际文本是可以动态改变的，所以之前的文本可能处于动画状态，当改变文本后其长度就可能小于容器长度)，我们不添加动画，并且移除所有动画</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (textWidth &lt;= <span class="number">500</span>) &#123;</span><br><span class="line">    <span class="comment">// 不仅不添加动画，而且要移除之前添加的动画</span></span><br><span class="line">    txt.classList.remove(<span class="string">'slow'</span>, <span class="string">'temp-slow'</span>, <span class="string">'fast'</span>, <span class="string">'temp-fast'</span>)</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>现在是不是感觉豁然开朗呢！</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>本文探讨了跑马灯动画，一个是跑马灯动画的无缝衔接，解决办法是复制相同的文本，如果你已经理解了该动画的原理，你可以马上明白，不需要复制所有的文本，只需要复制的文本长度能够覆盖容器的长度即可。</p>
+<p>另一个我们探讨了动画的加减速，我们首先阐述了我们遇到的问题，那就是 <code>translateX</code> 的突变，针对这个问题我首先提出缓慢的改变动画的持续时间，以减少急剧的突变，该种方法某种程度上的确减缓突变的症状，但是会有一段加速的时间，以及突变不可避免，只是轻重而已，从效果上看有卡顿效果；除此之外我又提出了另外一种解决办法，那就是在点击加速时，记录此时的 <code>translateX</code>，并且抛弃原来的动画，另起炉灶创建一个临时新动画，为了不产生突变，临时新动画的起点设置为此时的 <code>translateX</code>，然后监听该临时动画的动画完毕事件，在事件处理函数中我们添加一个动画起点位置为文本原点的真正的新动画，从效果上看真的是十分的丝滑。</p>
+<p><strong>另外本文的动画全部使用 <code>CSS</code> 实现，所以它的性能十分的好。</strong></p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2021-07-01T16:00:00.000Z" itemprop="dateUpdated">2021-07-02 00:00:00</time>
+</span><br>
+
+
+        
+    </div>
+    
+    <footer>
+        <a href="https://lastknightcoder.github.io/lastknightcoder">
+            <img src="https://lastknightcoder.github.io/lastknightcoder/img/avatar.jpg" alt="熊滔">
+            熊滔
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://lastknightcoder.github.io/lastknightcoder/%E8%B7%91%E9%A9%AC%E7%81%AF%E5%8A%A8%E7%94%BB/&title=《跑马灯动画》 — Coder&pic=https://lastknightcoder.github.io/lastknightcoder/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://lastknightcoder.github.io/lastknightcoder/%E8%B7%91%E9%A9%AC%E7%81%AF%E5%8A%A8%E7%94%BB/&title=《跑马灯动画》 — Coder&source=人生天地间，忽如远行客" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://lastknightcoder.github.io/lastknightcoder/%E8%B7%91%E9%A9%AC%E7%81%AF%E5%8A%A8%E7%94%BB/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《跑马灯动画》 — Coder&url=https://lastknightcoder.github.io/lastknightcoder/%E8%B7%91%E9%A9%AC%E7%81%AF%E5%8A%A8%E7%94%BB/&via=https://lastknightcoder.github.io/lastknightcoder" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://lastknightcoder.github.io/lastknightcoder/%E8%B7%91%E9%A9%AC%E7%81%AF%E5%8A%A8%E7%94%BB/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="https://lastknightcoder.github.io/lastknightcoder/PicGo%E5%9B%BE%E5%BA%8A%E4%B8%8A%E4%BC%A0%E9%97%AE%E9%A2%98/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">PicGo图床上传问题</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'lastknightcoder';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="https://lastknightcoder.github.io/lastknightcoder/img/wechatpay.png" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="https://lastknightcoder.github.io/lastknightcoder/img/wechatpay.png" data-alipay="https://lastknightcoder.github.io/lastknightcoder/img/alipay.png">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="https://lastknightcoder.github.io/lastknightcoder/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>熊滔 &copy; 2019 - 2021</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://lastknightcoder.github.io/lastknightcoder/%E8%B7%91%E9%A9%AC%E7%81%AF%E5%8A%A8%E7%94%BB/&title=《跑马灯动画》 — Coder&pic=https://lastknightcoder.github.io/lastknightcoder/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://lastknightcoder.github.io/lastknightcoder/%E8%B7%91%E9%A9%AC%E7%81%AF%E5%8A%A8%E7%94%BB/&title=《跑马灯动画》 — Coder&source=人生天地间，忽如远行客" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://lastknightcoder.github.io/lastknightcoder/%E8%B7%91%E9%A9%AC%E7%81%AF%E5%8A%A8%E7%94%BB/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《跑马灯动画》 — Coder&url=https://lastknightcoder.github.io/lastknightcoder/%E8%B7%91%E9%A9%AC%E7%81%AF%E5%8A%A8%E7%94%BB/&via=https://lastknightcoder.github.io/lastknightcoder" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://lastknightcoder.github.io/lastknightcoder/%E8%B7%91%E9%A9%AC%E7%81%AF%E5%8A%A8%E7%94%BB/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2CAAAAADAeSUUAAADOUlEQVR42u3aS27jQAwFwNz/0h5gVgMMJD+SSiLRpZXhj9TVAULwsb++4uv19/r/9fn3/72OPj3/7dEakvtccGFjY2M/hP06vfJHnv+qt8TkbufvHz4XGxsbex07eWRekPLtq25r9TuH72NjY2N/JLtaYPIylvCSpgUbGxsbu1fAJltWvWfe/GBjY2N/GjsJlSaNxCQ86gVbl2Vp2NjY2Ldnf8eyfuv1D823sbGxsW/DfhWv5DG9aCkvNq/xhY2Njb2J3YvjJ/FQ3jxUa1A1ZsLGxsbewc4jm+oIIY+cqkXugkAKGxsbexF7vvT5O9UjOJP26c3fHBsbG/uB7DzoyQvb+TuTQWyvmJVLFzY2Nvaj2L3Cc218n2/xJNhqjgewsbGxb8/uFZteA3NtkDTZdGxsbOyt7ElL0BshJPje/d/EWNjY2NhL2dUCli8xWfSk2SgXTmxsbOxF7Hzgmh95rDYS+Vi3ut3VOAwbGxt7E3s+KshHDr2GJPltuYBhY2NjP5w9iel7yF6D0QuYsLGxsbey88M3vYVWRwLVAlkdGGNjY2NvZefxUO8QT96EzEOiqN/CxsbGXsr+yRFvTuodKnrTPmFjY2MvYldbgmpS1QunqiWqV/ywsbGxN7GT/+35ratj17ws9bavUPawsbGxH8vOW4XeI7+vBFYjrcO6jY2Njf1Y9iSmny+3OjCeHxi6YDqBjY2NfTN2M1hvNQZ5w5CESpPjO9jY2Nj72Pl4NefNj+/kxbK6udjY2Nib2L1jOtVmoHoAqDrZKA8qsLGxsdex80B/Ejz1jubMW5rDAoaNjY29gt0rS73v50Xx2nalMN/GxsbGfiA7CeWvjYfmT8lXcrg2bGxs7HXsyUy4umXVQznNwzfn68TGxsZexy7HMaclJB8V90pUdRR9GCdhY2Njr2BXC0Dv0+rRn3w4kZTGXuHExsbGfhY7KVr5oZzeHhcO3LSirujvgI2Njf1wdvLI/MHVLeg1QpOii42Njf2Z7GroUz2+2euTmtuNjY2N/cHs6hGZXtHK71wdGGBjY2NvZVdvlMf9OaParuRh02g8gI2NjX17dm/QOwmPkrHuteEUNjY29lL2H1ztJjkAeg3EAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: 'https://lastknightcoder.github.io/lastknightcoder/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>
